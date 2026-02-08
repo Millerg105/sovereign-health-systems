@@ -81,14 +81,14 @@ function Testimonials() {
                             </p>
                         </div>
 
-                        <div className="glass-panel rounded-2xl border border-white/10 p-5 backdrop-blur-xl sm:p-6">
+                        <div className="glass-panel rounded-2xl border border-white/15 p-5 backdrop-blur-[24px] bg-white/[0.03] sm:p-6 shadow-[0_0_40px_-15px_rgba(255,255,255,0.05)]">
                             <p className="mb-3 text-sm font-mono uppercase tracking-[0.15em] text-brand-cyan">
                                 The Deal
                             </p>
                             <p className="text-sm leading-relaxed text-white/85 sm:text-base">
                                 <span className="font-semibold text-white">You get:</span> Founder-led implementation, custom build, and priority support. <span className="font-semibold text-white">We get:</span> a video testimonial and case study rights once the agreed KPI milestone is achieved, or after 60 days of active deployment (whichever comes first).
                             </p>
-                            <p className="mt-3 text-sm font-medium text-white">No long-term lock-in.</p>
+                            <p className="mt-3 text-sm font-medium text-white italic">No long-term lock-in.</p>
                         </div>
 
                         <div className="flex flex-wrap items-center gap-3">
@@ -104,7 +104,7 @@ function Testimonials() {
                             {TRUST_INDICATORS.map((item) => (
                                 <div
                                     key={item.title}
-                                    className="rounded-xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-sm"
+                                    className="rounded-xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-xl"
                                 >
                                     <p className="text-sm font-semibold text-white">{item.title}</p>
                                     <p className="mt-2 text-xs leading-relaxed text-white/60">{item.detail}</p>
@@ -152,7 +152,7 @@ function Testimonials() {
                                         whileInView={{ opacity: 1, x: 0 }}
                                         viewport={{ once: true, amount: 0.35 }}
                                         transition={{ duration: 0.45, delay: index * 0.12 }}
-                                        className="relative rounded-2xl border border-white/10 bg-white/[0.03] p-4 sm:p-5"
+                                        className="relative rounded-2xl border border-white/10 bg-white/[0.04] p-4 sm:p-5 backdrop-blur-xl"
                                     >
                                         <motion.span
                                             className="absolute -left-[29px] top-5 flex h-5 w-5 items-center justify-center rounded-full border border-brand-cyan/50 bg-black shadow-[0_0_18px_rgba(34,211,238,0.45)]"
