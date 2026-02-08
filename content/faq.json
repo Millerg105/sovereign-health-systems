@@ -1,0 +1,62 @@
+[
+    {
+        "id": "implementation",
+        "question": "How long does implementation take?",
+        "answer": "Most clinics are live within 2-3 weeks. We handle the technical setup, integrate with your existing systems (Cliniko, SimplePractice, etc.), and train your team. You'll see results in the first week."
+    },
+    {
+        "id": "systems",
+        "question": "Do I need to change my current systems?",
+        "answer": "No. We integrate with your existing booking system, phone provider, and CRM. The automation works alongside your current workflow — it doesn't replace it."
+    },
+    {
+        "id": "website",
+        "question": "What if I don't have a website?",
+        "answer": "We can build one for you as part of the Growth or Sovereign packages. It's designed specifically for clinic conversion and includes the chat widget pre-installed."
+    },
+    {
+        "id": "roi",
+        "question": "What's the typical ROI?",
+        "answer": "Most clinics recover 8-15 missed bookings per month, worth £800-£1,500 in revenue. The Sovereign system typically pays for itself in the first month from recovered bookings alone."
+    },
+    {
+        "id": "fees",
+        "question": "Are there any hidden fees?",
+        "answer": "No. Setup fee + monthly subscription. That's it. No per-message fees, no usage limits, no surprise charges. SMS costs are included in your monthly fee."
+    },
+    {
+        "id": "cancel",
+        "question": "Can I cancel anytime?",
+        "answer": "Yes. 30-day notice period. We're confident you'll see results, so we don't lock you into long contracts."
+    },
+    {
+        "id": "ai-complexity",
+        "question": "How does the AI handle complex questions?",
+        "answer": "The Sovereign AI is trained on your clinic's specific services, pricing, and policies. For complex medical questions, it escalates to your team. For booking and admin queries, it handles them autonomously."
+    },
+    {
+        "id": "privacy",
+        "question": "Is my patient data secure?",
+        "answer": "Yes. We're fully GDPR compliant and use bank-level encryption. Patient data never leaves your existing systems — the Sovereign AI only accesses what's needed for booking and follow-up."
+    },
+    {
+        "id": "downtime",
+        "question": "What happens if the system goes down?",
+        "answer": "We have 99.9% uptime SLA. If there's an issue, calls and messages automatically route to your backup number. We monitor 24/7 and you'll be notified immediately."
+    },
+    {
+        "id": "results",
+        "question": "How quickly will I see results?",
+        "answer": "Most clinics see recovered bookings in the first week. Full ROI typically within 30 days. We provide a live Sovereign dashboard so you can track every recovered call and booking."
+    },
+    {
+        "id": "guarantee",
+        "question": "What if it doesn't work for my clinic?",
+        "answer": "We offer a 60-day results guarantee. If you don't recover at least 5 missed bookings in the first 60 days, we'll refund your setup fee and first month."
+    },
+    {
+        "id": "cost",
+        "question": "How much does it cost?",
+        "answer": "Sovereign packages start from £149/month + a one-time setup fee. The typical ROI is 1-3 months. Book a free 15-20 minute Strategy Audit to find the right tier for your clinic volume."
+    }
+]

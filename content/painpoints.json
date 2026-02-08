@@ -1,0 +1,50 @@
+{
+  "niche": "clinics",
+  "updated_at": "2026-02-06T12:00:00Z",
+  "pain_points": [
+    {
+      "id": "slow_follow_up",
+      "icon": "Clock",
+      "title": "Slow follow-ups",
+      "symptom": "Patients enquire, then disappear before staff reply.",
+      "cost": "Lost bookings weekly + wasted ad spend.",
+      "proof_angles": ["speed-to-lead", "missed calls", "after-hours enquiries"],
+      "copy_blocks": {
+        "headline": "Stop losing bookings to slow follow-ups.",
+        "subhead": "Every missed reply is a patient who books somewhere else.",
+        "bullet_ideas": ["Instant replies", "Auto reminders", "Follow-up until booked"]
+      }
+    },
+    {
+      "id": "admin_overload",
+      "icon": "AlertCircle",
+      "title": "Admin Overload",
+      "symptom": "Staff spend hours chasing leads instead of patient care.",
+      "cost": "Burnout and reduced clinic capacity.",
+      "proof_angles": ["staff efficiency", "automation ROI"],
+      "copy_blocks": {
+        "headline": "Free your staff from admin chaos.",
+        "subhead": "Let AI handle the repetitive chasing so your team can focus on care.",
+        "bullet_ideas": ["Zero manual data entry", "Automated rescheduling", "Smart inbox"]
+      }
+    },
+    {
+      "id": "booking_friction",
+      "icon": "XCircle",
+      "title": "Booking Friction",
+      "symptom": "Patients give up because booking is too hard or clunky.",
+      "cost": "High bounce rates and lost revenue.",
+      "proof_angles": ["conversion rate", "user experience"],
+      "copy_blocks": {
+        "headline": "Make booking effortless.",
+        "subhead": "A frictionless path from enquiry to confirmed appointment.",
+        "bullet_ideas": ["One-click booking", "Mobile optimized", "Instant confirmation"]
+      }
+    }
+  ],
+  "hero": {
+    "headline": "Never Lose Patient Bookings Again.",
+    "subhead": "We automate lead follow-ups, appointment handling, and admin tasks so clinics get more bookings without hiring more staff.",
+    "cta": "Get Your Clinic Growth Diagnosis"
+  }
+}
