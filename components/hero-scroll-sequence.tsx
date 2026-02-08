@@ -61,7 +61,7 @@ export function HeroScrollSequence() {
                         style={{ opacity: sloganOpacity, scale: sloganScale, y: sloganY }}
                         className="relative z-20 flex flex-col items-center text-center max-w-4xl px-4 pointer-events-auto mt-[-6vh] sm:mt-[-12vh] md:mt-[-16vh]"
                     >
-                        <h1 className="text-[2rem] sm:text-5xl md:text-7xl lg:text-8xl font-heading font-bold text-white leading-[1.05] mb-4 md:mb-6 tracking-tighter drop-shadow-2xl">
+                        <h1 className="text-[3rem] sm:text-5xl md:text-7xl lg:text-8xl font-heading font-bold text-white leading-[1.05] mb-4 md:mb-6 tracking-tighter drop-shadow-2xl">
                             Revenue You Didn’t <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-brand-cyan to-blue-400 animate-pulse">
                                 Know You Lost.
@@ -194,7 +194,7 @@ export function HeroScrollSequence() {
                         </motion.div>
 
                         {/* Laptop Frame */}
-                        <div className="relative rounded-[1.25rem] md:rounded-[2rem] bg-[#0A0A0A] border-[4px] md:border-[8px] border-[#1A1A1A] shadow-2xl overflow-hidden aspect-[16/11] sm:aspect-[16/10] ring-1 ring-white/10 w-full max-h-[45vh] sm:max-h-[60vh] md:max-h-[75vh]">
+                        <div className="relative rounded-[1.25rem] md:rounded-[2rem] bg-[#0A0A0A] border-[4px] md:border-[8px] border-[#1A1A1A] shadow-2xl overflow-hidden aspect-[16/11] sm:aspect-[16/10] ring-1 ring-white/10 w-full max-h-[60vh] sm:max-h-[85vh] md:max-h-[75vh]">
                             {/* Screen Reflection/Gloss */}
                             <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none z-50" />
 
@@ -342,10 +342,30 @@ export function HeroScrollSequence() {
                                         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-cyan/5 rounded-full blur-[100px] pointer-events-none" />
                                         <div className="absolute bottom-0 left-0 w-[350px] h-[350px] bg-purple-500/5 rounded-full blur-[90px] pointer-events-none" />
 
-                                        <div className="flex justify-between items-end mb-4 sm:mb-6 gap-3">
+                                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end mb-4 sm:mb-6 gap-3">
                                             <div>
                                                 <h2 className="text-lg sm:text-2xl font-heading font-bold text-white mb-1">Morning Overview</h2>
                                                 <p className="text-white/50 text-xs sm:text-sm">Real-time performance metrics</p>
+                                            </div>
+
+                                            {/* Mobile Integrations Row - Prominent */}
+                                            <div className="flex md:hidden flex-wrap items-center gap-2 mb-4 pr-4">
+                                                <p className="w-full text-[10px] font-mono text-white/40 mb-1">Live Connections:</p>
+                                                <div className="shrink-0 h-9 px-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-2 text-[10px] text-emerald-400 font-bold uppercase">
+                                                    <span>✉️</span> Gmail
+                                                </div>
+                                                <div className="shrink-0 h-9 px-3 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center gap-2 text-[10px] text-blue-400 font-bold uppercase">
+                                                    <span>📧</span> Outlook
+                                                </div>
+                                                <div className="shrink-0 h-9 px-3 rounded-lg bg-brand-cyan/10 border border-brand-cyan/20 flex items-center gap-2 text-[10px] text-brand-cyan font-bold uppercase">
+                                                    <span>📅</span> Calendar
+                                                </div>
+                                                <div className="shrink-0 h-9 px-3 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center gap-2 text-[10px] text-purple-400 font-bold uppercase">
+                                                    <span>📞</span> CRM
+                                                </div>
+                                                <div className="shrink-0 h-9 px-3 rounded-lg bg-white/5 border border-white/10 flex items-center gap-2 text-[10px] text-white/40 font-bold uppercase">
+                                                    <span>💬</span> WhatsApp
+                                                </div>
                                             </div>
                                             <div className="hidden sm:flex flex-wrap items-center gap-2 p-2.5 rounded-xl bg-white/[0.06] border border-white/10 max-w-[68%]">
                                                 <div className="h-8 px-4 rounded-lg bg-white/5 border border-white/10 flex items-center text-[11px] text-white/70 hover:bg-white/10 transition-colors cursor-pointer">Today</div>

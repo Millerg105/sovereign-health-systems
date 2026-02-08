@@ -50,12 +50,11 @@ export function ProblemsSection() {
                     transition={{ duration: 0.6 }}
                     className="text-center mb-16"
                 >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 mb-6">
-                        <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                        <span className="text-sm font-medium text-red-400 uppercase tracking-widest font-mono">Sovereign Diagnosis</span>
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 mb-8">
+                        <span className="text-base sm:text-sm font-bold text-red-500 uppercase tracking-widest font-mono">Sovereign Diagnosis</span>
                     </div>
 
-                    <h2 className="text-4xl md:text-5xl font-heading font-bold text-white mb-6 leading-tight tracking-tight">
+                    <h2 className="text-[2.2rem] md:text-5xl font-heading font-bold text-white mb-6 leading-[1.1] tracking-tight">
                         Every Day You Wait,<br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-orange-400 to-red-400">
                             Money Walks Out the Door
@@ -124,11 +123,21 @@ export function ProblemsSection() {
 
                 {/* Micro-CTA */}
                 <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    className="text-center"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    className="text-center mt-20 md:mt-10"
                 >
-                    <p className="text-white/30 text-xs font-mono uppercase tracking-[0.2em] mb-4">You don't need more leads. You need an engine.</p>
+                    <div className="max-w-3xl mx-auto py-12 px-8 rounded-[2.5rem] bg-white shadow-[0_0_60px_rgba(255,255,255,0.15)] relative overflow-hidden group">
+                        {/* Decorative Gradient Inner */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-brand-cyan/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+
+                        <p className="text-black text-2xl sm:text-3xl font-heading font-bold uppercase tracking-tight mb-3 relative z-10">
+                            You don't need <span className="text-red-500">more leads</span>.
+                        </p>
+                        <p className="text-black/70 text-lg sm:text-xl font-medium leading-[1.4] relative z-10">
+                            You need an <span className="text-black font-extrabold italic underline decoration-red-500 underline-offset-8 decoration-2">engine</span> that's better at keeping them.
+                        </p>
+                    </div>
                 </motion.div>
             </div>
         </section>
