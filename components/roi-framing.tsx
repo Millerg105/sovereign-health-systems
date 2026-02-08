@@ -25,7 +25,7 @@ export function ROIFraming() {
                                 <PhoneMissed className="w-6 h-6 text-red-500" />
                             </div>
                             <div className="text-4xl font-bold text-white mb-2">5</div>
-                            <div className="text-sm text-white/40 uppercase tracking-widest font-mono">Missed Calls / Day</div>
+                            <div className="text-sm text-white/60 uppercase tracking-widest font-mono">Missed Calls / Day</div>
                         </div>
 
                         {/* Metric 2 */}
@@ -34,7 +34,7 @@ export function ROIFraming() {
                                 <TrendingDown className="w-6 h-6 text-red-500" />
                             </div>
                             <div className="text-4xl font-bold text-white mb-2">30%</div>
-                            <div className="text-sm text-white/40 uppercase tracking-widest font-mono">Booking Potential</div>
+                            <div className="text-sm text-white/60 uppercase tracking-widest font-mono">Booking Potential</div>
                         </div>
 
                         {/* Metric 3 */}
@@ -44,7 +44,7 @@ export function ROIFraming() {
                                 <Coins className="w-6 h-6 text-red-500" />
                             </div>
                             <div className="text-4xl font-bold text-red-500 mb-2">£2,700+</div>
-                            <div className="text-sm text-white/40 uppercase tracking-widest font-mono relative z-10">Lost Revenue / Month</div>
+                            <div className="text-sm text-white/60 uppercase tracking-widest font-mono relative z-10">Lost Revenue / Month</div>
                         </div>
                     </div>
 

@@ -205,9 +205,9 @@ function PricingCard({ plan }: { plan: any }) {
                         <span className="text-white text-lg font-light">/mo</span>
                     </div>
                     {plan.priceNote && (
-                        <div className="text-white text-[10px] mt-2 uppercase tracking-widest">{plan.priceNote}</div>
+                        <div className="text-white text-[14px] mt-3 uppercase tracking-[0.15em] font-bold">{plan.priceNote}</div>
                     )}
-                    <div className="text-white text-[10px] font-mono uppercase tracking-[0.12em] sm:tracking-[0.2em] mt-6 py-2 px-4 sm:px-5 bg-white/10 rounded-xl border border-white/20 text-center font-bold">
+                    <div className="text-white text-[14px] font-mono uppercase tracking-[0.12em] sm:tracking-[0.2em] mt-7 py-3 px-6 sm:px-7 bg-white/10 rounded-xl border border-white/20 text-center font-bold">
                         {plan.setup}
                     </div>
                 </div>
