@@ -128,7 +128,7 @@ export function ChatWidget() {
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.92, y: 16 }}
                         transition={{ type: "spring", stiffness: 300, damping: 28 }}
-                        className="fixed bottom-20 sm:bottom-24 right-2 sm:right-6 w-[min(370px,calc(100vw-1rem))] sm:w-[370px] h-[min(580px,80vh)] sm:h-[580px] max-h-[80vh] bg-[#0a0a0f] border border-white/10 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.8)] z-[100] flex flex-col overflow-hidden"
+                        className="fixed bottom-[max(5.5rem,calc(env(safe-area-inset-bottom)+1.5rem))] sm:bottom-24 right-2 sm:right-6 w-[min(370px,calc(100vw-1rem))] sm:w-[370px] h-[min(580px,76dvh)] sm:h-[580px] max-h-[76dvh] sm:max-h-[80vh] bg-[#0a0a0f] border border-white/10 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.8)] z-[100] flex flex-col overflow-hidden"
                     >
                         {/* Header */}
                         <div className="flex items-center justify-between px-5 py-4 border-b border-white/10 bg-black/40 backdrop-blur-sm shrink-0">
@@ -154,11 +154,10 @@ export function ChatWidget() {
                             {messages.map((msg) => (
                                 <div key={msg.id}>
                                     <div className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
-                                        <div className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
-                                            msg.role === "user"
+                                        <div className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${msg.role === "user"
                                                 ? "bg-brand-cyan text-black font-medium rounded-br-sm"
                                                 : "bg-white/5 border border-white/10 text-white/90 rounded-bl-sm"
-                                        }`}>
+                                            }`}>
                                             {msg.text}
                                         </div>
                                     </div>
@@ -227,7 +226,7 @@ export function ChatWidget() {
                 onClick={() => setIsOpen(!isOpen)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="fixed bottom-4 sm:bottom-6 right-2 sm:right-6 w-14 h-14 bg-gradient-to-br from-brand-cyan to-brand-blue text-black rounded-full shadow-[0_0_20px_rgba(34,211,238,0.4)] flex items-center justify-center z-[100] transition-all"
+                className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] sm:bottom-6 right-3 sm:right-6 w-14 h-14 bg-gradient-to-br from-brand-cyan to-brand-blue text-black rounded-full shadow-[0_0_20px_rgba(34,211,238,0.4)] flex items-center justify-center z-[100] transition-all"
             >
                 <AnimatePresence mode="wait">
                     {isOpen

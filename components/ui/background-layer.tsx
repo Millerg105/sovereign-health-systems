@@ -14,16 +14,21 @@ export function BackgroundLayer() {
     return (
         <div className="fixed inset-0 -z-[100] w-full h-full pointer-events-none bg-void">
             {/* The technical grid provides the 'light lines' requested by the user */}
-            <TechnicalGrid intensity="medium" className="opacity-60" />
+            <TechnicalGrid intensity="bold" className="opacity-15 md:opacity-75" />
 
             {/* The flow field provides the 'live' organic movement */}
             <FlowFieldBackground
-                intensity="subtle"
-                className="opacity-100"
+                intensity="hero"
+                speed={0.8}
+                trailOpacity={0.1}
+                className="opacity-30 md:opacity-100"
             />
 
+            {/* Soft global veil for readability without visible text boxes */}
+            <div className="absolute inset-0 backdrop-blur-[1.5px] bg-black/10 md:bg-black/6" />
+
             {/* Cyan centre glow — gives the background a living 'heartbeat' */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(34,211,238,0.06)_0%,transparent_70%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(34,211,238,0.07)_0%,transparent_70%)] md:bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(34,211,238,0.12)_0%,transparent_70%)]" />
         </div>
     );
 }

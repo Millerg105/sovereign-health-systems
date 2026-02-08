@@ -1,7 +1,7 @@
 "use client"
 
 import { motion, AnimatePresence } from "framer-motion"
-import { Calendar, Clock, Video, FileText, MessageCircle, Linkedin, Phone, ChevronRight } from "lucide-react"
+import { Calendar, Clock, Video, FileText, MessageCircle, Linkedin, Phone, ChevronRight, Loader2 } from "lucide-react"
 import { useEffect, useState } from "react"
 import { BOOKING_URL, CONTACT_PHONE, WHATSAPP_URL, LINKEDIN_URL } from "@/lib/constants"
 
@@ -36,23 +36,32 @@ export function CalendarBooking() {
   const tabs = [
     { id: "call" as Tab, icon: Phone, label: "15–20 Min Call", sub: "Quick & focused" },
     { id: "meeting" as Tab, icon: Video, label: "Virtual Meeting", sub: "Calendly · Zoom · Meet" },
-    { id: "plan" as Tab, icon: FileText, label: "Action Plan", sub: "14-day roadmap · £4.99" },
+    { id: "plan" as Tab, icon: FileText, label: "Action Plan", sub: "14-day roadmap · Complimentary" },
   ]
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setPlanStep("pay")
-  }
+    setPlanStep("pay") // Reusing 'pay' step as a 'review/confirm' step or skipping
 
-  const handlePayment = () => {
-    // TODO: integrate Stripe £4.99 charge
-    // For now simulate success
-    setPlanStep("done")
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...form,
+          source: "Action Plan Request",
+          problems: `Pain points: ${form.pain1}, ${form.pain2}, ${form.pain3}, ${form.pain4}, ${form.pain5}`
+        }),
+      });
+      setPlanStep("done")
+    } catch {
+      setPlanStep("done") // Still show done to user
+    }
   }
 
   return (
-    <section className="relative py-24 overflow-hidden bg-transparent" id="booking">
-      <div className="container mx-auto px-6 relative z-10">
+    <section className="relative py-20 md:py-24 overflow-hidden bg-transparent" id="booking">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="max-w-5xl mx-auto">
 
           {/* Header */}
@@ -60,7 +69,7 @@ export function CalendarBooking() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-10 md:mb-14"
+            className="text-center mb-8 md:mb-14"
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-cyan/10 border border-brand-cyan/20 mb-6">
               <Calendar className="w-4 h-4 text-brand-cyan" />
@@ -96,21 +105,19 @@ export function CalendarBooking() {
                   <button
                     key={tab.id}
                     onClick={() => { setActiveTab(tab.id); setPlanStep("form") }}
-                    className={`flex flex-col items-center justify-center text-center p-4 sm:p-5 rounded-2xl border transition-all group min-h-[98px] sm:min-h-[130px] ${
-                      activeTab === tab.id
-                        ? "bg-brand-cyan/10 border-brand-cyan/50 shadow-[0_0_20px_rgba(34,211,238,0.15)]"
-                        : "bg-white/[0.02] border-white/5 hover:border-brand-cyan/20"
-                    }`}
+                    className={`flex flex-col items-center justify-center text-center p-4 sm:p-5 rounded-2xl border transition-all group min-h-[98px] sm:min-h-[130px] backdrop-blur-3xl ${activeTab === tab.id
+                      ? "bg-brand-cyan/20 border-brand-cyan/50 shadow-[0_0_20px_rgba(34,211,238,0.2)]"
+                      : "bg-black/95 border-white/10 hover:border-brand-cyan/30 shadow-xl"
+                      }`}
                   >
-                    <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center mb-2.5 sm:mb-3 transition-all ${
-                      activeTab === tab.id ? "bg-brand-cyan/20" : "bg-brand-cyan/10 group-hover:bg-brand-cyan/15"
-                    }`}>
+                    <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center mb-2.5 sm:mb-3 transition-all ${activeTab === tab.id ? "bg-brand-cyan/30" : "bg-white/5 group-hover:bg-brand-cyan/10"
+                      }`}>
                       <tab.icon className="w-4 h-4 sm:w-5 sm:h-5 text-brand-cyan" />
                     </div>
-                    <h3 className={`font-semibold leading-tight text-sm mb-1 ${activeTab === tab.id ? "text-brand-cyan" : "text-white"}`}>
+                    <h3 className={`font-semibold leading-tight text-sm mb-1 text-white`}>
                       {tab.label}
                     </h3>
-                      <p className="text-[11px] sm:text-xs text-white/40">{tab.sub}</p>
+                    <p className="text-[11px] sm:text-xs text-white/80">{tab.sub}</p>
                   </button>
                 ))}
               </div>
@@ -161,44 +168,34 @@ export function CalendarBooking() {
                       <form onSubmit={handleFormSubmit} className="space-y-4">
                         <div className="bg-brand-cyan/5 border border-brand-cyan/20 rounded-xl p-4 mb-2">
                           <p className="text-sm text-white/80 leading-relaxed">
-                            For just <span className="text-brand-cyan font-bold">£4.99</span> you&apos;ll receive a personalised <span className="text-white font-semibold">14-day Sovereign implementation roadmap</span> — a PDF showing exactly how we&apos;d build your automation infrastructure, step by step.
+                            Request a <span className="text-brand-cyan font-bold">Complimentary</span> personalised <span className="text-white font-semibold">14-day Sovereign implementation roadmap</span> — a PDF showing exactly how we&apos;d build your automation infrastructure, step by step.
                           </p>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                          <input required value={form.name} onChange={e => setForm({...form, name: e.target.value})} placeholder="Your name" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 outline-none focus:border-brand-cyan/40" />
-                          <input required value={form.clinic} onChange={e => setForm({...form, clinic: e.target.value})} placeholder="Clinic name" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 outline-none focus:border-brand-cyan/40" />
+                          <input required value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder="Your name" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 outline-none focus:border-brand-cyan/40" />
+                          <input required value={form.clinic} onChange={e => setForm({ ...form, clinic: e.target.value })} placeholder="Clinic name" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 outline-none focus:border-brand-cyan/40" />
                         </div>
-                        <input required type="email" value={form.email} onChange={e => setForm({...form, email: e.target.value})} placeholder="Email (we'll send your roadmap here)" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 outline-none focus:border-brand-cyan/40" />
-                        <p className="text-xs text-white/40 font-mono uppercase tracking-widest pt-1">Your top 5 pain points / problems</p>
-                        <input required value={form.pain1} onChange={e => setForm({...form, pain1: e.target.value})} placeholder="e.g. Missed calls costing us bookings" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 outline-none focus:border-brand-cyan/40" />
-                        <input required value={form.pain2} onChange={e => setForm({...form, pain2: e.target.value})} placeholder="e.g. Admin taking 2+ hours per day" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 outline-none focus:border-brand-cyan/40" />
-                        <input required value={form.pain3} onChange={e => setForm({...form, pain3: e.target.value})} placeholder="e.g. No system for following up old patients" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 outline-none focus:border-brand-cyan/40" />
-                        <input required value={form.pain4} onChange={e => setForm({...form, pain4: e.target.value})} placeholder="e.g. Unclear patient journey after first enquiry" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 outline-none focus:border-brand-cyan/40" />
-                        <input required value={form.pain5} onChange={e => setForm({...form, pain5: e.target.value})} placeholder="e.g. Team has no live performance dashboard" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 outline-none focus:border-brand-cyan/40" />
+                        <input required type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} placeholder="Email (we'll send your roadmap here)" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 outline-none focus:border-brand-cyan/40" />
+                        <p className="text-xs text-white/40 font-mono uppercase tracking-widest pt-1">Your top 3 pain points / problems</p>
+                        <input required value={form.pain1} onChange={e => setForm({ ...form, pain1: e.target.value })} placeholder="e.g. Missed calls costing us bookings" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 outline-none focus:border-brand-cyan/40" />
+                        <input required value={form.pain2} onChange={e => setForm({ ...form, pain2: e.target.value })} placeholder="e.g. Admin taking 2+ hours per day" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 outline-none focus:border-brand-cyan/40" />
+                        <input required value={form.pain3} onChange={e => setForm({ ...form, pain3: e.target.value })} placeholder="e.g. No system for following up old patients" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 outline-none focus:border-brand-cyan/40" />
                         <button type="submit" className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 via-brand-cyan to-blue-400 text-black font-bold text-base hover:brightness-110 transition-all flex items-center justify-center gap-2">
                           <ChevronRight className="w-5 h-5" />
-                          Continue to Payment — £4.99
+                          Request My Free Roadmap
                         </button>
                       </form>
                     )}
                     {planStep === "pay" && (
                       <div className="space-y-6 text-center">
                         <div className="bg-white/5 border border-white/10 rounded-xl p-6">
-                          <p className="text-white/60 text-sm mb-2">You&apos;re getting</p>
-                          <p className="text-white font-bold text-lg mb-1">14-Day Sovereign Implementation Roadmap</p>
-                          <p className="text-white/50 text-sm">Personalised PDF for <span className="text-white font-medium">{form.clinic}</span></p>
-                          <p className="text-brand-cyan font-bold text-3xl mt-4">£4.99</p>
+                          <Loader2 className="w-8 h-8 text-brand-cyan animate-spin mx-auto mb-4" />
+                          <p className="text-white font-bold text-lg mb-1">Generating Your Request...</p>
                         </div>
-                        <button
-                          onClick={handlePayment}
-                          className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 via-brand-cyan to-blue-400 text-black font-bold text-base hover:brightness-110 transition-all"
-                        >
-                          Pay £4.99 & Get My Roadmap
-                        </button>
-                        <button onClick={() => setPlanStep("form")} className="text-sm text-white/30 hover:text-white/60 transition-colors">← Back</button>
                       </div>
                     )}
                     {planStep === "done" && (
+
                       <div className="text-center py-8 space-y-4">
                         <div className="w-16 h-16 rounded-full bg-brand-cyan/20 border border-brand-cyan/40 flex items-center justify-center mx-auto">
                           <FileText className="w-8 h-8 text-brand-cyan" />

@@ -94,16 +94,16 @@ export function FAQSection() {
     };
 
     return (
-        <section id="faq" className="relative py-32 bg-transparent overflow-hidden">
+        <section id="faq" className="relative py-32 md:py-48 bg-transparent overflow-hidden">
             {/* Background Elements */}
             <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-brand-blue/5 blur-[100px] pointer-events-none" />
 
-        <div className="container px-4 mx-auto relative z-10">
-            {/* Backdrop blur panel behind entire FAQ content */}
-            <div className="absolute inset-0 mx-auto max-w-5xl bg-black/50 backdrop-blur-xl rounded-3xl pointer-events-none" />
+            <div className="container px-4 mx-auto relative z-10">
+                {/* Backdrop blur panel behind entire FAQ content */}
+                <div className="absolute inset-0 mx-auto max-w-5xl bg-black/50 backdrop-blur-xl rounded-3xl pointer-events-none" />
 
                 {/* Section Header */}
-                <div className="text-center mb-16 relative z-10">
+                <div className="text-center mb-12 md:mb-16 relative z-10">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -161,7 +161,7 @@ export function FAQSection() {
                 </div>
 
                 {/* FAQ Accordion */}
-                <div className="max-w-4xl mx-auto space-y-12 relative z-10">
+                <div className="max-w-4xl mx-auto space-y-8 md:space-y-12 relative z-10">
                     {FAQ_DATA.map((category, categoryIndex) => (
                         <motion.div
                             key={category.category}
@@ -185,7 +185,7 @@ export function FAQSection() {
                                     >
                                         <button
                                             onClick={() => toggleQuestion(faq.id)}
-                                            className="w-full px-6 py-5 flex items-center justify-between text-left"
+                                            className="w-full px-6 py-4 md:py-5 flex items-center justify-between text-left"
                                             aria-expanded={openId === faq.id}
                                         >
                                             <span className="text-base sm:text-lg md:text-xl text-white font-medium group-hover:text-brand-cyan transition-colors pr-6 md:pr-8">

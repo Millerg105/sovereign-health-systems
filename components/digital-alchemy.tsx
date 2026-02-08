@@ -40,7 +40,7 @@ export function DigitalAlchemy() {
         <section ref={containerRef} className="relative h-[240vh] md:h-[300vh] bg-transparent" id="solution">
 
             {/* Sticky Viewport */}
-            <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center perspective-1000">
+            <div className="sticky top-0 h-[100svh] md:h-screen w-full overflow-hidden flex items-center justify-center perspective-1000">
 
                 {/* Layer 1: Transparent — global BackgroundLayer shows through */}
 

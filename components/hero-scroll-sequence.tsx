@@ -49,7 +49,7 @@ export function HeroScrollSequence() {
     return (
         <div ref={containerRef} className="relative h-[300vh] bg-transparent">
             {/* Sticky Container */}
-            <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col items-center justify-center">
+            <div className="sticky top-0 h-[100svh] md:h-screen w-full overflow-hidden flex flex-col items-center justify-center">
 
                 <div className="relative z-10 w-full h-full max-w-[1400px] mx-auto flex flex-col items-center justify-center pointer-events-none">
 
@@ -59,28 +59,28 @@ export function HeroScrollSequence() {
                     {/* Revenue Slogan */}
                     <motion.div
                         style={{ opacity: sloganOpacity, scale: sloganScale, y: sloganY }}
-                        className="relative z-20 flex flex-col items-center text-center max-w-4xl px-4 pointer-events-auto mt-[-8vh] sm:mt-[-12vh] md:mt-[-16vh]"
+                        className="relative z-20 flex flex-col items-center text-center max-w-4xl px-4 pointer-events-auto mt-[-6vh] sm:mt-[-12vh] md:mt-[-16vh]"
                     >
-                        <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-heading font-bold text-white leading-[1.05] mb-5 md:mb-6 tracking-tighter drop-shadow-2xl">
+                        <h1 className="text-[2rem] sm:text-5xl md:text-7xl lg:text-8xl font-heading font-bold text-white leading-[1.05] mb-4 md:mb-6 tracking-tighter drop-shadow-2xl">
                             Revenue You Didn’t <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-brand-cyan to-blue-400 animate-pulse">
                                 Know You Lost.
                             </span>
                         </h1>
-                        <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/85 max-w-2xl mb-8 md:mb-10 leading-relaxed">
+                        <p className="text-sm sm:text-lg md:text-xl lg:text-2xl text-white/85 max-w-2xl mb-5 md:mb-10 leading-relaxed">
                             A dedicated automation partner who builds, monitors, and scales your clinic infrastructure without hiring more admin.
                         </p>
-                        <div className="flex flex-col items-center gap-10">
+                        <div className="flex flex-col items-center gap-6 md:gap-10">
                             <div className="flex flex-col md:flex-row gap-3 md:gap-4 w-full md:w-auto px-2 sm:px-0">
                                 <button
                                     onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}
-                                    className="h-12 sm:h-14 md:h-16 px-6 sm:px-8 md:px-12 w-full md:w-auto rounded-full bg-brand-cyan text-black font-bold text-base sm:text-lg md:text-2xl hover:bg-white transition-all shadow-[0_0_30px_rgba(34,211,238,0.4)] hover:shadow-[0_0_50px_rgba(255,255,255,0.6)]"
+                                    className="h-11 sm:h-14 md:h-16 px-6 sm:px-8 md:px-12 w-full md:w-auto rounded-full bg-brand-cyan text-black font-bold text-base sm:text-lg md:text-2xl hover:bg-white transition-all shadow-[0_0_30px_rgba(34,211,238,0.4)] hover:shadow-[0_0_50px_rgba(255,255,255,0.6)]"
                                 >
                                     Book Your Free Strategy Audit
                                 </button>
                                 <button
                                     onClick={() => document.getElementById('roi')?.scrollIntoView({ behavior: 'smooth' })}
-                                    className="h-12 sm:h-14 md:h-16 px-6 sm:px-8 md:px-12 w-full md:w-auto rounded-full bg-white/5 border border-white/10 text-white font-bold text-base sm:text-lg md:text-2xl hover:bg-white/10 transition-all backdrop-blur-xl"
+                                    className="h-11 sm:h-14 md:h-16 px-6 sm:px-8 md:px-12 w-full md:w-auto rounded-full bg-white/5 border border-white/10 text-white font-bold text-base sm:text-lg md:text-2xl hover:bg-white/10 transition-all backdrop-blur-xl"
                                 >
                                     Analyze Your ROI
                                 </button>
@@ -114,7 +114,7 @@ export function HeroScrollSequence() {
                             y: laptopY,
                             opacity: laptopOpacity
                         }}
-                        className="absolute bottom-auto top-auto w-full max-w-6xl px-4 md:px-0 flex items-center justify-center pointer-events-none"
+                        className="absolute bottom-auto top-auto w-full max-w-6xl px-4 sm:px-6 md:px-0 flex items-center justify-center pointer-events-none"
                     >
                         {/* Feature Callouts - Positioned Away From Laptop (3 on each side) */}
                         {/* LEFT SIDE CALLOUTS - Further away from laptop */}
@@ -194,7 +194,7 @@ export function HeroScrollSequence() {
                         </motion.div>
 
                         {/* Laptop Frame */}
-                        <div className="relative rounded-[1.25rem] md:rounded-[2rem] bg-[#0A0A0A] border-[6px] md:border-[8px] border-[#1A1A1A] shadow-2xl overflow-hidden aspect-[16/10] ring-1 ring-white/10 w-full max-h-[62vh] md:max-h-[75vh]">
+                        <div className="relative rounded-[1.25rem] md:rounded-[2rem] bg-[#0A0A0A] border-[4px] md:border-[8px] border-[#1A1A1A] shadow-2xl overflow-hidden aspect-[16/11] sm:aspect-[16/10] ring-1 ring-white/10 w-full max-h-[45vh] sm:max-h-[60vh] md:max-h-[75vh]">
                             {/* Screen Reflection/Gloss */}
                             <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none z-50" />
 
@@ -247,7 +247,7 @@ export function HeroScrollSequence() {
                                 <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
 
                                     {/* Quick Actions Sidebar - Integration & Setup */}
-                                    <div className="w-full md:w-80 border-b md:border-b-0 md:border-r border-white/5 bg-white/[0.02] flex flex-col p-3 sm:p-4 md:p-5 z-10 relative overflow-hidden max-h-[42%] md:max-h-none">
+                                    <div className="hidden md:flex w-80 border-r border-white/5 bg-white/[0.02] flex-col p-5 z-10 relative overflow-hidden">
                                         {/* Animated Background Gradient */}
                                         <div className="absolute inset-0 bg-gradient-to-b from-brand-cyan/5 via-transparent to-purple-500/5 opacity-50 pointer-events-none" />
 
@@ -337,15 +337,15 @@ export function HeroScrollSequence() {
                                     </div>
 
                                     {/* Main Dashboard Area - Lighter Background */}
-                                    <div className="flex-1 p-3 sm:p-4 md:p-6 overflow-hidden relative bg-gradient-to-br from-white/[0.08] to-white/[0.02]">
+                                    <div className="flex-1 p-2 sm:p-4 md:p-6 overflow-hidden relative bg-gradient-to-br from-white/[0.08] to-white/[0.02]">
                                         {/* Ambient Glows - Subtle */}
                                         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-cyan/5 rounded-full blur-[100px] pointer-events-none" />
                                         <div className="absolute bottom-0 left-0 w-[350px] h-[350px] bg-purple-500/5 rounded-full blur-[90px] pointer-events-none" />
 
                                         <div className="flex justify-between items-end mb-4 sm:mb-6 gap-3">
                                             <div>
-                                                <h2 className="text-2xl font-heading font-bold text-white mb-1">Morning Overview</h2>
-                                                <p className="text-white/40 text-sm">Real-time performance metrics</p>
+                                                <h2 className="text-lg sm:text-2xl font-heading font-bold text-white mb-1">Morning Overview</h2>
+                                                <p className="text-white/50 text-xs sm:text-sm">Real-time performance metrics</p>
                                             </div>
                                             <div className="hidden sm:flex flex-wrap items-center gap-2 p-2.5 rounded-xl bg-white/[0.06] border border-white/10 max-w-[68%]">
                                                 <div className="h-8 px-4 rounded-lg bg-white/5 border border-white/10 flex items-center text-[11px] text-white/70 hover:bg-white/10 transition-colors cursor-pointer">Today</div>
@@ -417,7 +417,7 @@ export function HeroScrollSequence() {
                                             </div>
 
                                             {/* Goals - Q1/Q2/Q3 */}
-                                            <div className="relative group p-4 rounded-xl bg-white/[0.03] border border-white/10 overflow-hidden hover:bg-white/[0.05] transition-all cursor-pointer">
+                                            <div className="hidden sm:block relative group p-4 rounded-xl bg-white/[0.03] border border-white/10 overflow-hidden hover:bg-white/[0.05] transition-all cursor-pointer">
                                                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                                                 <p className="text-xs text-white/50 mb-3 uppercase tracking-wide font-medium flex items-center gap-2">
                                                     <span>🎯</span> Q1 Goals
@@ -454,7 +454,7 @@ export function HeroScrollSequence() {
                                             </div>
 
                                             {/* Sovereign AI Assistant */}
-                                            <div className="relative group p-4 rounded-xl bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20 overflow-hidden hover:from-purple-500/15 hover:to-pink-500/15 transition-all cursor-pointer">
+                                            <div className="hidden sm:block relative group p-4 rounded-xl bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20 overflow-hidden hover:from-purple-500/15 hover:to-pink-500/15 transition-all cursor-pointer">
                                                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                                                 <div className="flex items-center gap-2 mb-2">
                                                     <div className="w-6 h-6 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 flex items-center justify-center text-[10px]">🤖</div>
@@ -480,7 +480,7 @@ export function HeroScrollSequence() {
                                         </div>
 
                                         {/* Big Chart Area */}
-                                        <div className="w-full h-44 sm:h-52 rounded-xl bg-white/[0.03] border border-white/10 p-3 sm:p-5 relative overflow-hidden group hover:bg-white/[0.05] transition-all">
+                                        <div className="hidden sm:block w-full h-44 sm:h-52 rounded-xl bg-white/[0.03] border border-white/10 p-3 sm:p-5 relative overflow-hidden group hover:bg-white/[0.05] transition-all">
                                             <div className="flex justify-between items-center mb-4">
                                                 <h4 className="text-xs font-medium text-white/60 uppercase tracking-wide">Lead Conversion Trajectory</h4>
                                                 <div className="flex gap-4">
@@ -519,7 +519,7 @@ export function HeroScrollSequence() {
                                         </div>
 
                                         {/* Today's Schedule & Activity */}
-                                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 mt-4 sm:mt-6">
+                                        <div className="hidden md:grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 mt-4 sm:mt-6">
                                             {/* Today's Appointments */}
                                             <div className="rounded-xl bg-white/[0.03] border border-white/10 p-4 hover:bg-white/[0.05] transition-all">
                                                 <div className="flex items-center justify-between mb-3">

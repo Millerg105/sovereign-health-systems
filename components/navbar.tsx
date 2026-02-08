@@ -56,7 +56,7 @@ export function Navbar() {
 
     const valueOptions = [
         { label: "Return on Investment Calculator", onClick: () => scrollToSection("roi"), Icon: <Calculator className="h-4 w-4" /> },
-        { label: "14-Day Roadmap for £5", onClick: openRoadmapPlan, Icon: <FileText className="h-4 w-4" /> },
+        { label: "14-Day Complimentary Roadmap", onClick: openRoadmapPlan, Icon: <FileText className="h-4 w-4" /> },
     ];
 
     const pricingOptions = [
@@ -96,7 +96,7 @@ export function Navbar() {
 
                 {/* Desktop Menu */}
                 <div className="hidden md:flex items-center gap-5">
-                    <DropdownMenu options={valueOptions} triggerClassName="h-12 px-6 text-lg">Get Started £5</DropdownMenu>
+                    <DropdownMenu options={valueOptions} triggerClassName="h-12 px-6 text-lg">Quick Links</DropdownMenu>
                     <DropdownMenu options={painPointOptions} triggerClassName="h-12 px-6 text-lg">Pain Points</DropdownMenu>
                     <DropdownMenu options={pricingOptions} triggerClassName="h-12 px-6 text-lg">Pricing Options</DropdownMenu>
                     <DropdownMenu
@@ -117,79 +117,80 @@ export function Navbar() {
 
                 {/* Mobile Menu Overlay */}
                 {mobileMenuOpen && (
-                    <div className="fixed inset-0 h-screen bg-void/95 backdrop-blur-sm flex flex-col items-center justify-start pt-24 pb-10 px-4 gap-5 md:hidden text-white z-40 overflow-y-auto">
-                        <DropdownMenu
-                            options={valueOptions.map((option) => ({
-                                ...option,
-                                onClick: () => {
-                                    option.onClick();
-                                    setMobileMenuOpen(false);
-                                },
-                            }))}
-                            triggerClassName="w-full max-w-sm justify-between text-lg font-medium"
-                            menuClassName="left-1/2 right-auto -translate-x-1/2 w-[min(20rem,calc(100vw-2rem))]"
-                        >
-                            Get Started £5
-                        </DropdownMenu>
+                    <div className="fixed inset-0 h-[100dvh] bg-[#020408]/98 backdrop-blur-2xl flex flex-col items-center justify-start pt-32 pb-10 px-6 gap-6 md:hidden text-white z-40 overflow-y-auto">
+                        <div className="w-full max-w-sm space-y-4">
+                            <DropdownMenu
+                                options={valueOptions.map((option) => ({
+                                    ...option,
+                                    onClick: () => {
+                                        option.onClick();
+                                        setMobileMenuOpen(false);
+                                    },
+                                }))}
+                                triggerClassName="w-full max-w-sm justify-between text-lg font-medium"
+                                menuClassName="left-1/2 right-auto -translate-x-1/2 w-[min(20rem,calc(100vw-2rem))]"
+                            >
+                                Quick Links
+                            </DropdownMenu>
 
-                        <DropdownMenu
-                            options={painPointOptions.map((option) => ({
-                                ...option,
-                                onClick: () => {
-                                    option.onClick();
-                                    setMobileMenuOpen(false);
-                                },
-                            }))}
-                            triggerClassName="w-full max-w-sm justify-between text-lg font-medium"
-                            menuClassName="left-1/2 right-auto -translate-x-1/2 w-[min(20rem,calc(100vw-2rem))]"
-                        >
-                            Pain Points
-                        </DropdownMenu>
+                            <DropdownMenu
+                                options={painPointOptions.map((option) => ({
+                                    ...option,
+                                    onClick: () => {
+                                        option.onClick();
+                                        setMobileMenuOpen(false);
+                                    },
+                                }))}
+                                triggerClassName="w-full max-w-sm justify-between text-lg font-medium"
+                                menuClassName="left-1/2 right-auto -translate-x-1/2 w-[min(20rem,calc(100vw-2rem))]"
+                            >
+                                Pain Points
+                            </DropdownMenu>
 
-                        <DropdownMenu
-                            options={pricingOptions.map((option) => ({
-                                ...option,
-                                onClick: () => {
-                                    option.onClick();
-                                    setMobileMenuOpen(false);
-                                },
-                            }))}
-                            triggerClassName="w-full max-w-sm justify-between text-lg font-medium"
-                            menuClassName="left-1/2 right-auto -translate-x-1/2 w-[min(20rem,calc(100vw-2rem))]"
-                        >
-                            Pricing Options
-                        </DropdownMenu>
+                            <DropdownMenu
+                                options={pricingOptions.map((option) => ({
+                                    ...option,
+                                    onClick: () => {
+                                        option.onClick();
+                                        setMobileMenuOpen(false);
+                                    },
+                                }))}
+                                triggerClassName="w-full max-w-sm justify-between text-lg font-medium"
+                                menuClassName="left-1/2 right-auto -translate-x-1/2 w-[min(20rem,calc(100vw-2rem))]"
+                            >
+                                Pricing Options
+                            </DropdownMenu>
 
-                        <Link
-                            href="#solution"
-                            className="text-2xl font-heading font-bold text-white hover:text-brand-cyan transition-colors"
-                            onClick={() => setMobileMenuOpen(false)}
-                        >
-                            Solution
-                        </Link>
-                        <Link
-                            href="#pricing"
-                            className="text-2xl font-heading font-bold text-white hover:text-brand-cyan transition-colors"
-                            onClick={() => setMobileMenuOpen(false)}
-                        >
-                            Pricing
-                        </Link>
-                        <DropdownMenu
-                            options={bookingOptions.map((option) => ({
-                                ...option,
-                                onClick: () => {
-                                    option.onClick();
-                                    setMobileMenuOpen(false);
-                                },
-                            }))}
-                            triggerClassName="w-full max-w-sm justify-between bg-gradient-to-r from-blue-600 via-brand-cyan to-blue-400 !text-black hover:!text-black text-lg font-semibold hover:brightness-110 transition-all border-0"
-                            menuClassName="left-1/2 right-auto -translate-x-1/2 w-[min(20rem,calc(100vw-2rem))]"
-                        >
-                            Book Your Free Strategy Audit
-                        </DropdownMenu>
+                            <Link
+                                href="#solution"
+                                className="text-2xl font-heading font-bold text-white hover:text-brand-cyan transition-colors"
+                                onClick={() => setMobileMenuOpen(false)}
+                            >
+                                Solution
+                            </Link>
+                            <Link
+                                href="#pricing"
+                                className="text-2xl font-heading font-bold text-white hover:text-brand-cyan transition-colors"
+                                onClick={() => setMobileMenuOpen(false)}
+                            >
+                                Pricing
+                            </Link>
+                            <DropdownMenu
+                                options={bookingOptions.map((option) => ({
+                                    ...option,
+                                    onClick: () => {
+                                        option.onClick();
+                                        setMobileMenuOpen(false);
+                                    },
+                                }))}
+                                triggerClassName="w-full h-16 px-8 text-lg font-bold bg-gradient-to-r from-blue-600 via-brand-cyan to-blue-400 !text-black rounded-2xl shadow-[0_0_30px_rgba(34,211,238,0.3)] border-0"
+                            >
+                                Book Your Strategy Audit
+                            </DropdownMenu>
+                        </div>
                     </div>
                 )}
             </div>
-        </motion.nav >
+        </motion.nav>
     );
 }

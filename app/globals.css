@@ -70,10 +70,16 @@
 
 /* Custom Scrollbar for 'Void' Aesthetic */
 @layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
     background-color: var(--color-void);
     color: rgba(255, 255, 255, 0.6);
     overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
   body::selection {
@@ -89,6 +95,7 @@
     font-family: var(--font-heading);
     color: rgba(255, 255, 255, 0.9);
     letter-spacing: -0.02em;
+    text-shadow: 0 0 18px rgba(0, 0, 0, 0.45);
   }
 
   h1 {
@@ -109,6 +116,7 @@
     line-height: 1.625;
     color: rgba(255, 255, 255, 0.85);
     font-size: clamp(1.1rem, 1.65vw, 1.4rem);
+    text-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
   }
 }
 
