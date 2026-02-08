@@ -125,17 +125,17 @@ export function ProblemsSection() {
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    className="text-center mt-20 md:mt-10"
+                    className="text-center mt-24 md:mt-10"
                 >
-                    <div className="max-w-3xl mx-auto py-12 px-8 rounded-[2.5rem] bg-white shadow-[0_0_60px_rgba(255,255,255,0.15)] relative overflow-hidden group">
+                    <div className="max-w-3xl mx-auto py-12 px-8 rounded-[2.5rem] bg-white/[0.05] border border-white/10 backdrop-blur-3xl shadow-[0_0_80px_-20px_rgba(255,255,255,0.05)] relative overflow-hidden group">
                         {/* Decorative Gradient Inner */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-brand-cyan/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                        <div className="absolute inset-0 bg-gradient-to-br from-brand-cyan/10 via-transparent to-red-500/5 opacity-50 pointer-events-none" />
 
-                        <p className="text-black text-2xl sm:text-3xl font-heading font-bold uppercase tracking-tight mb-3 relative z-10">
-                            You don't need <span className="text-red-500">more leads</span>.
+                        <p className="text-white text-2xl sm:text-3xl font-heading font-bold uppercase tracking-tight mb-3 relative z-10">
+                            You don't need <span className="text-red-500 drop-shadow-[0_0_15px_rgba(239,68,68,0.3)]">more leads</span>.
                         </p>
-                        <p className="text-black/70 text-lg sm:text-xl font-medium leading-[1.4] relative z-10">
-                            You need an <span className="text-black font-extrabold italic underline decoration-red-500 underline-offset-8 decoration-2">engine</span> that's better at keeping them.
+                        <p className="text-white/70 text-lg sm:text-xl font-medium leading-[1.4] relative z-10">
+                            You need an <span className="text-white font-extrabold italic underline decoration-red-500 underline-offset-8 decoration-2 drop-shadow-[0_0_10px_rgba(239,68,68,0.2)]">engine</span> that's better at keeping them.
                         </p>
                     </div>
                 </motion.div>

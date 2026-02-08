@@ -1,261 +1,195 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
-import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { motion } from "framer-motion";
+import { CheckCircle2 } from "lucide-react";
 import { Button } from "./ui/button";
 
-const TESTIMONIALS = [
+const TRUST_INDICATORS = [
     {
-        id: 1,
-        clinic: "Sovereign Health Systems",
-        location: "London, UK",
-        specialty: "Physiotherapy",
-        quote: "We recovered 12 missed calls in the first week alone. The AI handles after-hours inquiries better than our old answering service ever did.",
-        author: "Dr. Sarah Mitchell",
-        role: "Practice Director",
-        metrics: {
-            before: "8 missed calls/week",
-            after: "0 missed calls",
-            revenue: "+£4,250/month"
-        }
+        title: "7-Day Quick Win (Defined)",
+        detail: "Missed-call capture + inbox + first follow-up live",
     },
     {
-        id: 2,
-        clinic: "Elite Wellness Clinic",
-        location: "Manchester, UK",
-        specialty: "Chiropractic",
-        quote: "The automation freed up 15 hours per week for our admin team. We're now booking appointments while we sleep.",
-        author: "James Thompson",
-        role: "Clinic Owner",
-        metrics: {
-            before: "2-3 hour response time",
-            after: "< 2 minute response",
-            revenue: "+£3,800/month"
-        }
+        title: "Founder-Led Implementation",
+        detail: "Senior attention from strategy through launch",
     },
     {
-        id: 3,
-        clinic: "Peak Performance Physio",
-        location: "Birmingham, UK",
-        specialty: "Sports Therapy",
-        quote: "The ROI was immediate. We paid for the system in the first month just from recovered bookings.",
-        author: "Dr. Michael Chen",
-        role: "Lead Physiotherapist",
-        metrics: {
-            before: "45% booking rate",
-            after: "78% booking rate",
-            revenue: "+£5,100/month"
-        }
-    }
+        title: "No Long-Term Lock-In",
+        detail: "Stay because the system performs, not contracts",
+    },
 ];
 
-export function Testimonials() {
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [direction, setDirection] = useState(0);
+const ROADMAP_STEPS = [
+    {
+        days: "Days 0-7",
+        title: "Stop The Leak",
+        outcomes: [
+            "Missed-call text-back live",
+            "Lead capture workflows active",
+            "Unified inbox connected",
+        ],
+        needs: "Access to phone/SMS provider + booking link + staff emails.",
+    },
+    {
+        days: "Days 8-14",
+        title: "Deploy Infrastructure",
+        outcomes: [
+            "Calendar sync and reminders deployed",
+            "Follow-up sequences activated",
+            "Tracking baseline established",
+        ],
+        needs: "Patient list export or CRM access if available.",
+    },
+    {
+        days: "Days 15-30",
+        title: "Optimize & Scale",
+        outcomes: [
+            "Scripts and automations refined",
+            "Performance audit and reactivation launched",
+            "ROI reporting handoff completed",
+        ],
+        needs: "Approve messaging and allocate 15 mins/week for review.",
+    },
+];
 
-    const slideVariants = {
-        enter: (direction: number) => ({
-            x: direction > 0 ? 1000 : -1000,
-            opacity: 0,
-        }),
-        center: {
-            zIndex: 1,
-            x: 0,
-            opacity: 1,
-        },
-        exit: (direction: number) => ({
-            zIndex: 0,
-            x: direction < 0 ? 1000 : -1000,
-            opacity: 0,
-        }),
-    };
-
-    const swipeConfidenceThreshold = 10000;
-    const swipePower = (offset: number, velocity: number) => {
-        return Math.abs(offset) * velocity;
-    };
-
-    const paginate = (newDirection: number) => {
-        setDirection(newDirection);
-        setCurrentIndex((prevIndex) => {
-            let nextIndex = prevIndex + newDirection;
-            if (nextIndex < 0) nextIndex = TESTIMONIALS.length - 1;
-            if (nextIndex >= TESTIMONIALS.length) nextIndex = 0;
-            return nextIndex;
-        });
-    };
-
-    const currentTestimonial = TESTIMONIALS[currentIndex];
-
+function Testimonials() {
     return (
-        <section id="testimonials" className="relative py-24 bg-transparent overflow-hidden">
-            <div className="container px-4 mx-auto relative z-10">
-                {/* Section Header */}
-                <div className="text-center mb-16">
+        <section id="testimonials" className="relative overflow-hidden bg-transparent py-24">
+            <div className="container relative z-10 mx-auto px-4">
+                <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-8 lg:grid-cols-2 lg:items-start">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 18 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-cyan/10 border border-brand-cyan/20 mb-6 backdrop-blur-sm"
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: 0.5 }}
+                        className="space-y-6"
                     >
-                        <span className="w-2 h-2 rounded-full bg-brand-cyan animate-pulse shadow-[0_0_10px_rgba(34,211,238,0.6)]" />
-                        <span className="text-xs font-mono uppercase tracking-widest text-brand-cyan">
-                            Sovereign Results
+                        <span className="inline-flex rounded-full border border-brand-cyan/30 bg-brand-cyan/10 px-3 py-1 text-xs font-mono uppercase tracking-[0.2em] text-cyan-400">
+                            Founding Partner Program
                         </span>
-                    </motion.div>
 
-                    <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.1 }}
-                        className="text-4xl md:text-5xl font-heading font-bold text-white mb-4 tracking-tight"
-                    >
-                        Sovereign Clinics That Stopped <span className="text-text-glow text-white">Losing Revenue</span>
-                    </motion.h2>
+                        <h2 className="text-3xl font-heading font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
+                            We&apos;re Building Our Case Study Portfolio. You Get the ROI.
+                        </h2>
 
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.2 }}
-                        className="text-lg text-white/80 max-w-2xl mx-auto leading-relaxed"
-                    >
-                        Real Sovereign-powered clinics. Real automation. Real growth.
-                    </motion.p>
-                </div>
+                        <div className="space-y-4 text-base leading-relaxed text-white/80">
+                            <p>
+                                We are a specialized startup agency, founder-led from strategy through delivery. We are building our first case studies with transparent execution and clear performance goals.
+                            </p>
+                            <p>
+                                You get Sovereign-level systems at Foundation pricing, limited to our first <span className="font-semibold text-white">3 founding partners</span>.
+                            </p>
+                        </div>
 
-                {/* Testimonial Carousel */}
-                <div className="max-w-5xl mx-auto">
-                    <div className="relative h-[700px] sm:h-[620px] md:h-[400px] flex items-center">
-                        <AnimatePresence initial={false} custom={direction}>
-                            <motion.div
-                                key={currentIndex}
-                                custom={direction}
-                                variants={slideVariants}
-                                initial="enter"
-                                animate="center"
-                                exit="exit"
-                                transition={{
-                                    x: { type: "spring", stiffness: 300, damping: 30 },
-                                    opacity: { duration: 0.2 },
-                                }}
-                                drag="x"
-                                dragConstraints={{ left: 0, right: 0 }}
-                                dragElastic={1}
-                                onDragEnd={(e, { offset, velocity }) => {
-                                    const swipe = swipePower(offset.x, velocity.x);
+                        <div className="glass-panel rounded-2xl border border-white/10 p-5 backdrop-blur-xl sm:p-6">
+                            <p className="mb-3 text-sm font-mono uppercase tracking-[0.15em] text-brand-cyan">
+                                The Deal
+                            </p>
+                            <p className="text-sm leading-relaxed text-white/85 sm:text-base">
+                                <span className="font-semibold text-white">You get:</span> Founder-led implementation, custom build, and priority support. <span className="font-semibold text-white">We get:</span> a video testimonial and case study rights once the agreed KPI milestone is achieved, or after 60 days of active deployment (whichever comes first).
+                            </p>
+                            <p className="mt-3 text-sm font-medium text-white">No long-term lock-in.</p>
+                        </div>
 
-                                    if (swipe < -swipeConfidenceThreshold) {
-                                        paginate(1);
-                                    } else if (swipe > swipeConfidenceThreshold) {
-                                        paginate(-1);
-                                    }
-                                }}
-                                className="absolute w-full"
-                            >
-                                <div className="glass-panel p-8 md:p-12 rounded-3xl relative overflow-hidden group">
-                                    {/* Quote Icon */}
-                                    <Quote className="absolute top-10 left-10 w-24 h-24 text-brand-cyan/5 -z-10 rotate-180" />
+                        <div className="flex flex-wrap items-center gap-3">
+                            <div className="rounded-full border border-brand-cyan/35 bg-brand-cyan/10 px-4 py-2 text-xs font-mono uppercase tracking-[0.14em] text-brand-cyan">
+                                Limited: 3 Slots
+                            </div>
+                            <div className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-mono uppercase tracking-[0.14em] text-white/80">
+                                Applications Open Now
+                            </div>
+                        </div>
 
-                                    <div className="relative z-10 flex flex-col md:flex-row gap-8 md:gap-12 items-start md:items-center">
-                                        <div className="flex-1">
-                                            <blockquote className="text-base sm:text-lg md:text-xl font-heading text-white leading-relaxed mb-6 md:mb-8">
-                                                "{currentTestimonial.quote}"
-                                            </blockquote>
-
-                                            <div className="flex items-center gap-4">
-                                                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-brand-cyan/20 to-brand-blue/20 flex items-center justify-center text-brand-cyan font-bold border border-white/10">
-                                                    {currentTestimonial.author.charAt(0)}
-                                                </div>
-                                                <div>
-                                                    <div className="text-white font-bold text-lg">
-                                                        {currentTestimonial.author}
-                                                    </div>
-                                                    <div className="text-white/60 text-sm mb-1">
-                                                        {currentTestimonial.role}, {currentTestimonial.clinic}
-                                                    </div>
-                                                    <div className="text-brand-cyan/80 text-xs font-mono uppercase tracking-wider">
-                                                        {currentTestimonial.location}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="w-full md:w-auto flex flex-row md:flex-col gap-4">
-                                            <MetricCard label="Before" value={currentTestimonial.metrics.before} />
-                                            <MetricCard label="After" value={currentTestimonial.metrics.after} highlight />
-                                            <MetricCard label="Revenue" value={currentTestimonial.metrics.revenue} success />
-                                        </div>
-                                    </div>
-
+                        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                            {TRUST_INDICATORS.map((item) => (
+                                <div
+                                    key={item.title}
+                                    className="rounded-xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-sm"
+                                >
+                                    <p className="text-sm font-semibold text-white">{item.title}</p>
+                                    <p className="mt-2 text-xs leading-relaxed text-white/60">{item.detail}</p>
                                 </div>
-                            </motion.div>
-                        </AnimatePresence>
-                    </div>
-
-                    {/* Navigation */}
-                    <div className="flex items-center justify-center gap-4 mt-8">
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => paginate(-1)}
-                            className="text-white/40 hover:text-white hover:bg-white/5"
-                            aria-label="Previous testimonial"
-                        >
-                            <ChevronLeft className="w-6 h-6" />
-                        </Button>
-
-                        {/* Dots */}
-                        <div className="flex gap-3">
-                            {TESTIMONIALS.map((_, index) => (
-                                <button
-                                    key={index}
-                                    onClick={() => {
-                                        setDirection(index > currentIndex ? 1 : -1);
-                                        setCurrentIndex(index);
-                                    }}
-                                    className={`h-1.5 rounded-full transition-all duration-300 ${index === currentIndex
-                                        ? "bg-brand-cyan w-8 shadow-[0_0_10px_rgba(34,211,238,0.5)]"
-                                        : "bg-white/10 w-2 hover:bg-white/30"
-                                        }`}
-                                    aria-label={`Go to testimonial ${index + 1}`}
-                                />
                             ))}
                         </div>
 
                         <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => paginate(1)}
-                            className="text-white/40 hover:text-white hover:bg-white/5"
-                            aria-label="Next testimonial"
+                            variant="glow"
+                            className="w-full max-w-sm rounded-full px-7 py-6 text-sm font-bold uppercase tracking-[0.14em]"
+                            onClick={() => document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" })}
                         >
-                            <ChevronRight className="w-6 h-6" />
+                            Apply for Founder Pricing
                         </Button>
-                    </div>
+                    </motion.div>
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 0.6 }}
+                        className="glass-panel rounded-3xl border border-white/10 p-5 backdrop-blur-xl sm:p-7"
+                    >
+                        <div className="mb-6">
+                            <p className="text-xs font-mono uppercase tracking-[0.15em] text-brand-cyan">First 30 Days</p>
+                            <h3 className="mt-2 text-2xl font-heading font-bold text-white">Growth Roadmap</h3>
+                        </div>
+
+                        <div className="relative pl-8">
+                            <div className="absolute left-[11px] top-1 h-[calc(100%-0.5rem)] w-px bg-white/15" aria-hidden="true" />
+                            <motion.div
+                                className="absolute left-[11px] top-1 h-[calc(100%-0.5rem)] w-px origin-top bg-gradient-to-b from-brand-cyan to-brand-blue"
+                                initial={{ scaleY: 0, opacity: 0.4 }}
+                                whileInView={{ scaleY: 1, opacity: 1 }}
+                                viewport={{ once: true, amount: 0.35 }}
+                                transition={{ duration: 1, ease: "easeOut" }}
+                                aria-hidden="true"
+                            />
+
+                            <div className="space-y-5">
+                                {ROADMAP_STEPS.map((step, index) => (
+                                    <motion.article
+                                        key={step.title}
+                                        initial={{ opacity: 0, x: 16 }}
+                                        whileInView={{ opacity: 1, x: 0 }}
+                                        viewport={{ once: true, amount: 0.35 }}
+                                        transition={{ duration: 0.45, delay: index * 0.12 }}
+                                        className="relative rounded-2xl border border-white/10 bg-white/[0.03] p-4 sm:p-5"
+                                    >
+                                        <motion.span
+                                            className="absolute -left-[29px] top-5 flex h-5 w-5 items-center justify-center rounded-full border border-brand-cyan/50 bg-black shadow-[0_0_18px_rgba(34,211,238,0.45)]"
+                                            initial={{ scale: 0.75, opacity: 0.5 }}
+                                            whileInView={{ scale: 1, opacity: 1 }}
+                                            viewport={{ once: true, amount: 0.4 }}
+                                            transition={{ duration: 0.3, delay: index * 0.12 + 0.1 }}
+                                            aria-hidden="true"
+                                        >
+                                            <span className="h-2 w-2 rounded-full bg-brand-cyan" />
+                                        </motion.span>
+
+                                        <p className="text-xs font-mono uppercase tracking-[0.12em] text-brand-cyan">{step.days}</p>
+                                        <h4 className="mt-1 text-lg font-semibold text-white">{step.title}</h4>
+
+                                        <ul className="mt-3 space-y-2">
+                                            {step.outcomes.map((outcome) => (
+                                                <li key={outcome} className="flex items-start gap-2 text-sm text-white/80">
+                                                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-cyan" aria-hidden="true" />
+                                                    <span>{outcome}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+
+                                        <p className="mt-3 text-xs leading-relaxed text-white/65">
+                                            <span className="font-semibold text-white/85">What we need from you:</span> {step.needs}
+                                        </p>
+                                    </motion.article>
+                                ))}
+                            </div>
+                        </div>
+                    </motion.div>
                 </div>
             </div>
         </section>
     );
 }
 
-function MetricCard({ label, value, highlight, success }: { label: string, value: string, highlight?: boolean, success?: boolean }) {
-    return (
-        <div className={`flex-1 md:w-48 p-4 rounded-xl border backdrop-blur-sm transition-colors ${success
-            ? "bg-brand-cyan/10 border-brand-cyan/20"
-            : highlight
-                ? "bg-white/5 border-white/10"
-                : "bg-white/[0.02] border-white/5"
-            }`}>
-            <div className="text-xs text-white/40 uppercase tracking-wider mb-1 font-mono">
-                {label}
-            </div>
-            <div className={`text-sm font-bold ${success ? "text-brand-cyan" : highlight ? "text-white" : "text-white/60"
-                }`}>
-                {value}
-            </div>
-        </div>
-    );
-}
+export { Testimonials };
+export default Testimonials;
