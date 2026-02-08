@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 
 // Note: You must set these in your environment variables (Vercel/Local)
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 const ZAPIER_WEBHOOK_URL = process.env.ZAPIER_WEBHOOK_URL;
 
 // Simple in-memory rate limiting (Note: This is per-serverless-instance)
@@ -91,7 +91,7 @@ export async function POST(req: Request) {
         }
 
         // Send Email Notification via Resend
-        if (process.env.RESEND_API_KEY) {
+        if (resend) {
             try {
                 const { data, error } = await resend.emails.send({
                     from: 'Sovereign Leads <onboarding@resend.dev>',
