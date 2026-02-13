@@ -248,7 +248,7 @@ function DashboardOverlay({ progress }: { progress: any }) {
                 <motion.div style={{ opacity: w5Opacity, y: w5Y }} className="col-span-1 bg-brand-navy/90 border border-purple-500/20 p-6 rounded-xl shadow-lg backdrop-blur-md">
                     <div className="text-purple-400 text-xs font-mono uppercase mb-2">Reactivation</div>
                     <div className="text-3xl font-bold text-white mb-1">28%</div>
-                    <p className="text-xs text-white/50">Old leads turned into patients</p>
+                    <p className="text-xs text-white/50">Old leads turned into customers</p>
                 </motion.div>
 
             </div>

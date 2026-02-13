@@ -12,7 +12,7 @@ export function Solution() {
                         The Old Way vs. <span className="text-gold-600">The Sovereign Way</span>
                     </h2>
                     <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                        Stop relying on human willpower to chase leads. Switch to a system that never gets tired, never calls in sick, and never forgets to follow up.
+                        Stop relying on human willpower to chase leads. Switch to a system that never gets tired, never calls in sick, and never forgets to follow up on a quote.
                     </p>
                 </div>
 
@@ -27,8 +27,8 @@ export function Solution() {
                             <li className="flex gap-4 text-slate-500">
                                 <XCircle className="w-5 h-5 shrink-0 mt-1 opacity-50" />
                                 <div>
-                                    <strong className="block text-slate-700">Receptionist Misses Calls</strong>
-                                    Staff are busy with patients; 40% of calls go to voicemail.
+                                    <strong className="block text-slate-700">You Miss Calls While Working</strong>
+                                    You're on a job or driving; 40% of calls go to voicemail.
                                 </div>
                             </li>
                             <li className="flex gap-4 text-slate-500">
@@ -41,8 +41,8 @@ export function Solution() {
                             <li className="flex gap-4 text-slate-500">
                                 <XCircle className="w-5 h-5 shrink-0 mt-1 opacity-50" />
                                 <div>
-                                    <strong className="block text-slate-700">Chasing = Burnout</strong>
-                                    Staff hate making sales calls, so they don't do them.
+                                    <strong className="block text-slate-700">Chasing = Lost Time</strong>
+                                    You hate making sales calls after a long day, so you don't do them.
                                 </div>
                             </li>
                         </ul>
@@ -62,14 +62,14 @@ export function Solution() {
                                 <CheckCircle2 className="w-5 h-5 shrink-0 mt-1 text-gold-500" />
                                 <div>
                                     <strong className="block text-white">Instant Text-Back</strong>
-                                    Missed a call? AI texts the patient instantly: "Sorry we missed you, how can we help?"
+                                    Missed a call? AI texts the customer instantly: "Sorry we missed you, how can we help?"
                                 </div>
                             </li>
                             <li className="flex gap-4">
                                 <CheckCircle2 className="w-5 h-5 shrink-0 mt-1 text-gold-500" />
                                 <div>
                                     <strong className="block text-white">24/7 Booking Agent</strong>
-                                    AI answers FAQs and books slots directly into your calendar.
+                                    AI answers FAQs and books quotes directly into your calendar.
                                 </div>
                             </li>
                             <li className="flex gap-4">

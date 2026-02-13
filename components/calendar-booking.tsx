@@ -9,7 +9,7 @@ type Tab = "call" | "meeting" | "plan"
 
 interface ActionPlanForm {
   name: string
-  clinic: string
+  business: string
   email: string
   pain1: string
   pain2: string
@@ -21,7 +21,7 @@ interface ActionPlanForm {
 export function CalendarBooking() {
   const [activeTab, setActiveTab] = useState<Tab>("call")
   const [planStep, setPlanStep] = useState<"form" | "pay" | "done">("form")
-  const [form, setForm] = useState<ActionPlanForm>({ name: "", clinic: "", email: "", pain1: "", pain2: "", pain3: "", pain4: "", pain5: "" })
+  const [form, setForm] = useState<ActionPlanForm>({ name: "", business: "", email: "", pain1: "", pain2: "", pain3: "", pain4: "", pain5: "" })
 
   useEffect(() => {
     const openRoadmapPlan = () => {
@@ -129,7 +129,7 @@ export function CalendarBooking() {
                 {activeTab === "call" && (
                   <motion.div key="call" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-4">
                     <p className="text-white/70 text-center text-base mb-6">
-                      A quick 15–20 minute call to understand your clinic&apos;s biggest bottlenecks. No pitch — just clarity.
+                      A quick 15–20 minute call to understand your business&apos;s biggest bottlenecks. No pitch — just clarity.
                     </p>
                     <a
                       href={`sms:${CONTACT_PHONE}?body=Hi Miller, I'd like to book a 15-20 minute strategy call.`}
@@ -173,13 +173,13 @@ export function CalendarBooking() {
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                           <input required value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder="Your name" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 outline-none focus:border-brand-cyan/40" />
-                          <input required value={form.clinic} onChange={e => setForm({ ...form, clinic: e.target.value })} placeholder="Clinic name" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 outline-none focus:border-brand-cyan/40" />
+                          <input required value={form.business} onChange={e => setForm({ ...form, business: e.target.value })} placeholder="Business Name" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 outline-none focus:border-brand-cyan/40" />
                         </div>
                         <input required type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} placeholder="Email (we'll send your roadmap here)" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 outline-none focus:border-brand-cyan/40" />
                         <p className="text-xs text-white/40 font-mono uppercase tracking-widest pt-1">Your top 3 pain points / problems</p>
-                        <input required value={form.pain1} onChange={e => setForm({ ...form, pain1: e.target.value })} placeholder="e.g. Missed calls costing us bookings" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 outline-none focus:border-brand-cyan/40" />
+                        <input required value={form.pain1} onChange={e => setForm({ ...form, pain1: e.target.value })} placeholder="e.g. Missed calls costing us jobs" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 outline-none focus:border-brand-cyan/40" />
                         <input required value={form.pain2} onChange={e => setForm({ ...form, pain2: e.target.value })} placeholder="e.g. Admin taking 2+ hours per day" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 outline-none focus:border-brand-cyan/40" />
-                        <input required value={form.pain3} onChange={e => setForm({ ...form, pain3: e.target.value })} placeholder="e.g. No system for following up old patients" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 outline-none focus:border-brand-cyan/40" />
+                        <input required value={form.pain3} onChange={e => setForm({ ...form, pain3: e.target.value })} placeholder="e.g. No system for following up old customers" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 outline-none focus:border-brand-cyan/40" />
                         <button type="submit" className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 via-brand-cyan to-blue-400 text-black font-bold text-base hover:brightness-110 transition-all flex items-center justify-center gap-2">
                           <ChevronRight className="w-5 h-5" />
                           Request My Free Roadmap
@@ -255,7 +255,7 @@ export function CalendarBooking() {
             transition={{ duration: 0.6, delay: 0.5 }}
             className="mt-8 text-center"
           >
-            <p className="text-sm text-white/40 mb-2">Trusted by Sovereign-powered clinics across Greater Manchester</p>
+            <p className="text-sm text-white/40 mb-2">Trusted by Sovereign-powered businesses across Greater Manchester</p>
             <div className="flex items-center justify-center gap-2 text-xs text-white/30">
               <Clock className="w-3 h-3" />
               <span>Average response time: 2 hours</span>

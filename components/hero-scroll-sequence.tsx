@@ -61,14 +61,15 @@ export function HeroScrollSequence() {
                         style={{ opacity: sloganOpacity, scale: sloganScale, y: sloganY }}
                         className="relative z-20 flex flex-col items-center text-center max-w-4xl px-4 pointer-events-auto mt-[-6vh] sm:mt-[-12vh] md:mt-[-16vh]"
                     >
+
                         <h1 className="text-[3rem] sm:text-5xl md:text-7xl lg:text-8xl font-heading font-bold text-white leading-[1.05] mb-4 md:mb-6 tracking-tighter drop-shadow-2xl">
-                            Revenue You Didn’t <br />
+                            Jobs You Didn’t <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-brand-cyan to-blue-400 animate-pulse">
                                 Know You Lost.
                             </span>
                         </h1>
                         <p className="text-sm sm:text-lg md:text-xl lg:text-2xl text-white/85 max-w-2xl mb-5 md:mb-10 leading-relaxed">
-                            A dedicated automation partner who builds, monitors, and scales your clinic infrastructure without hiring more admin.
+                            A dedicated automation partner who builds, monitors, and scales your business systems — without hiring more office staff.
                         </p>
                         <div className="flex flex-col items-center gap-6 md:gap-10">
                             <div className="flex flex-col md:flex-row gap-3 md:gap-4 w-full md:w-auto px-2 sm:px-0">
@@ -76,13 +77,13 @@ export function HeroScrollSequence() {
                                     onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}
                                     className="h-11 sm:h-14 md:h-16 px-6 sm:px-8 md:px-12 w-full md:w-auto rounded-full bg-brand-cyan text-black font-bold text-base sm:text-lg md:text-2xl hover:bg-white transition-all shadow-[0_0_30px_rgba(34,211,238,0.4)] hover:shadow-[0_0_50px_rgba(255,255,255,0.6)]"
                                 >
-                                    Book Your Free Strategy Audit
+                                    Book Your Free Growth Audit
                                 </button>
                                 <button
                                     onClick={() => document.getElementById('roi')?.scrollIntoView({ behavior: 'smooth' })}
                                     className="h-11 sm:h-14 md:h-16 px-6 sm:px-8 md:px-12 w-full md:w-auto rounded-full bg-white/5 border border-white/10 text-white font-bold text-base sm:text-lg md:text-2xl hover:bg-white/10 transition-all backdrop-blur-xl"
                                 >
-                                    Analyze Your ROI
+                                    Calculate Your Lost Revenue
                                 </button>
                             </div>
 
@@ -91,7 +92,7 @@ export function HeroScrollSequence() {
                                 <div className="flex flex-wrap items-center justify-center gap-x-6 md:gap-x-10 gap-y-3 md:gap-y-4 opacity-80">
                                     <div className="flex items-center gap-2.5">
                                         <div className="w-2 h-2 rounded-full bg-brand-cyan" />
-                                        <span className="text-xs sm:text-sm md:text-lg font-mono uppercase tracking-[0.12em] sm:tracking-[0.2em] md:tracking-widest text-white">Built for private practices</span>
+                                        <span className="text-xs sm:text-sm md:text-lg font-mono uppercase tracking-[0.12em] sm:tracking-[0.2em] md:tracking-widest text-white">Built for home service businesses</span>
                                     </div>
                                     <div className="flex items-center gap-2.5">
                                         <div className="w-2 h-2 rounded-full bg-brand-cyan" />
@@ -102,7 +103,7 @@ export function HeroScrollSequence() {
                                         <span className="text-xs sm:text-sm md:text-lg font-mono uppercase tracking-[0.12em] sm:tracking-[0.2em] md:tracking-widest text-white">ROI tracking included</span>
                                     </div>
                                 </div>
-                                <p className="text-[11px] sm:text-sm font-mono text-white/50 uppercase tracking-[0.1em] sm:tracking-[0.18em] text-center px-2">Limited to 3 new clinic partners per month.</p>
+                                <p className="text-[11px] sm:text-sm font-mono text-white/50 uppercase tracking-[0.1em] sm:tracking-[0.18em] text-center px-2">Limited to 3 new partners per month.</p>
                             </div>
                         </div>
                     </motion.div>
@@ -189,7 +190,7 @@ export function HeroScrollSequence() {
                                 transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.7 }}
                                 className="bg-black/90 backdrop-blur-md border border-pink-500/40 text-pink-400 px-5 py-3 rounded-xl text-sm font-mono uppercase tracking-widest shadow-[0_0_30px_rgba(236,72,153,0.3)]"
                             >
-                                ← Client Reactivation
+                                ← Customer Reactivation
                             </motion.div>
                         </motion.div>
 
@@ -219,7 +220,7 @@ export function HeroScrollSequence() {
                                             Overview
                                         </div>
                                         <div className="px-3 py-1.5 text-white/40 text-[10px] font-medium hover:text-white/60 cursor-pointer">
-                                            Appointments
+                                            Jobs & Quotes
                                         </div>
                                         <div className="px-3 py-1.5 text-white/40 text-[10px] font-medium hover:text-white/60 cursor-pointer">
                                             Missed Calls
@@ -370,22 +371,21 @@ export function HeroScrollSequence() {
                                             <div className="hidden sm:flex flex-wrap items-center gap-2 p-2.5 rounded-xl bg-white/[0.06] border border-white/10 max-w-[68%]">
                                                 <div className="h-8 px-4 rounded-lg bg-white/5 border border-white/10 flex items-center text-[11px] text-white/70 hover:bg-white/10 transition-colors cursor-pointer">Today</div>
 
-                                                {/* Legal/Compliance Document Templates */}
                                                 <div className="h-8 px-3.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-1.5 text-[11px] text-emerald-400 hover:bg-emerald-500/20 transition-colors cursor-pointer">
                                                     <span className="text-[10px]">📄</span>
-                                                    <span>Patient Consent</span>
+                                                    <span>Job Sheet</span>
                                                 </div>
                                                 <div className="h-8 px-3.5 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center gap-1.5 text-[11px] text-blue-400 hover:bg-blue-500/20 transition-colors cursor-pointer">
                                                     <span className="text-[10px]">📋</span>
-                                                    <span>Clinical Notes</span>
+                                                    <span>Job Notes</span>
                                                 </div>
                                                 <div className="h-8 px-3.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center gap-1.5 text-[11px] text-cyan-300 hover:bg-cyan-500/20 transition-colors cursor-pointer">
-                                                    <span className="text-[10px]">🩺</span>
-                                                    <span>Medical History Form</span>
+                                                    <span className="text-[10px]">📏</span>
+                                                    <span>Quote Calculator</span>
                                                 </div>
                                                 <div className="h-8 px-3.5 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center gap-1.5 text-[11px] text-purple-400 hover:bg-purple-500/20 transition-colors cursor-pointer">
-                                                    <span className="text-[10px]">⚕️</span>
-                                                    <span>Clinical Risk</span>
+                                                    <span className="text-[10px]">⚠️</span>
+                                                    <span>Job Priority</span>
                                                 </div>
                                                 <div className="h-8 px-3.5 rounded-lg bg-pink-500/10 border border-pink-500/20 flex items-center gap-1.5 text-[11px] text-pink-400 hover:bg-pink-500/20 transition-colors cursor-pointer">
                                                     <span className="text-[10px]">📝</span>
@@ -397,14 +397,14 @@ export function HeroScrollSequence() {
                                                 </div>
                                                 <div className="h-8 px-3.5 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center gap-1.5 text-[11px] text-rose-300 hover:bg-rose-500/20 transition-colors cursor-pointer">
                                                     <span className="text-[10px]">🚨</span>
-                                                    <span>Incident Report</span>
+                                                    <span>Issue Report</span>
                                                 </div>
 
                                                 <div className="h-8 px-4 rounded-lg bg-white/5 border border-white/10 flex items-center text-[11px] text-white/70 hover:bg-white/10 transition-colors cursor-pointer">Export Templates</div>
                                             </div>
                                         </div>
 
-                                        {/* Quick Stats Grid - Clinic Focused */}
+                                        {/* Quick Stats Grid - Business Focused */}
                                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
                                             {/* To-Do List */}
                                             <div className="relative group p-4 rounded-xl bg-white/[0.03] border border-white/10 overflow-hidden hover:bg-white/[0.05] transition-all cursor-pointer">
@@ -423,15 +423,15 @@ export function HeroScrollSequence() {
                                                         <div className="w-3 h-3 rounded border border-emerald-500 bg-emerald-500/20 flex items-center justify-center">
                                                             <div className="text-[8px] text-emerald-400">✓</div>
                                                         </div>
-                                                        <p className="text-[10px] text-white/40 line-through">Check appointments</p>
+                                                        <p className="text-[10px] text-white/40 line-through">Check today's jobs</p>
                                                     </div>
                                                     <div className="flex items-center gap-2">
                                                         <div className="w-3 h-3 rounded border border-white/20" />
-                                                        <p className="text-[10px] text-white/70">Follow up reactivations</p>
+                                                        <p className="text-[10px] text-white/70">Follow up on quotes sent</p>
                                                     </div>
                                                     <div className="flex items-center gap-2">
                                                         <div className="w-3 h-3 rounded border border-white/20" />
-                                                        <p className="text-[10px] text-white/70">Review analytics</p>
+                                                        <p className="text-[10px] text-white/70">Review weekly analytics</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -454,7 +454,7 @@ export function HeroScrollSequence() {
                                                     </div>
                                                     <div>
                                                         <div className="flex justify-between items-center mb-1">
-                                                            <p className="text-[10px] text-white/60">New Patients</p>
+                                                            <p className="text-[10px] text-white/60">New Customers</p>
                                                             <p className="text-[10px] text-brand-cyan font-bold">64%</p>
                                                         </div>
                                                         <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
@@ -483,12 +483,12 @@ export function HeroScrollSequence() {
                                                 <div className="space-y-1.5">
                                                     <div className="flex gap-1.5">
                                                         <div className="flex-1 bg-white/5 rounded px-2 py-1">
-                                                            <p className="text-[9px] text-white/60">How many bookings today?</p>
+                                                            <p className="text-[9px] text-white/60">How many jobs booked today?</p>
                                                         </div>
                                                     </div>
                                                     <div className="flex gap-1.5">
                                                         <div className="flex-1 bg-purple-500/20 rounded px-2 py-1">
-                                                            <p className="text-[9px] text-purple-200">You have 24 bookings...</p>
+                                                            <p className="text-[9px] text-purple-200">You have 24 jobs booked...</p>
                                                         </div>
                                                     </div>
                                                     <div className="flex items-center gap-1.5 bg-white/5 rounded px-2 py-1">
@@ -543,15 +543,15 @@ export function HeroScrollSequence() {
                                             {/* Today's Appointments */}
                                             <div className="rounded-xl bg-white/[0.03] border border-white/10 p-4 hover:bg-white/[0.05] transition-all">
                                                 <div className="flex items-center justify-between mb-3">
-                                                    <h4 className="text-xs font-medium text-white/60 uppercase tracking-wide">Today's Appointments</h4>
+                                                    <h4 className="text-xs font-medium text-white/60 uppercase tracking-wide">Today's Jobs</h4>
                                                     <div className="text-[10px] text-brand-cyan font-mono">8 Booked</div>
                                                 </div>
                                                 <div className="space-y-2">
                                                     {[
-                                                        { time: '09:00', name: 'Sarah Mitchell', type: 'Consultation', status: 'confirmed' },
-                                                        { time: '10:30', name: 'James Peterson', type: 'Follow-up', status: 'confirmed' },
-                                                        { time: '14:00', name: 'Emma Rodriguez', type: 'New Patient', status: 'pending' },
-                                                        { time: '15:30', name: 'Michael Chen', type: 'Treatment', status: 'confirmed' },
+                                                        { time: '09:00', name: 'Dave Thompson', type: 'Boiler Service', status: 'confirmed' },
+                                                        { time: '10:30', name: 'Sarah Clarke', type: 'Quote Follow-Up', status: 'confirmed' },
+                                                        { time: '14:00', name: 'Mark Williams', type: 'New Enquiry', status: 'pending' },
+                                                        { time: '15:30', name: 'Raj Patel', type: 'Emergency Callout', status: 'confirmed' },
                                                     ].map((apt, i) => (
                                                         <div key={i} className="flex items-center gap-2 p-2 rounded-lg bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] transition-all group cursor-pointer">
                                                             <div className="text-[10px] font-mono text-brand-cyan/80 w-10">{apt.time}</div>
@@ -574,7 +574,7 @@ export function HeroScrollSequence() {
                                                 </div>
                                                 <div className="space-y-2">
                                                     {[
-                                                        { name: 'David Miller', lastVisit: '3 months ago', action: 'SMS sent', status: 'responded' },
+                                                        { name: 'Dave Miller', lastVisit: '3 months ago', action: 'SMS sent', status: 'responded' },
                                                         { name: 'Lisa Anderson', lastVisit: '5 months ago', action: 'Email sent', status: 'opened' },
                                                         { name: 'Robert Taylor', lastVisit: '4 months ago', action: 'Voice AI called', status: 'booked' },
                                                         { name: 'Jennifer White', lastVisit: '6 months ago', action: 'SMS sent', status: 'pending' },
@@ -609,7 +609,7 @@ export function HeroScrollSequence() {
                     </motion.div>
 
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }

@@ -11,7 +11,7 @@ const steps = [
     {
         num: "02",
         title: "We build your plan",
-        desc: "We design a custom automation roadmap for your specific clinic.",
+        desc: "We design a custom automation roadmap for your specific business.",
     },
     {
         num: "03",

@@ -81,7 +81,7 @@ export function Navbar() {
                     <div className="relative w-11 h-11 sm:w-14 sm:h-14 flex items-center justify-center shrink-0">
                         <Image
                             src="/logo.png"
-                            alt="Sovereign Health Logo"
+                            alt="Sovereign Systems Logo"
                             width={44}
                             height={44}
                             className="object-contain"
@@ -89,8 +89,8 @@ export function Navbar() {
                     </div>
 
                     <div className={`leading-none font-heading font-bold tracking-tight transition-colors min-w-0 ${textColorClass}`}>
-                        <span className="block sm:hidden text-[0.82rem] text-white transition-colors group-hover:text-brand-cyan">Sovereign Health</span>
-                        <span className="hidden sm:block text-2xl text-white transition-colors group-hover:text-brand-cyan whitespace-nowrap">Sovereign Health Systems</span>
+                        <span className="block sm:hidden text-[0.82rem] text-white transition-colors group-hover:text-brand-cyan">Sovereign Systems</span>
+                        <span className="hidden sm:block text-2xl text-white transition-colors group-hover:text-brand-cyan whitespace-nowrap">Sovereign Systems</span>
                     </div>
                 </Link>
 

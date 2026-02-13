@@ -7,7 +7,7 @@ import { HeroScrollSequence } from "@/components/hero-scroll-sequence";
 import { DigitalAlchemy } from "@/components/digital-alchemy";
 import { PricingSection } from "@/components/pricing-section";
 import { ProblemsSection } from "@/components/problems-section";
-import { ClinicShowcase } from "@/components/clinic-showcase";
+import { TradeShowcase } from "@/components/trade-showcase";
 import { Testimonials } from "@/components/testimonials";
 import { FAQSection } from "@/components/faq-section";
 import { CalendarBooking } from "@/components/calendar-booking";
@@ -57,7 +57,8 @@ export default function Home() {
         <FounderNote />
 
         <Testimonials />
-        <ClinicShowcase />
+
+        <TradeShowcase />
 
         <FAQSection />
         <CalendarBooking />

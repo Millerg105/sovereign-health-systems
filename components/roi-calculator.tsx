@@ -13,8 +13,8 @@ import {
 
 export function ROICalculator() {
     // New metrics that users actually know
-    const [adminHours, setAdminHours] = useState(10); // Weekly hours spent on admin/calls
-    const [sessionFee, setSessionFee] = useState(60); // Average session/treatment fee
+    const [adminHours, setAdminHours] = useState(10); // Weekly hours spent on admin/quotes
+    const [sessionFee, setSessionFee] = useState(150); // Average job value
     const [missedCalls, setMissedCalls] = useState(5); // Estimated missed enquiries per week
 
     const [monthlyLoss, setMonthlyLoss] = useState(0);
@@ -28,10 +28,11 @@ export function ROICalculator() {
 
     useEffect(() => {
         // Logic: 
-        // 1. Admin Loss: Every hour spent on admin is an hour you COULD have been treating a patient.
-        const monthlyAdminLoss = adminHours * sessionFee * 4.33;
+        // 1. Admin Loss: Every hour spent on admin is an hour you COULD have been earning.
+        // For trades, maybe not full job rate, but let's keep the formula simple: time is money.
+        const monthlyAdminLoss = adminHours * (sessionFee / 2) * 4.33; // Conservative estimate: admin time worth 50% of revenue gen time
 
-        // 2. Missed Lead Loss: Every missed inquiry is a lost patient booking.
+        // 2. Missed Lead Loss: Every missed inquiry is a lost job.
         const monthlyLeadLoss = missedCalls * sessionFee * 4.33;
 
         const totalLoss = monthlyAdminLoss + monthlyLeadLoss;
@@ -69,7 +70,7 @@ export function ROICalculator() {
                             Sovereign <span className="text-brand-cyan">ROI Calculator.</span>
                         </h2>
                         <p className="text-base text-white/80 max-w-2xl mx-auto font-light leading-relaxed">
-                            Stop guessing. Use your own numbers to calculate the true cost of manual admin and missed patient calls.
+                            Stop guessing. Use your own numbers to calculate the true cost of missed calls and manual admin.
                         </p>
                     </div>
 
@@ -82,23 +83,23 @@ export function ROICalculator() {
                                     <p className="text-xs text-white/40">These are the numbers you know off the top of your head.</p>
                                 </div>
 
-                                {/* Session Fee Slider */}
+                                {/* Job Value Slider */}
                                 <div>
                                     <div className="flex justify-between mb-4 items-end">
                                         <div className="space-y-1">
                                             <div className="flex items-center gap-2">
                                                 <PoundSterling className="w-4 h-4 text-brand-cyan" />
-                                                <label className="text-base font-medium text-white">Average Treatment Fee</label>
+                                                <label className="text-base font-medium text-white">Average Job Value</label>
                                             </div>
-                                            <p className="text-[10px] text-white/40">What is your standard session or treatment price?</p>
+                                            <p className="text-[10px] text-white/40">What's your typical service or callout fee?</p>
                                         </div>
                                         <span className="text-brand-cyan font-mono text-2xl font-bold tabular-nums tracking-tighter">£{sessionFee}</span>
                                     </div>
                                     <input
                                         type="range"
-                                        min="30"
-                                        max="300"
-                                        step="5"
+                                        min="50"
+                                        max="1000"
+                                        step="50"
                                         value={sessionFee}
                                         onChange={(e) => setSessionFee(parseInt(e.target.value))}
                                         className="w-full h-1.5 bg-white/5 rounded-lg appearance-none cursor-pointer accent-brand-cyan transition-all hover:bg-white/10"
@@ -113,7 +114,7 @@ export function ROICalculator() {
                                                 <Clock className="w-4 h-4 text-brand-cyan" />
                                                 <label className="text-base font-medium text-white">Weekly Admin Hours</label>
                                             </div>
-                                            <p className="text-[10px] text-white/40">Time spent booking calls and chasing payments.</p>
+                                            <p className="text-[10px] text-white/40">Time spent quoting, chasing payments, answering calls.</p>
                                         </div>
                                         <span className="text-brand-cyan font-mono text-2xl font-bold tabular-nums tracking-tighter">{adminHours}h</span>
                                     </div>
@@ -130,7 +131,7 @@ export function ROICalculator() {
 
                                 <div className="space-y-1 mb-4 border-b border-white/5 pb-4 pt-4">
                                     <h4 className="text-sm font-bold text-red-400 uppercase tracking-wider">Step 2: The Estimated Leak</h4>
-                                    <p className="text-xs text-white/40">How often do you miss the phone while treating?</p>
+                                    <p className="text-xs text-white/40">How often do you miss the phone while working?</p>
                                 </div>
 
                                 {/* Missed Calls Slider */}
@@ -141,7 +142,7 @@ export function ROICalculator() {
                                                 <PhoneMissed className="w-4 h-4 text-red-400" />
                                                 <label className="text-base font-medium text-red-400">Weekly Missed Enquiries</label>
                                             </div>
-                                            <p className="text-[10px] text-white/40">Number of daily/weekly calls that go to voicemail.</p>
+                                            <p className="text-[10px] text-white/40">Number of calls that go to voicemail while you're on a job.</p>
                                         </div>
                                         <span className="text-red-400 font-mono text-2xl font-bold tabular-nums tracking-tighter">{missedCalls}</span>
                                     </div>
@@ -182,7 +183,7 @@ export function ROICalculator() {
                                 </h3>
                                 <div className="space-y-3">
                                     <p className="text-white/40 text-[11px] font-medium leading-relaxed">
-                                        This is your clinic's <span className="text-white font-bold">Inactivity Tax</span>. It's the combined cost of the hours you waste on admin plus the revenue lost from patients you couldn't answer.
+                                        This is your business's <span className="text-white font-bold">Inactivity Tax</span>. It's the combined cost of hours wasted on admin plus revenue lost from customers you couldn't answer.
                                     </p>
                                     <div className="p-3 rounded-lg bg-red-500/5 border border-red-500/10 text-[10px] text-red-300 font-mono uppercase tracking-wider">
                                         Annual Opportunity Cost: £{Math.round(annualLoss).toLocaleString()}
@@ -201,7 +202,7 @@ export function ROICalculator() {
                                 </h3>
 
                                 <p className="text-xs text-white/40 mb-8 leading-relaxed">
-                                    By automating your admin and deploying an AI Lead Agent, we give you back <span className="text-white font-bold">{adminHours} hours a week</span> and capture your missed revenue on autopilot.
+                                    By automating your admin and deploying an AI Lead Agent, we give you back <span className="text-white font-bold">10 hours a week</span> and capture your missed revenue on autopilot.
                                 </p>
 
                                 <div className="grid grid-cols-2 gap-3 mb-8">

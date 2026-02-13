@@ -10,11 +10,11 @@ const PRICING_PLANS = [
     {
         name: "FOUNDATION",
         tagline: "The Digital Asset",
-        price: "£149",
-        setup: "£750 implementation",
-        description: "Your 'Always-On' front desk. Stops the clinical enquiry leaks and captures every missed call instantly.",
+        price: "£99",
+        setup: "£500 implementation",
+        description: "Your 'Always-On' front desk. Stops enquiry leaks and captures every missed call instantly.",
         features: [
-            "Full Clinical Website (or Fix)",
+            "Full Business Website (or Fix)",
             "Missed Call Text-Back",
             "5-Minute Lead Guarantee",
             "Unified Inbox (SMS/Email)",
@@ -27,17 +27,17 @@ const PRICING_PLANS = [
     {
         name: "ACCELERATOR",
         tagline: "Reactivation Engine",
-        price: "£249",
-        setup: "£1,500 implementation",
-        description: "The 'Sweet Spot'. Full booking infrastructure plus campaigns to fill your calendar from dormant patient data.",
+        price: "£199",
+        setup: "£1,000 implementation",
+        description: "The 'Sweet Spot'. Full booking infrastructure plus campaigns to fill your calendar from past customer data.",
         features: [
             "Everything in Foundation",
-            "Database Reactivation Campaign",
+            "Customer Reactivation Campaign",
             "Full Calendar & Booking Sync",
             "AI Appointment Reminders",
             "Web-to-Booking Chat Widget",
-            "Patient Lead Reactivation",
-            "Mobile Infrastructure App (PWA)"
+            "Customer Lead Reactivation",
+            "Mobile Business App (PWA)"
         ],
         highlight: true,
         badge: "Most Popular"
@@ -45,12 +45,12 @@ const PRICING_PLANS = [
     {
         name: "SOVEREIGN",
         tagline: "Enterprise Systems",
-        price: "£399",
-        setup: "£3,000+ custom",
-        description: "For multi-location clinic groups requiring deep EHR integrations and high-volume architecture.",
+        price: "£349",
+        setup: "£2,500+ custom",
+        description: "For multi-van or multi-location operations requiring deep integrations and high-volume architecture.",
         features: [
             "Multi-Location Sync",
-            "Custom EHR (Cliniko/Jane) Integ",
+            "Custom Software Integrations",
             "Managed Database Migration",
             "Custom App Store Deployment",
             "Priority Stakeholder Access",
@@ -58,7 +58,7 @@ const PRICING_PLANS = [
             "UK-Based Project Lead"
         ],
         highlight: false,
-        priceNote: "+ £97 per extra location"
+        priceNote: "+£97 per extra location"
     }
 ];
 
@@ -99,19 +99,19 @@ export function PricingSection() {
                             </div>
                             <h3 className="text-3xl font-heading font-bold text-white mb-4">What does the monthly fee actually cover?</h3>
                             <p className="text-base text-white font-light mb-6 leading-relaxed">
-                                Think of it like a retainer for a full digital team — except you're not paying for 4–7 separate tools or freelancers to stitch them together. At Sovereign, your monthly fee keeps your entire clinic infrastructure running, monitored, and improving 24/7.
+                                Think of it like a retainer for a full digital team — except you're not paying for 4–7 separate tools or freelancers to stitch them together. At Sovereign, your monthly fee keeps your entire business infrastructure running, monitored, and improving 24/7.
                             </p>
                             <p className="text-base text-white font-light mb-8 leading-relaxed">
-                                While you're treating patients, Sovereign handles the website uptime, AI responses, booking flows, missed call recovery, compliance updates, and monthly ROI reporting — all under one roof.
+                                While you're out on jobs, Sovereign handles the website uptime, AI responses, booking flows, missed call recovery, compliance updates, and monthly ROI reporting — all under one roof.
                             </p>
                             <div className="grid grid-cols-1 gap-3">
                                 {[
                                     "Your full website hosted, maintained & optimised",
                                     "AI receptionist answering calls & messages 24/7",
                                     "Missed call text-back within 60 seconds",
-                                    "Automated appointment booking & reminders",
+                                    "Automated job booking & reminders",
                                     "Monthly Sovereign ROI report with recovered revenue",
-                                    "All compliance, integrations & updates handled for you"
+                                    "All integrations & updates handled for you"
                                 ].map((item, i) => (
                                     <div key={i} className="flex items-start gap-3 text-white">
                                         <div className="w-1.5 h-1.5 rounded-full bg-brand-cyan mt-2 shrink-0" />
@@ -125,7 +125,7 @@ export function PricingSection() {
                             <div className="p-7 rounded-3xl bg-black/40 border border-white/10">
                                 <p className="text-xs font-mono text-brand-cyan uppercase tracking-widest mb-3">Usage Costs — Passed Through at Cost</p>
                                 <p className="text-sm text-white leading-relaxed">
-                                    The only extra costs are the direct provider fees (SMS via Twilio, AI via OpenAI) for the messages and calls your clinic generates. <span className="text-white font-bold">We never add markup.</span> Most Sovereign clients spend <span className="text-white font-bold">£20–£50/mo</span> in usage — often less than one recovered booking pays back.
+                                    The only extra costs are the direct provider fees (SMS via Twilio, AI via OpenAI) for the messages and calls your business generates. <span className="text-white font-bold">We never add markup.</span> Most Sovereign clients spend <span className="text-white font-bold">£20–£50/mo</span> in usage — often less than one recovered job pays back.
                                 </p>
                             </div>
                             <div className="p-7 rounded-3xl bg-brand-cyan/10 border border-brand-cyan/40 backdrop-blur-xl">
@@ -151,8 +151,8 @@ export function PricingSection() {
                         <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                             <Send className="w-12 h-12" />
                         </div>
-                        <span className="text-3xl sm:text-[2.25rem] font-heading font-bold text-white mb-2 text-center">Refer A Clinic & Earn.</span>
-                        <p className="text-white text-[15px] font-light">Refer a peer and earn 20% off your monthly allocation, or a direct referral fee.</p>
+                        <span className="text-3xl sm:text-[2.25rem] font-heading font-bold text-white mb-2 text-center">Refer A Business & Earn.</span>
+                        <p className="text-white text-[15px] font-light">Refer a business & earn 20% off your monthly fee, or a direct referral payment.</p>
                     </motion.button>
 
                     {/* Contact Module */}

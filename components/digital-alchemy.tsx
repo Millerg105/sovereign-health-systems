@@ -82,14 +82,14 @@ export function DigitalAlchemy() {
                     {/* Phase 3: Support Text */}
                     <motion.div style={{ opacity: supportOpacity, y: supportY }} className="mt-8 md:mt-14 max-w-4xl text-center px-4 sm:px-6">
                         <p className="text-lg sm:text-xl md:text-3xl lg:text-4xl text-white/85 font-light leading-[1.3] mb-5 md:mb-6">
-                            AI is converting leads, booking patients, and recovering revenue <span className="text-white font-semibold">while you sleep.</span>
+                            AI is answering enquiries, booking jobs, and recovering revenue <span className="text-white font-semibold">while you're on site.</span>
                         </p>
                         <p className="text-base sm:text-lg md:text-2xl text-white/85 leading-relaxed mb-6 md:mb-8">
-                            This isn't the future—it's happening now. Your competitors are automating. Your patients are booking elsewhere. <span className="text-brand-cyan font-medium">Every day you wait costs you thousands.</span>
+                            This isn't the future — it's happening now. Your competitors are automating. Your customers are calling someone else. <span className="text-brand-cyan font-medium">Every day you wait costs you thousands.</span>
                         </p>
                         <div className="mt-10 flex justify-center">
                             <span className="inline-block px-5 py-2.5 md:px-6 md:py-3 border border-red-500/20 rounded-full text-sm md:text-lg text-red-400 font-mono uppercase tracking-[0.16em] md:tracking-widest bg-red-500/5 backdrop-blur-sm">
-                                Join now before your market moves on
+                                Join now before your area is taken
                             </span>
                         </div>
                     </motion.div>

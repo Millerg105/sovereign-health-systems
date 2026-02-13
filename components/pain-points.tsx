@@ -32,12 +32,12 @@ export function PainPoints() {
                             The Problem
                         </div>
                         <h2 className="text-3xl md:text-4xl font-heading font-bold text-slate-900 mb-6 leading-tight">
-                            Most clinics lose patients before they ever book.
+                            Most trade businesses lose customers before they ever book.
                         </h2>
                         <p className="text-lg text-slate-600 leading-relaxed">
                             You spend money on ads and SEO, but administrative bottlenecks are capping your growth.
                             <br /><br />
-                            Every missed call and slow reply is a patient gifting their money to your competitor.
+                            Every missed call and slow reply is a customer gifting their money to your competitor.
                         </p>
 
                         <div className="mt-8 p-6 bg-white rounded-xl border border-slate-200 shadow-sm">

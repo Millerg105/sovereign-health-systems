@@ -38,11 +38,11 @@ const ROADMAP_STEPS = [
             "Follow-up sequences activated",
             "Tracking baseline established",
         ],
-        needs: "Patient list export or CRM access if available.",
+        needs: "Customer list export or CRM access if available.",
     },
     {
         days: "Days 15-30",
-        title: "Optimize & Scale",
+        title: "Optimise & Scale",
         outcomes: [
             "Scripts and automations refined",
             "Performance audit and reactivation launched",

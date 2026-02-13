@@ -19,7 +19,7 @@ export function ContactForm({ source = "General", showRevenueFields = false, ini
     const [formData, setFormData] = useState({
         name: "",
         email: "",
-        clinicName: "",
+        businessName: "",
         revenue: initialData?.revenue || "",
         problems: initialData?.problems || "",
         honeypot: "", // Antispam
@@ -92,7 +92,7 @@ export function ContactForm({ source = "General", showRevenueFields = false, ini
                         <input
                             required
                             type="email"
-                            placeholder="john@clinic.com"
+                            placeholder="john@business.com"
                             className="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 focus:border-brand-cyan transition-all"
                             value={formData.email}
                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -101,14 +101,14 @@ export function ContactForm({ source = "General", showRevenueFields = false, ini
                 </div>
 
                 <div className="space-y-1">
-                    <label className="text-xs font-mono uppercase tracking-widest text-white/40 ml-1">Clinic Name</label>
+                    <label className="text-xs font-mono uppercase tracking-widest text-white/40 ml-1">Business Name</label>
                     <input
                         required
                         type="text"
-                        placeholder="Prime Health London"
+                        placeholder="e.g. Smith's Plumbing"
                         className="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 focus:border-brand-cyan transition-all"
-                        value={formData.clinicName}
-                        onChange={(e) => setFormData({ ...formData, clinicName: e.target.value })}
+                        value={formData.businessName}
+                        onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
                     />
                 </div>
 

@@ -15,7 +15,7 @@ type Message = {
 const WELCOME_MSG: Message = {
     id: "welcome",
     role: "bot",
-    text: "Hi, I'm the Sovereign AI assistant. Ask me anything about how we help clinics grow, or pick a common question below.",
+    text: "Hi, I'm the Sovereign AI assistant. Ask me anything about how we help trade businesses grow, or pick a common question below.",
     showFAQ: true,
 };
 
@@ -49,8 +49,8 @@ function findAnswer(input: string): string | null {
     if (lower.includes("robot") || lower.includes("sound") || lower.includes("human") || lower.includes("natural")) {
         return faqData.find(f => f.id === "quality")?.answer ?? null;
     }
-    if (lower.includes("medical") || lower.includes("advice") || lower.includes("diagnos")) {
-        return faqData.find(f => f.id === "medical")?.answer ?? null;
+    if (lower.includes("technical") || lower.includes("advice") || lower.includes("quote")) {
+        return faqData.find(f => f.id === "technical")?.answer ?? null;
     }
     if (lower.includes("website") || lower.includes("no site") || lower.includes("don't have")) {
         return faqData.find(f => f.id === "website")?.answer ?? null;
@@ -155,8 +155,8 @@ export function ChatWidget() {
                                 <div key={msg.id}>
                                     <div className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
                                         <div className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${msg.role === "user"
-                                                ? "bg-brand-cyan text-black font-medium rounded-br-sm"
-                                                : "bg-white/5 border border-white/10 text-white/90 rounded-bl-sm"
+                                            ? "bg-brand-cyan text-black font-medium rounded-br-sm"
+                                            : "bg-white/5 border border-white/10 text-white/90 rounded-bl-sm"
                                             }`}>
                                             {msg.text}
                                         </div>

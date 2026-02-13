@@ -5,31 +5,31 @@ import { CardStack, CardStackItem } from "@/components/ui/card-stack";
 const items: CardStackItem[] = [
     {
         id: 1,
-        title: "Physiotherapy",
-        description: "Restoring elite athlete performance through precise kinetic movement and recovery workflows.",
-        imageSrc: "/showcase/physio.jpg",
+        title: "Plumbing & HVAC",
+        description: "Emergency callouts, boiler installs, and heating repairs — automated from first call to five-star review.",
+        imageSrc: "/showcase/physio.jpg", // Placeholder - reusing existing image for now
     },
     {
         id: 2,
-        title: "Chiropractic",
-        description: "Advanced skeletal alignment systems for peak nervous system health and clinical precision.",
-        imageSrc: "/showcase/chiro.webp",
+        title: "Commercial Cleaning",
+        description: "Contract cleaning, office maintenance, and deep cleans — scheduled, tracked, and scaled with zero admin overhead.",
+        imageSrc: "/showcase/chiro.webp", // Placeholder
     },
     {
         id: 3,
-        title: "Sports Massage",
-        description: "Deep tissue recovery and myofascial release automated for high-performance clinic growth.",
-        imageSrc: "/showcase/sports-massage.jpg",
+        title: "Pest Control",
+        description: "High-urgency enquiries captured instantly. Every missed call is a job that goes to someone else.",
+        imageSrc: "/showcase/sports-massage.jpg", // Placeholder
     },
     {
         id: 4,
-        title: "Thai Massage",
-        description: "Traditional holistic stretching and energy line restoration meet modern booking systems.",
-        imageSrc: "/showcase/thai-massage.jpg",
+        title: "Landscaping & Tree Surgery",
+        description: "Seasonal demand, repeat maintenance, and quote follow-ups — automated so nothing falls through the cracks.",
+        imageSrc: "/showcase/thai-massage.jpg", // Placeholder
     },
 ];
 
-export function ClinicShowcase() {
+export function TradeShowcase() {
     return (
         <section className="py-24 bg-transparent overflow-hidden relative" id="partners">
 
@@ -44,22 +44,22 @@ export function ClinicShowcase() {
                         </div>
 
                         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-6 leading-[1.1] tracking-tight">
-                            Modernizing Private <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-blue italic">Practices.</span>
+                            Modernising Home Service <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-blue italic">Businesses.</span>
                         </h2>
 
                         <div className="text-base sm:text-lg md:text-xl text-white/80 mb-8 leading-relaxed space-y-6 md:space-y-8 font-light max-w-lg">
                             <p className="border-l-2 border-brand-cyan/40 pl-5 md:pl-8 py-2">
-                                From <span className="text-white font-medium">Physiotherapists</span> to <span className="text-white font-medium">Chiropractors</span>,
-                                <span className="text-white font-medium block mt-2 text-base sm:text-lg md:text-xl">Sports Massage to Thai Massage.</span>
+                                From <span className="text-white font-medium">Plumbers</span> to <span className="text-white font-medium">Cleaners</span>,
+                                <span className="text-white font-medium block mt-2 text-base sm:text-lg md:text-xl">HVAC Engineers to Pest Control.</span>
                             </p>
 
                             <p className="text-lg text-white/70">
-                                We build the sovereign digital <span className="text-white font-medium underline underline-offset-8 decoration-brand-cyan/30">infrastructure</span> for <span className="text-brand-cyan font-semibold">High-Growth Clinics.</span>
+                                We build the sovereign digital <span className="text-white font-medium underline underline-offset-8 decoration-brand-cyan/30">infrastructure</span> for <span className="text-brand-cyan font-semibold">growing home service businesses.</span>
                             </p>
 
                             <div className="pt-2">
-                                <p className="text-sm font-mono text-brand-cyan/60 uppercase tracking-widest mb-3">Serving clinics across</p>
+                                <p className="text-sm font-mono text-brand-cyan/60 uppercase tracking-widest mb-3">Serving areas across</p>
                                 <div className="flex flex-wrap gap-2">
                                     {[
                                         "Greater Manchester", "Lancashire", "Merseyside", "Yorkshire",
@@ -76,13 +76,13 @@ export function ClinicShowcase() {
                             <div className="pt-10">
                                 <div className="relative pl-6 border-l border-white/10">
                                     <p className="text-xl md:text-2xl font-heading font-bold leading-relaxed tracking-tight">
-                                        <span className="text-white">Your clinic is your art.</span>{" "}
+                                        <span className="text-white">Your trade is your craft.</span>{" "}
                                         <span className="text-brand-cyan">Our</span>{" "}
-                                        <span className="text-white">assistant handles the</span>{" "}
+                                        <span className="text-white">systems handle the</span>{" "}
                                         <span className="text-red-500">admin,</span>{" "}
                                         <br className="hidden md:block" />
                                         <span className="text-white">so you can focus on the</span>{" "}
-                                        <span className="text-green-500 text-glow">care.</span>
+                                        <span className="text-green-500 text-glow">work.</span>
                                     </p>
                                 </div>
                             </div>

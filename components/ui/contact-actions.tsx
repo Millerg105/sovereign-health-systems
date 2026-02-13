@@ -21,7 +21,7 @@ export function ContactActions() {
     };
 
     const emailHref = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(EMAIL_SUBJECTS.AUDIT)}&body=${encodeURIComponent(EMAIL_BODY_TEMPLATES.AUDIT)}`;
-    const smsHref = `sms:${CONTACT_PHONE}?body=${encodeURIComponent("Hi Miller, I'd like to book a clinical audit.")}`;
+    const smsHref = `sms:${CONTACT_PHONE}?body=${encodeURIComponent("Hi Miller, I'd like to book a strategy audit.")}`;
 
     return (
         <div className="flex flex-col gap-4 w-full">

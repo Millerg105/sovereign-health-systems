@@ -11,17 +11,17 @@ const FAQ_DATA = [
             {
                 id: "q1",
                 question: "How long does implementation take?",
-                answer: "Most clinics are live within 2-3 weeks. We handle the technical setup, integrate with your existing systems (Cliniko, SimplePractice, etc.), and train your team. You'll see results in the first week."
+                answer: "2\u20133 weeks from kickoff to fully live. We handle everything \u2014 you just give us access to your systems and approve the messaging."
             },
             {
                 id: "q2",
                 question: "Do I need to change my current systems?",
-                answer: "No. We integrate with your existing booking system, phone provider, and CRM. The automation works alongside your current workflow - it doesn't replace it."
+                answer: "No. We build around what you already use. If you\u2019re running everything from your phone and a notebook, that\u2019s fine \u2014 we\u2019ll set up proper systems from scratch."
             },
             {
                 id: "q3",
                 question: "What if I don't have a website?",
-                answer: "We can build one for you as part of the Growth or Sovereign packages. It's designed specifically for clinic conversion and includes the chat widget pre-installed."
+                answer: "We build you one as part of every tier. If you have one that\u2019s outdated, we rebuild it."
             }
         ]
     },
@@ -31,17 +31,17 @@ const FAQ_DATA = [
             {
                 id: "q4",
                 question: "What's the typical ROI?",
-                answer: "Most clinics recover 8-15 missed bookings per month, worth £800-£1,500 in revenue. The system typically pays for itself in the first month from recovered bookings alone."
+                answer: "Most clients recover the cost of Sovereign within the first 2\u20134 weeks through captured missed calls and reactivated past customers alone."
             },
             {
                 id: "q5",
                 question: "Are there any hidden fees?",
-                answer: "No. Setup fee + monthly subscription. That's it. No per-message fees, no usage limits, no surprise charges. SMS costs are included in your monthly fee."
+                answer: "No. The only extra cost is usage \u2014 SMS and AI call fees passed through at cost (typically \u00A320\u2013\u00A350/mo). We never mark up."
             },
             {
                 id: "q6",
                 question: "Can I cancel anytime?",
-                answer: "Yes. 30-day notice period. We're confident you'll see results, so we don't lock you into long contracts."
+                answer: "Yes. Month-to-month. No long-term contracts. Stay because it works."
             }
         ]
     },
@@ -51,17 +51,17 @@ const FAQ_DATA = [
             {
                 id: "q7",
                 question: "How does the AI handle complex questions?",
-                answer: "The AI is trained on your clinic's specific services, pricing, and policies. For complex medical questions, it escalates to your team. For booking and admin queries, it handles them autonomously."
+                answer: "It captures the enquiry, qualifies the lead, and routes it to you with full context. It\u2019s not replacing you \u2014 it\u2019s making sure you never miss a potential job."
             },
             {
                 id: "q8",
-                question: "Is my patient data secure?",
-                answer: "Yes. We're GDPR compliant and use bank-level encryption. Patient data never leaves your existing systems - the AI only accesses what's needed for booking and follow-up."
+                question: "Is my customer data secure?",
+                answer: "Yes. Everything is encrypted, GDPR-compliant, and hosted in the UK. Your data stays yours."
             },
             {
                 id: "q9",
                 question: "What happens if the system goes down?",
-                answer: "We have 99.9% uptime SLA. If there's an issue, calls and messages automatically route to your backup number. We monitor 24/7 and you'll be notified immediately."
+                answer: "Our guarantee covers it. If we fail to capture a lead due to our error, your monthly fee for that month is waived."
             }
         ]
     },
@@ -71,12 +71,12 @@ const FAQ_DATA = [
             {
                 id: "q10",
                 question: "How quickly will I see results?",
-                answer: "Most clinics see recovered bookings in the first week. Full ROI typically within 30 days. We provide a live dashboard so you can track every recovered call and booking."
+                answer: "Most businesses see their first recovered lead within the first 7 days. The missed call text-back alone typically pays for itself in week one."
             },
             {
                 id: "q11",
-                question: "What if it doesn't work for my clinic?",
-                answer: "We offer a 60-day results guarantee. If you don't recover at least 5 missed bookings in the first 60 days, we'll refund your setup fee and first month."
+                question: "What if it doesn't work for my business?",
+                answer: "Cancel anytime. No lock-in. But in our experience, if your phone rings and you sometimes miss it \u2014 it works."
             }
         ]
     }

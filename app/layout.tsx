@@ -16,15 +16,15 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Sovereign Health Systems | Elite Clinical Automation & ROI Recovery",
-  description: "Capture missed leads, automate patient bookings, and recover £5k+ in lost monthly revenue. Managed infrastructure for UK private clinics. Fixed installation, not a subscription.",
-  keywords: ["clinic automation", "healthcare AI", "patient acquisition", "UK healthcare systems", "medical practice efficiency"],
-  metadataBase: new URL("https://sovereignhealthsystems.co.uk"),
+  title: "Sovereign Systems | Elite Trade Automation & ROI Recovery",
+  description: "Capture missed leads, automate quotes, and recover £5k+ in lost monthly revenue. Managed infrastructure for home service businesses. Fixed installation, not a subscription.",
+  keywords: ["trade automation", "home service AI", "lead response", "UK trade systems", "business efficiency"],
+  metadataBase: new URL("https://sovereignsystems.co.uk"),
   openGraph: {
-    title: "Sovereign Health Systems | Elite Clinical Automation",
+    title: "Sovereign Systems | Elite Trade Automation",
     description: "Built for Sovereign Growth. Not a subscription.",
-    url: "https://sovereignhealthsystems.co.uk",
-    siteName: "Sovereign Health Systems",
+    url: "https://sovereignsystems.co.uk",
+    siteName: "Sovereign Systems",
     images: [
       {
         url: "/og-image.png", // We should generate this or use a generic one

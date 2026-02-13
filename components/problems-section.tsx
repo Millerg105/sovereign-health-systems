@@ -16,23 +16,23 @@ const PROBLEMS = [
     {
         icon: PhoneOff,
         problem: "The Missed Call Tax",
-        pain: "62% of patients won't leave a message. They just call the next clinic on Google. Every missed call is a missed £150+ appointment.",
+        pain: "62% of customers won't leave a voicemail. They just call the next company on Google. Every missed call while you're under a boiler or on a job is a missed £150+ booking.",
         cost: "£1,200+/mo loss",
         solution: "24/7 AI Receptionist captures every lead instantly."
     },
     {
         icon: Clock,
         problem: "The Speed-to-Lead Gap",
-        pain: "leads go cold after 5 minutes. If you're busy treating patients when an enquiry comes in, that patient is gone by the time you reply.",
+        pain: "Leads go cold after 5 minutes. If you're elbow-deep in a job when an enquiry comes in, that customer is gone by the time you get back to them.",
         cost: "7x lower booking rate",
         solution: "Instant automated SMS/WhatsApp follow-ups."
     },
     {
         icon: Database,
         problem: "The Dormant Database",
-        pain: "You have hundreds of past patients sitting in a spreadsheet. Without a re-activation system, you're leaving thousands on the table.",
+        pain: "You've got hundreds of past customers sitting in a spreadsheet or nowhere at all. Without a reactivation system, you're leaving thousands on the table — annual boiler services, seasonal cleans, repeat maintenance.",
         cost: "£5,000+ hidden revenue",
-        solution: "Automated 'Database Reactivation' campaigns."
+        solution: "Automated 'Customer Reactivation' campaigns."
     }
 ];
 
@@ -62,7 +62,7 @@ export function ProblemsSection() {
                     </h2>
 
                     <p className="text-lg text-white/80 max-w-2xl mx-auto leading-relaxed">
-                        These aren't just admin headaches. They're silent profit killers costing UK clinics an average of <span className="text-white font-semibold">£47,000+ per year</span>.
+                        These aren't just admin headaches. They're silent profit killers costing UK home service businesses an average of <span className="text-white font-semibold">£47,000+ per year</span>.
                     </p>
                 </motion.div>
 
@@ -135,7 +135,7 @@ export function ProblemsSection() {
                             You don't need <span className="text-red-500 drop-shadow-[0_0_15px_rgba(239,68,68,0.3)]">more leads</span>.
                         </p>
                         <p className="text-white/70 text-lg sm:text-xl font-medium leading-[1.4] relative z-10">
-                            You need an <span className="text-white font-extrabold italic underline decoration-red-500 underline-offset-8 decoration-2 drop-shadow-[0_0_10px_rgba(239,68,68,0.2)]">engine</span> that's better at keeping them.
+                            You need a <span className="text-white font-extrabold italic underline decoration-red-500 underline-offset-8 decoration-2 drop-shadow-[0_0_10px_rgba(239,68,68,0.2)]">system</span> that's better at keeping them.
                         </p>
                     </div>
                 </motion.div>

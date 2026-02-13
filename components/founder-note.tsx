@@ -23,7 +23,7 @@ export function FounderNote() {
                                 {!photoMissing ? (
                                     <Image
                                         src="/founder-photo-new.png"
-                                        alt="Miller, founder of Sovereign Health"
+                                        alt="Miller, founder of Sovereign Systems"
                                         fill
                                         sizes="(max-width: 768px) 192px, 256px"
                                         className="object-cover object-center"
@@ -49,33 +49,52 @@ export function FounderNote() {
 
                         <div className="text-center md:text-left flex-1 space-y-8">
                             <div>
-                                <h3 className="text-4xl font-heading font-bold text-white mb-2 tracking-tight">
-                                    A Note From Miller.
+                                <h3 className="text-3xl md:text-4xl font-heading font-bold text-white mb-2 tracking-tight leading-none">
+                                    We're Building Our <br />
+                                    <span className="text-brand-cyan">Case Study Portfolio.</span>
                                 </h3>
-                                <p className="text-sm font-mono text-brand-cyan uppercase tracking-[0.3em]">Building Clinical ROI</p>
+                                <p className="text-sm font-mono text-white/50 uppercase tracking-[0.2em] mb-6">You Get the ROI.</p>
                             </div>
 
-                            <div className="space-y-6 text-xl text-white/80 font-light leading-relaxed italic">
+                            <div className="space-y-6 text-base md:text-lg text-white/80 font-light leading-relaxed">
                                 <p>
-                                    "I built <span className="text-white font-medium not-italic">Sovereign Health Systems</span> because I saw too many world-class clinics losing revenue through simple leaks: missed calls, 2-hour reply times, and dormant patient databases."
+                                    We are a specialised startup agency, founder-led from strategy through delivery. We are building our first case studies with transparent execution and clear performance goals.
                                 </p>
                                 <p>
-                                    "You shouldn't have to hire more admin just to keep up with your own growth. Our systems plug those leaks instantly, so you can focus on the patient in front of you while the technology handles the booking."
+                                    <span className="text-white font-bold">The Deal:</span> You get Sovereign-level systems at Foundation pricing, limited to our <span className="text-brand-cyan font-bold">first 3 founding partners</span>.
                                 </p>
+                                <ul className="space-y-3 pl-2">
+                                    <li className="flex items-start gap-3 text-sm md:text-base">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-brand-cyan mt-2.5 shrink-0" />
+                                        <span><strong className="text-white">You get:</strong> Founder-led implementation, custom build, and priority support.</span>
+                                    </li>
+                                    <li className="flex items-start gap-3 text-sm md:text-base">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-brand-cyan mt-2.5 shrink-0" />
+                                        <span><strong className="text-white">We get:</strong> A video testimonial and case study rights once the agreed KPI milestone is achieved, or after 60 days of active deployment (whichever comes first).</span>
+                                    </li>
+                                </ul>
                             </div>
 
-                            <div className="pt-4 flex flex-col md:flex-row items-center gap-6">
+                            <div className="grid grid-cols-1 gap-4 pt-4 border-t border-white/10 mt-6">
+                                <div>
+                                    <div className="text-xs font-mono text-brand-cyan uppercase tracking-wider mb-1">7-Day Quick Win</div>
+                                    <div className="text-sm text-white/70 font-light">Missed-call capture + inbox + first follow-up live.</div>
+                                </div>
+                                <div>
+                                    <div className="text-xs font-mono text-brand-cyan uppercase tracking-wider mb-1">Founder-Led Implementation</div>
+                                    <div className="text-sm text-white/70 font-light">Senior attention from strategy through launch.</div>
+                                </div>
+                                <div>
+                                    <div className="text-xs font-mono text-brand-cyan uppercase tracking-wider mb-1">No Long-Term Lock-In</div>
+                                    <div className="text-sm text-white/70 font-light">Stay because the system performs, not contracts.</div>
+                                </div>
+                            </div>
+
+                            <div className="pt-4 flex flex-col md:flex-row items-center gap-6 hidden">
                                 <div className="flex flex-col items-center md:items-start">
                                     <span className="text-white font-heading font-bold text-xl">Miller</span>
-                                    <span className="text-xs font-mono text-white/30 uppercase tracking-widest">Founder, Sovereign Health</span>
+                                    <span className="text-xs font-mono text-white/30 uppercase tracking-widest">Sovereign Systems</span>
                                 </div>
-                                <div className="h-px w-12 bg-white/10 hidden md:block" />
-                                <button
-                                    onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
-                                    className="text-sm font-mono text-brand-cyan hover:text-white transition-colors uppercase tracking-[0.2em] border-b border-brand-cyan/20 pb-1"
-                                >
-                                    View Implementation Tiers
-                                </button>
                             </div>
                         </div>
                     </div>

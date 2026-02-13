@@ -126,9 +126,7 @@ export function Footer() {
 
         {/* Bottom Bar with System Status */}
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-center md:flex-row">
-          <p className="text-base text-white/40">
-            © {new Date().getFullYear()} Sovereign Health Systems. All rights reserved.
-          </p>
+          © {new Date().getFullYear()} Sovereign Systems. All rights reserved.
           <nav className="flex flex-wrap justify-center md:justify-start gap-4 text-base items-center">
             <Link href="/privacy" className="transition-colors hover:text-brand-cyan text-white/60">
               Privacy Policy
