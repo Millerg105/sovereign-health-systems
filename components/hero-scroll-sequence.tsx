@@ -69,7 +69,7 @@ export function HeroScrollSequence() {
                             </span>
                         </h1>
                         <p className="text-sm sm:text-lg md:text-xl lg:text-2xl text-white/85 max-w-2xl mb-5 md:mb-10 leading-relaxed">
-                            A dedicated automation partner who builds, monitors, and scales your business systems — without hiring more office staff.
+                            We answer your missed calls, chase your leads, and book your jobs — automatically. So you can stay on site and stop losing work.
                         </p>
                         <div className="flex flex-col items-center gap-6 md:gap-10">
                             <div className="flex flex-col md:flex-row gap-3 md:gap-4 w-full md:w-auto px-2 sm:px-0">

@@ -70,7 +70,7 @@ export function ROICalculator() {
                             Sovereign <span className="text-brand-cyan">ROI Calculator.</span>
                         </h2>
                         <p className="text-base text-white/80 max-w-2xl mx-auto font-light leading-relaxed">
-                            Stop guessing. Use your own numbers to calculate the true cost of missed calls and manual admin.
+                            Plug in your own numbers. See exactly how much you're losing to missed calls and admin every month.
                         </p>
                     </div>
 

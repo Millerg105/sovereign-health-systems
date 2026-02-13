@@ -44,6 +44,7 @@ export const metadata: Metadata = {
 
 import { BackgroundLayer } from "@/components/ui/background-layer";
 import { CookieConsent } from "@/components/ui/cookie-consent";
+import { TopBanner } from "@/components/top-banner";
 
 export default function RootLayout({
   children,
@@ -56,6 +57,7 @@ export default function RootLayout({
         className={`${inter.variable} ${playfair.variable} antialiased selection:bg-brand-cyan/30 font-body`}
       >
         <BackgroundLayer />
+        <TopBanner />
         {children}
         <ChatWidget />
         <CookieConsent />

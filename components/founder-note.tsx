@@ -50,45 +50,50 @@ export function FounderNote() {
                         <div className="text-center md:text-left flex-1 space-y-8">
                             <div>
                                 <h3 className="text-3xl md:text-4xl font-heading font-bold text-white mb-2 tracking-tight leading-none">
-                                    We're Building Our <br />
-                                    <span className="text-brand-cyan">Case Study Portfolio.</span>
+                                    We'll Build Your Website For Free.
                                 </h3>
-                                <p className="text-sm font-mono text-white/50 uppercase tracking-[0.2em] mb-6">You Get the ROI.</p>
+                                <p className="text-xl md:text-2xl font-heading font-bold text-brand-cyan mb-6 tracking-tight leading-tight">AND SET UP YOUR SYSTEMS. YOU JUST TELL US IF IT WORKS.</p>
                             </div>
 
                             <div className="space-y-6 text-base md:text-lg text-white/80 font-light leading-relaxed">
                                 <p>
-                                    We are a specialised startup agency, founder-led from strategy through delivery. We are building our first case studies with transparent execution and clear performance goals.
+                                    We're looking for 3 home service businesses in Greater Manchester to work with completely free. We build your website, set up missed call text-back, automate your follow-ups, and prove it works. No contracts, no fees, no catch.
                                 </p>
                                 <p>
-                                    <span className="text-white font-bold">The Deal:</span> You get Sovereign-level systems at Foundation pricing, limited to our <span className="text-brand-cyan font-bold">first 3 founding partners</span>.
+                                    All we ask for is an honest testimonial once you've seen the results.
                                 </p>
-                                <ul className="space-y-3 pl-2">
-                                    <li className="flex items-start gap-3 text-sm md:text-base">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-brand-cyan mt-2.5 shrink-0" />
-                                        <span><strong className="text-white">You get:</strong> Founder-led implementation, custom build, and priority support.</span>
-                                    </li>
-                                    <li className="flex items-start gap-3 text-sm md:text-base">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-brand-cyan mt-2.5 shrink-0" />
-                                        <span><strong className="text-white">We get:</strong> A video testimonial and case study rights once the agreed KPI milestone is achieved, or after 60 days of active deployment (whichever comes first).</span>
-                                    </li>
-                                </ul>
                             </div>
 
                             <div className="grid grid-cols-1 gap-4 pt-4 border-t border-white/10 mt-6">
                                 <div>
-                                    <div className="text-xs font-mono text-brand-cyan uppercase tracking-wider mb-1">7-Day Quick Win</div>
-                                    <div className="text-sm text-white/70 font-light">Missed-call capture + inbox + first follow-up live.</div>
+                                    <div className="text-xs font-mono text-brand-cyan uppercase tracking-wider mb-1">Live in 7 Days</div>
+                                    <div className="text-sm text-white/70 font-light">Missed-call capture + new website live within a week</div>
                                 </div>
                                 <div>
-                                    <div className="text-xs font-mono text-brand-cyan uppercase tracking-wider mb-1">Founder-Led Implementation</div>
-                                    <div className="text-sm text-white/70 font-light">Senior attention from strategy through launch.</div>
+                                    <div className="text-xs font-mono text-brand-cyan uppercase tracking-wider mb-1">Founder-Led</div>
+                                    <div className="text-sm text-white/70 font-light">No juniors, no outsourcing — founder-led from start to finish</div>
                                 </div>
                                 <div>
-                                    <div className="text-xs font-mono text-brand-cyan uppercase tracking-wider mb-1">No Long-Term Lock-In</div>
-                                    <div className="text-sm text-white/70 font-light">Stay because the system performs, not contracts.</div>
+                                    <div className="text-xs font-mono text-brand-cyan uppercase tracking-wider mb-1">No Lock-In</div>
+                                    <div className="text-sm text-white/70 font-light">Stay because it works, not because of a contract</div>
                                 </div>
                             </div>
+
+                            <div className="flex items-center gap-3 pt-6">
+                                <div className="inline-block px-4 py-2 bg-white/10 border border-white/20 text-white text-[10px] font-black uppercase tracking-wider rounded-full">
+                                    LIMITED: 3 SLOTS
+                                </div>
+                                <div className="inline-block px-4 py-2 bg-brand-cyan/20 border border-brand-cyan/40 text-brand-cyan text-[10px] font-black uppercase tracking-wider rounded-full">
+                                    APPLICATIONS OPEN NOW
+                                </div>
+                            </div>
+
+                            <button
+                                onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}
+                                className="px-8 py-4 bg-gradient-to-r from-blue-600 via-brand-cyan to-blue-400 text-black font-bold text-sm uppercase tracking-wider rounded-2xl shadow-[0_0_30px_rgba(34,211,238,0.3)] hover:shadow-[0_0_40px_rgba(34,211,238,0.5)] transition-all"
+                            >
+                                CLAIM YOUR FREE BUILD
+                            </button>
 
                             <div className="pt-4 flex flex-col md:flex-row items-center gap-6 hidden">
                                 <div className="flex flex-col items-center md:items-start">

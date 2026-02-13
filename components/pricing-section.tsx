@@ -11,15 +11,15 @@ const PRICING_PLANS = [
         name: "FOUNDATION",
         tagline: "The Digital Asset",
         price: "£99",
-        setup: "£500 implementation",
+        implementationNote: "Implementation included for founding partners",
         description: "Your 'Always-On' front desk. Stops enquiry leaks and captures every missed call instantly.",
         features: [
-            "Full Business Website (or Fix)",
-            "Missed Call Text-Back",
-            "5-Minute Lead Guarantee",
-            "Unified Inbox (SMS/Email)",
-            "Founder-Led CRM Setup",
-            "Monthly Performance Audit"
+            "Full Website — Built or Rebuilt For You",
+            "Missed Call Text-Back (Instant)",
+            "Every Lead Answered in Under 5 Minutes",
+            "All Your Messages in One Place",
+            "I Set Everything Up Myself",
+            "Monthly Check-In & Performance Report"
         ],
         highlight: false,
         badge: "Limited: 2 Spots"
@@ -28,16 +28,16 @@ const PRICING_PLANS = [
         name: "ACCELERATOR",
         tagline: "Reactivation Engine",
         price: "£199",
-        setup: "£1,000 implementation",
+        implementationNote: "Implementation included for founding partners",
         description: "The 'Sweet Spot'. Full booking infrastructure plus campaigns to fill your calendar from past customer data.",
         features: [
-            "Everything in Foundation",
-            "Customer Reactivation Campaign",
-            "Full Calendar & Booking Sync",
-            "AI Appointment Reminders",
-            "Web-to-Booking Chat Widget",
-            "Customer Lead Reactivation",
-            "Mobile Business App (PWA)"
+            "Everything in Foundation, Plus:",
+            "Win Back Past Customers Automatically",
+            "Online Booking Synced to Your Calendar",
+            "Automatic Appointment Reminders",
+            "Website Chat That Books Jobs For You",
+            "Automated Follow-Ups on Old Leads",
+            "Mobile App For Your Business"
         ],
         highlight: true,
         badge: "Most Popular"
@@ -46,16 +46,16 @@ const PRICING_PLANS = [
         name: "SOVEREIGN",
         tagline: "Enterprise Systems",
         price: "£349",
-        setup: "£2,500+ custom",
+        implementationNote: "Implementation included for founding partners",
         description: "For multi-van or multi-location operations requiring deep integrations and high-volume architecture.",
         features: [
-            "Multi-Location Sync",
-            "Custom Software Integrations",
-            "Managed Database Migration",
-            "Custom App Store Deployment",
-            "Priority Stakeholder Access",
-            "Scalable Usage Architecture",
-            "UK-Based Project Lead"
+            "Multiple Locations, One System",
+            "Connected to Your Existing Software",
+            "We Move All Your Data Over",
+            "Your Own App in the App Store",
+            "Direct Access to Me, Anytime",
+            "Built to Grow With You",
+            "UK-Based, Always"
         ],
         highlight: false,
         priceNote: "+£97 per extra location"
@@ -76,11 +76,11 @@ export function PricingSection() {
                         Sovereign Infrastructure • High-Yield Assets
                     </motion.div>
                     <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-6 tracking-tight leading-[0.95] md:leading-[0.9]">
-                        Managed Infrastructure, <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-blue">Not A Subscription.</span>
+                        We Build It. We Run It. <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-blue">You Just Pay Monthly.</span>
                     </h2>
                     <p className="text-lg md:text-xl text-white max-w-4xl mx-auto leading-relaxed">
-                        We build assets you own inside your business.
-                        The implementation covers the build; the monthly fee covers the <span className="text-white font-bold">sovereign uptime.</span>
+                        Everything is built inside your business and belongs to you.
+                        The monthly fee keeps it all running, monitored, and <span className="text-white font-bold">improving.</span>
                     </p>
                 </div>
 
@@ -99,19 +99,19 @@ export function PricingSection() {
                             </div>
                             <h3 className="text-3xl font-heading font-bold text-white mb-4">What does the monthly fee actually cover?</h3>
                             <p className="text-base text-white font-light mb-6 leading-relaxed">
-                                Think of it like a retainer for a full digital team — except you're not paying for 4–7 separate tools or freelancers to stitch them together. At Sovereign, your monthly fee keeps your entire business infrastructure running, monitored, and improving 24/7.
+                                Think of it like having a full digital team on call — except you're not paying for 4 or 5 different tools and freelancers to stitch it all together. One monthly fee. Everything handled.
                             </p>
                             <p className="text-base text-white font-light mb-8 leading-relaxed">
-                                While you're out on jobs, Sovereign handles the website uptime, AI responses, booking flows, missed call recovery, compliance updates, and monthly ROI reporting — all under one roof.
+                                While you're out on a job, we keep your website live, answer your calls, book your appointments, chase your leads, and send you a monthly report showing exactly what we've recovered for you.
                             </p>
                             <div className="grid grid-cols-1 gap-3">
                                 {[
-                                    "Your full website hosted, maintained & optimised",
-                                    "AI receptionist answering calls & messages 24/7",
-                                    "Missed call text-back within 60 seconds",
-                                    "Automated job booking & reminders",
-                                    "Monthly Sovereign ROI report with recovered revenue",
-                                    "All integrations & updates handled for you"
+                                    "Your website — hosted, maintained, and kept fast",
+                                    "Calls and messages answered 24/7, even at 2am",
+                                    "Missed a call? We text them back in under 60 seconds",
+                                    "Jobs booked and reminders sent automatically",
+                                    "Monthly report showing exactly how much revenue we've recovered",
+                                    "All updates and tech stuff handled — you don't touch a thing"
                                 ].map((item, i) => (
                                     <div key={i} className="flex items-start gap-3 text-white">
                                         <div className="w-1.5 h-1.5 rounded-full bg-brand-cyan mt-2 shrink-0" />
@@ -152,7 +152,7 @@ export function PricingSection() {
                             <Send className="w-12 h-12" />
                         </div>
                         <span className="text-3xl sm:text-[2.25rem] font-heading font-bold text-white mb-2 text-center">Refer A Business & Earn.</span>
-                        <p className="text-white text-[15px] font-light">Refer a business & earn 20% off your monthly fee, or a direct referral payment.</p>
+                        <p className="text-white text-[15px] font-light">Know another business owner who's missing calls? Refer them and get 20% off your monthly fee — or we'll pay you a referral fee directly.</p>
                     </motion.button>
 
                     {/* Contact Module */}
@@ -207,9 +207,9 @@ function PricingCard({ plan }: { plan: any }) {
                     {plan.priceNote && (
                         <div className="text-brand-cyan text-[14px] mt-3 uppercase tracking-[0.15em] font-bold">{plan.priceNote}</div>
                     )}
-                    <div className="text-white text-[14px] font-mono uppercase tracking-[0.12em] sm:tracking-[0.2em] mt-7 py-3 px-6 sm:px-7 bg-white/10 rounded-xl border border-white/20 text-center font-bold">
-                        {plan.setup}
-                    </div>
+                    {plan.implementationNote && (
+                        <div className="text-white/60 text-xs mt-4 font-light leading-relaxed">{plan.implementationNote}</div>
+                    )}
                 </div>
             </div>
 

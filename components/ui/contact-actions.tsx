@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { MessageSquare, Mail, Copy, Check, Smartphone } from "lucide-react";
-import { CONTACT_EMAIL, CONTACT_PHONE, WHATSAPP_URL, EMAIL_SUBJECTS, EMAIL_BODY_TEMPLATES } from "@/lib/constants";
+import { CONTACT_EMAIL, CONTACT_PHONE, WHATSAPP_URL, EMAIL_SUBJECTS, EMAIL_BODY_TEMPLATES, SMS_TEMPLATE } from "@/lib/constants";
 import { Button } from "./button";
 
 export function ContactActions() {
@@ -21,7 +21,7 @@ export function ContactActions() {
     };
 
     const emailHref = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(EMAIL_SUBJECTS.AUDIT)}&body=${encodeURIComponent(EMAIL_BODY_TEMPLATES.AUDIT)}`;
-    const smsHref = `sms:${CONTACT_PHONE}?body=${encodeURIComponent("Hi Miller, I'd like to book a strategy audit.")}`;
+    const smsHref = `sms:${CONTACT_PHONE}?body=${encodeURIComponent(SMS_TEMPLATE)}`;
 
     return (
         <div className="flex flex-col gap-4 w-full">

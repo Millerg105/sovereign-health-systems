@@ -129,7 +129,7 @@ export function CalendarBooking() {
                 {activeTab === "call" && (
                   <motion.div key="call" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-4">
                     <p className="text-white/70 text-center text-base mb-6">
-                      A quick 15–20 minute call to understand your business&apos;s biggest bottlenecks. No pitch — just clarity.
+                      A quick 15-minute chat to figure out where you&apos;re losing jobs. No sales pitch — just straight answers.
                     </p>
                     <a
                       href={`sms:${CONTACT_PHONE}?body=Hi Miller, I'd like to book a 15-20 minute strategy call.`}

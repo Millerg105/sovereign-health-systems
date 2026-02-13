@@ -82,7 +82,7 @@ export function DigitalAlchemy() {
                     {/* Phase 3: Support Text */}
                     <motion.div style={{ opacity: supportOpacity, y: supportY }} className="mt-8 md:mt-14 max-w-4xl text-center px-4 sm:px-6">
                         <p className="text-lg sm:text-xl md:text-3xl lg:text-4xl text-white/85 font-light leading-[1.3] mb-5 md:mb-6">
-                            AI is answering enquiries, booking jobs, and recovering revenue <span className="text-white font-semibold">while you're on site.</span>
+                            AI is answering enquiries, booking jobs, and recovering revenue <span className="text-white font-semibold">while you're under a boiler or halfway through a clean.</span>
                         </p>
                         <p className="text-base sm:text-lg md:text-2xl text-white/85 leading-relaxed mb-6 md:mb-8">
                             This isn't the future — it's happening now. Your competitors are automating. Your customers are calling someone else. <span className="text-brand-cyan font-medium">Every day you wait costs you thousands.</span>
