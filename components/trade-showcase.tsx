@@ -5,27 +5,27 @@ import { CardStack, CardStackItem } from "@/components/ui/card-stack";
 const items: CardStackItem[] = [
     {
         id: 1,
-        title: "Plumbing & HVAC",
+        title: "Plumbing",
         description: "Emergency callouts, boiler installs, and heating repairs — automated from first call to five-star review.",
-        imageSrc: "/showcase/physio.jpg", // Placeholder - reusing existing image for now
+        imageSrc: "/showcase/plumbing.jpg",
     },
     {
         id: 2,
-        title: "Commercial Cleaning",
+        title: "Cleaning",
         description: "Contract cleaning, office maintenance, and deep cleans — scheduled, tracked, and scaled with zero admin overhead.",
-        imageSrc: "/showcase/chiro.webp", // Placeholder
+        imageSrc: "/showcase/cleaning.jpg",
     },
     {
         id: 3,
         title: "Pest Control",
         description: "High-urgency enquiries captured instantly. Every missed call is a job that goes to someone else.",
-        imageSrc: "/showcase/sports-massage.jpg", // Placeholder
+        imageSrc: "/showcase/pest-control.jpg",
     },
     {
         id: 4,
-        title: "Landscaping & Tree Surgery",
+        title: "HVAC Engineers",
         description: "Seasonal demand, repeat maintenance, and quote follow-ups — automated so nothing falls through the cracks.",
-        imageSrc: "/showcase/thai-massage.jpg", // Placeholder
+        imageSrc: "/showcase/hvac-engineers.jpg",
     },
 ];
 

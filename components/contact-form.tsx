@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 import { Send, Loader2, CheckCircle2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 interface ContactFormProps {
     source?: string;
@@ -55,7 +55,7 @@ export function ContactForm({ source = "General", showRevenueFields = false, ini
                 setErrorMsg(data.message || "Something went wrong.");
                 setStatus("error");
             }
-        } catch (err) {
+        } catch {
             setErrorMsg("Could not connect to the server.");
             setStatus("error");
         }
@@ -142,10 +142,12 @@ export function ContactForm({ source = "General", showRevenueFields = false, ini
                     </div>
                 )}
 
-                <button
+                <Button
                     disabled={status === "loading" || status === "success"}
                     type="submit"
-                    className="w-full py-5 rounded-xl bg-brand-cyan text-black font-bold text-lg hover:bg-white transition-all flex items-center justify-center gap-3 shadow-[0_10px_30px_-10px_rgba(34,211,238,0.4)] disabled:opacity-70 disabled:grayscale"
+                    variant="primary"
+                    size="lg"
+                    className="w-full disabled:grayscale"
                 >
                     {status === "loading" ? (
                         <Loader2 className="w-6 h-6 animate-spin" />
@@ -160,7 +162,7 @@ export function ContactForm({ source = "General", showRevenueFields = false, ini
                             Book Your Free Strategy Audit
                         </>
                     )}
-                </button>
+                </Button>
 
                 {status === "error" && (
                     <p className="text-red-400 text-sm text-center mt-2 animate-pulse">

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { TrendingUp, AlertTriangle, CheckCircle2, ArrowRight, HelpCircle, Info, Clock, PoundSterling, PhoneMissed } from "lucide-react";
 import { ContactForm } from "./contact-form";
+import { Button } from "@/components/ui/button";
 import {
     Tooltip,
     TooltipContent,
@@ -77,23 +78,23 @@ export function ROICalculator() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
                         {/* Inputs Side */}
                         <div className="space-y-6">
-                            <div className="p-8 rounded-[2rem] bg-black/40 border border-white/10 backdrop-blur-xl space-y-8">
-                                <div className="space-y-1 mb-4 border-b border-white/5 pb-4">
+                            <div className="p-6 md:p-8 rounded-[2rem] bg-black/40 border border-white/10 backdrop-blur-xl space-y-6 md:space-y-8">
+                                <div className="space-y-1 mb-2 md:mb-4 border-b border-white/5 pb-3 md:pb-4">
                                     <h4 className="text-sm font-bold text-white uppercase tracking-wider">Step 1: Your Time & Rates</h4>
                                     <p className="text-xs text-white/40">These are the numbers you know off the top of your head.</p>
                                 </div>
 
                                 {/* Job Value Slider */}
                                 <div>
-                                    <div className="flex justify-between mb-4 items-end">
+                                    <div className="flex justify-between mb-3 md:mb-4 items-end">
                                         <div className="space-y-1">
                                             <div className="flex items-center gap-2">
                                                 <PoundSterling className="w-4 h-4 text-brand-cyan" />
-                                                <label className="text-base font-medium text-white">Average Job Value</label>
+                                                <label className="text-sm md:text-base font-medium text-white">Average Job Value</label>
                                             </div>
                                             <p className="text-[10px] text-white/40">What's your typical service or callout fee?</p>
                                         </div>
-                                        <span className="text-brand-cyan font-mono text-2xl font-bold tabular-nums tracking-tighter">£{sessionFee}</span>
+                                        <span className="text-brand-cyan font-mono text-xl md:text-2xl font-bold tabular-nums tracking-tighter">£{sessionFee}</span>
                                     </div>
                                     <input
                                         type="range"
@@ -102,21 +103,22 @@ export function ROICalculator() {
                                         step="50"
                                         value={sessionFee}
                                         onChange={(e) => setSessionFee(parseInt(e.target.value))}
-                                        className="w-full h-1.5 bg-white/5 rounded-lg appearance-none cursor-pointer accent-brand-cyan transition-all hover:bg-white/10"
+                                        className="w-full h-2 md:h-1.5 bg-white/5 rounded-lg appearance-none cursor-pointer accent-brand-cyan transition-all hover:bg-white/10 touch-manipulation"
+                                        style={{ minHeight: '44px', marginTop: '-16px', marginBottom: '-16px', padding: '16px 0' }}
                                     />
                                 </div>
 
                                 {/* Admin Hours Slider */}
                                 <div>
-                                    <div className="flex justify-between mb-4 items-end">
+                                    <div className="flex justify-between mb-3 md:mb-4 items-end">
                                         <div className="space-y-1">
                                             <div className="flex items-center gap-2">
                                                 <Clock className="w-4 h-4 text-brand-cyan" />
-                                                <label className="text-base font-medium text-white">Weekly Admin Hours</label>
+                                                <label className="text-sm md:text-base font-medium text-white">Weekly Admin Hours</label>
                                             </div>
                                             <p className="text-[10px] text-white/40">Time spent quoting, chasing payments, answering calls.</p>
                                         </div>
-                                        <span className="text-brand-cyan font-mono text-2xl font-bold tabular-nums tracking-tighter">{adminHours}h</span>
+                                        <span className="text-brand-cyan font-mono text-xl md:text-2xl font-bold tabular-nums tracking-tighter">{adminHours}h</span>
                                     </div>
                                     <input
                                         type="range"
@@ -125,7 +127,8 @@ export function ROICalculator() {
                                         step="1"
                                         value={adminHours}
                                         onChange={(e) => setAdminHours(parseInt(e.target.value))}
-                                        className="w-full h-1.5 bg-white/5 rounded-lg appearance-none cursor-pointer accent-brand-cyan transition-all hover:bg-white/10"
+                                        className="w-full h-2 md:h-1.5 bg-white/5 rounded-lg appearance-none cursor-pointer accent-brand-cyan transition-all hover:bg-white/10 touch-manipulation"
+                                        style={{ minHeight: '44px', marginTop: '-16px', marginBottom: '-16px', padding: '16px 0' }}
                                     />
                                 </div>
 
@@ -136,15 +139,15 @@ export function ROICalculator() {
 
                                 {/* Missed Calls Slider */}
                                 <div>
-                                    <div className="flex justify-between mb-4 items-end">
+                                    <div className="flex justify-between mb-3 md:mb-4 items-end">
                                         <div className="space-y-1">
                                             <div className="flex items-center gap-2">
                                                 <PhoneMissed className="w-4 h-4 text-red-400" />
-                                                <label className="text-base font-medium text-red-400">Weekly Missed Enquiries</label>
+                                                <label className="text-sm md:text-base font-medium text-red-400">Weekly Missed Enquiries</label>
                                             </div>
                                             <p className="text-[10px] text-white/40">Number of calls that go to voicemail while you're on a job.</p>
                                         </div>
-                                        <span className="text-red-400 font-mono text-2xl font-bold tabular-nums tracking-tighter">{missedCalls}</span>
+                                        <span className="text-red-400 font-mono text-xl md:text-2xl font-bold tabular-nums tracking-tighter">{missedCalls}</span>
                                     </div>
                                     <input
                                         type="range"
@@ -153,7 +156,8 @@ export function ROICalculator() {
                                         step="1"
                                         value={missedCalls}
                                         onChange={(e) => setMissedCalls(parseInt(e.target.value))}
-                                        className="w-full h-1.5 bg-red-500/10 rounded-lg appearance-none cursor-pointer accent-red-400 transition-all hover:bg-red-500/20"
+                                        className="w-full h-2 md:h-1.5 bg-red-500/10 rounded-lg appearance-none cursor-pointer accent-red-400 transition-all hover:bg-red-500/20 touch-manipulation"
+                                        style={{ minHeight: '44px', marginTop: '-16px', marginBottom: '-16px', padding: '16px 0' }}
                                     />
                                     <div className="flex justify-between mt-3 text-[9px] text-white/20 font-mono uppercase tracking-[0.2em]">
                                         <span>1 Call/wk</span>
@@ -245,14 +249,16 @@ export function ROICalculator() {
                                             />
                                         </motion.div>
                                     ) : (
-                                        <button
+                                        <Button
                                             key="button"
                                             onClick={() => setShowForm(true)}
-                                            className="w-full py-4 rounded-xl bg-brand-cyan text-black font-bold text-base hover:bg-white transition-all flex items-center justify-center gap-2 group"
+                                            variant="primary"
+                                            size="lg"
+                                            className="w-full"
+                                            rightIcon={<ArrowRight className="w-5 h-5" />}
                                         >
                                             Stop The Bleed Now
-                                            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                                        </button>
+                                        </Button>
                                     )}
                                 </AnimatePresence>
                             </div>

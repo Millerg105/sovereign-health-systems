@@ -1,12 +1,31 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { Users } from "lucide-react";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { CONTACT_PHONE, SMS_TEMPLATE } from "@/lib/constants";
 
 export function FounderNote() {
     const [photoMissing, setPhotoMissing] = useState(false);
+
+    const claimBuildBySms = () => {
+        const smsHref = `sms:${CONTACT_PHONE}?body=${encodeURIComponent(SMS_TEMPLATE)}`;
+        const fallbackCopy = `${SMS_TEMPLATE}\n\nSend to: ${CONTACT_PHONE}`;
+        const isMobileDevice = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
+
+        window.location.href = smsHref;
+
+        if (!isMobileDevice) {
+            window.setTimeout(() => {
+                const wantsPrompt = window.confirm("If your messaging app did not open, copy the SMS details now?");
+                if (!wantsPrompt) return;
+
+                navigator.clipboard.writeText(fallbackCopy).catch(() => null);
+                window.prompt("Send this text to +447405179973", fallbackCopy);
+            }, 250);
+        }
+    };
 
     return (
         <section className="py-24 bg-transparent relative overflow-hidden">
@@ -88,12 +107,14 @@ export function FounderNote() {
                                 </div>
                             </div>
 
-                            <button
-                                onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}
-                                className="px-8 py-4 bg-gradient-to-r from-blue-600 via-brand-cyan to-blue-400 text-black font-bold text-sm uppercase tracking-wider rounded-2xl shadow-[0_0_30px_rgba(34,211,238,0.3)] hover:shadow-[0_0_40px_rgba(34,211,238,0.5)] transition-all"
+                            <Button
+                                onClick={claimBuildBySms}
+                                variant="primary"
+                                size="lg"
+                                className="w-full md:w-auto"
                             >
                                 CLAIM YOUR FREE BUILD
-                            </button>
+                            </Button>
 
                             <div className="pt-4 flex flex-col md:flex-row items-center gap-6 hidden">
                                 <div className="flex flex-col items-center md:items-start">

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { DropdownMenu } from "@/components/ui/dropdown-menu";
-import { Menu, X } from "lucide-react";
+import { KineticMenu } from "@/components/ui/kinetic-menu";
 import {
     AlertTriangle,
     CalendarCheck,
@@ -19,7 +19,7 @@ import {
     TrendingDown,
 } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image"; // Optimization
+import Image from "next/image";
 import { CONTACT_EMAIL, CONTACT_PHONE, WHATSAPP_URL } from "@/lib/constants";
 
 export function Navbar() {
@@ -77,7 +77,7 @@ export function Navbar() {
         >
             <div className="container mx-auto px-4 sm:px-6 flex items-center justify-between">
                 {/* Logo & Brand - with backdrop blur */}
-                <Link href="/" className="group flex items-center gap-3 sm:gap-5 z-50 min-w-0">
+                <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="group flex items-center gap-3 sm:gap-5 z-50 min-w-0 cursor-pointer">
                     <div className="relative w-11 h-11 sm:w-14 sm:h-14 flex items-center justify-center shrink-0">
                         <Image
                             src="/logo.png"
@@ -92,104 +92,26 @@ export function Navbar() {
                         <span className="block sm:hidden text-[0.82rem] text-white transition-colors group-hover:text-brand-cyan">Sovereign Systems</span>
                         <span className="hidden sm:block text-2xl text-white transition-colors group-hover:text-brand-cyan whitespace-nowrap">Sovereign Systems</span>
                     </div>
-                </Link>
+                </button>
 
                 {/* Desktop Menu */}
-                <div className="hidden md:flex items-center gap-5">
-                    <DropdownMenu options={valueOptions} triggerClassName="h-12 px-6 text-lg">Quick Links</DropdownMenu>
-                    <DropdownMenu options={painPointOptions} triggerClassName="h-12 px-6 text-lg">Pain Points</DropdownMenu>
-                    <DropdownMenu options={pricingOptions} triggerClassName="h-12 px-6 text-lg">Pricing Options</DropdownMenu>
+                <div className="hidden lg:flex items-center gap-2 xl:gap-5">
+                    <DropdownMenu options={valueOptions} triggerClassName="h-10 xl:h-12 px-3 xl:px-6 text-sm xl:text-base">Quick Links</DropdownMenu>
+                    <DropdownMenu options={painPointOptions} triggerClassName="h-10 xl:h-12 px-3 xl:px-6 text-sm xl:text-base">Pain Points</DropdownMenu>
+                    <DropdownMenu options={pricingOptions} triggerClassName="h-10 xl:h-12 px-3 xl:px-6 text-sm xl:text-base">Pricing</DropdownMenu>
                     <DropdownMenu
                         options={bookingOptions}
-                        triggerClassName="h-12 px-7 text-lg bg-gradient-to-r from-blue-600 via-brand-cyan to-blue-400 !text-black hover:!text-black hover:brightness-110 shadow-[0_0_20px_rgba(34,211,238,0.35)] border-0"
+                        triggerVariant="primary"
+                        triggerClassName="h-10 xl:h-12 px-4 xl:px-7 text-sm xl:text-base"
                     >
-                        Book Your Free Strategy Audit
+                        Book Strategy Audit
                     </DropdownMenu>
                 </div>
 
-                {/* Mobile Toggle */}
-                <button
-                    className={`md:hidden z-50 p-2.5 rounded-full transition-all ${textColorClass} ${isScrolled ? "backdrop-blur-md bg-black/20 border border-white/10" : "bg-transparent"}`}
-                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                >
-                    {mobileMenuOpen ? <X /> : <Menu />}
-                </button>
-
-                {/* Mobile Menu Overlay */}
-                {mobileMenuOpen && (
-                    <div className="fixed inset-0 h-[100dvh] bg-[#020408]/98 backdrop-blur-2xl flex flex-col items-center justify-start pt-32 pb-10 px-6 gap-6 md:hidden text-white z-40 overflow-y-auto">
-                        <div className="w-full max-w-sm space-y-4">
-                            <DropdownMenu
-                                options={valueOptions.map((option) => ({
-                                    ...option,
-                                    onClick: () => {
-                                        option.onClick();
-                                        setMobileMenuOpen(false);
-                                    },
-                                }))}
-                                triggerClassName="w-full max-w-sm justify-between text-lg font-medium"
-                                menuClassName="left-1/2 right-auto -translate-x-1/2 w-[min(20rem,calc(100vw-2rem))]"
-                            >
-                                Quick Links
-                            </DropdownMenu>
-
-                            <DropdownMenu
-                                options={painPointOptions.map((option) => ({
-                                    ...option,
-                                    onClick: () => {
-                                        option.onClick();
-                                        setMobileMenuOpen(false);
-                                    },
-                                }))}
-                                triggerClassName="w-full max-w-sm justify-between text-lg font-medium"
-                                menuClassName="left-1/2 right-auto -translate-x-1/2 w-[min(20rem,calc(100vw-2rem))]"
-                            >
-                                Pain Points
-                            </DropdownMenu>
-
-                            <DropdownMenu
-                                options={pricingOptions.map((option) => ({
-                                    ...option,
-                                    onClick: () => {
-                                        option.onClick();
-                                        setMobileMenuOpen(false);
-                                    },
-                                }))}
-                                triggerClassName="w-full max-w-sm justify-between text-lg font-medium"
-                                menuClassName="left-1/2 right-auto -translate-x-1/2 w-[min(20rem,calc(100vw-2rem))]"
-                            >
-                                Pricing Options
-                            </DropdownMenu>
-
-                            <Link
-                                href="#solution"
-                                className="text-2xl font-heading font-bold text-white hover:text-brand-cyan transition-colors"
-                                onClick={() => setMobileMenuOpen(false)}
-                            >
-                                Solution
-                            </Link>
-                            <Link
-                                href="#pricing"
-                                className="text-2xl font-heading font-bold text-white hover:text-brand-cyan transition-colors"
-                                onClick={() => setMobileMenuOpen(false)}
-                            >
-                                Pricing
-                            </Link>
-                            <DropdownMenu
-                                options={bookingOptions.map((option) => ({
-                                    ...option,
-                                    onClick: () => {
-                                        option.onClick();
-                                        setMobileMenuOpen(false);
-                                    },
-                                }))}
-                                triggerClassName="w-full h-16 px-8 text-lg font-bold bg-gradient-to-r from-blue-600 via-brand-cyan to-blue-400 !text-black rounded-2xl shadow-[0_0_30px_rgba(34,211,238,0.3)] border-0"
-                            >
-                                Book Your Strategy Audit
-                            </DropdownMenu>
-                        </div>
-                    </div>
-                )}
+                {/* Hamburger Menu (Sterling Gate Kinetic) - Visible on all screens, primary on mobile */}
+                <div className="ml-4">
+                    <KineticMenu />
+                </div>
             </div>
         </motion.nav>
     );

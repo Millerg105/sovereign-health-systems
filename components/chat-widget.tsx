@@ -144,7 +144,7 @@ export function ChatWidget() {
                                     </div>
                                 </div>
                             </div>
-                            <button onClick={() => setIsOpen(false)} className="text-white/30 hover:text-white transition-colors p-1">
+                            <button onClick={() => setIsOpen(false)} className="p-1 text-white/30 transition-colors hover:text-white active:scale-[0.98]">
                                 <X className="w-4 h-4" />
                             </button>
                         </div>
@@ -168,7 +168,7 @@ export function ChatWidget() {
                                                 <button
                                                     key={faq.id}
                                                     onClick={() => handleFAQClick(faq.id)}
-                                                    className="text-xs px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-white/70 hover:bg-brand-cyan/10 hover:border-brand-cyan/30 hover:text-brand-cyan transition-all text-left"
+                                                    className="btn-premium-secondary px-3 py-1.5 text-left text-xs"
                                                 >
                                                     {faq.question}
                                                 </button>
@@ -205,14 +205,14 @@ export function ChatWidget() {
                                 <button
                                     onClick={() => sendMessage(inputValue)}
                                     disabled={!inputValue.trim() || isTyping}
-                                    className="text-brand-cyan disabled:text-white/20 hover:text-white transition-colors"
+                                    className="text-brand-cyan transition-colors hover:text-white disabled:text-white/20 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98]"
                                 >
                                     <Send className="w-4 h-4" />
                                 </button>
                             </div>
                             <button
                                 onClick={() => { document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' }); setIsOpen(false); }}
-                                className="w-full py-2.5 rounded-xl bg-gradient-to-r from-blue-600 via-brand-cyan to-blue-400 text-black font-bold text-sm hover:brightness-110 transition-all"
+                                className="btn-premium-primary w-full px-4 py-2.5 text-sm font-semibold"
                             >
                                 Book Your Free Strategy Audit
                             </button>
@@ -225,8 +225,8 @@ export function ChatWidget() {
             <motion.button
                 onClick={() => setIsOpen(!isOpen)}
                 whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] sm:bottom-6 right-3 sm:right-6 w-14 h-14 bg-gradient-to-br from-brand-cyan to-brand-blue text-black rounded-full shadow-[0_0_20px_rgba(34,211,238,0.4)] flex items-center justify-center z-[100] transition-all"
+                whileTap={{ scale: 0.98 }}
+                className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] sm:bottom-6 right-3 sm:right-6 w-14 h-14 border border-brand-cyan/40 bg-gradient-to-br from-[#14c6c4] via-brand-cyan to-[#35e6d1] text-[#031316] rounded-full shadow-[0_0_22px_rgba(34,211,238,0.35)] flex items-center justify-center z-[100] transition-all"
             >
                 <AnimatePresence mode="wait">
                     {isOpen

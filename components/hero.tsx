@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import FlowFieldBackground from "@/components/ui/flow-field-background";
@@ -72,18 +72,18 @@ export function Hero() {
                     <div className="flex flex-col md:flex-row items-center justify-center gap-4">
                         <Button
                             size="lg"
-                            variant="glow"
+                            variant="primary"
                             onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}
                             rightIcon={<ArrowRight className="w-5 h-5" />}
-                            className="h-16 px-10 text-lg font-bold rounded-2xl"
+                            className="w-full md:w-auto"
                         >
                             Book Your Free Strategy Audit
                         </Button>
                         <Button
                             size="lg"
-                            variant="outline"
+                            variant="secondary"
                             onClick={() => document.getElementById('roi')?.scrollIntoView({ behavior: 'smooth' })}
-                            className="h-16 px-10 text-lg font-bold rounded-2xl border-white/10 bg-white/5 hover:bg-white/10"
+                            className="w-full md:w-auto"
                         >
                             Analyze Your ROI
                         </Button>

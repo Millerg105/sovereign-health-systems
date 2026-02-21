@@ -14,6 +14,7 @@ import { CalendarBooking } from "@/components/calendar-booking";
 import { Footer } from "@/components/footer";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { Preloader } from "@/components/preloader";
+import { PromoBanner } from "@/components/top-banner";
 
 import { ROICalculator } from "@/components/roi-calculator";
 import { FounderNote } from "@/components/founder-note";
@@ -43,6 +44,10 @@ export default function Home() {
       <div className="relative z-10">
         <ScrollProgress />
         <Navbar />
+
+        <div className="w-full mt-24 md:mt-32">
+          <PromoBanner />
+        </div>
 
         <HeroScrollSequence />
         <DigitalAlchemy />

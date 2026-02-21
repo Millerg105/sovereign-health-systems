@@ -76,8 +76,8 @@ export function Preloader({ onComplete }: PreloaderProps) {
                     transition={{ duration: 0.4 }}
                     className="flex justify-between w-full text-[10px] md:text-xs font-mono text-white/40 mb-3 tracking-widest uppercase"
                 >
-                    <span>Sovereign Health Systems</span>
-                    <span>v2.0 — Initialising</span>
+                    <span>Sovereign Systems</span>
+                    <span>Trade OS v2.1 - Initialising</span>
                 </motion.div>
 
                 {/* LOADING label */}
@@ -88,6 +88,15 @@ export function Preloader({ onComplete }: PreloaderProps) {
                     className="text-sm md:text-base font-mono font-semibold tracking-[0.4em] uppercase text-blue-400 mb-1"
                 >
                     Loading
+                </motion.p>
+
+                <motion.p
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.35, delay: 0.18 }}
+                    className="text-[10px] md:text-xs font-mono uppercase tracking-[0.2em] text-white/45 mb-3"
+                >
+                    Home Service Growth Infrastructure
                 </motion.p>
 
                 {/* Big percentage number */}
@@ -111,7 +120,7 @@ export function Preloader({ onComplete }: PreloaderProps) {
 
                 {/* Bottom metadata */}
                 <div className="w-full flex justify-between mt-4 text-[10px] text-white/20 font-mono uppercase tracking-wider">
-                    <span>System Ready</span>
+                    <span>Lead Capture Engine</span>
                     <span>{count}% complete</span>
                 </div>
 
@@ -122,7 +131,7 @@ export function Preloader({ onComplete }: PreloaderProps) {
                         transition={{ duration: 0.35, ease: "easeOut" }}
                         className="mt-6 text-sm md:text-base text-blue-300 font-mono uppercase tracking-[0.12em]"
                     >
-                        Successfully activated. Welcome - control panel connected.
+                        Activation complete. Call capture and booking workflows live.
                     </motion.p>
                 )}
             </div>

@@ -3,32 +3,34 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Check, Mail, MessageSquare, Send } from "lucide-react";
+import { Check, Send } from "lucide-react";
 import { ContactActions } from "./ui/contact-actions";
 
 const PRICING_PLANS = [
     {
         name: "FOUNDATION",
-        tagline: "The Digital Asset",
+        tagline: "Never Miss A Job",
         price: "£99",
         implementationNote: "Implementation included for founding partners",
+        implementationFee: "(normally £499)",
         description: "Your 'Always-On' front desk. Stops enquiry leaks and captures every missed call instantly.",
         features: [
             "Full Website — Built or Rebuilt For You",
             "Missed Call Text-Back (Instant)",
             "Every Lead Answered in Under 5 Minutes",
-            "All Your Messages in One Place",
-            "I Set Everything Up Myself",
+            "Your Own Dashboard — Leads & Missed Calls",
+            "Done-For-You Setup — We Handle Everything",
             "Monthly Check-In & Performance Report"
         ],
         highlight: false,
-        badge: "Limited: 2 Spots"
+        footerText: "Built for Stability"
     },
     {
         name: "ACCELERATOR",
-        tagline: "Reactivation Engine",
+        tagline: "The Growth Package",
         price: "£199",
         implementationNote: "Implementation included for founding partners",
+        implementationFee: "(normally £1,499)",
         description: "The 'Sweet Spot'. Full booking infrastructure plus campaigns to fill your calendar from past customer data.",
         features: [
             "Everything in Foundation, Plus:",
@@ -37,28 +39,31 @@ const PRICING_PLANS = [
             "Automatic Appointment Reminders",
             "Website Chat That Books Jobs For You",
             "Automated Follow-Ups on Old Leads",
-            "Mobile App For Your Business"
+            "Full Dashboard — Jobs, Leads & Performance"
         ],
         highlight: true,
-        badge: "Most Popular"
+        badge: "Most Popular",
+        footerText: "Built for Growth"
     },
     {
         name: "SOVEREIGN",
-        tagline: "Enterprise Systems",
+        tagline: "Command Centre",
         price: "£349",
         implementationNote: "Implementation included for founding partners",
+        implementationFee: "(normally £2,499)",
         description: "For multi-van or multi-location operations requiring deep integrations and high-volume architecture.",
         features: [
-            "Multiple Locations, One System",
+            "Everything in Accelerator, Plus:",
+            "Multiple Locations, One Dashboard",
             "Connected to Your Existing Software",
             "We Move All Your Data Over",
             "Your Own App in the App Store",
             "Direct Access to Me, Anytime",
-            "Built to Grow With You",
-            "UK-Based, Always"
+            "Built to Grow With You"
         ],
         highlight: false,
-        priceNote: "+£97 per extra location"
+        priceNote: "+£97 per extra location",
+        footerText: "Built for Scale"
     }
 ];
 
@@ -67,32 +72,32 @@ export function PricingSection() {
         <section id="pricing" className="relative py-28 md:py-40 bg-transparent overflow-hidden">
             <div className="container px-4 mx-auto relative z-10">
 
-                <div className="text-center mb-14 md:mb-20">
+                <div className="text-center mb-10 md:mb-14 lg:mb-20">
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        className="inline-block px-5 py-2.5 bg-white/5 border border-white/10 rounded-full text-white text-base font-mono uppercase tracking-widest mb-8 backdrop-blur-sm"
+                        className="inline-block px-4 md:px-5 py-2 md:py-2.5 bg-white/5 border border-white/10 rounded-full text-white text-[clamp(0.75rem,2.5vw,0.875rem)] md:text-base font-mono uppercase tracking-widest mb-6 md:mb-8 backdrop-blur-sm"
                     >
                         Sovereign Infrastructure • High-Yield Assets
                     </motion.div>
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-6 tracking-tight leading-[0.95] md:leading-[0.9]">
+                    <h2 className="text-[clamp(1.75rem,7vw,2.5rem)] sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-4 md:mb-6 tracking-tight leading-[0.95] md:leading-[0.9] px-4">
                         We Build It. We Run It. <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-blue">You Just Pay Monthly.</span>
                     </h2>
-                    <p className="text-lg md:text-xl text-white max-w-4xl mx-auto leading-relaxed">
+                    <p className="text-[clamp(0.9375rem,3.5vw,1.125rem)] md:text-lg lg:text-xl text-white max-w-4xl mx-auto leading-relaxed px-6">
                         Everything is built inside your business and belongs to you.
                         The monthly fee keeps it all running, monitored, and <span className="text-white font-bold">improving.</span>
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-[1400px] mx-auto mb-14 md:mb-20">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-[1400px] mx-auto mb-12 md:mb-14 lg:mb-20 px-4 md:px-0">
                     {PRICING_PLANS.map((plan, index) => (
                         <PricingCard key={index} plan={plan} />
                     ))}
                 </div>
 
                 {/* Monthly Fee Justification */}
-                <div className="max-w-5xl mx-auto mb-28">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-start p-6 sm:p-8 md:p-14 rounded-[2rem] md:rounded-[3rem] bg-black/50 border border-white/10 backdrop-blur-xl">
+                <div className="max-w-5xl mx-auto mb-20 md:mb-28">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-10 items-start p-6 sm:p-8 md:p-10 lg:p-14 rounded-[2rem] md:rounded-[3rem] bg-black/50 border border-white/10 backdrop-blur-xl mx-4 md:mx-0">
                         <div>
                             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white text-xs font-mono uppercase tracking-widest mb-5">
                                 Sovereign Monthly License
@@ -146,7 +151,7 @@ export function PricingSection() {
                     <motion.button
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="flex flex-col items-center justify-center p-6 sm:p-8 md:p-9 rounded-[2rem] md:rounded-[2.5rem] bg-white/[0.03] border border-white/10 hover:border-brand-cyan/40 hover:bg-brand-cyan/5 transition-all group relative overflow-hidden h-full"
+                        className="flex flex-col items-center justify-center p-6 sm:p-8 md:p-9 rounded-[2rem] md:rounded-[2.5rem] bg-black/25 border border-brand-cyan/30 hover:border-brand-cyan/70 hover:bg-brand-cyan/[0.08] transition-all group relative overflow-hidden h-full"
                     >
                         <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                             <Send className="w-12 h-12" />
@@ -194,14 +199,14 @@ function PricingCard({ plan }: { plan: any }) {
                 <h3 className={`text-[10px] font-mono uppercase tracking-[0.22em] sm:tracking-[0.4em] mb-5 ${plan.highlight ? "text-brand-cyan" : "text-white"}`}>
                     {plan.name}
                 </h3>
-                <div className="text-[1.65rem] lg:text-[2rem] font-heading font-bold text-white mb-5 tracking-tight leading-none">{plan.tagline}</div>
-                <div className="text-white text-sm leading-relaxed min-h-[4rem] font-medium">{plan.description}</div>
+                <div className="text-[clamp(1.5rem,5vw,2rem)] lg:text-[2rem] font-heading font-bold text-white mb-5 tracking-tight leading-none">{plan.tagline}</div>
+                <div className="text-white text-[clamp(0.8125rem,3vw,0.875rem)] leading-relaxed min-h-[4rem] font-medium">{plan.description}</div>
             </div>
 
             <div className="mb-8 md:mb-9 p-6 sm:p-8 md:p-9 bg-black/40 rounded-[1.5rem] md:rounded-[2rem] border border-white/5 text-center group-hover:border-brand-cyan/10 transition-colors">
                 <div className="flex flex-col items-center justify-center">
                     <div className="flex items-baseline gap-2">
-                        <span className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tighter tabular-nums">{plan.price}</span>
+                        <span className="text-[clamp(2.25rem,7vw,3rem)] sm:text-5xl lg:text-6xl font-bold text-white tracking-tighter tabular-nums">{plan.price}</span>
                         <span className="text-white text-lg font-light">/mo</span>
                     </div>
                     {plan.priceNote && (
@@ -209,6 +214,9 @@ function PricingCard({ plan }: { plan: any }) {
                     )}
                     {plan.implementationNote && (
                         <div className="text-white/60 text-xs mt-4 font-light leading-relaxed">{plan.implementationNote}</div>
+                    )}
+                    {plan.implementationFee && (
+                        <div className="text-brand-cyan text-xs mt-2 font-bold tracking-wide">{plan.implementationFee}</div>
                     )}
                 </div>
             </div>
@@ -226,16 +234,16 @@ function PricingCard({ plan }: { plan: any }) {
 
             <Button
                 onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}
-                variant={plan.highlight ? "glow" : "outline"}
-                className={`w-full py-7 text-sm uppercase tracking-[0.12em] sm:tracking-[0.2em] transition-all duration-300 rounded-2xl mb-6 font-bold ${!plan.highlight ? "bg-white/5 border-white/10 hover:bg-white/10" : ""
-                    }`}
+                variant={plan.highlight ? "primary" : "secondary"}
+                size="lg"
+                className="w-full mb-6"
             >
                 Secure Allocation
             </Button>
 
             <div className="text-center">
                 <p className="text-white text-[10px] font-mono uppercase tracking-[0.1em]">
-                    Built for <span className="text-white font-bold">Sovereign Growth</span>
+                    {plan.footerText || "Built for Sovereign Growth"}
                 </p>
             </div>
         </motion.div>

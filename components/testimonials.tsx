@@ -100,7 +100,7 @@ function Testimonials() {
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                        <div className="grid grid-cols-1 gap-3">
                             {TRUST_INDICATORS.map((item) => (
                                 <div
                                     key={item.title}
@@ -113,8 +113,9 @@ function Testimonials() {
                         </div>
 
                         <Button
-                            variant="glow"
-                            className="w-full max-w-sm rounded-full px-7 py-6 text-sm font-bold uppercase tracking-[0.14em]"
+                            variant="primary"
+                            size="lg"
+                            className="w-full max-w-sm"
                             onClick={() => document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" })}
                         >
                             Apply for Founder Pricing

@@ -1,8 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { MessageSquare, Smartphone, ArrowRight } from "lucide-react";
+import { Smartphone } from "lucide-react";
 import { CONTACT_PHONE } from "@/lib/constants";
 
 export function CTA() {
@@ -41,9 +40,11 @@ export function CTA() {
 
                 <div className="flex flex-col md:flex-row items-center justify-center gap-4">
                     <div className="relative group">
-                        <div className="absolute inset-0 bg-brand-cyan rounded-full blur opacity-40 group-hover:opacity-60 transition-opacity" />
+                        <div className="absolute inset-0 bg-brand-cyan rounded-xl blur opacity-40 group-hover:opacity-60 transition-opacity" />
                         <Button
-                            className="relative h-14 px-10 text-base bg-brand-cyan hover:bg-white text-black border-0 shadow-xl transition-all"
+                            variant="primary"
+                            size="lg"
+                            className="relative w-full md:w-auto"
                             onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}
                         >
                             Book Your Free Strategy Audit →
@@ -51,11 +52,12 @@ export function CTA() {
                     </div>
 
                     <Button
-                        variant="outline"
-                        className="h-14 px-8 text-base border-white/10 text-white hover:bg-white/5 hover:text-white"
+                        variant="secondary"
+                        size="lg"
+                        className="w-full md:w-auto"
                         onClick={() => window.open(`sms:${CONTACT_PHONE}?body=Hi Miller, I'd like to book a clinical audit.`, '_self')}
+                        leftIcon={<Smartphone className="w-5 h-5" />}
                     >
-                        <Smartphone className="w-5 h-5 mr-2" />
                         Text me instead
                     </Button>
                 </div>

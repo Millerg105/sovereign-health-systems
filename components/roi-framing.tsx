@@ -55,9 +55,11 @@ export function ROIFraming() {
                         </p>
                         <Button
                             onClick={() => document.getElementById('roi')?.scrollIntoView({ behavior: 'smooth' })}
-                            className="bg-red-500 hover:bg-red-600 text-white shadow-[0_0_20px_rgba(239,68,68,0.4)]"
+                            variant="primary"
+                            size="md"
+                            rightIcon={<ArrowRight className="w-4 h-4" />}
                         >
-                            Stop The Bleeding <ArrowRight className="ml-2 w-4 h-4" />
+                            Stop The Bleeding
                         </Button>
                     </div>
                 </div>

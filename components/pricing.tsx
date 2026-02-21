@@ -125,10 +125,9 @@ export function Pricing() {
                             </div>
 
                             <Button
-                                className={`w-full py-6 text-base font-bold tracking-wide ${tier.popular
-                                    ? "bg-brand-blue hover:bg-brand-cyan text-white hover:text-brand-navy shadow-lg shadow-brand-blue/20"
-                                    : "bg-white/10 hover:bg-white/20 text-white"
-                                    }`}
+                                variant={tier.popular ? "primary" : "secondary"}
+                                size="lg"
+                                className="w-full"
                                 onClick={() => document.getElementById('audit')?.scrollIntoView({ behavior: 'smooth' })}
                             >
                                 {tier.cta}

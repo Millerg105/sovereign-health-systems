@@ -105,9 +105,9 @@ export function CalendarBooking() {
                   <button
                     key={tab.id}
                     onClick={() => { setActiveTab(tab.id); setPlanStep("form") }}
-                    className={`flex flex-col items-center justify-center text-center p-4 sm:p-5 rounded-2xl border transition-all group min-h-[98px] sm:min-h-[130px] backdrop-blur-3xl ${activeTab === tab.id
-                      ? "bg-brand-cyan/20 border-brand-cyan/50 shadow-[0_0_20px_rgba(34,211,238,0.2)]"
-                      : "bg-black/95 border-white/10 hover:border-brand-cyan/30 shadow-xl"
+                    className={`btn-premium-secondary flex flex-col items-center justify-center text-center p-4 sm:p-5 transition-all group min-h-[98px] sm:min-h-[130px] backdrop-blur-3xl ${activeTab === tab.id
+                      ? "bg-brand-cyan/[0.14] border-brand-cyan/70 text-[#8cf7ee] shadow-[0_0_20px_rgba(34,211,238,0.2)]"
+                      : "bg-transparent border-brand-cyan/35 hover:bg-brand-cyan/[0.08]"
                       }`}
                   >
                     <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center mb-2.5 sm:mb-3 transition-all ${activeTab === tab.id ? "bg-brand-cyan/30" : "bg-white/5 group-hover:bg-brand-cyan/10"
@@ -133,7 +133,7 @@ export function CalendarBooking() {
                     </p>
                     <a
                       href={`sms:${CONTACT_PHONE}?body=Hi Miller, I'd like to book a 15-20 minute strategy call.`}
-                      className="flex items-center justify-center gap-3 w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 via-brand-cyan to-blue-400 text-black font-bold text-base hover:brightness-110 transition-all"
+                      className="btn-premium-primary flex w-full max-w-full items-center justify-center gap-2 px-5 py-3 text-center text-sm font-semibold leading-tight sm:text-base [text-wrap:balance]"
                     >
                       <Phone className="w-5 h-5" />
                       Book via SMS
@@ -152,7 +152,7 @@ export function CalendarBooking() {
                       href={BOOKING_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-3 w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 via-brand-cyan to-blue-400 text-black font-bold text-base hover:brightness-110 transition-all"
+                      className="btn-premium-primary flex w-full max-w-full items-center justify-center gap-2 px-5 py-3 text-center text-sm font-semibold leading-tight sm:text-base [text-wrap:balance]"
                     >
                       <Video className="w-5 h-5" />
                       Book on Calendly
@@ -180,7 +180,7 @@ export function CalendarBooking() {
                         <input required value={form.pain1} onChange={e => setForm({ ...form, pain1: e.target.value })} placeholder="e.g. Missed calls costing us jobs" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 outline-none focus:border-brand-cyan/40" />
                         <input required value={form.pain2} onChange={e => setForm({ ...form, pain2: e.target.value })} placeholder="e.g. Admin taking 2+ hours per day" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 outline-none focus:border-brand-cyan/40" />
                         <input required value={form.pain3} onChange={e => setForm({ ...form, pain3: e.target.value })} placeholder="e.g. No system for following up old customers" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 outline-none focus:border-brand-cyan/40" />
-                        <button type="submit" className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 via-brand-cyan to-blue-400 text-black font-bold text-base hover:brightness-110 transition-all flex items-center justify-center gap-2">
+                        <button type="submit" className="btn-premium-primary flex w-full max-w-full items-center justify-center gap-2 px-5 py-3 text-center text-sm font-semibold leading-tight sm:text-base [text-wrap:balance]">
                           <ChevronRight className="w-5 h-5" />
                           Request My Free Roadmap
                         </button>
@@ -231,18 +231,18 @@ export function CalendarBooking() {
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-3 py-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-green-500/40 hover:bg-green-500/5 text-white/70 hover:text-white transition-all font-medium"
+              className="btn-premium-secondary flex items-center justify-center gap-3 py-4 font-medium"
             >
-              <MessageCircle className="w-5 h-5 text-green-400" />
+              <MessageCircle className="w-5 h-5 text-brand-cyan" />
               Message on WhatsApp
             </a>
             <a
               href={LINKEDIN_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-3 py-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-blue-500/40 hover:bg-blue-500/5 text-white/70 hover:text-white transition-all font-medium"
+              className="btn-premium-secondary flex items-center justify-center gap-3 py-4 font-medium"
             >
-              <Linkedin className="w-5 h-5 text-blue-400" />
+              <Linkedin className="w-5 h-5 text-brand-cyan" />
               Message on LinkedIn
             </a>
           </motion.div>

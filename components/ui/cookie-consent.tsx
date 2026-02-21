@@ -43,13 +43,13 @@ export function CookieConsent() {
                                 <div className="flex gap-3">
                                     <button
                                         onClick={accept}
-                                        className="bg-brand-cyan text-black text-[10px] font-bold px-5 py-2 rounded-full hover:bg-white transition-colors"
+                                        className="btn-premium-primary px-5 py-2 text-[10px] font-bold"
                                     >
                                         Accept
                                     </button>
                                     <button
                                         onClick={() => setIsVisible(false)}
-                                        className="text-white/30 text-[10px] uppercase tracking-widest hover:text-white transition-colors"
+                                        className="btn-premium-secondary px-4 py-2 text-[10px] uppercase tracking-widest"
                                     >
                                         Decline
                                     </button>
@@ -57,7 +57,7 @@ export function CookieConsent() {
                             </div>
                             <button
                                 onClick={() => setIsVisible(false)}
-                                className="text-white/20 hover:text-white"
+                                className="text-white/20 hover:text-white active:scale-[0.98]"
                             >
                                 <X className="w-4 h-4" />
                             </button>

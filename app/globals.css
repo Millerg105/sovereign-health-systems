@@ -53,9 +53,28 @@
   }
 
   @keyframes grid-pulse {
-    0%, 100% { opacity: 0.04; }
-    50%       { opacity: 0.08; }
+
+    0%,
+    100% {
+      opacity: 0.04;
+    }
+
+    50% {
+      opacity: 0.08;
+    }
   }
+
+  @keyframes ticker {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  --animate-ticker: ticker 20s linear infinite;
 }
 
 @utility font-body {
@@ -123,6 +142,60 @@
 @layer utilities {
   .text-glow {
     text-shadow: 0 0 40px rgba(34, 211, 238, 0.3);
+  }
+
+  .btn-premium-primary {
+    border: 1px solid rgba(34, 211, 238, 0.4);
+    border-radius: 0.625rem;
+    background-image: linear-gradient(90deg, #14c6c4 0%, #22d3ee 52%, #35e6d1 100%);
+    color: #031316;
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.24);
+    transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  }
+
+  .btn-premium-primary:hover {
+    filter: brightness(1.08);
+    box-shadow: 0 0 30px rgba(34, 211, 238, 0.38);
+  }
+
+  .btn-premium-primary:active {
+    transform: scale(0.98);
+  }
+
+  .btn-premium-primary:disabled,
+  .btn-premium-primary[aria-disabled="true"] {
+    opacity: 0.45;
+    cursor: not-allowed;
+    filter: saturate(0.6);
+    box-shadow: none;
+  }
+
+  .btn-premium-secondary {
+    border: 1px solid rgba(34, 211, 238, 0.45);
+    border-radius: 0.625rem;
+    background: transparent;
+    color: #22d3ee;
+    box-shadow: 0 0 0 rgba(34, 211, 238, 0);
+    transition: transform 0.2s ease, color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  }
+
+  .btn-premium-secondary:hover {
+    background: rgba(34, 211, 238, 0.08);
+    border-color: rgba(34, 211, 238, 0.72);
+    color: #8cf7ee;
+    box-shadow: 0 0 18px rgba(34, 211, 238, 0.2);
+  }
+
+  .btn-premium-secondary:active {
+    transform: scale(0.98);
+  }
+
+  .btn-premium-secondary:disabled,
+  .btn-premium-secondary[aria-disabled="true"] {
+    opacity: 0.45;
+    cursor: not-allowed;
+    filter: saturate(0.6);
+    box-shadow: none;
   }
 
   .glass-panel {

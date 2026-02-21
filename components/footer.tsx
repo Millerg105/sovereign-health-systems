@@ -60,7 +60,7 @@ export function Footer() {
               />
               <button
                 type="submit"
-                className="absolute right-1 top-1 h-8 w-8 rounded-full bg-brand-cyan text-black transition-transform hover:scale-105 flex items-center justify-center disabled:opacity-50"
+                className="btn-premium-primary absolute right-1 top-1 flex h-8 w-8 items-center justify-center rounded-full disabled:opacity-45"
               >
                 <Send className="h-4 w-4" />
                 <span className="sr-only">Subscribe</span>

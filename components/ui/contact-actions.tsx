@@ -1,9 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { MessageSquare, Mail, Copy, Check, Smartphone } from "lucide-react";
+import { MessageSquare, Mail, Smartphone } from "lucide-react";
 import { CONTACT_EMAIL, CONTACT_PHONE, WHATSAPP_URL, EMAIL_SUBJECTS, EMAIL_BODY_TEMPLATES, SMS_TEMPLATE } from "@/lib/constants";
-import { Button } from "./button";
 
 export function ContactActions() {
     const [copiedEmail, setCopiedEmail] = useState(false);
@@ -30,15 +29,15 @@ export function ContactActions() {
                 <div className="relative group">
                     <a
                         href={smsHref}
-                        className="flex items-center justify-center gap-4 py-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/20 transition-all font-bold text-xl w-full"
+                        className="btn-premium-primary flex w-full items-center justify-center gap-3 px-5 py-3 text-sm font-semibold sm:text-base"
                     >
-                        <Smartphone className="w-6 h-6" />
+                        <Smartphone className="w-5 h-5" />
                         Text Me
                     </a>
                     {/* Desktop Fallback Tooltip/Hint */}
                     <button
                         onClick={() => copyToClipboard(CONTACT_PHONE, 'phone')}
-                        className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-[10px] text-white/30 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
+                        className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-[10px] text-white/30 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap active:scale-[0.98]"
                     >
                         {copiedPhone ? "Number Copied!" : "Click to copy number (Desktop)"}
                     </button>
@@ -48,14 +47,14 @@ export function ContactActions() {
                 <div className="relative group">
                     <a
                         href={emailHref}
-                        className="flex items-center justify-center gap-4 py-6 rounded-2xl bg-brand-cyan/10 border border-brand-cyan/20 text-brand-cyan hover:bg-brand-cyan/20 transition-all font-bold text-xl w-full"
+                        className="btn-premium-secondary flex w-full items-center justify-center gap-3 px-5 py-3 text-sm font-semibold sm:text-base"
                     >
-                        <Mail className="w-6 h-6" />
+                        <Mail className="w-5 h-5" />
                         Email Me
                     </a>
                     <button
                         onClick={() => copyToClipboard(CONTACT_EMAIL, 'email')}
-                        className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-[10px] text-white/30 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
+                        className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-[10px] text-white/30 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap active:scale-[0.98]"
                     >
                         {copiedEmail ? "Email Copied!" : "Click to copy email (Desktop)"}
                     </button>
@@ -69,9 +68,9 @@ export function ContactActions() {
                     href={WHATSAPP_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-6 py-2 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-emerald-400/80 hover:bg-emerald-500/10 text-xs font-mono transition-all"
+                    className="btn-premium-secondary flex items-center gap-2 px-6 py-2 text-xs font-mono"
                 >
-                    <MessageSquare className="w-3 h-3" />
+                    <MessageSquare className="w-3 h-3 text-brand-cyan" />
                     Direct Message
                 </a>
             </div>

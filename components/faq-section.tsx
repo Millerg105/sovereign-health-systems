@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { ChevronDown, Bot } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const FAQ_DATA = [
     {
@@ -145,18 +146,20 @@ export function FAQSection() {
                     >
                         <button
                             onClick={openChat}
-                            className="flex-1 flex items-center gap-3 px-6 py-4 bg-brand-cyan/10 border border-brand-cyan/30 rounded-xl text-brand-cyan hover:bg-brand-cyan/20 hover:border-brand-cyan/60 transition-all group backdrop-blur-sm"
+                            className="btn-premium-secondary flex flex-1 items-center gap-3 px-5 py-3 group backdrop-blur-sm"
                         >
                             <Bot className="w-5 h-5 shrink-0" />
                             <span className="font-medium">Ask Sovereign AI</span>
                             <span className="ml-auto text-brand-cyan/50 group-hover:text-brand-cyan text-sm transition-colors">→</span>
                         </button>
-                        <a
-                            href="#booking"
-                            className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-white/5 border border-white/10 rounded-xl text-white/80 hover:bg-white/10 hover:text-white transition-all backdrop-blur-sm font-medium"
+                        <Button
+                            onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}
+                            variant="primary"
+                            size="md"
+                            className="flex-1"
                         >
                             Book Your Free Strategy Audit →
-                        </a>
+                        </Button>
                     </motion.div>
                 </div>
 
@@ -185,7 +188,7 @@ export function FAQSection() {
                                     >
                                         <button
                                             onClick={() => toggleQuestion(faq.id)}
-                                            className="w-full px-6 py-4 md:py-5 flex items-center justify-between text-left"
+                                            className="w-full px-6 py-4 md:py-5 flex items-center justify-between text-left active:scale-[0.98] transition-transform"
                                             aria-expanded={openId === faq.id}
                                         >
                                             <span className="text-base sm:text-lg md:text-xl text-white font-medium group-hover:text-brand-cyan transition-colors pr-6 md:pr-8">

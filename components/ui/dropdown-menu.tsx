@@ -11,11 +11,12 @@ type DropdownMenuProps = {
     Icon?: React.ReactNode;
   }[];
   children: React.ReactNode;
+  triggerVariant?: "primary" | "secondary";
   triggerClassName?: string;
   menuClassName?: string;
 };
 
-const DropdownMenu = ({ options, children, triggerClassName, menuClassName }: DropdownMenuProps) => {
+const DropdownMenu = ({ options, children, triggerVariant = "secondary", triggerClassName, menuClassName }: DropdownMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDesktopHover, setIsDesktopHover] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -74,8 +75,8 @@ const DropdownMenu = ({ options, children, triggerClassName, menuClassName }: Dr
         aria-expanded={isOpen}
         aria-haspopup="menu"
         whileHover={{ scale: 1.01 }}
-        whileTap={{ scale: 0.99 }}
-        className={`inline-flex items-center justify-center gap-2 px-4 py-2 text-white hover:text-white bg-black/80 hover:bg-black/90 shadow-[0_0_18px_rgba(0,0,0,0.3)] border border-white/15 rounded-xl backdrop-blur-md transition-colors duration-200 font-medium ${triggerClassName ?? ""}`}
+        whileTap={{ scale: 0.98 }}
+        className={`${triggerVariant === "primary" ? "btn-premium-primary" : "btn-premium-secondary"} inline-flex items-center justify-center gap-2 px-4 py-2 font-medium ${triggerClassName ?? ""}`}
       >
         {children ?? "Menu"}
         <motion.span
@@ -94,7 +95,7 @@ const DropdownMenu = ({ options, children, triggerClassName, menuClassName }: Dr
             animate={{ y: 0, scale: 1, opacity: 1 }}
             exit={{ y: -6, scale: 0.97, opacity: 0 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className={`absolute right-0 z-[70] w-72 mt-2 p-1.5 bg-black/90 border border-white/15 rounded-xl shadow-[0_0_30px_rgba(0,0,0,0.45)] backdrop-blur-xl flex flex-col gap-1.5 ${menuClassName ?? ""}`}
+            className={`absolute right-0 z-[70] w-72 mt-2 p-1.5 bg-black/90 border border-brand-cyan/25 rounded-xl shadow-[0_0_30px_rgba(0,0,0,0.45)] backdrop-blur-xl flex flex-col gap-1.5 ${menuClassName ?? ""}`}
           >
             {options && options.length > 0 ? (
               options.map((option, index) => (
@@ -108,14 +109,14 @@ const DropdownMenu = ({ options, children, triggerClassName, menuClassName }: Dr
                     ease: "easeInOut",
                   }}
                   whileHover={{
-                    backgroundColor: "rgba(255,255,255,0.1)",
+                    backgroundColor: "rgba(34,211,238,0.08)",
                     transition: {
                       duration: 0.4,
                       ease: "easeInOut",
                     },
                   }}
                   whileTap={{
-                    scale: 0.95,
+                    scale: 0.98,
                     transition: {
                       duration: 0.2,
                       ease: "easeInOut",
@@ -126,7 +127,7 @@ const DropdownMenu = ({ options, children, triggerClassName, menuClassName }: Dr
                     option.onClick();
                     setIsOpen(false);
                   }}
-                  className="px-3 py-3 cursor-pointer text-white font-medium text-sm rounded-lg w-full text-left flex items-center gap-x-2"
+                  className="px-3 py-3 cursor-pointer text-white/85 hover:text-[#8cf7ee] font-medium text-sm rounded-lg w-full text-left flex items-center gap-x-2 border border-transparent hover:border-brand-cyan/35 transition-colors"
                 >
                   {option.Icon}
                   {option.label}

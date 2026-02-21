@@ -6,7 +6,7 @@ import { Loader2 } from "lucide-react";
 import { useState } from "react";
 
 interface ButtonProps extends Omit<HTMLMotionProps<"button">, "children"> {
-    variant?: "primary" | "outline" | "ghost" | "glow";
+    variant?: "primary" | "secondary" | "outline" | "ghost" | "glow";
     size?: "sm" | "md" | "lg";
     loading?: boolean;
     leftIcon?: React.ReactNode;
@@ -43,30 +43,31 @@ export function Button({
             setRipples((prev) => prev.filter((r) => r.id !== newRipple.id));
         }, 600);
 
-        onClick?.(e as any);
+        onClick?.(e);
     };
 
     const variants = {
-        primary: "bg-brand-blue text-white hover:bg-brand-cyan hover:text-brand-navy shadow-lg shadow-brand-blue/20",
-        outline: "border-2 border-brand-cyan/50 bg-transparent text-brand-cyan hover:bg-brand-cyan/10 hover:border-brand-cyan",
-        ghost: "bg-transparent text-white/60 hover:text-white hover:bg-white/5",
-        glow: "bg-brand-cyan text-black hover:bg-brand-cyan/90 shadow-[0_0_30px_rgba(34,211,238,0.4)] hover:shadow-[0_0_40px_rgba(34,211,238,0.6)]",
+        primary: "btn-premium-primary font-semibold",
+        secondary: "btn-premium-secondary font-semibold",
+        outline: "btn-premium-secondary font-semibold",
+        ghost: "bg-transparent text-white/70 hover:text-white hover:bg-white/5",
+        glow: "btn-premium-primary font-semibold",
     };
 
     const sizes = {
-        sm: "px-4 py-2 text-sm",
-        md: "px-6 py-3 text-base",
-        lg: "px-8 py-4 text-lg font-semibold",
+        sm: "px-4 py-2 text-sm min-h-10",
+        md: "px-5 py-2.5 text-sm sm:text-base min-h-11",
+        lg: "px-6 sm:px-7 py-3 text-sm sm:text-base md:text-lg min-h-12",
     };
 
     return (
         <motion.button
-            whileHover={{ scale: disabled || loading ? 1 : 1.02 }}
+            whileHover={{ scale: disabled || loading ? 1 : 1.01 }}
             whileTap={{ scale: disabled || loading ? 1 : 0.98 }}
             className={cn(
-                "relative rounded-full transition-all duration-300 flex items-center justify-center gap-2 overflow-hidden",
+                "relative rounded-lg transition-all duration-300 flex max-w-full items-center justify-center gap-2 overflow-hidden text-center leading-tight whitespace-normal [text-wrap:balance]",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-void",
-                "disabled:pointer-events-none disabled:opacity-50",
+                "disabled:pointer-events-none disabled:opacity-45 disabled:saturate-50 disabled:shadow-none",
                 variants[variant],
                 sizes[size],
                 className
