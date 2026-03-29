@@ -45,7 +45,7 @@ const SHOWCASE_ORDER = [
   { id: "tktax", label: "TK Tax", imageNames: ["tktax-1.png", "tktax-2.png", "tktax-3.png", "tktax-4.png"] },
   { id: "gibson", label: "Gibson Plumbing", imageNames: ["gibson-1.png", "gibson-2.png", "gibson-3.png", "gibson-4.png"] },
   { id: "sikpix", label: "SikPix", imageNames: ["sikpix-1.png", "sikpix-2.png", "sikpix-3.png", "sikpix-4.png"] },
-  { id: "alf", label: "ALF", imageNames: ["alf-1.png", "alf-2.png", "alf-3.png", "alf-4.png", "alf-5.png"] },
+  { id: "alf", label: "ALFIE - Personal Trainer", imageNames: ["alf-1.png", "alf-2.png", "alf-3.png", "alf-4.png", "alf-5.png"] },
 ];
 
 const PROJECTS: ProjectDefinition[] = [
@@ -119,11 +119,11 @@ const PROJECTS: ProjectDefinition[] = [
   {
     id: "alf",
     number: "05",
-    name: "ALF",
+    name: "ALFIE - Personal Trainer",
     subtitle: "Personal Training & Fitness",
     typeLabel: "NICHE DEMO",
     summaryTitle: "Project Summary",
-    siteLabel: "View ALF Demo",
+    siteLabel: "View ALFIE Demo",
     siteHref: "https://app-iota-drab.vercel.app/",
     imageNames: ["alf-1.png", "alf-2.png", "alf-3.png", "alf-4.png", "alf-5.png"],
     paragraphs: [
