@@ -13,6 +13,9 @@ export interface UploadedFile {
   file: File;
   progress: number;
   status: "uploading" | "completed" | "error";
+  url?: string;
+  storagePath?: string;
+  errorMessage?: string;
 }
 
 interface FileUploadCardProps {
@@ -165,6 +168,9 @@ export const FileUploadCard = React.forwardRef<HTMLDivElement, FileUploadCardPro
                             {file.status === "uploading" ? "Uploading..." : file.status === "error" ? "Error" : "Ready"}
                           </span>
                         </div>
+                        {file.status === "error" && file.errorMessage && (
+                          <div className="mt-1 text-[11px] text-rose-300">{file.errorMessage}</div>
+                        )}
                         {file.status === "uploading" && <Progress value={file.progress} className="mt-1 h-1.5 bg-white/10 [&>*]:bg-brand-cyan" />}
                       </div>
                     </div>

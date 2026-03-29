@@ -1,0 +1,206 @@
+.portfolio-root {
+  position: relative;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top center, rgba(34, 211, 238, 0.12), transparent 26%),
+    radial-gradient(circle at 82% 18%, rgba(59, 130, 246, 0.16), transparent 22%),
+    linear-gradient(180deg, #010203 0%, #030507 48%, #010203 100%);
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.portfolio-root::before,
+.portfolio-root::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.portfolio-root::before {
+  background-image:
+    linear-gradient(rgba(34, 211, 238, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 211, 238, 0.05) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: radial-gradient(circle at 50% 20%, black, transparent 75%);
+  opacity: 0.75;
+}
+
+.portfolio-root::after {
+  background:
+    radial-gradient(circle at center, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.56)),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.42));
+  backdrop-filter: blur(1.5px);
+}
+
+.portfolio-document {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1.25rem 1rem 3rem;
+}
+
+.portfolio-sheet {
+  width: min(100%, 1400px);
+  margin: 0 auto;
+  break-after: page;
+  page-break-after: always;
+}
+
+.portfolio-sheet:last-child {
+  break-after: auto;
+  page-break-after: auto;
+}
+
+.portfolio-page-frame {
+  position: relative;
+  min-height: clamp(760px, 82vw, 930px);
+  aspect-ratio: 297 / 210;
+  overflow: hidden;
+  border-radius: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(180deg, rgba(4, 10, 16, 0.88), rgba(3, 8, 13, 0.94));
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.44),
+    0 0 65px rgba(34, 211, 238, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(18px);
+}
+
+.portfolio-page-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(120deg, rgba(34, 211, 238, 0.07), transparent 38%, transparent 62%, rgba(59, 130, 246, 0.08));
+}
+
+.portfolio-print-exact {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.portfolio-text-balance {
+  text-wrap: balance;
+}
+
+.portfolio-support-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.portfolio-showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.portfolio-showcase-card,
+.portfolio-support-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 14px 30px rgba(0, 0, 0, 0.2);
+}
+
+.portfolio-showcase-card {
+  aspect-ratio: 4 / 3;
+}
+
+.portfolio-support-card {
+  aspect-ratio: 1.2 / 1;
+}
+
+.portfolio-muted-label {
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.portfolio-screen-only {
+  display: block;
+}
+
+.portfolio-print-only {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .portfolio-page-frame {
+    min-height: auto;
+    aspect-ratio: auto;
+  }
+
+  .portfolio-showcase-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .portfolio-document {
+    gap: 1.25rem;
+    padding-inline: 0.75rem;
+  }
+
+  .portfolio-showcase-grid,
+  .portfolio-support-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@page {
+  size: A4 landscape;
+  margin: 10mm;
+}
+
+@media print {
+  html,
+  body {
+    background: #030303 !important;
+  }
+
+  .portfolio-root {
+    background: #030303 !important;
+  }
+
+  .portfolio-root::before,
+  .portfolio-root::after {
+    display: none !important;
+  }
+
+  .portfolio-document {
+    gap: 0;
+    padding: 0;
+  }
+
+  .portfolio-screen-only {
+    display: none !important;
+  }
+
+  .portfolio-print-only {
+    display: block;
+  }
+
+  .portfolio-sheet {
+    width: 100%;
+    margin: 0;
+  }
+
+  .portfolio-page-frame {
+    min-height: 0;
+    height: 190mm;
+    aspect-ratio: auto;
+    border-radius: 0;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: none;
+    overflow: hidden;
+  }
+
+  .portfolio-page-frame::before {
+    opacity: 0.6;
+  }
+}

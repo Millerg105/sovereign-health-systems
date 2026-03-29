@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, KeyboardEvent } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageSquare, X, Send, Bot } from "lucide-react";
 import faqData from "@/content/faq.json";
@@ -68,6 +69,7 @@ function findAnswer(input: string): string | null {
 }
 
 export function ChatWidget() {
+    const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<Message[]>([WELCOME_MSG]);
     const [inputValue, setInputValue] = useState("");
@@ -118,6 +120,10 @@ export function ChatWidget() {
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") sendMessage(inputValue);
     };
+
+    if (pathname.startsWith("/portfolio")) {
+        return null;
+    }
 
     return (
         <>

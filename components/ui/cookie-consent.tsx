@@ -1,11 +1,13 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Cookie, X } from "lucide-react";
 import Link from "next/link";
 
 export function CookieConsent() {
+    const pathname = usePathname();
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -20,6 +22,10 @@ export function CookieConsent() {
         localStorage.setItem("cookie-consent", "true");
         setIsVisible(false);
     };
+
+    if (pathname.startsWith("/portfolio")) {
+        return null;
+    }
 
     return (
         <AnimatePresence>

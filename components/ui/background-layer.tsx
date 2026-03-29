@@ -7,6 +7,10 @@ import { TechnicalGrid } from "@/components/ui/technical-grid";
 export function BackgroundLayer() {
     const pathname = usePathname();
 
+    if (pathname.startsWith("/portfolio")) {
+        return null;
+    }
+
     // The live background must run across the entire website.
     // We render it as a fixed layer at the absolute bottom.
     // All sections should be bg-transparent or use semi-transparent glass panels.

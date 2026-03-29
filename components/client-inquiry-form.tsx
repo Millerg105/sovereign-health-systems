@@ -9,6 +9,7 @@ import { Banner } from "@/components/ui/banner";
 import AnimatedTextCycle from "@/components/ui/animated-text-cycle";
 import { FileUploadCard, type UploadedFile } from "@/components/ui/file-upload-card";
 import { MissionSuccessDialog } from "@/components/ui/mission-success-dialog";
+import { getSupabaseBrowserClient } from "@/lib/supabase";
 import { cn } from "@/lib/utils";
 
 type FormState = {
@@ -76,6 +77,7 @@ const ALLOWED_FILE_TYPES = ["image/jpeg", "image/png", "image/webp", "applicatio
 const MAX_FILES = 5;
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 const MAX_VIDEO_SECONDS = 12;
+const SUPABASE_BUCKET = "CLIENT-UPLOADS";
 
 type Status = "idle" | "active" | "complete";
 
@@ -102,6 +104,8 @@ const formatAcceptLabel = (type: string) => {
 };
 
 const getFileId = (file: File) => `${file.name}-${file.size}-${file.lastModified}`;
+
+const sanitizeFilename = (value: string) => value.replace(/[^a-zA-Z0-9._-]/g, "-");
 
 const readVideoDuration = (file: File) =>
   new Promise<number>((resolve, reject) => {
@@ -413,6 +417,12 @@ export function ClientInquiryForm() {
   };
 
   const handleFileRemove = (id: string) => {
+    const target = uploadedFiles.find((file) => file.id === id);
+    if (target?.storagePath) {
+      const supabase = getSupabaseBrowserClient();
+      supabase.storage.from(SUPABASE_BUCKET).remove([target.storagePath]).catch(() => null);
+    }
+
     setUploadedFiles((prev) => prev.filter((file) => file.id !== id));
   };
 
@@ -428,7 +438,6 @@ export function ClientInquiryForm() {
     }
 
     const nextFiles = files.slice(0, availableSlots);
-    const validated: UploadedFile[] = [];
 
     for (const file of nextFiles) {
       if (!ALLOWED_FILE_TYPES.includes(file.type)) {
@@ -458,16 +467,59 @@ export function ClientInquiryForm() {
       if (existingIds.has(id)) continue;
       existingIds.add(id);
 
-      validated.push({
+      const uploadingEntry: UploadedFile = {
         id,
         file,
-        progress: 100,
-        status: "completed",
-      });
-    }
+        progress: 20,
+        status: "uploading",
+      };
 
-    if (validated.length > 0) {
-      setUploadedFiles((prev) => [...prev, ...validated]);
+      setUploadedFiles((prev) => [...prev, uploadingEntry]);
+
+      try {
+        const supabase = getSupabaseBrowserClient();
+        const extension = file.name.split(".").pop() || "file";
+        const storagePath = `client-inquiry/${Date.now()}-${Math.random().toString(36).slice(2, 10)}-${sanitizeFilename(file.name.replace(new RegExp(`\\.${extension}$`), ""))}.${extension}`;
+
+        const { error } = await supabase.storage.from(SUPABASE_BUCKET).upload(storagePath, file, {
+          cacheControl: "3600",
+          upsert: false,
+          contentType: file.type,
+        });
+
+        if (error) throw error;
+
+        const { data } = supabase.storage.from(SUPABASE_BUCKET).getPublicUrl(storagePath);
+
+        setUploadedFiles((prev) =>
+          prev.map((entry) =>
+            entry.id === id
+              ? {
+                  ...entry,
+                  progress: 100,
+                  status: "completed",
+                  storagePath,
+                  url: data.publicUrl,
+                }
+              : entry,
+          ),
+        );
+      } catch (error) {
+        const message = error instanceof Error ? error.message : `Could not upload ${file.name}.`;
+        setUploadedFiles((prev) =>
+          prev.map((entry) =>
+            entry.id === id
+              ? {
+                  ...entry,
+                  progress: 100,
+                  status: "error",
+                  errorMessage: message,
+                }
+              : entry,
+          ),
+        );
+        setErrorMessage(message);
+      }
     }
   };
 
@@ -479,32 +531,52 @@ export function ClientInquiryForm() {
     setErrorMessage(null);
 
     try {
-      const payload = new FormData();
-      payload.append("source", "Client Inquiry");
-      payload.append("name", form.name);
-      payload.append("email", form.email);
-      payload.append("business", form.business);
-      payload.append("phone", form.phone);
-      payload.append("location", form.location);
-      payload.append("currentSite", form.currentSite);
-      payload.append("businessDesc", form.businessDesc);
-      payload.append("idealCustomer", form.idealCustomer);
-      payload.append("differentiator", form.differentiator);
-      payload.append("dream", form.dream);
-      payload.append("headache", form.headache);
-      payload.append("hasLogo", form.hasLogo);
-      payload.append("colours", form.colours);
-      payload.append("notes", form.notes);
-      form.services.forEach((value) => payload.append("services", value));
-      form.findYou.forEach((value) => payload.append("findYou", value));
-      form.contactMethod.forEach((value) => payload.append("contactMethod", value));
-      form.vibe.forEach((value) => payload.append("vibe", value));
-      form.timeline.forEach((value) => payload.append("timeline", value));
-      uploadedFiles.forEach((entry) => payload.append("attachments", entry.file, entry.file.name));
+      const failedUploads = uploadedFiles.filter((entry) => entry.status === "error");
+      const stillUploading = uploadedFiles.filter((entry) => entry.status === "uploading");
+
+      if (failedUploads.length > 0) {
+        throw new Error("One or more files failed to upload. Remove them or try again before sending your brief.");
+      }
+
+      if (stillUploading.length > 0) {
+        throw new Error("Please wait for your files to finish uploading before sending your brief.");
+      }
+
+      const uploadedFileLinks = uploadedFiles
+        .filter((entry) => entry.status === "completed" && entry.url)
+        .map((entry) => ({
+          name: entry.file.name,
+          url: entry.url,
+          type: entry.file.type,
+          size: entry.file.size,
+        }));
 
       const response = await fetch("/api/contact", {
         method: "POST",
-        body: payload,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          source: "Client Inquiry",
+          name: form.name,
+          email: form.email,
+          business: form.business,
+          phone: form.phone,
+          location: form.location,
+          currentSite: form.currentSite,
+          businessDesc: form.businessDesc,
+          idealCustomer: form.idealCustomer,
+          differentiator: form.differentiator,
+          dream: form.dream,
+          headache: form.headache,
+          hasLogo: form.hasLogo,
+          colours: form.colours,
+          notes: form.notes,
+          services: form.services,
+          findYou: form.findYou,
+          contactMethod: form.contactMethod,
+          vibe: form.vibe,
+          timeline: form.timeline,
+          uploadedFiles: uploadedFileLinks,
+        }),
       });
 
       if (!response.ok) {
