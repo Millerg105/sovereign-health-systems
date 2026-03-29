@@ -56,8 +56,8 @@ const PROJECTS: ProjectDefinition[] = [
     subtitle: "Accountancy Practice",
     typeLabel: "LIVE CLIENT",
     summaryTitle: "Project Summary",
-    siteLabel: "Visit tktax.co.uk",
-    siteHref: "https://tktax.co.uk",
+    siteLabel: "View TK Tax Demo",
+    siteHref: "https://tk-tax.vercel.app/",
     imageNames: ["tktax-1.png", "tktax-2.png", "tktax-3.png", "tktax-4.png"],
     paragraphs: [
       "First commercial client - a local accountancy practice delivered to professional standard.",
