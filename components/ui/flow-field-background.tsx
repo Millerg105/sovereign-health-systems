@@ -124,7 +124,8 @@ export default function NeuralBackground({
 
             // Scale particle count for mobile performance
             let count = resolvedParticleCount;
-            if (window.innerWidth < 768) count = Math.floor(count / 3);
+            if (window.innerWidth < 480) count = 60;           // Small phones: fixed 60
+            else if (window.innerWidth < 768) count = 100;      // Tablets/large phones: fixed 100
             else if (window.innerWidth < 1024) count = Math.floor(count / 2);
 
             particles = [];
@@ -134,9 +135,20 @@ export default function NeuralBackground({
         };
 
         let isVisible = true;
+        let isIntersecting = true;
+
+        // Pause rendering when canvas is off-screen — critical for mobile battery/fps
+        const observer = new IntersectionObserver(
+            (entries) => { isIntersecting = entries[0]?.isIntersecting ?? true; },
+            { threshold: 0 }
+        );
+        observer.observe(canvas);
 
         const animate = () => {
-            if (!ctx || !isVisible) return;
+            if (!ctx || !isVisible || !isIntersecting) {
+                animationFrameId = requestAnimationFrame(animate);
+                return;
+            }
 
             // Trail fade — draws semi-transparent dark rect each frame
             ctx.fillStyle = `rgba(3, 3, 3, ${resolvedTrailOpacity})`;
@@ -185,6 +197,7 @@ export default function NeuralBackground({
             container.removeEventListener("mouseleave", handleMouseLeave);
             document.removeEventListener("visibilitychange", handleVisibilityChange);
             cancelAnimationFrame(animationFrameId);
+            observer.disconnect();
         };
     }, [color, resolvedTrailOpacity, resolvedParticleCount, resolvedSpeed]);
 

@@ -30,9 +30,9 @@ export const ContainerScroll = ({
         return isMobile ? [0.82, 0.97] : [0.85, 1];
     };
 
-    const rotate = useTransform(scrollYProgress, [0, 1], [20, 0]);
+    const rotate = useTransform(scrollYProgress, [0, 1], isMobile ? [0, 0] : [20, 0]);
     const scale = useTransform(scrollYProgress, [0.3, 0.7], scaleDimensions());
-    const translate = useTransform(scrollYProgress, [0, 0.4], [0, -120]);
+    const translate = useTransform(scrollYProgress, [0, 0.4], isMobile ? [0, -60] : [0, -120]);
     const opacity = useTransform(scrollYProgress, [0.2, 0.5], [0.6, 1]);
 
     return (

@@ -29,7 +29,8 @@ export function BackgroundLayer() {
             />
 
             {/* Soft global veil for readability without visible text boxes */}
-            <div className="absolute inset-0 backdrop-blur-[1.5px] bg-black/10 md:bg-black/6" />
+            {/* NOTE: no backdrop-blur on mobile — it forces full-page GPU compositing on every scroll frame */}
+            <div className="absolute inset-0 bg-black/12 md:backdrop-blur-[1.5px] md:bg-black/6" />
 
             {/* Cyan centre glow — gives the background a living 'heartbeat' */}
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(34,211,238,0.07)_0%,transparent_70%)] md:bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(34,211,238,0.12)_0%,transparent_70%)]" />
