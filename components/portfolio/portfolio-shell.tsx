@@ -22,7 +22,7 @@ const transition = { duration: 0.45, ease: [0.21, 1, 0.32, 1] } as const;
 export function PortfolioShell({ data }: PortfolioShellProps) {
   return (
     <main className="portfolio-root overflow-x-hidden">
-      <PortfolioTopbar className="portfolio-screen-only relative z-[2] mx-auto w-full max-w-[1440px] px-4 pt-5 sm:px-6 sm:pt-6" />
+      <PortfolioTopbar className="portfolio-screen-only relative z-[2] mx-auto w-full max-w-[1440px] px-4 pt-5 sm:px-6 sm:pt-6" showExport={false} />
 
       <div className="portfolio-document">
         <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={transition}>
