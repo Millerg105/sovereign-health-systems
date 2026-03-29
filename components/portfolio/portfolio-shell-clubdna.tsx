@@ -3,23 +3,24 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
-import { PortfolioAbout } from "@/components/portfolio/portfolio-about";
+import { PortfolioAboutClubDNA } from "@/components/portfolio/portfolio-about-clubdna";
 import { PortfolioCaseStudy } from "@/components/portfolio/portfolio-case-study";
+import { PortfolioClubDNA } from "@/components/portfolio/portfolio-clubdna";
 import { PortfolioComparison } from "@/components/portfolio/portfolio-comparison";
-import { PortfolioContact } from "@/components/portfolio/portfolio-contact";
+import { PortfolioContactClubDNA } from "@/components/portfolio/portfolio-contact-clubdna";
 import { PortfolioCover } from "@/components/portfolio/portfolio-cover";
 import { PortfolioServices } from "@/components/portfolio/portfolio-services";
 import { PortfolioShowcase } from "@/components/portfolio/portfolio-showcase";
 import { PortfolioTopbar } from "@/components/portfolio/portfolio-topbar";
 import type { PortfolioPageData } from "@/lib/portfolio";
 
-type PortfolioShellProps = {
+type PortfolioShellClubDNAProps = {
   data: PortfolioPageData;
 };
 
 const transition = { duration: 0.45, ease: [0.21, 1, 0.32, 1] } as const;
 
-export function PortfolioShell({ data }: PortfolioShellProps) {
+export function PortfolioShellClubDNA({ data }: PortfolioShellClubDNAProps) {
   return (
     <main className="portfolio-root overflow-x-hidden">
       <PortfolioTopbar className="portfolio-screen-only relative z-[2] mx-auto w-full max-w-[1440px] px-4 pt-5 sm:px-6 sm:pt-6" />
@@ -29,7 +30,7 @@ export function PortfolioShell({ data }: PortfolioShellProps) {
           <PortfolioCover image={data.coverImage} />
         </motion.div>
         <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ ...transition, delay: 0.04 }}>
-          <PortfolioAbout />
+          <PortfolioAboutClubDNA />
         </motion.div>
         <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ ...transition, delay: 0.08 }}>
           <PortfolioServices />
@@ -44,6 +45,9 @@ export function PortfolioShell({ data }: PortfolioShellProps) {
             <PortfolioCaseStudy project={project} />
           </motion.div>
         ))}
+        <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ ...transition, delay: 0.21 }}>
+          <PortfolioClubDNA />
+        </motion.div>
         <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ ...transition, delay: 0.24 }}>
           <PortfolioShowcase groups={data.showcaseGroups} />
         </motion.div>
@@ -51,7 +55,7 @@ export function PortfolioShell({ data }: PortfolioShellProps) {
           <PortfolioComparison />
         </motion.div>
         <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ ...transition, delay: 0.3 }}>
-          <PortfolioContact />
+          <PortfolioContactClubDNA />
         </motion.div>
       </div>
 

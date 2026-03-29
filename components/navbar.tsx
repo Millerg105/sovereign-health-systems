@@ -108,6 +108,9 @@ export function Navbar() {
 
                 {/* Desktop Menu */}
                 <div className="hidden lg:flex items-center gap-2 xl:gap-5">
+                    <Link href="/portfolio" className="inline-flex h-10 xl:h-12 items-center px-3 xl:px-6 text-sm xl:text-base font-medium text-white/80 transition-colors hover:text-brand-cyan">
+                        Portfolio
+                    </Link>
                     <DropdownMenu options={valueOptions} triggerClassName="h-10 xl:h-12 px-3 xl:px-6 text-sm xl:text-base">Quick Links</DropdownMenu>
                     <DropdownMenu options={painPointOptions} triggerClassName="h-10 xl:h-12 px-3 xl:px-6 text-sm xl:text-base">Pain Points</DropdownMenu>
                     <DropdownMenu options={pricingOptions} triggerClassName="h-10 xl:h-12 px-3 xl:px-6 text-sm xl:text-base">Pricing</DropdownMenu>

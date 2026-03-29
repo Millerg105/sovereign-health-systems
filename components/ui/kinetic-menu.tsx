@@ -50,7 +50,7 @@ export function KineticMenu() {
                 if (!textArea) return;
 
                 const onEnter = () => {
-                    gsap.to(textArea, { color: "#00D4AA", x: 15, duration: 0.4, ease: "power2.out", overwrite: "auto" });
+                    gsap.to(textArea, { color: "#00D4AA", x: 8, duration: 0.4, ease: "power2.out", overwrite: "auto" });
                 };
 
                 const onLeave = () => {
@@ -201,20 +201,25 @@ export function KineticMenu() {
                         <div className="mb-8 sm:mb-10 font-mono text-[11px] uppercase tracking-[0.24em] text-white/40">
                             Navigate
                         </div>
-                        <ul className="menu-list flex flex-col gap-6 md:gap-10">
+                        <ul className="menu-list flex flex-col gap-4 md:gap-10">
+                            <li className="menu-list-item overflow-hidden">
+                                <Link href="/portfolio" onClick={closeMenu} className="nav-link block min-h-12 text-left w-full group">
+                                    <span className="nav-link-text inline-block text-[1.85rem] xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-white tracking-tight">Portfolio</span>
+                                </Link>
+                            </li>
                             <li className="menu-list-item overflow-hidden">
                                 <button onClick={() => navigateToSection('pricing')} className="nav-link block min-h-12 text-left w-full group">
-                                    <span className="nav-link-text inline-block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-white tracking-tight">Pricing</span>
+                                    <span className="nav-link-text inline-block text-[1.85rem] xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-white tracking-tight">Pricing</span>
                                 </button>
                             </li>
                             <li className="menu-list-item overflow-hidden">
                                 <button onClick={() => navigateToSection('problem')} className="nav-link block min-h-12 text-left w-full group">
-                                    <span className="nav-link-text inline-block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-white tracking-tight">Missing Leads?</span>
+                                    <span className="nav-link-text inline-block text-[1.85rem] xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-white tracking-tight">Missing Leads?</span>
                                 </button>
                             </li>
                             <li className="menu-list-item overflow-hidden">
                                 <button onClick={() => navigateToSection('solution')} className="nav-link block min-h-12 text-left w-full group">
-                                    <span className="nav-link-text inline-block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-white tracking-tight">About Sovereign</span>
+                                    <span className="nav-link-text inline-block text-[1.85rem] xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-white tracking-tight">About Sovereign</span>
                                 </button>
                             </li>
 

@@ -2,7 +2,7 @@ import { CONTACT_EMAIL } from "@/lib/constants";
 
 import { PortfolioPage } from "@/components/portfolio/portfolio-page";
 
-export function PortfolioContact() {
+export function PortfolioContactClubDNA() {
   return (
     <PortfolioPage>
       <div className="grid h-full md:grid-cols-[0.72fr_1.28fr]">
@@ -41,7 +41,7 @@ export function PortfolioContact() {
             </div>
 
             <p className="mt-8 max-w-2xl font-heading text-[1.2rem] italic leading-[1.55] text-white/52 sm:text-[1.45rem]">
-              Your business deserves digital infrastructure that works as hard as you do.
+              ClubDNA was built on intelligent systems. Your digital platform should be too.
             </p>
           </div>
         </div>

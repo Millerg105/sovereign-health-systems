@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Users } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 export function FounderNote() {
@@ -88,14 +89,22 @@ export function FounderNote() {
                                 </div>
                             </div>
 
-                            <Button
-                                onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}
-                                variant="primary"
-                                size="lg"
-                                className="w-full md:w-auto"
-                            >
-                                Book Strategy Audit
-                            </Button>
+                            <div className="flex w-full flex-col gap-3 md:w-auto md:flex-row md:items-center">
+                                <Button
+                                    onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}
+                                    variant="primary"
+                                    size="lg"
+                                    className="w-full md:w-auto"
+                                >
+                                    Book Strategy Audit
+                                </Button>
+                                <Link
+                                    href="/portfolio"
+                                    className="btn-premium-secondary inline-flex min-h-12 items-center justify-center rounded-lg px-6 py-3 text-sm font-semibold sm:px-7 sm:text-base md:text-lg"
+                                >
+                                    View Portfolio
+                                </Link>
+                            </div>
 
                             <div className="pt-4 flex flex-col md:flex-row items-center gap-6 hidden">
                                 <div className="flex flex-col items-center md:items-start">

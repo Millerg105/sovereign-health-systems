@@ -210,9 +210,10 @@ function PricingCard({ plan }: { plan: any }) {
                         <div className="text-brand-cyan text-[14px] mt-3 uppercase tracking-[0.15em] font-bold">{plan.priceNote}</div>
                     )}
                     {plan.implementationFee && (
-                        <div className="mt-4 rounded-2xl border border-white/8 bg-white/[0.02] px-4 py-3">
-                            <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-cyan">One-Time Implementation</div>
-                            <div className="mt-1 text-lg font-semibold text-white">{plan.implementationFee}</div>
+                        <div className="mt-4 rounded-2xl border border-brand-cyan/20 bg-brand-cyan/5 px-4 py-3 relative overflow-hidden group/fee">
+                            <div className="absolute inset-0 bg-gradient-to-r from-brand-cyan/10 to-transparent opacity-0 group-hover/fee:opacity-100 transition-opacity duration-500" />
+                            <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-cyan font-bold">One-Time Implementation</div>
+                            <div className="mt-1 text-xl font-heading font-bold text-white tracking-tight">{plan.implementationFee}</div>
                         </div>
                     )}
                 </div>

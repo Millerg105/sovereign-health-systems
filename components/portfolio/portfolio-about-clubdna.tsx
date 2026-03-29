@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import { PortfolioPage } from "@/components/portfolio/portfolio-page";
 
-export function PortfolioAbout() {
+export function PortfolioAboutClubDNA() {
   return (
     <PortfolioPage>
       <div className="flex h-full flex-col px-7 py-7 sm:px-9 sm:py-8 lg:px-12 lg:py-9">
@@ -24,19 +24,22 @@ export function PortfolioAbout() {
               I&apos;m Miller Glenholmes - a 21-year-old web developer, automation specialist and civil engineer based in Wigan, Greater Manchester.
             </p>
             <p className="mt-4 text-[0.96rem] leading-[1.58] sm:text-[1rem]">
-              With a professional background in civil engineering at Curtins, one of the UK&apos;s leading structural and civil engineering consultancies, I bring precision, project management discipline and commercial delivery standards to every build.
+              With a professional background in civil engineering at Curtins and RSK, two of the UK&apos;s leading structural and civil engineering consultancies, I bring precision, project management discipline and commercial delivery standards to every build. I&apos;ve worked on projects across the UK and understand what it takes to deliver work that wins business.
             </p>
             <p className="mt-4 text-[0.96rem] leading-[1.58] sm:text-[1rem]">
-              Sovereign Systems is my digital infrastructure agency. Every platform is custom-coded using Next.js, React and Tailwind CSS - the same enterprise technology stack behind the fastest platforms in the world. No WordPress. No templates. Purpose-built systems engineered for speed, security and 24/7 lead capture.
+              Sovereign Systems is my digital infrastructure agency. Every platform I build is custom-coded using Next.js, React and Tailwind CSS - the same enterprise technology stack behind the fastest platforms in the world. No WordPress. No templates. Purpose-built systems engineered for speed, security and 24/7 lead capture.
             </p>
           </div>
 
           <div className="glass-panel rounded-[24px] border-white/10 p-5 lg:p-6">
             <p className="text-[0.96rem] leading-[1.58] sm:text-[1rem]">
-              My engineering background means I approach every project with precision and structure - not just creativity. I understand project delivery, client management, and professional standards because I work to those standards every day.
+              I&apos;m from Wigan - born and raised - and I&apos;ve always been drawn to the sports world. I used to play rugby from Cubs through to my late teens, so I&apos;ve always been committed to things and taken them seriously.
             </p>
             <p className="mt-4 text-[0.96rem] leading-[1.58] sm:text-[1rem]">
-              What I build isn&apos;t a website. It&apos;s a 24/7 front office that captures leads, automates follow-ups, and ensures your business never misses an opportunity - even when you&apos;re in a meeting, on-site, or closing a deal.
+              Joe Winstanley is one of my closest mates and we go to games together. Through Joe I&apos;ve had a genuine window into the professional football industry, and it&apos;s a world I find fascinating.
+            </p>
+            <p className="mt-4 text-[0.96rem] leading-[1.58] sm:text-[1rem]">
+              What I build isn&apos;t a website. It&apos;s a 24/7 front office that captures leads, automates follow-ups and ensures your business never misses an opportunity - even when you&apos;re in a meeting, on the move or closing a deal.
             </p>
           </div>
         </div>
