@@ -90,7 +90,8 @@ const PROJECTS: ProjectDefinition[] = [
     subtitle: "Plumbing Services",
     typeLabel: "NICHE ADAPTATION",
     summaryTitle: "Project Summary",
-    siteLabel: "Demo - available on request",
+    siteLabel: "View Gibson Plumbing Demo",
+    siteHref: "https://gibson-plumbing.vercel.app/",
     imageNames: ["gibson-1.png", "gibson-2.png", "gibson-3.png", "gibson-4.png"],
     paragraphs: [
       "Built using the Sovereign Systems pipeline to show how elite-quality infrastructure adapts across industries.",
@@ -106,7 +107,8 @@ const PROJECTS: ProjectDefinition[] = [
     subtitle: "Photography & Creative",
     typeLabel: "NICHE DEMO",
     summaryTitle: "Project Summary",
-    siteLabel: "Demo - available on request",
+    siteLabel: "View SikPix Demo",
+    siteHref: "https://sikpix.vercel.app/",
     imageNames: ["sikpix-1.png", "sikpix-2.png", "sikpix-3.png", "sikpix-4.png"],
     paragraphs: [
       "Demo platform built for a photography and creative services business.",
@@ -121,7 +123,8 @@ const PROJECTS: ProjectDefinition[] = [
     subtitle: "Personal Training & Fitness",
     typeLabel: "NICHE DEMO",
     summaryTitle: "Project Summary",
-    siteLabel: "Demo - available on request",
+    siteLabel: "View ALF Demo",
+    siteHref: "https://app-iota-drab.vercel.app/",
     imageNames: ["alf-1.png", "alf-2.png", "alf-3.png", "alf-4.png", "alf-5.png"],
     paragraphs: [
       "Platform built for a personal trainer showcasing training programmes, transformation galleries, client booking, and fitness-first brand design.",
