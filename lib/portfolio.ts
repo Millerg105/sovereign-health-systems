@@ -74,7 +74,7 @@ const PROJECTS: ProjectDefinition[] = [
     typeLabel: "MASTER DEMO",
     summaryTitle: "Project Summary",
     siteLabel: "View CG Paving Demo",
-    siteHref: "https://cv-paving-mock.vercel.app",
+    siteHref: "https://cg-paving-mock.vercel.app",
     imageNames: ["cg-paving-1.png", "cg-paving-2.png", "cg-paving-3.png", "cg-paving-4.png", "cg-paving-5.png", "cg-paving-6.png", "cg-paving-7.png"],
     paragraphs: [
       "Full-fidelity master template built in one week to prove out the Sovereign Systems infrastructure.",
