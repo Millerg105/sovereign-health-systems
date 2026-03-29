@@ -7,6 +7,7 @@ import { ArrowUpRight, Printer } from "lucide-react";
 import { Banner } from "@/components/ui/banner";
 import { PortfolioAbout } from "@/components/portfolio/portfolio-about";
 import { PortfolioCaseStudy } from "@/components/portfolio/portfolio-case-study";
+import { PortfolioClubDNA } from "@/components/portfolio/portfolio-clubdna";
 import { PortfolioComparison } from "@/components/portfolio/portfolio-comparison";
 import { PortfolioContact } from "@/components/portfolio/portfolio-contact";
 import { PortfolioCover } from "@/components/portfolio/portfolio-cover";
@@ -71,10 +72,13 @@ export function PortfolioShell({ data }: PortfolioShellProps) {
             <PortfolioCaseStudy project={project} />
           </motion.div>
         ))}
-        <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ ...transition, delay: 0.22 }}>
+        <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ ...transition, delay: 0.21 }}>
+          <PortfolioClubDNA />
+        </motion.div>
+        <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ ...transition, delay: 0.24 }}>
           <PortfolioShowcase groups={data.showcaseGroups} />
         </motion.div>
-        <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ ...transition, delay: 0.26 }}>
+        <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ ...transition, delay: 0.27 }}>
           <PortfolioComparison />
         </motion.div>
         <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ ...transition, delay: 0.3 }}>

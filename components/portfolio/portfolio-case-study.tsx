@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 
 import type { PortfolioProject } from "@/lib/portfolio";
@@ -69,6 +70,23 @@ export function PortfolioCaseStudy({ project }: PortfolioCaseStudyProps) {
                   {paragraph}
                 </p>
               ))}
+            </div>
+
+            <div className="mt-7">
+              {project.siteHref ? (
+                <Link
+                  href={project.siteHref}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="inline-flex items-center rounded-full border border-brand-cyan/30 bg-brand-cyan/10 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.14em] text-cyan-50 transition-all hover:-translate-y-px hover:border-brand-cyan/55 hover:bg-brand-cyan/15"
+                >
+                  {project.siteLabel}
+                </Link>
+              ) : (
+                <div className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 font-mono text-[11px] uppercase tracking-[0.14em] text-brand-cyan/90">
+                  {project.siteLabel}
+                </div>
+              )}
             </div>
           </div>
         </div>

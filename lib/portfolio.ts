@@ -15,6 +15,8 @@ export type PortfolioProject = {
   typeLabel: string;
   summaryTitle?: string;
   paragraphs: string[];
+  siteLabel: string;
+  siteHref?: string;
   heroImage: PortfolioImage;
   supportingImages: PortfolioImage[];
 };
@@ -22,7 +24,9 @@ export type PortfolioProject = {
 export type PortfolioShowcaseGroup = {
   id: string;
   label: string;
-  images: PortfolioImage[];
+  siteLabel: string;
+  siteHref?: string;
+  heroImage: PortfolioImage;
 };
 
 export type PortfolioPageData = {
@@ -52,6 +56,8 @@ const PROJECTS: ProjectDefinition[] = [
     subtitle: "Accountancy Practice",
     typeLabel: "LIVE CLIENT",
     summaryTitle: "Project Summary",
+    siteLabel: "Visit tktax.co.uk",
+    siteHref: "https://tktax.co.uk",
     imageNames: ["tktax-1.png", "tktax-2.png", "tktax-3.png", "tktax-4.png"],
     paragraphs: [
       "First commercial client - a local accountancy practice delivered to professional standard.",
@@ -67,6 +73,8 @@ const PROJECTS: ProjectDefinition[] = [
     subtitle: "Landscaping & Paving",
     typeLabel: "MASTER DEMO",
     summaryTitle: "Project Summary",
+    siteLabel: "View CG Paving Demo",
+    siteHref: "https://cv-paving-mock.vercel.app",
     imageNames: ["cg-paving-1.png", "cg-paving-2.png", "cg-paving-3.png", "cg-paving-4.png", "cg-paving-5.png", "cg-paving-6.png", "cg-paving-7.png"],
     paragraphs: [
       "Full-fidelity master template built in one week to prove out the Sovereign Systems infrastructure.",
@@ -82,6 +90,7 @@ const PROJECTS: ProjectDefinition[] = [
     subtitle: "Plumbing Services",
     typeLabel: "NICHE ADAPTATION",
     summaryTitle: "Project Summary",
+    siteLabel: "Demo - available on request",
     imageNames: ["gibson-1.png", "gibson-2.png", "gibson-3.png", "gibson-4.png"],
     paragraphs: [
       "Built using the Sovereign Systems pipeline to show how elite-quality infrastructure adapts across industries.",
@@ -97,6 +106,7 @@ const PROJECTS: ProjectDefinition[] = [
     subtitle: "Photography & Creative",
     typeLabel: "NICHE DEMO",
     summaryTitle: "Project Summary",
+    siteLabel: "Demo - available on request",
     imageNames: ["sikpix-1.png", "sikpix-2.png", "sikpix-3.png", "sikpix-4.png"],
     paragraphs: [
       "Demo platform built for a photography and creative services business.",
@@ -111,6 +121,7 @@ const PROJECTS: ProjectDefinition[] = [
     subtitle: "Personal Training & Fitness",
     typeLabel: "NICHE DEMO",
     summaryTitle: "Project Summary",
+    siteLabel: "Demo - available on request",
     imageNames: ["alf-1.png", "alf-2.png", "alf-3.png", "alf-4.png", "alf-5.png"],
     paragraphs: [
       "Platform built for a personal trainer showcasing training programmes, transformation galleries, client booking, and fitness-first brand design.",
@@ -125,6 +136,8 @@ const PROJECTS: ProjectDefinition[] = [
     subtitle: "Agency Platform",
     typeLabel: "LIVE SITE",
     summaryTitle: "Project Summary",
+    siteLabel: "Visit sovereignsystem.co.uk",
+    siteHref: "https://sovereignsystem.co.uk",
     imageNames: ["sovereign-1.png", "sovereign-2.png", "sovereign-3.png", "sovereign-4.png", "sovereign-5.png"],
     paragraphs: [
       "The public face of Sovereign Systems - built to the same standard as every client delivery.",
@@ -173,6 +186,8 @@ export async function getPortfolioPageData(): Promise<PortfolioPageData> {
       typeLabel: project.typeLabel,
       summaryTitle: project.summaryTitle,
       paragraphs: project.paragraphs,
+      siteLabel: project.siteLabel,
+      siteHref: project.siteHref,
       heroImage: buildProjectImage(heroName, availableImages, `${project.name} primary screenshot`),
       supportingImages: supportingNames.map((fileName, index) =>
         buildProjectImage(fileName, availableImages, `${project.name} supporting screenshot ${index + 1}`)
@@ -183,9 +198,9 @@ export async function getPortfolioPageData(): Promise<PortfolioPageData> {
   const showcaseGroups = SHOWCASE_ORDER.map((group) => ({
     id: group.id,
     label: group.label,
-    images: group.imageNames.map((fileName, index) =>
-      buildProjectImage(fileName, availableImages, `${group.label} showcase screenshot ${index + 1}`)
-    ),
+    siteLabel: projects.find((project) => project.id === group.id)?.siteLabel ?? "Demo - available on request",
+    siteHref: projects.find((project) => project.id === group.id)?.siteHref,
+    heroImage: buildProjectImage(group.imageNames[0], availableImages, `${group.label} showcase hero screenshot`),
   }));
 
   return {
