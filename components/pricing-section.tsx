@@ -211,7 +211,7 @@ function PricingCard({ plan }: { plan: any }) {
                     )}
                     {plan.implementationFee && (
                         <div className="mt-4 rounded-2xl border border-white/8 bg-white/[0.02] px-4 py-3">
-                            <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-white/35">One-Time Implementation</div>
+                            <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-cyan">One-Time Implementation</div>
                             <div className="mt-1 text-lg font-semibold text-white">{plan.implementationFee}</div>
                         </div>
                     )}
