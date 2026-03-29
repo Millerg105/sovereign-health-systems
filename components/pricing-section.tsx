@@ -11,8 +11,6 @@ const PRICING_PLANS = [
         name: "FOUNDATION",
         tagline: "Never Miss A Job",
         price: "£99",
-        implementationNote: "Implementation included for founding partners",
-        implementationFee: "(normally £499)",
         description: "Your 'Always-On' front desk. Stops enquiry leaks and captures every missed call instantly.",
         features: [
             "Full Website — Built or Rebuilt For You",
@@ -29,8 +27,6 @@ const PRICING_PLANS = [
         name: "ACCELERATOR",
         tagline: "The Growth Package",
         price: "£199",
-        implementationNote: "Implementation included for founding partners",
-        implementationFee: "(normally £1,499)",
         description: "The 'Sweet Spot'. Full booking infrastructure plus campaigns to fill your calendar from past customer data.",
         features: [
             "Everything in Foundation, Plus:",
@@ -49,8 +45,6 @@ const PRICING_PLANS = [
         name: "SOVEREIGN",
         tagline: "Command Centre",
         price: "£349",
-        implementationNote: "Implementation included for founding partners",
-        implementationFee: "(normally £2,499)",
         description: "For multi-van or multi-location operations requiring deep integrations and high-volume architecture.",
         features: [
             "Everything in Accelerator, Plus:",
@@ -163,7 +157,7 @@ export function PricingSection() {
                     {/* Contact Module */}
                     <div className="flex flex-col items-center justify-center p-6 sm:p-8 md:p-9 rounded-[2rem] md:rounded-[2.5rem] bg-brand-navy/30 border border-white/10 backdrop-blur-xl h-full shadow-2xl shadow-black/40">
                         <span className="text-xl md:text-[1.65rem] font-heading font-bold text-white/95 mb-8 text-center leading-tight">
-                            Ready to secure <br />your allocation?
+                            Ready to review <br />your proposal?
                         </span>
                         <ContactActions />
                     </div>
@@ -212,12 +206,6 @@ function PricingCard({ plan }: { plan: any }) {
                     {plan.priceNote && (
                         <div className="text-brand-cyan text-[14px] mt-3 uppercase tracking-[0.15em] font-bold">{plan.priceNote}</div>
                     )}
-                    {plan.implementationNote && (
-                        <div className="text-white/60 text-xs mt-4 font-light leading-relaxed">{plan.implementationNote}</div>
-                    )}
-                    {plan.implementationFee && (
-                        <div className="text-brand-cyan text-xs mt-2 font-bold tracking-wide">{plan.implementationFee}</div>
-                    )}
                 </div>
             </div>
 
@@ -238,7 +226,7 @@ function PricingCard({ plan }: { plan: any }) {
                 size="lg"
                 className="w-full mb-6"
             >
-                Secure Allocation
+                Request Proposal
             </Button>
 
             <div className="text-center">

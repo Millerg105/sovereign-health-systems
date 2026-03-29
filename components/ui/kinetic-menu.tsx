@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
 
 if (typeof window !== "undefined") {
     gsap.registerPlugin(CustomEase);
@@ -13,6 +14,19 @@ if (typeof window !== "undefined") {
 export function KineticMenu() {
     const containerRef = useRef<HTMLDivElement>(null);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const pathname = usePathname();
+    const router = useRouter();
+
+    const navigateToSection = (id: string) => {
+        closeMenu();
+
+        if (pathname === "/") {
+            document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+            return;
+        }
+
+        router.push(`/#${id}`);
+    };
 
     useEffect(() => {
         if (!containerRef.current) return;
@@ -186,17 +200,17 @@ export function KineticMenu() {
                     <div className="relative z-10 w-full h-full flex flex-col justify-center px-8 sm:px-12 md:px-20">
                         <ul className="menu-list flex flex-col gap-6 md:gap-10">
                             <li className="menu-list-item overflow-hidden">
-                                <button onClick={() => { closeMenu(); document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' }); }} className="nav-link block text-left w-full group">
+                                <button onClick={() => navigateToSection('pricing')} className="nav-link block text-left w-full group">
                                     <span className="nav-link-text inline-block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-white tracking-tight">Pricing</span>
                                 </button>
                             </li>
                             <li className="menu-list-item overflow-hidden">
-                                <button onClick={() => { closeMenu(); document.getElementById('problem')?.scrollIntoView({ behavior: 'smooth' }); }} className="nav-link block text-left w-full group">
+                                <button onClick={() => navigateToSection('problem')} className="nav-link block text-left w-full group">
                                     <span className="nav-link-text inline-block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-white tracking-tight">Missing Leads?</span>
                                 </button>
                             </li>
                             <li className="menu-list-item overflow-hidden">
-                                <button onClick={() => { closeMenu(); document.getElementById('solution')?.scrollIntoView({ behavior: 'smooth' }); }} className="nav-link block text-left w-full group">
+                                <button onClick={() => navigateToSection('solution')} className="nav-link block text-left w-full group">
                                     <span className="nav-link-text inline-block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-white tracking-tight">About Sovereign</span>
                                 </button>
                             </li>
@@ -204,12 +218,11 @@ export function KineticMenu() {
                             <li className="mt-8 md:mt-12 overflow-hidden">
                                 <div className="nav-link">
                                     <Link
-                                        href="https://calendly.com/miller-sovereignhealthsystems/15min"
-                                        target="_blank"
+                                        href="/#booking"
                                         onClick={closeMenu}
                                         className="inline-flex items-center gap-3 px-6 py-3 sm:px-8 sm:py-4 bg-[#00D4AA] text-white text-lg sm:text-xl md:text-2xl font-semibold rounded-full hover:bg-[#00b390] transition-all shadow-[0_0_20px_rgba(0,212,170,0.3)] hover:shadow-[0_0_30px_rgba(0,212,170,0.5)]"
                                     >
-                                        Book Your Free Audit <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                                        Book Strategy Audit <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />
                                     </Link>
                                 </div>
                             </li>

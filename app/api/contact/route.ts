@@ -37,12 +37,37 @@ export async function POST(req: Request) {
 
         // 3. Payload Size Limit
         const rawBody = await req.text();
-        if (rawBody.length > 5000) {
+        if (rawBody.length > 15000) {
             return NextResponse.json({ message: 'Payload too large' }, { status: 413 });
         }
 
         const body = JSON.parse(rawBody);
-        const { name, email, clinicName, revenue, problems, honeypot, source } = body;
+        const {
+            name,
+            email,
+            clinicName,
+            revenue,
+            problems,
+            honeypot,
+            source,
+            business,
+            phone,
+            location,
+            currentSite,
+            businessDesc,
+            idealCustomer,
+            differentiator,
+            services,
+            dream,
+            findYou,
+            contactMethod,
+            headache,
+            hasLogo,
+            colours,
+            vibe,
+            timeline,
+            notes,
+        } = body;
 
         // 4. Security: Prevent malicious injection patterns (Basic)
         const maliciousPattern = /<script|javascript:|on\w+=/i;
@@ -90,36 +115,79 @@ export async function POST(req: Request) {
             }
         }
 
+        const isClientInquiry = source === 'Client Inquiry';
+        const inquiryName = business || clinicName || name || 'Anonymous';
+
+        const clientInquiryHtml = `
+            <div style="font-family: sans-serif; max-width: 720px; margin: auto; padding: 25px; border: 1px solid #1a1a1a; border-radius: 12px; background: #fafafa;">
+                <h2 style="color: #0891b2; margin-top: 0;">New Client Inquiry Received</h2>
+                <p style="font-size: 0.9em; color: #666; margin-bottom: 20px;">Source: <strong>${source || 'Website'}</strong></p>
+
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Name</strong></td><td>${name || 'Not provided'}</td></tr>
+                    <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Business</strong></td><td>${business || 'Not provided'}</td></tr>
+                    <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Email</strong></td><td><a href="mailto:${email}">${email}</a></td></tr>
+                    <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Phone</strong></td><td>${phone || 'Not provided'}</td></tr>
+                    <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Area</strong></td><td>${location || 'Not provided'}</td></tr>
+                    <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Current Site</strong></td><td>${currentSite || 'Not provided'}</td></tr>
+                    <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Business Description</strong></td><td>${businessDesc || 'Not provided'}</td></tr>
+                    <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Ideal Customer</strong></td><td>${idealCustomer || 'Not provided'}</td></tr>
+                    <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Differentiator</strong></td><td>${differentiator || 'Not provided'}</td></tr>
+                    <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Services</strong></td><td>${Array.isArray(services) && services.length ? services.join(', ') : 'None selected'}</td></tr>
+                    <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Dream Outcome</strong></td><td>${dream || 'Not provided'}</td></tr>
+                    <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>How They Find You</strong></td><td>${Array.isArray(findYou) && findYou.length ? findYou.join(', ') : 'Not provided'}</td></tr>
+                    <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Contact Method</strong></td><td>${Array.isArray(contactMethod) && contactMethod.length ? contactMethod.join(', ') : 'Not provided'}</td></tr>
+                    <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Biggest Headache</strong></td><td>${headache || 'Not provided'}</td></tr>
+                    <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Logo Status</strong></td><td>${hasLogo || 'Not provided'}</td></tr>
+                    <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Colours</strong></td><td>${colours || 'Not provided'}</td></tr>
+                    <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Vibe</strong></td><td>${Array.isArray(vibe) && vibe.length ? vibe.join(', ') : 'Not provided'}</td></tr>
+                    <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Timeline</strong></td><td>${Array.isArray(timeline) && timeline.length ? timeline.join(', ') : 'Not provided'}</td></tr>
+                    <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Notes</strong></td><td>${notes || 'Not provided'}</td></tr>
+                    <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>IP Address</strong></td><td>${ip}</td></tr>
+                </table>
+
+                <div style="margin-top: 30px; padding: 15px; background: #0891b2; color: white; border-radius: 8px; text-align: center;">
+                    <a href="mailto:${email}" style="color: white; text-decoration: none; font-weight: bold;">Reply to Inquiry</a>
+                </div>
+
+                <p style="font-size: 11px; color: #999; margin-top: 40px; text-align: center;">
+                    System ID: ${leadData.id} • Sent via Sovereign Systems API
+                </p>
+            </div>
+        `;
+
+        const defaultLeadHtml = `
+            <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 25px; border: 1px solid #1a1a1a; border-radius: 12px; background: #fafafa;">
+                <h2 style="color: #0891b2; margin-top: 0;">New Sovereign Lead Generated</h2>
+                <p style="font-size: 0.9em; color: #666; margin-bottom: 20px;">Source: <strong>${source || 'Website'}</strong></p>
+
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Name:</strong></td><td>${name || 'Not provided'}</td></tr>
+                    <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Email:</strong></td><td><a href="mailto:${email}">${email}</a></td></tr>
+                    <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Clinic:</strong></td><td>${clinicName || 'Not provided'}</td></tr>
+                    <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Inquiry/ROI Data:</strong></td><td>${revenue || 'N/A'}</td></tr>
+                    <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Pain Points:</strong></td><td>${problems || 'N/A'}</td></tr>
+                    <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>IP Address:</strong></td><td>${ip}</td></tr>
+                </table>
+
+                <div style="margin-top: 30px; padding: 15px; background: #0891b2; color: white; border-radius: 8px; text-align: center;">
+                    <a href="mailto:${email}" style="color: white; text-decoration: none; font-weight: bold;">Reply to Lead Immediately</a>
+                </div>
+
+                <p style="font-size: 11px; color: #999; margin-top: 40px; text-align: center;">
+                    System ID: ${leadData.id} • Sent via Sovereign Systems API
+                </p>
+            </div>
+        `;
+
         // Send Email Notification via Resend
         if (resend) {
             try {
                 const { data, error } = await resend.emails.send({
                     from: 'Sovereign Leads <onboarding@resend.dev>',
-                    to: ['miller@sovereignhealthsystems.co.uk'],
-                    subject: `[LEAD] ${source || 'New Inquiry'}: ${clinicName || name || 'Anonymous'}`,
-                    html: `
-                        <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 25px; border: 1px solid #1a1a1a; border-radius: 12px; background: #fafafa;">
-                            <h2 style="color: #0891b2; margin-top: 0;">New Sovereign Lead Generated</h2>
-                            <p style="font-size: 0.9em; color: #666; margin-bottom: 20px;">Source: <strong>${source || 'Website'}</strong></p>
-                            
-                            <table style="width: 100%; border-collapse: collapse;">
-                                <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Name:</strong></td><td>${name || 'Not provided'}</td></tr>
-                                <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Email:</strong></td><td><a href="mailto:${email}">${email}</a></td></tr>
-                                <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Clinic:</strong></td><td>${clinicName || 'Not provided'}</td></tr>
-                                <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Inquiry/ROI Data:</strong></td><td>${revenue || 'N/A'}</td></tr>
-                                <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Pain Points:</strong></td><td>${problems || 'N/A'}</td></tr>
-                                <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>IP Address:</strong></td><td>${ip}</td></tr>
-                            </table>
-
-                            <div style="margin-top: 30px; padding: 15px; background: #0891b2; color: white; border-radius: 8px; text-align: center;">
-                                <a href="mailto:${email}" style="color: white; text-decoration: none; font-weight: bold;">Reply to Lead Immediately</a>
-                            </div>
-                            
-                            <p style="font-size: 11px; color: #999; margin-top: 40px; text-align: center;">
-                                System ID: ${leadData.id} • Sent via Sovereign Health Systems API
-                            </p>
-                        </div>
-                    `,
+                    to: ['miller.glenholmes@outlook.com'],
+                    subject: `[LEAD] ${source || 'New Inquiry'}: ${inquiryName}`,
+                    html: isClientInquiry ? clientInquiryHtml : defaultLeadHtml,
                 });
 
                 if (error) console.error('Resend Error:', error);

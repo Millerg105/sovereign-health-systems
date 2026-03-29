@@ -4,28 +4,9 @@ import { useState } from "react";
 import { Users } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { CONTACT_PHONE, SMS_TEMPLATE } from "@/lib/constants";
 
 export function FounderNote() {
     const [photoMissing, setPhotoMissing] = useState(false);
-
-    const claimBuildBySms = () => {
-        const smsHref = `sms:${CONTACT_PHONE}?body=${encodeURIComponent(SMS_TEMPLATE)}`;
-        const fallbackCopy = `${SMS_TEMPLATE}\n\nSend to: ${CONTACT_PHONE}`;
-        const isMobileDevice = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
-
-        window.location.href = smsHref;
-
-        if (!isMobileDevice) {
-            window.setTimeout(() => {
-                const wantsPrompt = window.confirm("If your messaging app did not open, copy the SMS details now?");
-                if (!wantsPrompt) return;
-
-                navigator.clipboard.writeText(fallbackCopy).catch(() => null);
-                window.prompt("Send this text to +447405179973", fallbackCopy);
-            }, 250);
-        }
-    };
 
     return (
         <section className="py-24 bg-transparent relative overflow-hidden">
@@ -69,17 +50,17 @@ export function FounderNote() {
                         <div className="text-center md:text-left flex-1 space-y-8">
                             <div>
                                 <h3 className="text-3xl md:text-4xl font-heading font-bold text-white mb-2 tracking-tight leading-none">
-                                    We'll Build Your Website For Free.
+                                    Founder-Led From Start To Finish.
                                 </h3>
-                                <p className="text-xl md:text-2xl font-heading font-bold text-brand-cyan mb-6 tracking-tight leading-tight">AND SET UP YOUR SYSTEMS. YOU JUST TELL US IF IT WORKS.</p>
+                                <p className="text-xl md:text-2xl font-heading font-bold text-brand-cyan mb-6 tracking-tight leading-tight">No outsourcing, no juniors - I build every system myself.</p>
                             </div>
 
                             <div className="space-y-6 text-base md:text-lg text-white/80 font-light leading-relaxed">
                                 <p>
-                                    We're looking for 3 home service businesses in Greater Manchester to work with completely free. We build your website, set up missed call text-back, automate your follow-ups, and prove it works. No contracts, no fees, no catch.
+                                    Every Sovereign system is shaped directly with you, then designed, wired, and refined by me personally. That means faster decisions, tighter execution, and no handoff once the project starts.
                                 </p>
                                 <p>
-                                    All we ask for is an honest testimonial once you've seen the results.
+                                    You get a custom proposal, a clear rollout plan, and infrastructure built around how your business actually wins work.
                                 </p>
                             </div>
 
@@ -93,27 +74,27 @@ export function FounderNote() {
                                     <div className="text-sm text-white/70 font-light">No juniors, no outsourcing — founder-led from start to finish</div>
                                 </div>
                                 <div>
-                                    <div className="text-xs font-mono text-brand-cyan uppercase tracking-wider mb-1">No Lock-In</div>
-                                    <div className="text-sm text-white/70 font-light">Stay because it works, not because of a contract</div>
+                                    <div className="text-xs font-mono text-brand-cyan uppercase tracking-wider mb-1">Custom Proposal</div>
+                                    <div className="text-sm text-white/70 font-light">Scope, systems, and rollout built around your business</div>
                                 </div>
                             </div>
 
                             <div className="flex items-center gap-3 pt-6">
                                 <div className="inline-block px-4 py-2 bg-white/10 border border-white/20 text-white text-[10px] font-black uppercase tracking-wider rounded-full">
-                                    LIMITED: 3 SLOTS
+                                    Founder-Led Delivery
                                 </div>
                                 <div className="inline-block px-4 py-2 bg-brand-cyan/20 border border-brand-cyan/40 text-brand-cyan text-[10px] font-black uppercase tracking-wider rounded-full">
-                                    APPLICATIONS OPEN NOW
+                                    Custom Proposals
                                 </div>
                             </div>
 
                             <Button
-                                onClick={claimBuildBySms}
+                                onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}
                                 variant="primary"
                                 size="lg"
                                 className="w-full md:w-auto"
                             >
-                                CLAIM YOUR FREE BUILD
+                                Book Strategy Audit
                             </Button>
 
                             <div className="pt-4 flex flex-col md:flex-row items-center gap-6 hidden">

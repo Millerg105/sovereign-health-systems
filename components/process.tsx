@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const steps = [
     {
         num: "01",
-        title: "Book your free audit",
+        title: "Book your strategy audit",
         desc: "We analyze your current lead flow and find lost revenue gaps.",
     },
     {

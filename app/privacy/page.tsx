@@ -12,7 +12,7 @@ export default function PrivacyPage() {
                     <section>
                         <h2 className="text-2xl font-bold text-white mb-4">1. Introduction</h2>
                         <p>
-                            Sovereign Health Systems ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you visit our website sovereignhealthsystems.co.uk.
+                            Sovereign Systems ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you visit our website sovereignsystem.co.uk.
                         </p>
                     </section>
 
@@ -49,7 +49,7 @@ export default function PrivacyPage() {
                     <section>
                         <h2 className="text-2xl font-bold text-white mb-4">5. Your Rights</h2>
                         <p>
-                            Depending on your location (including UK GDPR), you have the right to access, correct, or delete your personal data. To exercise these rights, please contact us at miller@sovereignhealthsystems.co.uk.
+                            Depending on your location (including UK GDPR), you have the right to access, correct, or delete your personal data. To exercise these rights, please contact us at miller.glenholmes@outlook.com.
                         </p>
                     </section>
 

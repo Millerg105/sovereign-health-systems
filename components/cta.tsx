@@ -12,7 +12,7 @@ export function CTA() {
 
             <div className="container mx-auto px-6 relative z-10 text-center">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-brand-cyan mb-8 uppercase tracking-wider">
-                    Founder Pricing ends Feb 15th — First 10 practices only
+                    Custom proposals built around your business
                 </div>
 
                 <h2 className="text-3xl md:text-5xl font-heading font-bold text-white mb-6 tracking-tight">
@@ -47,7 +47,7 @@ export function CTA() {
                             className="relative w-full md:w-auto"
                             onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}
                         >
-                            Book Your Free Strategy Audit →
+                            Book Your Strategy Audit →
                         </Button>
                     </div>
 

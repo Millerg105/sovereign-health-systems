@@ -55,15 +55,15 @@ export function HeroScrollSequence() {
                                         <span className="text-xs sm:text-sm md:text-lg font-mono uppercase tracking-[0.12em] sm:tracking-[0.2em] md:tracking-widest text-white">ROI tracking included</span>
                                     </div>
                                 </div>
-                                <p className="text-[11px] sm:text-sm font-mono text-white/50 uppercase tracking-[0.1em] sm:tracking-[0.18em] text-center px-2">Limited to 3 new partners per month.</p>
+                                <p className="text-[11px] sm:text-sm font-mono text-white/50 uppercase tracking-[0.1em] sm:tracking-[0.18em] text-center px-2">Limited to 3 new clients per month.</p>
                             </div>
-                            <div className="mt-16 w-full" />
+                            <div className="mt-10 md:mt-16 w-full" />
                         </div>
                     </div>
                 }
             >
                 {/* Dashboard UI — identical visual to before, wrapped in ContainerScroll */}
-                <div className="w-full h-full bg-gradient-to-br from-[#0A0A0F] via-[#0F0F14] to-[#050509] flex flex-col relative overflow-hidden rounded-2xl">
+                <div className="w-full h-full bg-gradient-to-br from-[#0A0A0F] via-[#0F0F14] to-[#050509] flex flex-col relative overflow-hidden rounded-xl md:rounded-2xl">
 
                     {/* Top Bar */}
                     <div className="h-10 sm:h-12 border-b border-white/5 flex items-center justify-between bg-black/20 backdrop-blur-xl z-20">
@@ -171,7 +171,7 @@ export function HeroScrollSequence() {
                         </div>
 
                         {/* Main Dashboard Area */}
-                        <div className="flex-1 p-2 sm:p-4 md:p-6 overflow-hidden relative bg-gradient-to-br from-white/[0.08] to-white/[0.02]">
+                        <div className="flex-1 p-1.5 sm:p-4 md:p-6 overflow-hidden relative bg-gradient-to-br from-white/[0.08] to-white/[0.02]">
                             <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-cyan/5 rounded-full blur-[100px] pointer-events-none" />
                             <div className="absolute bottom-0 left-0 w-[350px] h-[350px] bg-purple-500/5 rounded-full blur-[90px] pointer-events-none" />
 

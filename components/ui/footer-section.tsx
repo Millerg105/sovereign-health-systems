@@ -19,7 +19,7 @@ function Footerdemo() {
           <div className="relative">
             <h2 className="mb-4 text-3xl font-bold tracking-tight text-white">Stay Connected</h2>
             <p className="mb-6 text-white/60">
-              Join our newsletter for the latest automation insights and exclusive offers.
+              Join our newsletter for the latest automation insights and revenue recovery ideas.
             </p>
             <form className="relative">
               <Input
@@ -52,7 +52,7 @@ function Footerdemo() {
                 Pricing
               </a>
               <a href="#audit" className="block transition-colors hover:text-brand-cyan text-white/70">
-                Free Strategy Audit
+                Strategy Audit
               </a>
             </nav>
           </div>
@@ -63,7 +63,7 @@ function Footerdemo() {
             <address className="space-y-2 text-sm not-italic text-white/70">
               <p>Greater Manchester</p>
               <p>Wigan, UK</p>
-              <p>Email: hello@sovereignhealth.uk</p>
+              <p>Email: miller.glenholmes@outlook.com</p>
             </address>
           </div>
 
@@ -96,7 +96,7 @@ function Footerdemo() {
         {/* Bottom Bar */}
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-center md:flex-row">
           <p className="text-sm text-white/40">
-            © 2024 Sovereign Health Systems. All rights reserved.
+            © 2024 Sovereign Systems. All rights reserved.
           </p>
           <nav className="flex gap-4 text-sm">
             <a href="#privacy" className="transition-colors hover:text-brand-cyan text-white/60">

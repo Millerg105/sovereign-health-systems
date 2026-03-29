@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Calendar, Clock, Video, FileText, MessageCircle, Linkedin, Phone, ChevronRight, Loader2 } from "lucide-react"
 import { useEffect, useState } from "react"
 import { BOOKING_URL, CONTACT_PHONE, WHATSAPP_URL, LINKEDIN_URL } from "@/lib/constants"
+import { ClientInquiryCTA } from "@/components/client-inquiry-cta"
 
 type Tab = "call" | "meeting" | "plan"
 
@@ -36,7 +37,7 @@ export function CalendarBooking() {
   const tabs = [
     { id: "call" as Tab, icon: Phone, label: "15–20 Min Call", sub: "Quick & focused" },
     { id: "meeting" as Tab, icon: Video, label: "Virtual Meeting", sub: "Calendly · Zoom · Meet" },
-    { id: "plan" as Tab, icon: FileText, label: "Action Plan", sub: "14-day roadmap · Complimentary" },
+    { id: "plan" as Tab, icon: FileText, label: "Action Plan", sub: "14-day roadmap · Custom" },
   ]
 
   const handleFormSubmit = async (e: React.FormEvent) => {
@@ -77,7 +78,7 @@ export function CalendarBooking() {
             </div>
 
             <h2 className="text-3xl sm:text-4xl md:text-7xl font-heading font-bold text-white mb-5 md:mb-6 leading-tight">
-              Book Your Free <br />
+              Book Your <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-blue">
                 Strategy Audit
               </span>
@@ -129,7 +130,7 @@ export function CalendarBooking() {
                 {activeTab === "call" && (
                   <motion.div key="call" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-4">
                     <p className="text-white/70 text-center text-base mb-6">
-                      A quick 15-minute chat to figure out where you&apos;re losing jobs. No sales pitch — just straight answers.
+                          A quick 15-minute chat to figure out where you&apos;re losing jobs. No pressure - just straight answers.
                     </p>
                     <a
                       href={`sms:${CONTACT_PHONE}?body=Hi Miller, I'd like to book a 15-20 minute strategy call.`}
@@ -168,7 +169,7 @@ export function CalendarBooking() {
                       <form onSubmit={handleFormSubmit} className="space-y-4">
                         <div className="bg-brand-cyan/5 border border-brand-cyan/20 rounded-xl p-4 mb-2">
                           <p className="text-sm text-white/80 leading-relaxed">
-                            Request a <span className="text-brand-cyan font-bold">Complimentary</span> personalised <span className="text-white font-semibold">14-day Sovereign implementation roadmap</span> — a PDF showing exactly how we&apos;d build your automation infrastructure, step by step.
+                            Request a personalised <span className="text-white font-semibold">14-day Sovereign implementation roadmap</span> — a PDF showing exactly how we&apos;d build your automation infrastructure, step by step.
                           </p>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -182,7 +183,7 @@ export function CalendarBooking() {
                         <input required value={form.pain3} onChange={e => setForm({ ...form, pain3: e.target.value })} placeholder="e.g. No system for following up old customers" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 outline-none focus:border-brand-cyan/40" />
                         <button type="submit" className="btn-premium-primary flex w-full max-w-full items-center justify-center gap-2 px-5 py-3 text-center text-sm font-semibold leading-tight sm:text-base [text-wrap:balance]">
                           <ChevronRight className="w-5 h-5" />
-                          Request My Free Roadmap
+                          Request My Custom Roadmap
                         </button>
                       </form>
                     )}
@@ -210,13 +211,22 @@ export function CalendarBooking() {
 
               {/* Trust Signals */}
               <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-white/40 mt-8 pt-6 border-t border-white/5">
-                <div className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" /><span>No Credit Card for Free Audit</span></div>
-                <div className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" /><span>100% Free Consultation</span></div>
+                <div className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" /><span>No credit card needed</span></div>
+                <div className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" /><span>No-pressure consultation</span></div>
                 <div className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" /><span>Instant Booking</span></div>
               </div>
 
               <p className="text-xs text-white/20 text-center mt-4">Powered by Sovereign Scheduling</p>
             </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.35 }}
+          >
+            <ClientInquiryCTA />
           </motion.div>
 
           {/* Contact Row */}

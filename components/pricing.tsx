@@ -146,7 +146,7 @@ export function Pricing() {
 
                 <div className="mt-16 text-center">
                     <p className="text-white/40 mb-4 text-sm">Need a custom enterprise solution?</p>
-                    <a href="mailto:hello@sovereignhealthsystems.co.uk" className="text-brand-cyan font-bold hover:text-white transition-colors">
+                    <a href="mailto:miller.glenholmes@outlook.com" className="text-brand-cyan font-bold hover:text-white transition-colors">
                         Talk to our engineering team →
                     </a>
                 </div>

@@ -65,39 +65,30 @@ function Testimonials() {
                         className="space-y-6"
                     >
                         <span className="inline-flex rounded-full border border-brand-cyan/30 bg-brand-cyan/10 px-3 py-1 text-xs font-mono uppercase tracking-[0.2em] text-cyan-400">
-                            Founding Partner Program
+                            Founder-Led Delivery
                         </span>
 
                         <h2 className="text-3xl font-heading font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
-                            We&apos;re Building Our Case Study Portfolio. You Get the ROI.
+                            Custom Systems. Clear ROI. Direct Execution.
                         </h2>
 
                         <div className="space-y-4 text-base leading-relaxed text-white/80">
                             <p>
-                                We are a specialized startup agency, founder-led from strategy through delivery. We are building our first case studies with transparent execution and clear performance goals.
+                                Sovereign is built to give trade businesses a faster, tighter route from missed enquiry to booked work. Every system is shaped around your lead flow, capacity, and commercial goals.
                             </p>
                             <p>
-                                You get Sovereign-level systems at Foundation pricing, limited to our first <span className="font-semibold text-white">3 founding partners</span>.
+                                You work directly with the founder from strategy through launch, with no outsourced handoff and no generic package pretending to fit every business.
                             </p>
                         </div>
 
                         <div className="glass-panel rounded-2xl border border-white/15 p-5 backdrop-blur-[24px] bg-white/[0.03] sm:p-6 shadow-[0_0_40px_-15px_rgba(255,255,255,0.05)]">
                             <p className="mb-3 text-sm font-mono uppercase tracking-[0.15em] text-brand-cyan">
-                                The Deal
+                                What You Get
                             </p>
                             <p className="text-sm leading-relaxed text-white/85 sm:text-base">
-                                <span className="font-semibold text-white">You get:</span> Founder-led implementation, custom build, and priority support. <span className="font-semibold text-white">We get:</span> a video testimonial and case study rights once the agreed KPI milestone is achieved, or after 60 days of active deployment (whichever comes first).
+                                <span className="font-semibold text-white">You get:</span> founder-led implementation, a custom build, and direct support through rollout. <span className="font-semibold text-white">We deliver:</span> a proposal built around the actual systems your business needs, not a one-size-fits-all package.
                             </p>
                             <p className="mt-3 text-sm font-medium text-white italic">No long-term lock-in.</p>
-                        </div>
-
-                        <div className="flex flex-wrap items-center gap-3">
-                            <div className="rounded-full border border-brand-cyan/35 bg-brand-cyan/10 px-4 py-2 text-xs font-mono uppercase tracking-[0.14em] text-brand-cyan">
-                                Limited: 3 Slots
-                            </div>
-                            <div className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-mono uppercase tracking-[0.14em] text-white/80">
-                                Applications Open Now
-                            </div>
                         </div>
 
                         <div className="grid grid-cols-1 gap-3">
@@ -118,7 +109,7 @@ function Testimonials() {
                             className="w-full max-w-sm"
                             onClick={() => document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" })}
                         >
-                            Apply for Founder Pricing
+                            Request Your Proposal
                         </Button>
                     </motion.div>
 

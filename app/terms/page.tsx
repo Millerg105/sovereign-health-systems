@@ -12,21 +12,21 @@ export default function TermsPage() {
                     <section>
                         <h2 className="text-2xl font-bold text-white mb-4">1. Acceptance of Terms</h2>
                         <p>
-                            By accessing or using sovereignhealthsystems.co.uk, you agree to comply with and be bound by these Terms of Service. If you do not agree, please do not use our site.
+                            By accessing or using sovereignsystem.co.uk, you agree to comply with and be bound by these Terms of Service. If you do not agree, please do not use our site.
                         </p>
                     </section>
 
                     <section>
                         <h2 className="text-2xl font-bold text-white mb-4">2. Services Offered</h2>
                         <p>
-                            Sovereign Health Systems provides clinical automation infrastructure, ROI analysis, and managed systems for healthcare practices. All "Audits" or "Consultations" are for informational purposes and do not constitute legal or medical clinical advice.
+                            Sovereign Systems provides automation infrastructure, ROI analysis, and managed systems for trade and service businesses. All "Audits" or "Consultations" are for informational purposes only.
                         </p>
                     </section>
 
                     <section>
                         <h2 className="text-2xl font-bold text-white mb-4">3. Intellectual Property</h2>
                         <p>
-                            All content on this website, including but not limited to the ROI Calculator logic, design elements, and text, is the intellectual property of Sovereign Health Systems, unless otherwise stated.
+                            All content on this website, including but not limited to the ROI Calculator logic, design elements, and text, is the intellectual property of Sovereign Systems, unless otherwise stated.
                         </p>
                     </section>
 
