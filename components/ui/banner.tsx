@@ -81,19 +81,19 @@ export function Banner({
         <div className="absolute inset-0 -z-10 -skew-x-12 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
       )}
 
-      <div className="flex items-center justify-between gap-4">
-        <div className="flex min-w-0 flex-1 items-center gap-3">
+      <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex min-w-0 flex-1 items-start gap-3 sm:items-center">
           {icon && <div className="flex-shrink-0">{icon}</div>}
 
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center">
-              <p className="truncate font-semibold">{title}</p>
+              <p className="font-semibold leading-tight sm:truncate">{title}</p>
             </div>
             {description && <p className="text-xs opacity-80">{description}</p>}
           </div>
         </div>
 
-        <div className="flex flex-shrink-0 items-center gap-2">
+        <div className="flex w-full flex-shrink-0 items-center gap-2 sm:w-auto sm:justify-end">
           {action && action}
 
           {closable && (

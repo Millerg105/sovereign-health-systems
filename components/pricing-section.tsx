@@ -11,6 +11,7 @@ const PRICING_PLANS = [
         name: "FOUNDATION",
         tagline: "Never Miss A Job",
         price: "£99",
+        implementationFee: "£749",
         description: "Your 'Always-On' front desk. Stops enquiry leaks and captures every missed call instantly.",
         features: [
             "Full Website — Built or Rebuilt For You",
@@ -27,6 +28,7 @@ const PRICING_PLANS = [
         name: "ACCELERATOR",
         tagline: "The Growth Package",
         price: "£199",
+        implementationFee: "£1749",
         description: "The 'Sweet Spot'. Full booking infrastructure plus campaigns to fill your calendar from past customer data.",
         features: [
             "Everything in Foundation, Plus:",
@@ -45,6 +47,7 @@ const PRICING_PLANS = [
         name: "SOVEREIGN",
         tagline: "Command Centre",
         price: "£349",
+        implementationFee: "£2999",
         description: "For multi-van or multi-location operations requiring deep integrations and high-volume architecture.",
         features: [
             "Everything in Accelerator, Plus:",
@@ -205,6 +208,12 @@ function PricingCard({ plan }: { plan: any }) {
                     </div>
                     {plan.priceNote && (
                         <div className="text-brand-cyan text-[14px] mt-3 uppercase tracking-[0.15em] font-bold">{plan.priceNote}</div>
+                    )}
+                    {plan.implementationFee && (
+                        <div className="mt-4 rounded-2xl border border-white/8 bg-white/[0.02] px-4 py-3">
+                            <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-white/35">One-Time Implementation</div>
+                            <div className="mt-1 text-lg font-semibold text-white">{plan.implementationFee}</div>
+                        </div>
                     )}
                 </div>
             </div>

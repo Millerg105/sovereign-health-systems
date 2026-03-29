@@ -152,10 +152,10 @@ export function KineticMenu() {
                 className="relative z-[100] flex items-center gap-3 group"
                 onClick={toggleMenu}
             >
-                <div className="menu-button-text h-5 overflow-hidden hidden sm:block relative w-12 text-left">
+                <div className="menu-button-text h-5 overflow-hidden block relative w-12 text-left">
                     <div className="flex flex-col">
-                        <p className="text-sm font-semibold text-white tracking-wider uppercase h-5 leading-5 m-0 p-0">Menu</p>
-                        <p className="text-sm font-semibold text-brand-cyan tracking-wider uppercase h-5 leading-5 m-0 p-0">Close</p>
+                        <p className="text-xs sm:text-sm font-semibold text-white tracking-wider uppercase h-5 leading-5 m-0 p-0">Menu</p>
+                        <p className="text-xs sm:text-sm font-semibold text-brand-cyan tracking-wider uppercase h-5 leading-5 m-0 p-0">Close</p>
                     </div>
                 </div>
 
@@ -182,7 +182,7 @@ export function KineticMenu() {
             <div className="nav-overlay-wrapper fixed inset-0 z-[90] text-left" style={{ display: 'none' }}>
                 <div className="menu-overlay absolute inset-0 bg-black/60 backdrop-blur-md" onClick={closeMenu}></div>
 
-                <nav className="menu-content absolute top-0 right-0 bottom-0 w-full md:w-[600px] h-full overflow-hidden shadow-2xl shadow-black/50">
+                <nav className="menu-content absolute top-0 right-0 bottom-0 w-full md:w-[600px] h-full overflow-y-auto shadow-2xl shadow-black/50">
                     {/* Background Panels */}
                     <div className="absolute inset-0 flex">
                         <div className="backdrop-layer w-1/3 h-full bg-[#0A0A0E] border-l border-white/5"></div>
@@ -197,20 +197,23 @@ export function KineticMenu() {
                     </div>
 
                     {/* Menu Items */}
-                    <div className="relative z-10 w-full h-full flex flex-col justify-center px-8 sm:px-12 md:px-20">
+                    <div className="relative z-10 w-full min-h-full flex flex-col justify-start px-8 pt-28 pb-12 sm:px-12 sm:pt-32 md:px-20 md:pt-36">
+                        <div className="mb-8 sm:mb-10 font-mono text-[11px] uppercase tracking-[0.24em] text-white/40">
+                            Navigate
+                        </div>
                         <ul className="menu-list flex flex-col gap-6 md:gap-10">
                             <li className="menu-list-item overflow-hidden">
-                                <button onClick={() => navigateToSection('pricing')} className="nav-link block text-left w-full group">
+                                <button onClick={() => navigateToSection('pricing')} className="nav-link block min-h-12 text-left w-full group">
                                     <span className="nav-link-text inline-block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-white tracking-tight">Pricing</span>
                                 </button>
                             </li>
                             <li className="menu-list-item overflow-hidden">
-                                <button onClick={() => navigateToSection('problem')} className="nav-link block text-left w-full group">
+                                <button onClick={() => navigateToSection('problem')} className="nav-link block min-h-12 text-left w-full group">
                                     <span className="nav-link-text inline-block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-white tracking-tight">Missing Leads?</span>
                                 </button>
                             </li>
                             <li className="menu-list-item overflow-hidden">
-                                <button onClick={() => navigateToSection('solution')} className="nav-link block text-left w-full group">
+                                <button onClick={() => navigateToSection('solution')} className="nav-link block min-h-12 text-left w-full group">
                                     <span className="nav-link-text inline-block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-white tracking-tight">About Sovereign</span>
                                 </button>
                             </li>

@@ -7,6 +7,7 @@ import { ExternalLink } from "lucide-react";
 
 import { Banner } from "@/components/ui/banner";
 import AnimatedTextCycle from "@/components/ui/animated-text-cycle";
+import { FileUploadCard, type UploadedFile } from "@/components/ui/file-upload-card";
 import { MissionSuccessDialog } from "@/components/ui/mission-success-dialog";
 import { cn } from "@/lib/utils";
 
@@ -71,6 +72,10 @@ const CONTACT_OPTIONS = ["Phone", "WhatsApp", "Email", "DMs", "No System"];
 const VIBE_OPTIONS = ["Clean & Professional", "Bold & Modern", "Friendly & Warm", "Premium / High-End", "Surprise me"];
 const TIMELINE_OPTIONS = ["ASAP", "Next 2 weeks", "Within a month", "No rush"];
 const HERO_WORDS = ["Work.", "Freedom.", "Time.", "Money.", "Recognition."];
+const ALLOWED_FILE_TYPES = ["image/jpeg", "image/png", "image/webp", "application/pdf", "video/mp4"];
+const MAX_FILES = 5;
+const MAX_FILE_SIZE = 10 * 1024 * 1024;
+const MAX_VIDEO_SECONDS = 12;
 
 type Status = "idle" | "active" | "complete";
 
@@ -78,6 +83,49 @@ const isFilled = (value: string | string[]) => {
   if (Array.isArray(value)) return value.length > 0;
   return value.trim().length > 0;
 };
+
+const formatAcceptLabel = (type: string) => {
+  switch (type) {
+    case "image/jpeg":
+      return "JPG";
+    case "image/png":
+      return "PNG";
+    case "image/webp":
+      return "WEBP";
+    case "application/pdf":
+      return "PDF";
+    case "video/mp4":
+      return "MP4";
+    default:
+      return type;
+  }
+};
+
+const getFileId = (file: File) => `${file.name}-${file.size}-${file.lastModified}`;
+
+const readVideoDuration = (file: File) =>
+  new Promise<number>((resolve, reject) => {
+    const video = document.createElement("video");
+    const objectUrl = URL.createObjectURL(file);
+
+    const cleanup = () => {
+      URL.revokeObjectURL(objectUrl);
+      video.removeAttribute("src");
+      video.load();
+    };
+
+    video.preload = "metadata";
+    video.onloadedmetadata = () => {
+      const duration = video.duration;
+      cleanup();
+      resolve(duration);
+    };
+    video.onerror = () => {
+      cleanup();
+      reject(new Error(`Could not read video metadata for ${file.name}.`));
+    };
+    video.src = objectUrl;
+  });
 
 const getStatus = (state: FormState, keys: (keyof FormState)[], required: (keyof FormState)[] = []): Status => {
   const anyFilled = keys.some((key) => isFilled(state[key]));
@@ -188,6 +236,8 @@ function ChipGroup({
 
 export function ClientInquiryForm() {
   const [form, setForm] = useState<FormState>(INITIAL_FORM);
+  const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
+  const [lastSubmissionFileCount, setLastSubmissionFileCount] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -362,6 +412,65 @@ export function ClientInquiryForm() {
     }));
   };
 
+  const handleFileRemove = (id: string) => {
+    setUploadedFiles((prev) => prev.filter((file) => file.id !== id));
+  };
+
+  const handleFilesChange = async (files: File[]) => {
+    setErrorMessage(null);
+
+    const existingIds = new Set(uploadedFiles.map((file) => file.id));
+    const availableSlots = MAX_FILES - uploadedFiles.length;
+
+    if (availableSlots <= 0) {
+      setErrorMessage(`You can upload up to ${MAX_FILES} files.`);
+      return;
+    }
+
+    const nextFiles = files.slice(0, availableSlots);
+    const validated: UploadedFile[] = [];
+
+    for (const file of nextFiles) {
+      if (!ALLOWED_FILE_TYPES.includes(file.type)) {
+        setErrorMessage(`Unsupported file type for ${file.name}. Use ${ALLOWED_FILE_TYPES.map(formatAcceptLabel).join(", ")}.`);
+        continue;
+      }
+
+      if (file.size > MAX_FILE_SIZE) {
+        setErrorMessage(`${file.name} is larger than 10 MB.`);
+        continue;
+      }
+
+      if (file.type === "video/mp4") {
+        try {
+          const duration = await readVideoDuration(file);
+          if (duration > MAX_VIDEO_SECONDS) {
+            setErrorMessage(`${file.name} is longer than ${MAX_VIDEO_SECONDS} seconds.`);
+            continue;
+          }
+        } catch (error) {
+          setErrorMessage(error instanceof Error ? error.message : `Could not validate ${file.name}.`);
+          continue;
+        }
+      }
+
+      const id = getFileId(file);
+      if (existingIds.has(id)) continue;
+      existingIds.add(id);
+
+      validated.push({
+        id,
+        file,
+        progress: 100,
+        status: "completed",
+      });
+    }
+
+    if (validated.length > 0) {
+      setUploadedFiles((prev) => [...prev, ...validated]);
+    }
+  };
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!canSubmit || isSubmitting) return;
@@ -370,31 +479,32 @@ export function ClientInquiryForm() {
     setErrorMessage(null);
 
     try {
+      const payload = new FormData();
+      payload.append("source", "Client Inquiry");
+      payload.append("name", form.name);
+      payload.append("email", form.email);
+      payload.append("business", form.business);
+      payload.append("phone", form.phone);
+      payload.append("location", form.location);
+      payload.append("currentSite", form.currentSite);
+      payload.append("businessDesc", form.businessDesc);
+      payload.append("idealCustomer", form.idealCustomer);
+      payload.append("differentiator", form.differentiator);
+      payload.append("dream", form.dream);
+      payload.append("headache", form.headache);
+      payload.append("hasLogo", form.hasLogo);
+      payload.append("colours", form.colours);
+      payload.append("notes", form.notes);
+      form.services.forEach((value) => payload.append("services", value));
+      form.findYou.forEach((value) => payload.append("findYou", value));
+      form.contactMethod.forEach((value) => payload.append("contactMethod", value));
+      form.vibe.forEach((value) => payload.append("vibe", value));
+      form.timeline.forEach((value) => payload.append("timeline", value));
+      uploadedFiles.forEach((entry) => payload.append("attachments", entry.file, entry.file.name));
+
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          source: "Client Inquiry",
-          name: form.name,
-          email: form.email,
-          business: form.business,
-          phone: form.phone,
-          location: form.location,
-          currentSite: form.currentSite,
-          businessDesc: form.businessDesc,
-          idealCustomer: form.idealCustomer,
-          differentiator: form.differentiator,
-          services: form.services,
-          dream: form.dream,
-          findYou: form.findYou,
-          contactMethod: form.contactMethod,
-          headache: form.headache,
-          hasLogo: form.hasLogo,
-          colours: form.colours,
-          vibe: form.vibe,
-          timeline: form.timeline,
-          notes: form.notes,
-        }),
+        body: payload,
       });
 
       if (!response.ok) {
@@ -403,7 +513,9 @@ export function ClientInquiryForm() {
       }
 
       setShowSuccess(true);
+      setLastSubmissionFileCount(uploadedFiles.length);
       setForm(INITIAL_FORM);
+      setUploadedFiles([]);
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : "Unable to send your brief right now.");
     } finally {
@@ -414,11 +526,14 @@ export function ClientInquiryForm() {
   return (
     <>
       <main className="relative min-h-screen overflow-x-hidden bg-[#030303] text-white">
-        <div className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(circle_at_top_center,rgba(34,211,238,0.08),transparent_36%),radial-gradient(circle_at_80%_22%,rgba(59,130,246,0.09),transparent_28%),linear-gradient(180deg,#010203_0%,#020508_45%,#010203_100%)]" />
-        <div className="pointer-events-none fixed inset-0 z-[1] opacity-[0.08] [background-image:radial-gradient(rgba(34,211,238,0.22)_0.6px,transparent_0.6px)] [background-size:24px_24px] [mask-image:linear-gradient(to_bottom,rgba(0,0,0,0.3),transparent_90%)]" />
-        <canvas ref={canvasRef} aria-hidden="true" className="pointer-events-none fixed inset-0 z-[2] opacity-70" />
-        <div className="pointer-events-none fixed inset-0 z-[3] bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.12),rgba(0,0,0,0.52)),linear-gradient(180deg,rgba(0,0,0,0.08),rgba(0,0,0,0.42))] backdrop-blur-[1.5px]" />
-        <div className="pointer-events-none fixed left-1/2 top-[90px] z-[4] h-[420px] w-[min(72vw,900px)] -translate-x-1/2 bg-[radial-gradient(ellipse,rgba(34,211,238,0.12)_0%,rgba(34,211,238,0.04)_42%,transparent_72%)] blur-[28px]" />
+        <div className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(circle_at_top_center,rgba(34,211,238,0.1),transparent_34%),radial-gradient(circle_at_80%_22%,rgba(59,130,246,0.11),transparent_28%),linear-gradient(180deg,#010203_0%,#020508_45%,#010203_100%)]" />
+        <div className="pointer-events-none fixed inset-0 z-[1] opacity-[0.12] [background-image:radial-gradient(rgba(34,211,238,0.22)_0.6px,transparent_0.6px)] [background-size:24px_24px] [mask-image:linear-gradient(to_bottom,rgba(0,0,0,0.5),transparent_90%)]" />
+        <div className="pointer-events-none fixed inset-0 z-[1] bg-[linear-gradient(rgba(34,211,238,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(34,211,238,0.045)_1px,transparent_1px)] [background-size:42px_42px] opacity-40 [mask-image:radial-gradient(circle_at_50%_22%,black,transparent_78%)]" />
+        <canvas ref={canvasRef} aria-hidden="true" className="pointer-events-none fixed inset-0 z-[2] opacity-80" />
+        <div className="pointer-events-none fixed inset-0 z-[3] bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.08),rgba(0,0,0,0.48)),linear-gradient(180deg,rgba(0,0,0,0.04),rgba(0,0,0,0.38))] backdrop-blur-[1.5px]" />
+        <div className="pointer-events-none fixed left-1/2 top-[90px] z-[4] h-[420px] w-[min(72vw,900px)] -translate-x-1/2 bg-[radial-gradient(ellipse,rgba(34,211,238,0.14)_0%,rgba(34,211,238,0.05)_42%,transparent_72%)] blur-[28px]" />
+        <div className="pointer-events-none fixed right-[-12rem] top-[18rem] z-[1] h-[28rem] w-[28rem] rounded-full bg-brand-cyan/10 blur-[140px]" />
+        <div className="pointer-events-none fixed left-[-10rem] bottom-[12rem] z-[1] h-[24rem] w-[24rem] rounded-full bg-blue-600/10 blur-[130px]" />
 
         <div className="relative z-10 mx-auto max-w-[920px] px-[18px] pb-20 pt-7 sm:px-5 md:px-6">
           <div className="mb-12 flex flex-col items-start justify-between gap-6 pt-4 md:flex-row md:items-center">
@@ -447,20 +562,21 @@ export function ClientInquiryForm() {
             description="Want to see the full Sovereign experience before you send it through?"
             showShade
             icon={<span className="h-2 w-2 rounded-full bg-brand-cyan shadow-[0_0_12px_rgba(34,211,238,0.5)]" />}
-            className="mb-5 rounded-[24px] border-white/10 bg-black/50 px-3 py-2.5 text-white backdrop-blur-xl [&_p]:text-white [&_p:last-child]:text-white/70"
+            className="mb-5 rounded-[24px] border-white/10 bg-black/50 px-4 py-3 text-white backdrop-blur-xl [&_p]:text-white [&_p:last-child]:text-white/70"
             action={
               <Link
                 href="https://www.sovereignsystem.co.uk/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[42px] items-center justify-center rounded-full border border-brand-cyan/25 bg-brand-cyan/10 px-4 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-cyan-50 transition-all hover:-translate-y-px hover:border-brand-cyan/45 hover:bg-brand-cyan/15 hover:shadow-[0_0_18px_rgba(34,211,238,0.12)]"
+                className="inline-flex w-full min-h-[42px] items-center justify-center rounded-full border border-brand-cyan/25 bg-brand-cyan/10 px-4 font-mono text-xs font-semibold uppercase tracking-[0.08em] text-cyan-50 transition-all hover:-translate-y-px hover:border-brand-cyan/45 hover:bg-brand-cyan/15 hover:shadow-[0_0_18px_rgba(34,211,238,0.12)] sm:w-auto sm:tracking-[0.12em]"
               >
-                Visit SovereignSystem.co.uk
+                <span className="sm:hidden">Visit Main Site</span>
+                <span className="hidden sm:inline">Visit SovereignSystem.co.uk</span>
               </Link>
             }
           />
 
-          <section className="relative mb-9 overflow-hidden rounded-[32px] border border-white/10 bg-[linear-gradient(180deg,rgba(4,10,16,0.72),rgba(3,8,13,0.84))] px-6 py-8 shadow-[0_24px_80px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-[18px] sm:px-8">
+          <section className="relative mb-9 overflow-hidden rounded-[32px] border border-white/10 bg-[linear-gradient(180deg,rgba(4,10,16,0.72),rgba(3,8,13,0.84))] px-6 py-8 shadow-[0_24px_80px_rgba(0,0,0,0.45),0_0_60px_rgba(34,211,238,0.08),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-[18px] sm:px-8">
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(120deg,rgba(34,211,238,0.08),transparent_38%,transparent_60%,rgba(59,130,246,0.1))]" />
             <div className="relative inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/50 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.18em] text-white/80">
               <span className="h-2 w-2 rounded-full bg-[linear-gradient(135deg,#22d3ee,#3b82f6)] shadow-[0_0_18px_rgba(34,211,238,0.45)]" /> Premium Briefing Experience
@@ -604,6 +720,17 @@ export function ClientInquiryForm() {
                   </div>
                 </Subsection>
                 <Subsection status={statuses.vibe}><Field label="What vibe are you after?"><ChipGroup options={VIBE_OPTIONS} selected={form.vibe} onToggle={(value) => toggleArrayValue("vibe", value)} /></Field></Subsection>
+                <Subsection status={uploadedFiles.length > 0 ? "complete" : "idle"} label="Files Ready">
+                  <div className="space-y-4">
+                    <div>
+                      <div className="mb-2 font-mono text-[11px] uppercase tracking-[0.14em] text-white/65">Attachments & References</div>
+                      <p className="text-sm leading-6 text-white/60">
+                        Logos, PDFs, image references, and short video references welcome. For video references, only upload cinematic shots of work or company. Max 12 seconds.
+                      </p>
+                    </div>
+                    <FileUploadCard files={uploadedFiles} onFilesChange={handleFilesChange} onFileRemove={handleFileRemove} />
+                  </div>
+                </Subsection>
               </div>
             </section>
 
@@ -631,7 +758,7 @@ export function ClientInquiryForm() {
                 {isSubmitting ? "Sending..." : "Send Private Brief"}
               </button>
               <p className="mt-4 font-mono text-xs uppercase tracking-[0.08em] text-white/35">
-                Complete the core fields first. After submitting, reply with any logos, photos, or references as attachments.
+                Complete the core fields first. Upload up to 5 files - 10 MB each - including short MP4 references up to 12 seconds.
               </p>
             </div>
           </form>
@@ -652,7 +779,9 @@ export function ClientInquiryForm() {
         onClose={() => setShowSuccess(false)}
         imageUrl="/logo.png"
         title="Well done."
-        description="Your brief has been sent to my email. If you want to include logos, photos, or references, reply with attachments afterwards and I will fold them into the concept."
+        description={lastSubmissionFileCount > 0
+          ? "Your brief and attached references have been sent to my email. I will review everything together and come back with a sharper proposal."
+          : "Your brief has been sent to my email. If you want to send extra references afterwards, reply with attachments and I will fold them into the concept."}
         primaryButtonText="Close Brief"
         onPrimaryClick={() => setShowSuccess(false)}
         secondaryButtonText="Visit Main Website"

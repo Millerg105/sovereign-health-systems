@@ -180,6 +180,19 @@ export function HeroScrollSequence() {
                                     <h2 className="text-lg sm:text-2xl font-heading font-bold text-white mb-1">Morning Overview</h2>
                                     <p className="text-white/50 text-xs sm:text-sm">Real-time performance metrics</p>
                                 </div>
+                                <div className="grid grid-cols-2 gap-2 md:hidden">
+                                    {[
+                                        { label: 'Quotes', tone: 'bg-cyan-500/10 border-cyan-500/20 text-cyan-300', icon: '📏' },
+                                        { label: 'Priority', tone: 'bg-purple-500/10 border-purple-500/20 text-purple-300', icon: '⚠️' },
+                                        { label: 'Job Sheet', tone: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-300', icon: '📄' },
+                                        { label: 'AI Notes', tone: 'bg-blue-500/10 border-blue-500/20 text-blue-300', icon: '🤖' },
+                                    ].map((item) => (
+                                        <div key={item.label} className={cn("flex items-center gap-2 rounded-xl border px-3 py-2 text-[11px] font-medium", item.tone)}>
+                                            <span className="text-[10px]">{item.icon}</span>
+                                            <span>{item.label}</span>
+                                        </div>
+                                    ))}
+                                </div>
                                 <div className="hidden sm:flex flex-wrap items-center gap-2 p-2.5 rounded-xl bg-white/[0.06] border border-white/10 max-w-[68%]">
                                     <div className="h-8 px-4 rounded-lg bg-white/5 border border-white/10 flex items-center text-[11px] text-white/70">Today</div>
                                     <div className="h-8 px-3.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-1.5 text-[11px] text-emerald-400">
@@ -293,10 +306,67 @@ export function HeroScrollSequence() {
                                         </div>
                                     </div>
                                 </div>
+
+                                <div className="sm:hidden relative group p-4 rounded-xl bg-white/[0.03] border border-white/10 overflow-hidden">
+                                    <p className="text-xs text-white/50 mb-3 uppercase tracking-wide font-medium flex items-center gap-2">
+                                        <span>🎯</span> Today&apos;s Targets
+                                    </p>
+                                    <div className="space-y-3">
+                                        <div>
+                                            <div className="flex justify-between items-center mb-1">
+                                                <p className="text-[10px] text-white/60">Revenue Target</p>
+                                                <p className="text-[10px] text-emerald-400 font-bold">87%</p>
+                                            </div>
+                                            <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                                                <div className="h-full w-[87%] bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div className="flex justify-between items-center mb-1">
+                                                <p className="text-[10px] text-white/60">Automation Rate</p>
+                                                <p className="text-[10px] text-purple-400 font-bold">92%</p>
+                                            </div>
+                                            <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                                                <div className="h-full w-[92%] bg-gradient-to-r from-purple-400 to-pink-500 rounded-full" />
+                                            </div>
+                                        </div>
+                                        <div className="grid grid-cols-2 gap-2 pt-1">
+                                            <div className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2">
+                                                <div className="text-[9px] uppercase tracking-[0.16em] text-white/35">Booked</div>
+                                                <div className="mt-1 text-lg font-semibold text-white">24</div>
+                                            </div>
+                                            <div className="rounded-lg border border-brand-cyan/20 bg-brand-cyan/5 px-3 py-2">
+                                                <div className="text-[9px] uppercase tracking-[0.16em] text-white/35">Recovered</div>
+                                                <div className="mt-1 text-lg font-semibold text-brand-cyan">£3.4k</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="sm:hidden relative group p-4 rounded-xl bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20 overflow-hidden">
+                                    <div className="flex items-center gap-2 mb-3">
+                                        <div className="w-6 h-6 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 flex items-center justify-center text-[10px]">🤖</div>
+                                        <p className="text-xs text-purple-300 uppercase tracking-wide font-medium">Sovereign AI</p>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <div className="rounded-lg bg-white/5 px-3 py-2 text-[10px] text-white/65">How many jobs booked today?</div>
+                                        <div className="rounded-lg bg-purple-500/20 px-3 py-2 text-[10px] text-purple-100">24 booked, 6 quotes sent, 3 callbacks recovered.</div>
+                                        <div className="grid grid-cols-2 gap-2">
+                                            <div className="rounded-lg border border-white/10 bg-black/20 px-3 py-2">
+                                                <div className="text-[9px] uppercase tracking-[0.16em] text-white/35">Urgent</div>
+                                                <div className="mt-1 text-sm font-semibold text-white">2 leads</div>
+                                            </div>
+                                            <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/10 px-3 py-2">
+                                                <div className="text-[9px] uppercase tracking-[0.16em] text-emerald-300/70">AI active</div>
+                                                <div className="mt-1 text-sm font-semibold text-emerald-300">Live</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             {/* Big Chart Area */}
-                            <div className="hidden sm:block w-full h-44 sm:h-52 rounded-xl bg-white/[0.03] border border-white/10 p-3 sm:p-5 relative overflow-hidden">
+                            <div className="w-full h-44 sm:h-52 rounded-xl bg-white/[0.03] border border-white/10 p-3 sm:p-5 relative overflow-hidden">
                                 <div className="flex justify-between items-center mb-4">
                                     <h4 className="text-xs font-medium text-white/60 uppercase tracking-wide">Lead Conversion Trajectory</h4>
                                     <div className="flex gap-4">
@@ -328,7 +398,7 @@ export function HeroScrollSequence() {
                             </div>
 
                             {/* Today's Schedule & Activity */}
-                            <div className="hidden md:grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 mt-4 sm:mt-6">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 mt-4 sm:mt-6 md:grid">
                                 {/* Today's Appointments */}
                                 <div className="rounded-xl bg-white/[0.03] border border-white/10 p-4">
                                     <div className="flex items-center justify-between mb-3">

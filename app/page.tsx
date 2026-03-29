@@ -22,10 +22,29 @@ import { FounderNote } from "@/components/founder-note";
 export default function Home() {
   const [showPreloader, setShowPreloader] = useState(true);
 
+  const scrollToHash = (hash: string) => {
+    if (!hash) return;
+    const id = hash.replace(/^#/, "");
+    const target = document.getElementById(id);
+    if (!target) return;
+
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+  };
+
   useEffect(() => {
     const previous = window.history.scrollRestoration;
     window.history.scrollRestoration = "manual";
-    window.scrollTo(0, 0);
+
+    if (window.location.hash) {
+      setShowPreloader(false);
+      scrollToHash(window.location.hash);
+    } else {
+      window.scrollTo(0, 0);
+    }
 
     return () => {
       window.history.scrollRestoration = previous;
@@ -33,8 +52,14 @@ export default function Home() {
   }, []);
 
   const handlePreloaderComplete = () => {
-    window.scrollTo(0, 0);
     setShowPreloader(false);
+
+    if (window.location.hash) {
+      scrollToHash(window.location.hash);
+      return;
+    }
+
+    window.scrollTo(0, 0);
   };
 
   return (
