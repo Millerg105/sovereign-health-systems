@@ -1,6 +1,5 @@
 "use client"
 
-import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { Calendar, Clock, Video, FileText, MessageCircle, Linkedin, Phone, ChevronRight, Loader2 } from "lucide-react"
 import { useEffect, useState } from "react"
@@ -236,31 +235,8 @@ export function CalendarBooking() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-[1.1fr_0.9fr]"
+            className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4"
           >
-            <div className="relative overflow-hidden rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(7,14,22,0.88),rgba(4,10,16,0.96))] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.04)] backdrop-blur-xl sm:p-7">
-              <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(34,211,238,0.08),transparent_38%,transparent_65%,rgba(59,130,246,0.08))]" />
-              <div className="relative flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-                <div className="max-w-xl">
-                  <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-brand-cyan/20 bg-brand-cyan/10 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.16em] text-brand-cyan">
-                    Portfolio Preview
-                  </div>
-                  <h3 className="text-2xl font-heading font-bold tracking-tight text-white sm:text-3xl">
-                    See the standard of platform, brand execution, and performance engineering behind Sovereign Systems.
-                  </h3>
-                </div>
-
-                <Link
-                  href="/portfolio"
-                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-brand-cyan/35 bg-white/[0.03] px-6 py-3 text-sm font-semibold text-cyan-50 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-cyan/60 hover:bg-brand-cyan/10 hover:shadow-[0_0_24px_rgba(34,211,238,0.16)] sm:text-base"
-                >
-                  View Portfolio
-                  <ChevronRight className="h-4 w-4" />
-                </Link>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <a
               href={WHATSAPP_URL}
               target="_blank"
@@ -279,7 +255,6 @@ export function CalendarBooking() {
               <Linkedin className="w-5 h-5 text-brand-cyan" />
               Message on LinkedIn
             </a>
-            </div>
           </motion.div>
 
           {/* Bottom Social Proof */}

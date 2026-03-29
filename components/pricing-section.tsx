@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Check, Send } from "lucide-react";
-import { ContactActions } from "./ui/contact-actions";
+import { ArrowRight, Check, Send } from "lucide-react";
 
 const PRICING_PLANS = [
     {
@@ -157,12 +157,24 @@ export function PricingSection() {
                         <p className="text-white text-[15px] font-light">Know another business owner who's missing calls? Refer them and get 20% off your monthly fee — or we'll pay you a referral fee directly.</p>
                     </motion.button>
 
-                    {/* Contact Module */}
-                    <div className="flex flex-col items-center justify-center p-6 sm:p-8 md:p-9 rounded-[2rem] md:rounded-[2.5rem] bg-brand-navy/30 border border-white/10 backdrop-blur-xl h-full shadow-2xl shadow-black/40">
-                        <span className="text-xl md:text-[1.65rem] font-heading font-bold text-white/95 mb-8 text-center leading-tight">
-                            Ready to review <br />your proposal?
-                        </span>
-                        <ContactActions />
+                    {/* Portfolio Module */}
+                    <div className="relative flex flex-col justify-center p-6 sm:p-8 md:p-9 rounded-[2rem] md:rounded-[2.5rem] bg-brand-navy/30 border border-white/10 backdrop-blur-xl h-full shadow-2xl shadow-black/40 overflow-hidden">
+                        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(34,211,238,0.08),transparent_38%,transparent_65%,rgba(59,130,246,0.08))]" />
+                        <div className="relative">
+                            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-brand-cyan/20 bg-brand-cyan/10 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.16em] text-brand-cyan">
+                                Portfolio Preview
+                            </div>
+                            <span className="block max-w-md text-xl md:text-[1.65rem] font-heading font-bold text-white/95 mb-8 leading-tight">
+                                See the standard of platform, brand execution, and performance engineering behind Sovereign Systems.
+                            </span>
+                            <Link
+                                href="/portfolio"
+                                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-brand-cyan/35 bg-white/[0.03] px-6 py-3 text-sm font-semibold text-cyan-50 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-cyan/60 hover:bg-brand-cyan/10 hover:shadow-[0_0_24px_rgba(34,211,238,0.16)] sm:text-base"
+                            >
+                                View Portfolio
+                                <ArrowRight className="h-4 w-4" />
+                            </Link>
+                        </div>
                     </div>
                 </div>
 
@@ -213,7 +225,7 @@ function PricingCard({ plan }: { plan: any }) {
                         <div className="mt-4 rounded-2xl border border-brand-cyan/20 bg-brand-cyan/5 px-4 py-3 relative overflow-hidden group/fee">
                             <div className="absolute inset-0 bg-gradient-to-r from-brand-cyan/10 to-transparent opacity-0 group-hover/fee:opacity-100 transition-opacity duration-500" />
                             <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-cyan font-bold">One-Time Implementation</div>
-                            <div className="mt-1 text-xl font-heading font-bold text-white tracking-tight">{plan.implementationFee}</div>
+                            <div className="mt-1 font-body text-[1.4rem] font-semibold text-white tracking-[-0.02em] tabular-nums">{plan.implementationFee}</div>
                         </div>
                     )}
                 </div>

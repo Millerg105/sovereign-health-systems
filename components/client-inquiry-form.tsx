@@ -419,8 +419,12 @@ export function ClientInquiryForm() {
   const handleFileRemove = (id: string) => {
     const target = uploadedFiles.find((file) => file.id === id);
     if (target?.storagePath) {
-      const supabase = getSupabaseBrowserClient();
-      supabase.storage.from(SUPABASE_BUCKET).remove([target.storagePath]).catch(() => null);
+      try {
+        const supabase = getSupabaseBrowserClient();
+        supabase.storage.from(SUPABASE_BUCKET).remove([target.storagePath]).catch(() => null);
+      } catch {
+        // Supabase not configured — skip storage cleanup
+      }
     }
 
     setUploadedFiles((prev) => prev.filter((file) => file.id !== id));
@@ -441,12 +445,12 @@ export function ClientInquiryForm() {
 
     for (const file of nextFiles) {
       if (!ALLOWED_FILE_TYPES.includes(file.type)) {
-        setErrorMessage(`Unsupported file type for ${file.name}. Use ${ALLOWED_FILE_TYPES.map(formatAcceptLabel).join(", ")}.`);
+        setErrorMessage(`Unsupported file type: ${file.name}. Accepted: ${ALLOWED_FILE_TYPES.map(formatAcceptLabel).join(", ")}.`);
         continue;
       }
 
       if (file.size > MAX_FILE_SIZE) {
-        setErrorMessage(`${file.name} is larger than 10 MB.`);
+        setErrorMessage(`${file.name} exceeds the 10 MB limit.`);
         continue;
       }
 
@@ -454,11 +458,11 @@ export function ClientInquiryForm() {
         try {
           const duration = await readVideoDuration(file);
           if (duration > MAX_VIDEO_SECONDS) {
-            setErrorMessage(`${file.name} is longer than ${MAX_VIDEO_SECONDS} seconds.`);
+            setErrorMessage(`${file.name} is longer than ${MAX_VIDEO_SECONDS} seconds. Keep video references short.`);
             continue;
           }
         } catch (error) {
-          setErrorMessage(error instanceof Error ? error.message : `Could not validate ${file.name}.`);
+          setErrorMessage(error instanceof Error ? error.message : `Could not read video metadata for ${file.name}.`);
           continue;
         }
       }
@@ -467,17 +471,30 @@ export function ClientInquiryForm() {
       if (existingIds.has(id)) continue;
       existingIds.add(id);
 
-      const uploadingEntry: UploadedFile = {
-        id,
-        file,
-        progress: 20,
-        status: "uploading",
-      };
+      // Add the file entry immediately so the user sees feedback
+      setUploadedFiles((prev) => [...prev, { id, file, progress: 0, status: "uploading" }]);
 
-      setUploadedFiles((prev) => [...prev, uploadingEntry]);
+      // Animate progress to ~85% while waiting for the actual upload
+      let simulatedProgress = 0;
+      const progressInterval = setInterval(() => {
+        simulatedProgress = Math.min(simulatedProgress + Math.random() * 18 + 6, 85);
+        setUploadedFiles((prev) =>
+          prev.map((entry) =>
+            entry.id === id && entry.status === "uploading"
+              ? { ...entry, progress: Math.round(simulatedProgress) }
+              : entry,
+          ),
+        );
+      }, 200);
 
       try {
-        const supabase = getSupabaseBrowserClient();
+        let supabase;
+        try {
+          supabase = getSupabaseBrowserClient();
+        } catch {
+          throw new Error("Upload service is not configured. Please contact us directly to send references.");
+        }
+
         const extension = file.name.split(".").pop() || "file";
         const storagePath = `client-inquiry/${Date.now()}-${Math.random().toString(36).slice(2, 10)}-${sanitizeFilename(file.name.replace(new RegExp(`\\.${extension}$`), ""))}.${extension}`;
 
@@ -487,34 +504,32 @@ export function ClientInquiryForm() {
           contentType: file.type,
         });
 
-        if (error) throw error;
+        clearInterval(progressInterval);
+
+        if (error) {
+          // Surface a readable error — "Bucket not found" means policy/bucket issue
+          const msg = error.message?.toLowerCase().includes("bucket")
+            ? `Storage policy error: bucket '${SUPABASE_BUCKET}' not found or INSERT policy is missing. Run supabase_policies.sql in your Supabase project.`
+            : error.message || `Upload failed for ${file.name}.`;
+          throw new Error(msg);
+        }
 
         const { data } = supabase.storage.from(SUPABASE_BUCKET).getPublicUrl(storagePath);
 
         setUploadedFiles((prev) =>
           prev.map((entry) =>
             entry.id === id
-              ? {
-                  ...entry,
-                  progress: 100,
-                  status: "completed",
-                  storagePath,
-                  url: data.publicUrl,
-                }
+              ? { ...entry, progress: 100, status: "completed", storagePath, url: data.publicUrl }
               : entry,
           ),
         );
       } catch (error) {
+        clearInterval(progressInterval);
         const message = error instanceof Error ? error.message : `Could not upload ${file.name}.`;
         setUploadedFiles((prev) =>
           prev.map((entry) =>
             entry.id === id
-              ? {
-                  ...entry,
-                  progress: 100,
-                  status: "error",
-                  errorMessage: message,
-                }
+              ? { ...entry, progress: 0, status: "error", errorMessage: message }
               : entry,
           ),
         );
@@ -830,7 +845,7 @@ export function ClientInquiryForm() {
                 {isSubmitting ? "Sending..." : "Send Private Brief"}
               </button>
               <p className="mt-4 font-mono text-xs uppercase tracking-[0.08em] text-white/35">
-                Complete the core fields first. Upload up to 5 files - 10 MB each - including short MP4 references up to 12 seconds.
+                Your investment will be outlined in a tailored fee proposal based on the scope, features, and complexity of the build.
               </p>
             </div>
           </form>
