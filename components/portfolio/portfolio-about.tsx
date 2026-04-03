@@ -21,7 +21,7 @@ export function PortfolioAbout() {
               </div>
               <div>
                 <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-brand-cyan/80">Miller Glenholmes</div>
-                <div className="mt-1 font-mono text-[9px] uppercase tracking-[0.18em] text-white/40">Co-Founder &amp; Technical Lead</div>
+                <div className="mt-1 font-mono text-[9px] uppercase tracking-[0.18em] text-white/40">Founder</div>
               </div>
             </div>
             <p className="text-[0.96rem] leading-[1.58] sm:text-[1rem]">
@@ -50,7 +50,7 @@ export function PortfolioAbout() {
               </div>
               <div>
                 <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-brand-cyan/80">Joe Winstanley</div>
-                <div className="mt-1 font-mono text-[9px] uppercase tracking-[0.18em] text-white/40">Co-Founder &amp; Head of Client Relations</div>
+                <div className="mt-1 font-mono text-[9px] uppercase tracking-[0.18em] text-white/40">Co-Founder</div>
               </div>
             </div>
             <p className="text-[0.96rem] leading-[1.58] sm:text-[1rem]">
