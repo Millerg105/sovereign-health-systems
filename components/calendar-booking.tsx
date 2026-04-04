@@ -292,7 +292,7 @@ export function CalendarBooking() {
                       exit="exit"
                       transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                     >
-                      <h3 className="text-white font-bold text-lg mb-1">What type of call works best?</h3>
+                      <h3 className="text-white font-heading font-bold text-lg tracking-tight mb-1">What type of call works best?</h3>
                       <p className="text-white/40 text-sm mb-6">Pick the format that fits your schedule.</p>
 
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -319,7 +319,7 @@ export function CalendarBooking() {
                               }`}>
                                 <TypeIcon className="w-5 h-5 text-brand-cyan" />
                               </div>
-                              <h4 className="text-white font-semibold text-sm mb-1">{type.label}</h4>
+                              <h4 className="text-white font-heading font-semibold text-sm tracking-tight mb-1">{type.label}</h4>
                               <p className="text-[11px] text-white/50 leading-relaxed">{type.description}</p>
                               <div className="flex items-center gap-1 mt-3 pt-2.5 border-t border-white/5">
                                 <Clock className="w-3 h-3 text-white/25" />
@@ -343,7 +343,7 @@ export function CalendarBooking() {
                       exit="exit"
                       transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                     >
-                      <h3 className="text-white font-bold text-lg flex items-center gap-2 mb-1">
+                      <h3 className="text-white font-heading font-bold text-lg tracking-tight flex items-center gap-2 mb-1">
                         <Calendar className="w-4 h-4 text-brand-cyan" />
                         Choose a Date
                       </h3>
@@ -397,7 +397,7 @@ export function CalendarBooking() {
                       exit="exit"
                       transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                     >
-                      <h3 className="text-white font-bold text-lg flex items-center gap-2 mb-1">
+                      <h3 className="text-white font-heading font-bold text-lg tracking-tight flex items-center gap-2 mb-1">
                         <Clock className="w-4 h-4 text-brand-cyan" />
                         Pick a Time
                       </h3>
@@ -476,7 +476,7 @@ export function CalendarBooking() {
                         </button>
                       </div>
 
-                      <h3 className="text-white font-bold text-lg mb-1">Your Details</h3>
+                      <h3 className="text-white font-heading font-bold text-lg tracking-tight mb-1">Your Details</h3>
                       <p className="text-white/40 text-sm mb-5">So we know who we&apos;re speaking to.</p>
 
                       <div className="space-y-3">
@@ -561,11 +561,11 @@ export function CalendarBooking() {
                     >
                       {/* Gradient banner */}
                       <div className="bg-gradient-to-r from-brand-cyan to-brand-blue rounded-xl p-4 mb-6 text-center">
-                        <p className="text-[#031316] font-bold text-lg">{selectedCallTypeData?.label}</p>
+                        <p className="text-[#031316] font-heading font-bold text-lg tracking-tight">{selectedCallTypeData?.label}</p>
                         <p className="text-[#031316]/60 text-xs mt-0.5">{selectedCallTypeData?.duration}</p>
                       </div>
 
-                      <h3 className="text-white font-bold text-lg mb-4">Confirm Your Booking</h3>
+                      <h3 className="text-white font-heading font-bold text-lg tracking-tight mb-4">Confirm Your Booking</h3>
 
                       <div className="space-y-3 mb-6">
                         <div className="flex items-start gap-3 text-sm">
@@ -649,11 +649,11 @@ export function CalendarBooking() {
                         </div>
                       </div>
 
-                      <h3 className="text-white font-bold text-xl mb-1">Booking Confirmed</h3>
+                      <h3 className="text-white font-heading font-bold text-xl tracking-tight mb-1">Booking Confirmed</h3>
                       <p className="text-white/40 text-xs font-mono tracking-wider mb-4">Ref: {bookingRef}</p>
 
                       <div className="bg-white/[0.03] border border-white/5 rounded-xl p-4 max-w-sm mx-auto mb-6">
-                        <p className="text-white font-semibold text-sm">{selectedCallTypeData?.label}</p>
+                        <p className="text-white font-heading font-semibold text-sm tracking-tight">{selectedCallTypeData?.label}</p>
                         <p className="text-white/50 text-xs mt-1">
                           {selectedDateData?.day} {selectedDateData?.dayNum} {selectedDateData?.month} at {selectedTime}
                         </p>
