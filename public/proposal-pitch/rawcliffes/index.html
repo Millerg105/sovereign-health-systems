@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sovereign Systems — Pitch: Rawcliffe's of Chorley</title>
+    <link rel="icon" type="image/png" href="/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-deep: #030303;
+            --bg-card: rgba(4,10,16,0.72);
+            --border: rgba(120,167,219,0.14);
+            --border-accent: rgba(34,211,238,0.22);
+            --accent: #22d3ee;
+            --accent-blue: #3b82f6;
+            --accent-glow: #8cf7ee;
+            --accent-green: #10b981;
+            --accent-green-glow: #72f3bf;
+            --accent-amber: #f59e0b;
+            --accent-amber-glow: #fcd34d;
+            --accent-red: #ef4444;
+            --text-primary: rgba(255,255,255,0.94);
+            --text-secondary: rgba(255,255,255,0.62);
+            --text-muted: rgba(255,255,255,0.36);
+        }
+
+        html, body { height: 100%; overflow: hidden; font-family: 'Inter', -apple-system, sans-serif; background: var(--bg-deep); color: var(--text-primary); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+        ::selection { background: rgba(34,211,238,0.3); }
+
+        /* ── Canvas & BG ── */
+        #particles { position: fixed; inset: 0; z-index: 0; }
+        .bg-gradient { position: fixed; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse at 20% 0%, rgba(34,211,238,0.07) 0%, transparent 50%), radial-gradient(ellipse at 80% 100%, rgba(59,130,246,0.06) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0.4) 0%, transparent 100%); }
+        .bg-grid { position: fixed; inset: 0; z-index: 2; pointer-events: none; background-image: linear-gradient(rgba(34,211,238,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.04) 1px, transparent 1px); background-size: 48px 48px; mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.3) 0%, transparent 70%); }
+
+        /* ── Slideshow ── */
+        .slideshow { position: relative; z-index: 10; width: 100vw; height: 100vh; }
+        .slide { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: clamp(20px, 3vw, 56px); padding-top: clamp(60px, 8vh, 80px); padding-bottom: clamp(60px, 8vh, 80px); opacity: 0; transform: translateY(28px) scale(0.97); transition: opacity 0.55s cubic-bezier(.4,0,.2,1), transform 0.55s cubic-bezier(.4,0,.2,1); pointer-events: none; flex-direction: column; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+        .slide.active { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+        .slide.exit-up { opacity: 0; transform: translateY(-28px) scale(0.97); }
+        .slide-inner { width: min(92vw, 1100px); text-align: center; }
+
+        /* ── Slide Typography ── */
+        .slide-label { display: inline-flex; align-items: center; gap: 8px; font: 600 11px/1 'JetBrains Mono', monospace; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
+        .slide-label::before { content: ''; width: 8px; height: 2px; background: var(--accent); border-radius: 1px; }
+        .slide-title { font-family: 'Playfair Display', serif; font-size: clamp(26px, 4.5vw, 60px); font-weight: 700; letter-spacing: -0.04em; line-height: 1.08; margin-bottom: 16px; }
+        .slide-title span, .gradient-text { background: linear-gradient(90deg, var(--accent-blue), var(--accent), #66e2ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .slide-subtitle { font: 500 11px/1.6 'JetBrains Mono', monospace; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 28px; }
+        .slide-body { font-size: clamp(14px, 1.6vw, 18px); color: var(--text-secondary); line-height: 1.7; max-width: 820px; margin: 0 auto; }
+        .slide-body strong { color: var(--text-primary); font-weight: 600; }
+        .slide-body em { color: var(--accent-glow); font-style: normal; font-weight: 500; }
+
+        /* ── Cards ── */
+        .cards-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 24px; text-align: left; }
+        .card { background: linear-gradient(180deg, rgba(5,11,18,0.78), rgba(3,8,13,0.88)); border: 1px solid var(--border); border-radius: 18px; padding: clamp(16px, 2vw, 24px); backdrop-filter: blur(12px); transition: border-color 0.3s, box-shadow 0.3s; position: relative; overflow: hidden; }
+        .card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.02), transparent 30%, transparent 70%, rgba(34,211,238,0.03)); pointer-events: none; }
+        .card:hover { border-color: var(--border-accent); box-shadow: 0 0 30px rgba(34,211,238,0.06); }
+        .card-label { font: 600 10px/1 'JetBrains Mono', monospace; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .card-label::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px rgba(34,211,238,0.6); }
+        .card-label.green { color: var(--accent-green-glow); }
+        .card-label.green::before { background: var(--accent-green); box-shadow: 0 0 10px rgba(16,185,129,0.6); }
+        .card-label.amber { color: var(--accent-amber-glow); }
+        .card-label.amber::before { background: var(--accent-amber); box-shadow: 0 0 10px rgba(245,158,11,0.6); }
+        .card-label.blue { color: #93c5fd; }
+        .card-label.blue::before { background: var(--accent-blue); box-shadow: 0 0 10px rgba(59,130,246,0.6); }
+        .card h3 { font-family: 'Playfair Display', serif; font-size: clamp(15px, 1.6vw, 20px); font-weight: 700; letter-spacing: -0.03em; margin-bottom: 8px; }
+        .card p, .card li { font-size: clamp(12px, 1.1vw, 14px); color: var(--text-secondary); line-height: 1.6; }
+        .card ul { list-style: none; padding: 0; }
+        .card ul li { position: relative; padding-left: 16px; margin-bottom: 5px; }
+        .card ul li::before { content: ''; position: absolute; left: 0; top: 8px; width: 5px; height: 5px; border-radius: 50%; background: rgba(34,211,238,0.5); }
+        .card ul li strong { color: var(--text-primary); }
+        .card ul li em { color: var(--accent-glow); font-style: normal; }
+
+        /* ── Glass Box ── */
+        .glass-box { background: rgba(5,12,20,0.7); border: 1px solid var(--border); border-radius: 18px; padding: clamp(18px, 2.5vw, 28px); backdrop-filter: blur(16px); text-align: left; position: relative; overflow: hidden; }
+        .glass-box::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.03), transparent 40%); pointer-events: none; }
+
+        /* ── Stats Row ── */
+        .stats-row { display: flex; justify-content: center; gap: clamp(20px, 4vw, 56px); margin-top: 28px; flex-wrap: wrap; }
+        .stat { text-align: center; }
+        .stat-value { font-family: 'Playfair Display', serif; font-size: clamp(28px, 4.5vw, 52px); font-weight: 700; line-height: 1; background: linear-gradient(90deg, var(--accent-blue), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .stat-label { font: 500 10px/1 'JetBrains Mono', monospace; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-top: 8px; }
+
+        /* ── Pills ── */
+        .pill { display: inline-flex; align-items: center; gap: 7px; padding: 7px 16px; border-radius: 999px; font: 600 10px/1 'JetBrains Mono', monospace; letter-spacing: 0.12em; text-transform: uppercase; margin: 4px; }
+        .pill.cyan { background: rgba(34,211,238,0.08); border: 1px solid rgba(34,211,238,0.22); color: var(--accent-glow); }
+        .pill.green { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.22); color: var(--accent-green-glow); }
+        .pill.amber { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.22); color: var(--accent-amber-glow); }
+        .pill.blue { background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.22); color: #93c5fd; }
+
+        /* ── Stamp ── */
+        .stamp { display: inline-block; padding: 4px 12px; border-radius: 6px; font: 700 10px/1 'JetBrains Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 8px; }
+        .stamp.live { background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.4); color: var(--accent-green-glow); }
+        .stamp.demo { background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.35); color: var(--accent-amber-glow); }
+
+        /* ── Two / Three Col ── */
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; text-align: left; margin-top: 24px; }
+        .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; text-align: left; margin-top: 24px; }
+
+        /* ── Timeline ── */
+        .timeline { margin-top: 24px; text-align: left; max-width: 800px; margin-left: auto; margin-right: auto; }
+        .timeline-item { display: flex; gap: 18px; margin-bottom: 16px; position: relative; }
+        .timeline-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 5px; box-shadow: 0 0 12px rgba(34,211,238,0.4); position: relative; }
+        .timeline-dot.green { background: var(--accent-green); box-shadow: 0 0 12px rgba(16,185,129,0.4); }
+        .timeline-dot.blue { background: var(--accent-blue); box-shadow: 0 0 12px rgba(59,130,246,0.4); }
+        .timeline-item:not(:last-child) .timeline-dot::after { content: ''; position: absolute; left: 50%; top: 12px; width: 1px; height: calc(100% + 12px); background: linear-gradient(to bottom, rgba(34,211,238,0.3), transparent); transform: translateX(-50%); }
+
+        .timeline-content h4 { font: 600 11px/1 'JetBrains Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-glow); margin-bottom: 5px; }
+        .timeline-content p { font-size: clamp(13px, 1.2vw, 15px); color: var(--text-secondary); line-height: 1.6; }
+        .timeline-content p strong { color: var(--text-primary); }
+
+        /* ── Quote Block ── */
+        .quote-block { font-family: 'Playfair Display', serif; font-size: clamp(22px, 3.2vw, 44px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; color: var(--text-primary); }
+        .quote-block span { background: linear-gradient(90deg, var(--accent-blue), var(--accent), #66e2ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* ── Pricing Tiers ── */
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; text-align: left; }
+        .pricing-tier { background: linear-gradient(180deg, rgba(5,11,18,0.78), rgba(3,8,13,0.88)); border: 1px solid var(--border); border-radius: 20px; padding: clamp(18px, 2vw, 28px); position: relative; overflow: hidden; transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s; }
+        .pricing-tier::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.02), transparent 30%, transparent 70%, rgba(34,211,238,0.03)); pointer-events: none; }
+        .pricing-tier:hover { border-color: var(--border-accent); box-shadow: 0 0 30px rgba(34,211,238,0.06); transform: translateY(-2px); }
+        .pricing-tier.featured { border-color: var(--border-accent); box-shadow: 0 0 40px rgba(34,211,238,0.1); }
+        .pricing-tier.featured::after { content: 'Recommended'; position: absolute; top: 14px; right: 14px; font: 600 8px/1 'JetBrains Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; background: rgba(34,211,238,0.12); border: 1px solid rgba(34,211,238,0.3); color: var(--accent-glow); }
+        .pricing-tier .tier-name { font: 600 10px/1 'JetBrains Mono', monospace; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+        .pricing-tier .tier-price { font-family: 'Playfair Display', serif; font-size: clamp(28px, 3vw, 40px); font-weight: 700; margin-bottom: 4px; }
+        .pricing-tier .tier-price span { background: linear-gradient(90deg, var(--accent-blue), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .pricing-tier .tier-period { font: 400 10px/1 'JetBrains Mono', monospace; letter-spacing: 0.12em; color: var(--text-muted); margin-bottom: 16px; }
+        .pricing-tier ul { list-style: none; padding: 0; }
+        .pricing-tier ul li { position: relative; padding-left: 18px; margin-bottom: 7px; font-size: clamp(11px, 1vw, 13px); color: var(--text-secondary); line-height: 1.5; }
+        .pricing-tier ul li::before { content: ''; position: absolute; left: 0; top: 7px; width: 5px; height: 5px; border-radius: 50%; background: rgba(34,211,238,0.5); }
+        .pricing-tier ul li strong { color: var(--text-primary); }
+
+        /* ── Feature Grid ── */
+        .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px; text-align: left; }
+        .feature-item { padding: 16px 18px; background: rgba(5,12,22,0.5); border: 1px solid rgba(255,255,255,0.04); border-radius: 12px; transition: border-color 0.3s; }
+        .feature-item:hover { border-color: var(--border-accent); }
+        .feature-item h4 { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+        .feature-item p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+        /* ── Portfolio Cards ── */
+        .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 22px; text-align: left; }
+        .portfolio-card { background: linear-gradient(180deg, rgba(5,11,18,0.78), rgba(3,8,13,0.88)); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s; cursor: pointer; text-decoration: none; color: inherit; display: block; }
+        .portfolio-card:hover { border-color: var(--border-accent); box-shadow: 0 0 30px rgba(34,211,238,0.08); transform: translateY(-4px); }
+        .portfolio-card .p-img { width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block; border-bottom: 1px solid var(--border); }
+        .portfolio-card .p-body { padding: 14px 16px; }
+        .portfolio-card .p-num { font: 600 9px/1 'JetBrains Mono', monospace; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+        .portfolio-card .p-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 4px; color: var(--text-primary); }
+        .portfolio-card .p-type { font: 500 9px/1 'JetBrains Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px; }
+        .portfolio-card .p-type.live { color: var(--accent-green-glow); }
+        .portfolio-card .p-type.demo { color: var(--accent-amber-glow); }
+        .portfolio-card .p-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+        .portfolio-card .p-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; font: 500 10px/1 'JetBrains Mono', monospace; letter-spacing: 0.1em; color: var(--accent); }
+        .portfolio-card .p-link::after { content: '\2192'; }
+
+        /* ── Comparison ── */
+        .vs-col h4 { font: 600 10px/1 'JetBrains Mono', monospace; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 14px; }
+        .vs-col ul { list-style: none; padding: 0; }
+        .vs-col ul li { position: relative; padding-left: 20px; margin-bottom: 8px; font-size: clamp(12px, 1.1vw, 14px); line-height: 1.6; }
+        .vs-col.bad h4 { color: #f87171; }
+        .vs-col.bad ul li { color: rgba(255,255,255,0.45); }
+        .vs-col.bad ul li::before { content: '\00d7'; position: absolute; left: 0; color: #f87171; font-weight: 700; }
+        .vs-col.good h4 { color: var(--accent-glow); }
+        .vs-col.good ul li { color: var(--text-secondary); }
+        .vs-col.good ul li::before { content: '\2713'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+        .vs-col.good ul li strong { color: var(--text-primary); }
+
+        /* ── Contact Card ── */
+        .contact-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 24px; }
+        .contact-item { padding: 14px 20px; background: rgba(5,12,20,0.7); border: 1px solid var(--border); border-radius: 12px; backdrop-filter: blur(12px); text-align: left; }
+        .contact-item .c-name { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+        .contact-item .c-role { font: 500 9px/1 'JetBrains Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+        .contact-item .c-detail { font-size: 12px; color: var(--text-secondary); line-height: 1.7; }
+        .contact-item .c-detail strong { color: var(--text-primary); }
+
+        /* ── ROI Highlight ── */
+        .roi-box { background: linear-gradient(135deg, rgba(34,211,238,0.06) 0%, rgba(59,130,246,0.04) 100%); border: 1px solid var(--border-accent); border-radius: 16px; padding: clamp(20px, 2.5vw, 32px); text-align: center; margin-top: 28px; position: relative; overflow: hidden; }
+        .roi-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
+        .roi-box .roi-multiplier { font-family: 'Playfair Display', serif; font-size: clamp(36px, 5vw, 64px); font-weight: 800; background: linear-gradient(90deg, var(--accent-blue), var(--accent), #66e2ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
+        .roi-box .roi-desc { font-size: clamp(13px, 1.3vw, 16px); color: var(--text-secondary); margin-top: 8px; line-height: 1.6; }
+        .roi-box .roi-desc strong { color: var(--text-primary); }
+
+        /* ── Nav ── */
+        .brand-header { position: fixed; top: 18px; left: 24px; z-index: 100; display: flex; align-items: center; gap: 10px; }
+        .brand-logo { width: 34px; height: 34px; object-fit: contain; filter: drop-shadow(0 0 8px rgba(34,211,238,0.3)); }
+        .brand-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; letter-spacing: -0.02em; }
+        .confidential-pill { position: fixed; top: 20px; right: 24px; z-index: 100; display: inline-flex; align-items: center; gap: 7px; padding: 6px 14px; border-radius: 999px; background: rgba(34,211,238,0.06); border: 1px solid rgba(34,211,238,0.16); font: 500 10px/1 'JetBrains Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-glow); }
+        .confidential-pill::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px rgba(34,211,238,0.6); animation: pulse 2s ease-in-out infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+        .progress-bar { position: fixed; top: 0; left: 0; height: 2px; z-index: 200; background: linear-gradient(90deg, var(--accent-blue), var(--accent)); transition: width 0.4s cubic-bezier(.4,0,.2,1); box-shadow: 0 0 10px rgba(34,211,238,0.4); }
+
+        .nav-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 100; display: flex; align-items: center; gap: 14px; padding: 10px 18px; border-radius: 999px; background: rgba(4,10,16,0.88); border: 1px solid var(--border); backdrop-filter: blur(16px); }
+        .nav-btn { width: 34px; height: 34px; border-radius: 50%; background: rgba(34,211,238,0.08); border: 1px solid rgba(34,211,238,0.2); color: var(--accent); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-size: 13px; }
+        .nav-btn:hover { background: rgba(34,211,238,0.16); border-color: var(--accent); }
+        .nav-counter { font: 500 11px/1 'JetBrains Mono', monospace; letter-spacing: 0.14em; color: var(--text-muted); min-width: 56px; text-align: center; }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .two-col, .three-col, .cards-grid, .feature-grid, .portfolio-grid, .pricing-grid { grid-template-columns: 1fr; }
+            .stats-row { gap: 14px; }
+            .contact-row { flex-direction: column; align-items: stretch; }
+            .brand-name { display: none; }
+            .confidential-pill { font-size: 9px; padding: 5px 10px; }
+        }
+
+        /* ── Print ── */
+        @media print {
+            html, body { height: auto; overflow: visible; background: #fff; color: #1a1a2e; }
+            #particles, .bg-gradient, .bg-grid, .nav-bar, .brand-header, .confidential-pill, .progress-bar { display: none !important; }
+            .slideshow { height: auto; }
+            .slide { position: relative; opacity: 1; transform: none; pointer-events: auto; padding: 28px 40px; page-break-after: always; min-height: 100vh; }
+            .slide-title, .slide-title span { -webkit-text-fill-color: #1a1a2e !important; background: none !important; color: #1a1a2e !important; }
+            .card, .glass-box, .pricing-tier { background: #f8f9fa !important; border-color: #d4e6f1 !important; backdrop-filter: none !important; }
+            .card::before, .glass-box::before, .pricing-tier::before { display: none; }
+            .stat-value, .tier-price span, .roi-multiplier { -webkit-text-fill-color: #1a5276 !important; background: none !important; }
+            * { text-shadow: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+<div class="bg-gradient"></div>
+<div class="bg-grid"></div>
+
+<div class="brand-header">
+    <img src="/logo.png" alt="Sovereign Systems" class="brand-logo">
+    <span class="brand-name">Sovereign Systems</span>
+</div>
+
+<div class="confidential-pill">Confidential</div>
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="slideshow" id="slideshow">
+
+<!-- ═══════════ SLIDE 1 — COVER ═══════════ -->
+<div class="slide active" data-slide="1"><div class="slide-inner">
+    <div style="margin-bottom:28px;">
+        <img src="/logo.png" alt="Sovereign Systems" style="width:56px;height:56px;object-fit:contain;filter:drop-shadow(0 0 16px rgba(34,211,238,0.4));">
+    </div>
+    <div class="slide-label">Sovereign Systems</div>
+    <h1 class="slide-title">Rawcliffe&rsquo;s<br><span>of Chorley</span></h1>
+    <p class="slide-subtitle" style="margin-top:12px;">A digital proposal for Lancashire&rsquo;s most established memorial specialists</p>
+    <p class="slide-subtitle" style="color:var(--text-muted);letter-spacing:0.2em;">April 2026</p>
+    <p style="margin-top:28px;font:500 11px/1 'JetBrains Mono',monospace;letter-spacing:0.14em;color:var(--text-muted);">Presented by Miller Glenholmes &amp; Joe Winstanley</p>
+</div></div>
+
+<!-- ═══════════ SLIDE 2 — WHO WE ARE ═══════════ -->
+<div class="slide" data-slide="2"><div class="slide-inner">
+    <div class="slide-label">01 &mdash; Who We Are</div>
+    <h1 class="slide-title">Built Different. <span>By Design.</span></h1>
+    <p class="slide-body"><strong>Sovereign Systems</strong> builds high-performance websites and digital platforms for established businesses across the North West. Custom-coded, zero templates, built to convert and built to last.</p>
+    <p class="slide-body" style="margin-top:14px;">No WordPress. No page builders. No shared hosting. <em>Every platform is purpose-built.</em></p>
+
+    <div class="two-col" style="margin-top:28px;">
+        <div class="card" style="border-color:var(--border-accent);">
+            <div class="card-label">Founder</div>
+            <h3>Miller Glenholmes</h3>
+            <p>Civil Engineering Technician at <strong>Curtins</strong> &mdash; one of the UK&rsquo;s leading structural engineering consultancies. We understand construction and infrastructure. We build digital platforms the same way: structurally sound, high-performance, zero bloat.</p>
+        </div>
+        <div class="card" style="border-color:var(--border-accent);">
+            <div class="card-label">Co-Founder</div>
+            <h3>Joe Winstanley</h3>
+            <p>Client Services Manager at <strong>ClubDNA</strong> &mdash; one of the UK&rsquo;s leading performance management platforms in professional football. Former <strong>Brighton &amp; Hove Albion FC</strong> Football Scholar with UEFA C License and FA Talent ID Level 1. Joe leads client relations, outreach, and new business development at Sovereign Systems &mdash; the first point of contact for every new client.</p>
+        </div>
+    </div>
+</div></div>
+
+<!-- ═══════════ SLIDE 3 — 160 YEARS OF HERITAGE ═══════════ -->
+<div class="slide" data-slide="3"><div class="slide-inner">
+    <div class="slide-label">02 &mdash; 160 Years of Heritage</div>
+    <h1 class="slide-title">Since 1866.<br><span>Still Family. Still Here.</span></h1>
+    <p class="slide-body">Founded by Thomas Rawcliffe in 1866, <strong>Rawcliffe&rsquo;s of Chorley</strong> has been crafting memorials from the same premises for over <strong>160 years</strong>. Still family-run. Still dedicated to the same standard of care that built the name.</p>
+
+    <div class="stats-row" style="margin-top:36px;">
+        <div class="stat">
+            <div class="stat-value">1866</div>
+            <div class="stat-label">Established</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value">160+</div>
+            <div class="stat-label">Years of Craftsmanship</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value">30yr</div>
+            <div class="stat-label">Stonework Guarantee</div>
+        </div>
+    </div>
+
+    <div class="cards-grid" style="grid-template-columns: repeat(2, 1fr); margin-top:28px;">
+        <div class="card" style="text-align:center;">
+            <div class="card-label green">BRAMM Accredited</div>
+            <h3>Industry-Certified Fixers</h3>
+            <p>Registered with the <strong>British Register of Accredited Memorial Masons</strong> &mdash; the industry standard for safe, professional memorial installation.</p>
+        </div>
+        <div class="card" style="text-align:center;">
+            <div class="card-label amber">Showroom &amp; Yard</div>
+            <h3>60+ Memorials on Display</h3>
+            <p>Recently renovated office, showroom, and yard with ample parking &mdash; a <strong>welcoming, comfortable space</strong> for families during a difficult time.</p>
+        </div>
+    </div>
+
+    <div class="glass-box" style="margin-top:24px;text-align:center;border-color:var(--border-accent);">
+        <p style="font-size:clamp(14px,1.4vw,17px);color:var(--text-secondary);line-height:1.7;">Customers consistently praise <strong style="color:var(--text-primary);">Terry and the team for their compassion, craftsmanship, and attention to detail.</strong> 160 years of trust. <em style="color:var(--accent-glow);font-style:normal;font-weight:600;">Your website should carry that same weight.</em></p>
+    </div>
+</div></div>
+
+<!-- ═══════════ SLIDE 4 — THE OPPORTUNITY ═══════════ -->
+<div class="slide" data-slide="4"><div class="slide-inner">
+    <div class="slide-label">03 &mdash; The Opportunity</div>
+    <h1 class="slide-title">The Craftsmanship Deserves<br><span>A Worthy Presence</span></h1>
+    <p class="slide-body">Your work stands in churchyards and cemeteries across Lancashire &mdash; <strong>lasting tributes built to endure for generations.</strong> Your website should reflect that same care and permanence.</p>
+    <p class="slide-body" style="margin-top:14px;">Families searching for a memorial mason during one of the hardest times of their life need to feel <em>trust and reassurance immediately.</em> A dignified, modern website makes that first step easier &mdash; and ensures they find you, not a competitor.</p>
+
+    <div class="stats-row" style="margin-top:36px;">
+        <div class="stat">
+            <div class="stat-value">78%</div>
+            <div class="stat-label">Judge credibility by website</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value">&lt;3s</div>
+            <div class="stat-label">Time to form a judgment</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value">94%</div>
+            <div class="stat-label">First impressions are design</div>
+        </div>
+    </div>
+
+    <div class="roi-box">
+        <div class="roi-multiplier">1 Enquiry</div>
+        <div class="roi-desc"><strong>Even one additional memorial enquiry per month from an improved online presence</strong> covers the retainer cost many times over &mdash; and honours a family who might otherwise not have found you.</div>
+    </div>
+</div></div>
+
+<!-- ═══════════ SLIDE 5 — WHAT WE'D BUILD ═══════════ -->
+<div class="slide" data-slide="5"><div class="slide-inner">
+    <div class="slide-label">04 &mdash; What We&rsquo;d Build</div>
+    <h1 class="slide-title">A Platform That Honours<br><span>160 Years of Craft</span></h1>
+
+    <div class="feature-grid">
+        <div class="feature-item" style="border-color:var(--border-accent);">
+            <h4 style="color:var(--accent-glow);">Heritage-Focused Design</h4>
+            <p>Dignified, premium aesthetic reflecting 160 years of family craftsmanship. Warm and reassuring, never cold.</p>
+        </div>
+        <div class="feature-item" style="border-color:var(--border-accent);">
+            <h4 style="color:var(--accent-glow);">Memorial Portfolio Gallery</h4>
+            <p>Categorised showcase &mdash; Cemetery, Cremation, Bespoke, Children&rsquo;s, Churchyard, Kerbed. Lightbox with high-quality images.</p>
+        </div>
+        <div class="feature-item" style="border-color:var(--border-accent);">
+            <h4 style="color:var(--accent-glow);">Gentle Enquiry Flow</h4>
+            <p>Simple, compassionate contact process. No pressure. Families can reach out at their own pace, in their own time.</p>
+        </div>
+        <div class="feature-item" style="border-color:var(--border-accent);">
+            <h4 style="color:var(--accent-glow);">Trust Badges &amp; Credentials</h4>
+            <p>BRAMM accreditation and 30-year guarantee displayed prominently. Instant confidence for every visitor.</p>
+        </div>
+        <div class="feature-item" style="border-color:var(--border-accent);">
+            <h4 style="color:var(--accent-glow);">Showroom Showcase</h4>
+            <p>Photos, opening hours, and directions for your recently renovated space. Encourage families to visit in person.</p>
+        </div>
+        <div class="feature-item" style="border-color:var(--border-accent);">
+            <h4 style="color:var(--accent-glow);">Live Google Reviews</h4>
+            <p>Auto-updating review feed. Let the words of families you&rsquo;ve helped speak for you.</p>
+        </div>
+        <div class="feature-item" style="border-color:var(--border-accent);">
+            <h4 style="color:var(--accent-glow);">Mobile-Responsive</h4>
+            <p>Many searches happen on phones during emotional moments. Every page works beautifully on any device.</p>
+        </div>
+        <div class="feature-item" style="border-color:var(--border-accent);">
+            <h4 style="color:var(--accent-glow);">Service Area Map</h4>
+            <p>Clear 25-mile radius coverage from Chorley &mdash; Wigan, Manchester, Liverpool, Preston, Bolton all visible.</p>
+        </div>
+        <div class="feature-item" style="border-color:var(--border-accent);">
+            <h4 style="color:var(--accent-glow);">Local SEO</h4>
+            <p>Rank for &ldquo;headstones Chorley&rdquo;, &ldquo;memorial masons Lancashire&rdquo;, &ldquo;gravestones Wigan&rdquo;. Sub-2-second load times.</p>
+        </div>
+    </div>
+</div></div>
+
+<!-- ═══════════ SLIDE 6 — PORTFOLIO ═══════════ -->
+<div class="slide" data-slide="6"><div class="slide-inner">
+    <div class="slide-label">05 &mdash; Live Portfolio</div>
+    <h1 class="slide-title">Built. Shipped. <span>Performing.</span></h1>
+
+    <div class="portfolio-grid">
+        <a class="portfolio-card" href="https://sovereignsystem.co.uk" target="_blank" rel="noopener">
+            <img class="p-img" src="https://www.sovereignsystem.co.uk/proposal-pitch/chris-kearns/portfolio-img/sovereign-1.png" alt="Sovereign Systems">
+            <div class="p-body">
+                <div class="p-num">01</div>
+                <div class="p-name">Sovereign Systems</div>
+                <div class="p-type live">Live Site</div>
+                <div class="p-desc">Agency platform &mdash; particle animations, ROI calculator, booking system</div>
+                <div class="p-link">sovereignsystem.co.uk</div>
+            </div>
+        </a>
+        <a class="portfolio-card" href="https://tk-tax.vercel.app/" target="_blank" rel="noopener">
+            <img class="p-img" src="https://www.sovereignsystem.co.uk/proposal-pitch/chris-kearns/portfolio-img/tktax-1.png" alt="TK Tax">
+            <div class="p-body">
+                <div class="p-num">02</div>
+                <div class="p-name">TK Tax</div>
+                <div class="p-type live">Live Client</div>
+                <div class="p-desc">Professional accountancy platform &mdash; brief to live in days, not weeks</div>
+                <div class="p-link">tk-tax.vercel.app</div>
+            </div>
+        </a>
+        <a class="portfolio-card" href="https://sikpix.vercel.app/" target="_blank" rel="noopener">
+            <img class="p-img" src="https://www.sovereignsystem.co.uk/proposal-pitch/chris-kearns/portfolio-img/sikpix-1.png" alt="SikPix">
+            <div class="p-body">
+                <div class="p-num">03</div>
+                <div class="p-name">SikPix</div>
+                <div class="p-type demo">Niche Demo</div>
+                <div class="p-desc">Photography &amp; creative platform with gallery showcase and booking</div>
+                <div class="p-link">sikpix.vercel.app</div>
+            </div>
+        </a>
+        <a class="portfolio-card" href="https://cg-paving-mock.vercel.app" target="_blank" rel="noopener">
+            <img class="p-img" src="https://www.sovereignsystem.co.uk/proposal-pitch/chris-kearns/portfolio-img/cg-paving-1.png" alt="CG Paving">
+            <div class="p-body">
+                <div class="p-num">04</div>
+                <div class="p-name">CG Paving &amp; Landscaping</div>
+                <div class="p-type demo">Master Demo</div>
+                <div class="p-desc">Full automation suite &mdash; booking, SMS, missed-call text-back, lead capture</div>
+                <div class="p-link">cg-paving-mock.vercel.app</div>
+            </div>
+        </a>
+        <a class="portfolio-card" href="https://gibson-plumbing.vercel.app/" target="_blank" rel="noopener">
+            <img class="p-img" src="https://www.sovereignsystem.co.uk/proposal-pitch/chris-kearns/portfolio-img/gibson-1.png" alt="Gibson Plumbing">
+            <div class="p-body">
+                <div class="p-num">05</div>
+                <div class="p-name">Gibson Plumbing</div>
+                <div class="p-type demo">Niche Demo</div>
+                <div class="p-desc">Boiler health check quiz, automated booking, review integration</div>
+                <div class="p-link">gibson-plumbing.vercel.app</div>
+            </div>
+        </a>
+        <a class="portfolio-card" href="https://app-iota-drab.vercel.app/" target="_blank" rel="noopener">
+            <img class="p-img" src="https://www.sovereignsystem.co.uk/proposal-pitch/chris-kearns/portfolio-img/alf-1.png" alt="Alfie Personal Trainer">
+            <div class="p-body">
+                <div class="p-num">06</div>
+                <div class="p-name">Alfie &mdash; Personal Trainer</div>
+                <div class="p-type demo">Niche Demo</div>
+                <div class="p-desc">Fitness platform with programme showcase and client booking system</div>
+                <div class="p-link">View Live</div>
+            </div>
+        </a>
+    </div>
+    <p style="margin-top:16px;font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);">Every platform shown here was custom-coded. Zero templates. Zero WordPress.</p>
+</div></div>
+
+<!-- ═══════════ SLIDE 7 — PRICING ═══════════ -->
+<div class="slide" data-slide="7"><div class="slide-inner">
+    <div class="slide-label">06 &mdash; Investment</div>
+    <h1 class="slide-title">Transparent <span>Pricing</span></h1>
+
+    <div class="pricing-grid">
+        <div class="pricing-tier">
+            <div class="tier-name">Foundation</div>
+            <div class="tier-subtitle" style="font-size:clamp(10px,1vw,12px);color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;">Professional Presence</div>
+            <div class="tier-price"><span>&pound;99</span></div>
+            <div class="tier-period">per month</div>
+            <ul>
+                <li><strong>Professional website</strong> &mdash; custom-coded, mobile-first</li>
+                <li>Memorial gallery with <strong>category pages</strong></li>
+                <li>Compassionate <strong>contact form</strong></li>
+                <li>Basic <strong>local SEO</strong> setup</li>
+                <li>Google Maps &amp; <strong>service area</strong> display</li>
+                <li>Monthly check-in &amp; performance report</li>
+                <li><strong>Hosting &amp; SSL</strong> included</li>
+            </ul>
+        </div>
+        <div class="pricing-tier featured">
+            <div class="tier-name">Accelerator</div>
+            <div class="tier-subtitle" style="font-size:clamp(10px,1vw,12px);color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;">The Growth Package</div>
+            <div class="tier-price"><span>&pound;199</span></div>
+            <div class="tier-period">per month</div>
+            <ul>
+                <li>Everything in <strong>Foundation</strong> plus&hellip;</li>
+                <li><strong>Enquiry booking system</strong> &mdash; home visits &amp; showroom</li>
+                <li>Live <strong>Google reviews</strong> feed</li>
+                <li><strong>SMS notifications</strong> for new enquiries</li>
+                <li>Showroom <strong>showcase section</strong> with photos</li>
+                <li>BRAMM &amp; guarantee <strong>trust badges</strong></li>
+                <li>Expanded <strong>gallery with lightbox</strong></li>
+            </ul>
+        </div>
+        <div class="pricing-tier">
+            <div class="tier-name">Sovereign</div>
+            <div class="tier-subtitle" style="font-size:clamp(10px,1vw,12px);color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;">Full Platform</div>
+            <div class="tier-price"><span>&pound;349</span></div>
+            <div class="tier-period">per month</div>
+            <ul>
+                <li>Everything in <strong>Accelerator</strong> plus&hellip;</li>
+                <li><strong>AI chatbot</strong> for gentle visitor guidance</li>
+                <li>Advanced <strong>automations</strong> &amp; CRM integrations</li>
+                <li><strong>Priority support</strong> &mdash; direct access anytime</li>
+                <li>Monthly <strong>SEO &amp; content</strong> updates</li>
+                <li>Advanced <strong>analytics dashboard</strong></li>
+                <li>Built to <strong>grow with you</strong></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="glass-box" style="margin-top:24px;text-align:center;border-color:var(--border-accent);">
+        <p style="font-size:clamp(14px,1.4vw,17px);color:var(--text-secondary);line-height:1.7;"><strong style="color:var(--accent-glow);">We&rsquo;re waiving the setup fee entirely.</strong> No upfront cost &mdash; just pick your tier and we start building.</p>
+    </div>
+</div></div>
+
+<!-- ═══════════ SLIDE 8 — HOW WE WORK ═══════════ -->
+<div class="slide" data-slide="8"><div class="slide-inner">
+    <div class="slide-label">07 &mdash; How We Work</div>
+    <h1 class="slide-title">From Brief to <span>Launch in Days</span></h1>
+    <p class="slide-body">Not the speed of a traditional agency.</p>
+
+    <div class="timeline" style="margin-top:32px;">
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <h4>Brief &mdash; Day 1</h4>
+                <p>A relaxed conversation about your business, your heritage, and what matters most to your families. <strong>No obligation.</strong></p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-dot green"></div>
+            <div class="timeline-content">
+                <h4>Design &mdash; Day 2&ndash;3</h4>
+                <p>We create the <strong>look and feel</strong> &mdash; homepage concept, memorial gallery layout, enquiry flow. Dignified and true to your brand.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-dot green"></div>
+            <div class="timeline-content">
+                <h4>Build &amp; Test &mdash; Day 3&ndash;6</h4>
+                <p>Custom-coded, mobile-tested, <strong>performance-optimised</strong>. You see progress in real-time. We refine until it feels right.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-dot blue"></div>
+            <div class="timeline-content">
+                <h4>Launch &amp; Support &mdash; Day 7</h4>
+                <p><strong>Go live with confidence.</strong> Ongoing support, hosting, updates, and performance monitoring included.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="glass-box" style="margin-top:28px;text-align:center;">
+        <p style="font-size:clamp(14px,1.4vw,17px);color:var(--text-secondary);line-height:1.7;"><strong style="color:var(--text-primary);">Timeline:</strong> <em style="color:var(--accent-glow);font-style:normal;font-weight:600;">5&ndash;7 days</em> from kickoff to launch.</p>
+    </div>
+</div></div>
+
+<!-- ═══════════ SLIDE 9 — WHY US ═══════════ -->
+<div class="slide" data-slide="9"><div class="slide-inner">
+    <div class="slide-label">08 &mdash; Why Sovereign</div>
+    <h1 class="slide-title">Not a Traditional <span>Web Agency</span></h1>
+
+    <div class="two-col" style="margin-top:24px;">
+        <div class="glass-box vs-col bad">
+            <h4>Current Provider</h4>
+            <ul>
+                <li>Template-based design &mdash; looks generic, not personal</li>
+                <li>One-off build with no ongoing support</li>
+                <li>Manual updates &mdash; pay per change</li>
+                <li>Basic or no local SEO</li>
+                <li>Weeks-long delivery timeline</li>
+                <li>No automations, no enquiry capture</li>
+            </ul>
+        </div>
+        <div class="glass-box vs-col good" style="border-color:var(--border-accent);">
+            <h4>Sovereign Systems</h4>
+            <ul>
+                <li><strong>Custom-coded</strong> &mdash; unique to Rawcliffe&rsquo;s heritage</li>
+                <li><strong>Monthly retainer</strong> &mdash; always supported, always evolving</li>
+                <li><strong>Automations included</strong> &mdash; enquiry capture, SMS, reviews</li>
+                <li><strong>Local SEO built in</strong> &mdash; Chorley, Wigan, Lancashire</li>
+                <li><strong>5&ndash;7 day delivery</strong> &mdash; not weeks</li>
+                <li><strong>Ongoing updates &amp; support</strong> &mdash; included in every tier</li>
+            </ul>
+        </div>
+    </div>
+</div></div>
+
+<!-- ═══════════ SLIDE 10 — NEXT STEPS ═══════════ -->
+<div class="slide" data-slide="10"><div class="slide-inner">
+    <div class="slide-label">09 &mdash; Next Steps</div>
+    <h1 class="slide-title">Let&rsquo;s Have a <span>Quiet Conversation</span></h1>
+    <p class="slide-body">A quick 15-minute call to walk through what we&rsquo;d build, how the memorial gallery would look, and how we&rsquo;d honour your 160-year legacy online &mdash; <strong>no obligation, no pressure</strong>.</p>
+
+    <div class="timeline" style="margin-top:28px;">
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <h4>Today</h4>
+                <p>Review this proposal. Ask any questions.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-dot green"></div>
+            <div class="timeline-content">
+                <h4>This Week</h4>
+                <p>15-minute call with <strong>Miller</strong> to discuss your vision and scope the build.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-dot green"></div>
+            <div class="timeline-content">
+                <h4>Next Week</h4>
+                <p>Receive <strong>homepage concept</strong> and memorial gallery wireframes.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-dot blue"></div>
+            <div class="timeline-content">
+                <h4>Within 7 Days</h4>
+                <p><strong>Your new platform is live.</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="contact-row" style="margin-top:32px;">
+        <div class="contact-item">
+            <div class="c-name">Miller Glenholmes</div>
+            <div class="c-role">Founder</div>
+            <div class="c-detail"><strong>miller@sovereignsystem.co.uk</strong><br>+44 7405 179973</div>
+        </div>
+        <div class="contact-item">
+            <div class="c-name">Joe Winstanley</div>
+            <div class="c-role">Co-Founder</div>
+            <div class="c-detail"><strong>contact@sovereignsystem.co.uk</strong><br>+44 7986 767758</div>
+        </div>
+        <div class="contact-item" style="border-color:var(--border-accent);">
+            <div class="c-name" style="color:var(--accent-glow);">sovereignsystem.co.uk</div>
+            <div class="c-role">Web</div>
+            <div class="c-detail">Full portfolio &amp; booking available online</div>
+        </div>
+    </div>
+</div></div>
+
+<!-- ═══════════ SLIDE 11 — CLOSING ═══════════ -->
+<div class="slide" data-slide="11"><div class="slide-inner">
+    <div style="margin-bottom:32px;">
+        <img src="/logo.png" alt="Sovereign Systems" style="width:64px;height:64px;object-fit:contain;filter:drop-shadow(0 0 20px rgba(34,211,238,0.5));">
+    </div>
+    <div class="quote-block" style="max-width:700px;margin:0 auto;">
+        160 years of craftsmanship.<br><span>Your digital presence should honour that legacy.</span>
+    </div>
+    <div style="margin-top:40px;">
+        <div class="slide-label" style="margin-bottom:8px;">Sovereign Systems</div>
+        <p style="font:500 11px/1.8 'JetBrains Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-muted);">Built to Perform.</p>
+        <p style="margin-top:12px;font:400 10px/1 'JetBrains Mono',monospace;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);">April 2026 &mdash; Confidential</p>
+    </div>
+</div></div>
+
+</div><!-- /slideshow -->
+
+<!-- ── Navigation ── -->
+<div class="nav-bar" id="navBar">
+    <button class="nav-btn" id="prevBtn" aria-label="Previous slide">&#8592;</button>
+    <span class="nav-counter" id="navCounter">1 / 11</span>
+    <button class="nav-btn" id="nextBtn" aria-label="Next slide">&#8594;</button>
+</div>
+
+<!-- ── Scripts ── -->
+<script>
+(function() {
+    // ── Particle System ──
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    const COLOR = '#22d3ee';
+    let w, h, particles, mouse, dpr;
+
+    class Particle {
+        constructor() { this.reset(true); }
+        reset(initial) {
+            this.x = Math.random() * w;
+            this.y = Math.random() * h;
+            this.vx = 0; this.vy = 0;
+            this.age = initial ? Math.random() * 200 : 0;
+            this.life = Math.random() * 200 + 100;
+        }
+        update() {
+            const angle = (Math.cos(this.x * 0.005) + Math.sin(this.y * 0.005)) * Math.PI;
+            this.vx += Math.cos(angle) * 0.15;
+            this.vy += Math.sin(angle) * 0.15;
+            const dx = mouse.x - this.x, dy = mouse.y - this.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 140) {
+                const force = (140 - dist) / 140;
+                this.vx -= dx * force * 0.04;
+                this.vy -= dy * force * 0.04;
+            }
+            this.x += this.vx; this.y += this.vy;
+            this.vx *= 0.95; this.vy *= 0.95;
+            this.age++;
+            if (this.age > this.life) this.reset(false);
+            if (this.x < 0) this.x = w; if (this.x > w) this.x = 0;
+            if (this.y < 0) this.y = h; if (this.y > h) this.y = 0;
+        }
+        draw() {
+            const alpha = 1 - Math.abs((this.age / this.life) - 0.5) * 2;
+            ctx.globalAlpha = alpha * 0.8;
+            ctx.fillStyle = COLOR;
+            ctx.fillRect(this.x, this.y, 1.5, 1.5);
+        }
+    }
+
+    function initParticles() {
+        dpr = window.devicePixelRatio || 1;
+        w = window.innerWidth; h = window.innerHeight;
+        canvas.width = w * dpr; canvas.height = h * dpr;
+        canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+        ctx.scale(dpr, dpr);
+        const count = w < 480 ? 40 : w < 768 ? 60 : 300;
+        particles = [];
+        for (let i = 0; i < count; i++) particles.push(new Particle());
+        mouse = { x: -1000, y: -1000 };
+    }
+
+    function animate() {
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = 'rgba(3,3,3,0.1)';
+        ctx.fillRect(0, 0, w, h);
+        for (let p of particles) { p.update(); p.draw(); }
+        requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', function() { ctx.setTransform(1, 0, 0, 1, 0, 0); initParticles(); });
+    window.addEventListener('mousemove', function(e) { mouse.x = e.clientX; mouse.y = e.clientY; });
+    window.addEventListener('mouseleave', function() { mouse.x = -1000; mouse.y = -1000; });
+    initParticles();
+    animate();
+
+    // ── Slideshow Navigation ──
+    const slides = document.querySelectorAll('.slide');
+    const total = slides.length;
+    let current = 0;
+    let isTransitioning = false;
+
+    const progressBar = document.getElementById('progressBar');
+    const navCounter = document.getElementById('navCounter');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    function updateProgress() {
+        progressBar.style.width = ((current + 1) / total * 100) + '%';
+        navCounter.textContent = (current + 1) + ' / ' + total;
+    }
+
+    function goTo(index) {
+        if (isTransitioning || index === current || index < 0 || index >= total) return;
+        isTransitioning = true;
+        const direction = index > current ? 'exit-up' : '';
+
+        slides[current].classList.remove('active');
+        if (direction) slides[current].classList.add(direction);
+
+        slides[index].classList.remove('exit-up');
+        slides[index].classList.add('active');
+        slides[index].scrollTop = 0;
+
+        current = index;
+        updateProgress();
+
+        setTimeout(function() {
+            slides.forEach(function(s) { if (!s.classList.contains('active')) s.classList.remove('exit-up'); });
+            isTransitioning = false;
+        }, 560);
+    }
+
+    function next() { goTo(current + 1); }
+    function prev() { goTo(current - 1); }
+
+    // Keyboard
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+    });
+
+    // Button clicks
+    prevBtn.addEventListener('click', prev);
+    nextBtn.addEventListener('click', next);
+
+    // Touch/Swipe
+    let touchStartX = 0, touchStartY = 0, touchStartTime = 0;
+    document.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].clientX;
+        touchStartY = e.changedTouches[0].clientY;
+        touchStartTime = Date.now();
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+        const dt = Date.now() - touchStartTime;
+        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5 && dt < 500) {
+            dx < 0 ? next() : prev();
+        }
+    }, { passive: true });
+
+    // Mouse wheel
+    let wheelTimeout;
+    document.addEventListener('wheel', function(e) {
+        const activeSlide = slides[current];
+        const isScrollable = activeSlide.scrollHeight > activeSlide.clientHeight;
+        const atTop = activeSlide.scrollTop <= 0;
+        const atBottom = activeSlide.scrollTop + activeSlide.clientHeight >= activeSlide.scrollHeight - 2;
+
+        if (isScrollable && !atTop && !atBottom) return;
+        if (isScrollable && e.deltaY < 0 && !atTop) return;
+        if (isScrollable && e.deltaY > 0 && !atBottom) return;
+
+        clearTimeout(wheelTimeout);
+        wheelTimeout = setTimeout(function() {
+            if (e.deltaY > 0) next();
+            else if (e.deltaY < 0) prev();
+        }, 80);
+    }, { passive: true });
+
+    updateProgress();
+})();
+</script>
+
+</body>
+</html>
