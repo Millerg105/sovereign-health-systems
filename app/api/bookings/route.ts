@@ -223,13 +223,13 @@ export async function POST(req: Request) {
 
       const [customerResult, internalResult] = await Promise.allSettled([
         resend.emails.send({
-          from: "Sovereign Systems <onboarding@resend.dev>",
+          from: "Sovereign Systems <bookings@sovereignsystem.co.uk>",
           to: [email],
           subject: `Booking Confirmed — ${ref}`,
           html: customerHtml,
         }),
         resend.emails.send({
-          from: "Sovereign Leads <onboarding@resend.dev>",
+          from: "Sovereign Systems <bookings@sovereignsystem.co.uk>",
           to: [INTERNAL_EMAIL],
           subject: `[BOOKING] ${callType}: ${name} — ${ref}`,
           html: internalHtml,
