@@ -82,10 +82,6 @@ function getAvailableDates() {
   return result
 }
 
-function generateRef() {
-  return "SV-" + Math.random().toString(36).substring(2, 8).toUpperCase()
-}
-
 /* ─────────────────────────────────────────────
    Component
    ───────────────────────────────────────────── */
@@ -98,9 +94,11 @@ export function CalendarBooking() {
   const [selectedTime, setSelectedTime] = useState<string | null>(null)
   const [formData, setFormData] = useState({ name: "", business: "", phone: "", email: "", helpText: "" })
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
+  const [bookingRef, setBookingRef] = useState("")
 
   const dates = useMemo(() => getAvailableDates(), [])
-  const bookingRef = useMemo(() => generateRef(), [])
 
   // Generate 2-3 random unavailable slots per selected date
   const unavailableSlots = useMemo(() => {
@@ -133,6 +131,9 @@ export function CalendarBooking() {
     setSelectedTime(null)
     setFormData({ name: "", business: "", phone: "", email: "", helpText: "" })
     setIsSubmitted(false)
+    setIsSubmitting(false)
+    setSubmitError(null)
+    setBookingRef("")
   }, [])
 
   useEffect(() => {
@@ -166,21 +167,38 @@ export function CalendarBooking() {
     }
   }
 
-  function handleSubmit() {
-    const booking = {
-      callType: selectedCallTypeData?.label,
-      date: selectedDateData ? `${selectedDateData.day} ${selectedDateData.dayNum} ${selectedDateData.month}` : "",
-      time: selectedTime,
-      ...formData,
-      ref: bookingRef,
-      submittedAt: new Date().toISOString(),
-    }
+  async function handleSubmit() {
+    setIsSubmitting(true)
+    setSubmitError(null)
+
     try {
-      const existing = JSON.parse(localStorage.getItem("sovereign-bookings") || "[]")
-      existing.push(booking)
-      localStorage.setItem("sovereign-bookings", JSON.stringify(existing))
-    } catch { /* localStorage unavailable */ }
-    setIsSubmitted(true)
+      const res = await fetch("/api/bookings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          callType: selectedCallTypeData?.label,
+          bookingDateISO: selectedDateData?.date.toISOString(),
+          bookingDateDisplay: selectedDateData
+            ? `${selectedDateData.day} ${selectedDateData.dayNum} ${selectedDateData.month}`
+            : "",
+          time: selectedTime,
+          ...formData,
+        }),
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        throw new Error(data.message || "Something went wrong. Please try again.")
+      }
+
+      setBookingRef(data.ref)
+      setIsSubmitted(true)
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : "Something went wrong. Please try again.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   /* ── Period grouping for time slots ── */
@@ -630,6 +648,16 @@ export function CalendarBooking() {
                           ))}
                         </div>
                       </div>
+
+                      {submitError && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="mt-4 bg-red-500/10 border border-red-500/30 rounded-xl p-3 text-center"
+                        >
+                          <p className="text-xs text-red-400">{submitError}</p>
+                        </motion.div>
+                      )}
                     </motion.div>
                   )}
 
@@ -705,9 +733,19 @@ export function CalendarBooking() {
                     ) : (
                       <button
                         onClick={handleSubmit}
+                        disabled={isSubmitting}
                         className="btn-premium-primary flex flex-1 items-center justify-center gap-2 px-5 py-3 text-sm font-semibold"
                       >
-                        Confirm Booking <CheckCircle className="w-4 h-4" />
+                        {isSubmitting ? (
+                          <>
+                            <span className="w-4 h-4 border-2 border-[#031316]/30 border-t-[#031316] rounded-full animate-spin" />
+                            Confirming...
+                          </>
+                        ) : (
+                          <>
+                            Confirm Booking <CheckCircle className="w-4 h-4" />
+                          </>
+                        )}
                       </button>
                     )}
                   </div>
