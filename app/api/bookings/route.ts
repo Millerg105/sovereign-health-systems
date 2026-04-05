@@ -1,8 +1,46 @@
 import { NextResponse } from "next/server"
 import { Resend } from "resend"
+import { google } from "googleapis"
 import { getSupabaseServerClient } from "@/lib/supabase-server"
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null
+
+/* ── Google Calendar ── */
+
+const GCAL_CALENDAR_ID = "contact.sovereignsystems@gmail.com"
+const GCAL_TIMEZONE = "Europe/London"
+
+const CALL_DURATION_MINUTES: Record<string, number> = {
+  "15-Min Quick Call": 15,
+  "30-Min Strategy Audit": 30,
+  "Full Discovery Session": 60,
+}
+
+function getCalendarClient() {
+  const clientEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL
+  const privateKey = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY?.replace(/\\n/g, "\n")
+
+  if (!clientEmail || !privateKey) return null
+
+  const auth = new google.auth.JWT({
+    email: clientEmail,
+    key: privateKey,
+    scopes: ["https://www.googleapis.com/auth/calendar"],
+  })
+
+  return google.calendar({ version: "v3", auth })
+}
+
+function parseTimeTo24h(timeStr: string): { hours: number; minutes: number } {
+  const match = timeStr.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i)
+  if (!match) return { hours: 9, minutes: 0 }
+  let hours = parseInt(match[1], 10)
+  const minutes = parseInt(match[2], 10)
+  const period = match[3].toUpperCase()
+  if (period === "PM" && hours !== 12) hours += 12
+  if (period === "AM" && hours === 12) hours = 0
+  return { hours, minutes }
+}
 
 const rateLimitMap = new Map<string, { count: number; lastRequest: number }>()
 const RATE_LIMIT_COUNT = 3
@@ -241,6 +279,45 @@ export async function POST(req: Request) {
       }
       if (internalResult.status === "rejected") {
         console.error("Internal email failed:", internalResult.reason)
+      }
+    }
+
+    // Create Google Calendar event
+    const calendar = getCalendarClient()
+    if (calendar) {
+      try {
+        const { hours, minutes } = parseTimeTo24h(time)
+        const startDate = new Date(bookingDateISO)
+        startDate.setHours(hours, minutes, 0, 0)
+        const durationMin = CALL_DURATION_MINUTES[callType] ?? 45
+        const endDate = new Date(startDate.getTime() + durationMin * 60 * 1000)
+
+        await calendar.events.insert({
+          calendarId: GCAL_CALENDAR_ID,
+          requestBody: {
+            summary: `${callType} — ${name} (${business})`,
+            description: [
+              `Booking Ref: ${ref}`,
+              `Call Type: ${callType}`,
+              `Client: ${name}`,
+              `Business: ${business}`,
+              `Phone: ${phone}`,
+              `Email: ${email}`,
+              helpText ? `Notes: ${helpText}` : "",
+            ].filter(Boolean).join("\n"),
+            start: { dateTime: startDate.toISOString(), timeZone: GCAL_TIMEZONE },
+            end: { dateTime: endDate.toISOString(), timeZone: GCAL_TIMEZONE },
+            reminders: {
+              useDefault: false,
+              overrides: [
+                { method: "popup", minutes: 60 },
+                { method: "popup", minutes: 15 },
+              ],
+            },
+          },
+        })
+      } catch (calError) {
+        console.error("Google Calendar event failed:", calError)
       }
     }
 
