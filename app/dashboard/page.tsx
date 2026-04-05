@@ -10,11 +10,16 @@ import {
   ChevronDown,
   Loader2,
   Phone,
+  PhoneMissed,
   Mail,
   FileText,
   RefreshCw,
   AlertCircle,
   Inbox,
+  MessageSquare,
+  Users,
+  Zap,
+  Globe,
 } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -75,6 +80,50 @@ const FILTERS: { key: Filter; label: string }[] = [
   { key: "confirmed", label: "Confirmed" },
   { key: "this-week", label: "This Week" },
 ];
+
+/* ──────────────────── Mock: Missed Calls ─────────────────── */
+
+const MOCK_MISSED_CALLS = [
+  { id: "mc1", callerNumber: "07421 883 201", callerName: "James Whitfield", time: "Today, 2:14 PM", duration: "0:08", smsStatus: "Sent" as const, smsMessage: "Hi, sorry we missed your call! Reply here or we'll call you back within 15 mins." },
+  { id: "mc2", callerNumber: "07508 112 449", callerName: null, time: "Today, 11:32 AM", duration: "0:04", smsStatus: "Sent" as const, smsMessage: "Hi, sorry we missed your call! Reply here or we'll call you back within 15 mins." },
+  { id: "mc3", callerNumber: "07734 560 821", callerName: "Sarah Cottam", time: "Today, 9:07 AM", duration: "0:12", smsStatus: "Sent" as const, smsMessage: "Hi, sorry we missed your call! Reply here or we'll call you back within 15 mins." },
+  { id: "mc4", callerNumber: "01942 254 903", callerName: null, time: "Yesterday, 5:48 PM", duration: "0:06", smsStatus: "Pending" as const, smsMessage: "Hi, sorry we missed your call! Reply here or we'll call you back within 15 mins." },
+  { id: "mc5", callerNumber: "07901 334 776", callerName: "Dave Orrell", time: "Yesterday, 3:22 PM", duration: "0:15", smsStatus: "Sent" as const, smsMessage: "Hi, sorry we missed your call! Reply here or we'll call you back within 15 mins." },
+  { id: "mc6", callerNumber: "07812 990 415", callerName: "Karen McBride", time: "Mon, 4:55 PM", duration: "0:03", smsStatus: "Sent" as const, smsMessage: "Hi, sorry we missed your call! Reply here or we'll call you back within 15 mins." },
+];
+
+/* ──────────────────── Mock: Leads ─────────────────── */
+
+const MOCK_LEADS = [
+  { id: "ld1", name: "James Whitfield", business: "Whitfield Roofing", source: "Missed Call" as const, responseTime: "< 1 min", followUp: "Booked" as const, date: "Today" },
+  { id: "ld2", name: "Emma Richardson", business: "Richardson Interiors", source: "Website Form" as const, responseTime: "2 min", followUp: "Contacted" as const, date: "Today" },
+  { id: "ld3", name: "Paul Aspey", business: "Rock Artist Management", source: "Referral" as const, responseTime: "< 1 min", followUp: "Qualified" as const, date: "Yesterday" },
+  { id: "ld4", name: "Sarah Cottam", business: "Cottam Cleaning Co", source: "Google Ads" as const, responseTime: "3 min", followUp: "Booked" as const, date: "Yesterday" },
+  { id: "ld5", name: "Mark Gibson", business: "Gibson Plumbing", source: "Facebook" as const, responseTime: "8 min", followUp: "Awaiting" as const, date: "Mon 31 Mar" },
+  { id: "ld6", name: "Dave Orrell", business: "Orrell Heating & Plumbing", source: "WhatsApp" as const, responseTime: "< 1 min", followUp: "Qualified" as const, date: "Mon 31 Mar" },
+];
+
+const SMS_STATUS_STYLES = {
+  Sent: "bg-emerald-500/15 text-emerald-400 border border-emerald-500/20",
+  Pending: "bg-amber-500/15 text-amber-400 border border-amber-500/20",
+  Failed: "bg-red-500/15 text-red-400 border border-red-500/20",
+};
+
+const FOLLOW_UP_STYLES = {
+  Booked: "bg-emerald-500/15 text-emerald-400 border border-emerald-500/20",
+  Contacted: "bg-blue-500/15 text-blue-400 border border-blue-500/20",
+  Awaiting: "bg-amber-500/15 text-amber-400 border border-amber-500/20",
+  Qualified: "bg-brand-cyan/15 text-brand-cyan border border-brand-cyan/20",
+};
+
+const SOURCE_ICONS: Record<string, typeof Globe> = {
+  "Website Form": Globe,
+  "Missed Call": PhoneMissed,
+  "Google Ads": Zap,
+  Facebook: Globe,
+  Referral: Users,
+  WhatsApp: MessageSquare,
+};
 
 /* ═══════════════════════ Component ══════════════════════ */
 
@@ -524,6 +573,281 @@ export default function DashboardPage() {
                 </div>
               </>
             )}
+          </motion.div>
+
+          {/* ════════════════ Missed Calls Section ════════════════ */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mt-16"
+          >
+            <div className="mb-8">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 mb-5">
+                <PhoneMissed className="w-3.5 h-3.5 text-red-400" />
+                <span className="text-xs font-mono uppercase tracking-widest text-red-400">
+                  Missed Calls
+                </span>
+              </div>
+              <h2 className="text-2xl md:text-3xl font-heading font-bold tracking-tight text-white mb-2">
+                Missed Call{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-amber-400">
+                  Recovery
+                </span>
+              </h2>
+              <p className="text-sm text-white/40">
+                Auto-SMS text-back — never lose a lead to a missed call.
+              </p>
+            </div>
+
+            {/* Mini stat cards */}
+            <div className="grid grid-cols-3 gap-3 mb-8">
+              {[
+                { label: "Total Missed", value: "6", icon: PhoneMissed },
+                { label: "SMS Sent", value: "5", icon: MessageSquare },
+                { label: "Recovery Rate", value: "83%", icon: Zap },
+              ].map((s, i) => (
+                <motion.div
+                  key={s.label}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.1 }}
+                  className="glass-panel rounded-xl p-4 md:p-5"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-white/35">
+                      {s.label}
+                    </span>
+                    <s.icon className="w-4 h-4 text-red-400/50" />
+                  </div>
+                  <p className="text-2xl md:text-3xl font-heading font-bold text-white">
+                    {s.value}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Desktop table */}
+            <div className="hidden lg:block glass-panel rounded-2xl overflow-hidden">
+              <div className="grid grid-cols-[1fr_1fr_160px_80px_100px] gap-4 px-6 py-4 border-b border-white/10">
+                {["Caller", "Number", "Time", "Duration", "Auto-SMS"].map(
+                  (h) => (
+                    <span
+                      key={h}
+                      className="text-[11px] font-mono uppercase tracking-widest text-white/30"
+                    >
+                      {h}
+                    </span>
+                  ),
+                )}
+              </div>
+              {MOCK_MISSED_CALLS.map((call) => (
+                <div
+                  key={call.id}
+                  className="grid grid-cols-[1fr_1fr_160px_80px_100px] gap-4 px-6 py-4 border-b border-white/5 hover:bg-white/[0.03] transition-colors items-center"
+                >
+                  <span className="text-sm text-white/80">
+                    {call.callerName || (
+                      <span className="italic text-white/30">Unknown</span>
+                    )}
+                  </span>
+                  <span className="text-sm font-mono text-white/60">
+                    {call.callerNumber}
+                  </span>
+                  <span className="text-sm text-white/50">{call.time}</span>
+                  <span className="text-sm text-white/40">{call.duration}</span>
+                  <span
+                    className={cn(
+                      "inline-block px-2.5 py-1 rounded-full text-xs font-medium w-fit",
+                      SMS_STATUS_STYLES[call.smsStatus],
+                    )}
+                  >
+                    {call.smsStatus}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* Mobile cards */}
+            <div className="lg:hidden space-y-3">
+              {MOCK_MISSED_CALLS.map((call) => (
+                <div
+                  key={call.id}
+                  className="glass-panel rounded-xl p-4"
+                >
+                  <div className="flex items-start justify-between mb-2">
+                    <div className="min-w-0">
+                      <span className="text-base font-medium text-white/90 block">
+                        {call.callerName || (
+                          <span className="italic text-white/40">Unknown Caller</span>
+                        )}
+                      </span>
+                      <span className="text-sm font-mono text-white/50 block">
+                        {call.callerNumber}
+                      </span>
+                    </div>
+                    <span
+                      className={cn(
+                        "px-2.5 py-1 rounded-full text-xs font-medium shrink-0 ml-3",
+                        SMS_STATUS_STYLES[call.smsStatus],
+                      )}
+                    >
+                      {call.smsStatus}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-3 text-xs text-white/30">
+                    <span>{call.time}</span>
+                    <span>·</span>
+                    <span>{call.duration}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* ════════════════ Leads Overview Section ════════════════ */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mt-16"
+          >
+            <div className="mb-8">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-cyan/10 border border-brand-cyan/20 mb-5">
+                <Users className="w-3.5 h-3.5 text-brand-cyan" />
+                <span className="text-xs font-mono uppercase tracking-widest text-brand-cyan">
+                  Leads Overview
+                </span>
+              </div>
+              <h2 className="text-2xl md:text-3xl font-heading font-bold tracking-tight text-white mb-2">
+                Lead{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-blue">
+                  Pipeline
+                </span>
+              </h2>
+              <p className="text-sm text-white/40">
+                Enquiry tracking & response times across all channels.
+              </p>
+            </div>
+
+            {/* Mini stat cards */}
+            <div className="grid grid-cols-3 gap-3 mb-8">
+              {[
+                { label: "Total Leads", value: "6", icon: Users },
+                { label: "Avg Response", value: "< 2 min", icon: Zap },
+                { label: "Qualified", value: "4", icon: CheckCircle2 },
+              ].map((s, i) => (
+                <motion.div
+                  key={s.label}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.1 }}
+                  className="glass-panel rounded-xl p-4 md:p-5"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-white/35">
+                      {s.label}
+                    </span>
+                    <s.icon className="w-4 h-4 text-brand-cyan/50" />
+                  </div>
+                  <p className="text-2xl md:text-3xl font-heading font-bold text-white">
+                    {s.value}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Desktop table */}
+            <div className="hidden lg:block glass-panel rounded-2xl overflow-hidden">
+              <div className="grid grid-cols-[1fr_1fr_140px_120px_100px_100px] gap-4 px-6 py-4 border-b border-white/10">
+                {["Name", "Business", "Source", "Response", "Status", "Date"].map(
+                  (h) => (
+                    <span
+                      key={h}
+                      className="text-[11px] font-mono uppercase tracking-widest text-white/30"
+                    >
+                      {h}
+                    </span>
+                  ),
+                )}
+              </div>
+              {MOCK_LEADS.map((lead) => {
+                const SourceIcon = SOURCE_ICONS[lead.source] || Globe;
+                return (
+                  <div
+                    key={lead.id}
+                    className="grid grid-cols-[1fr_1fr_140px_120px_100px_100px] gap-4 px-6 py-4 border-b border-white/5 hover:bg-white/[0.03] transition-colors items-center"
+                  >
+                    <span className="text-sm text-white/80">{lead.name}</span>
+                    <span className="text-sm text-white/60 truncate">
+                      {lead.business}
+                    </span>
+                    <span className="text-sm text-white/50 flex items-center gap-2">
+                      <SourceIcon className="w-3.5 h-3.5 text-white/30" />
+                      {lead.source}
+                    </span>
+                    <span className="text-sm font-mono text-brand-cyan/70">
+                      {lead.responseTime}
+                    </span>
+                    <span
+                      className={cn(
+                        "inline-block px-2.5 py-1 rounded-full text-xs font-medium w-fit",
+                        FOLLOW_UP_STYLES[lead.followUp],
+                      )}
+                    >
+                      {lead.followUp}
+                    </span>
+                    <span className="text-sm text-white/40">{lead.date}</span>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Mobile cards */}
+            <div className="lg:hidden space-y-3">
+              {MOCK_LEADS.map((lead) => {
+                const SourceIcon = SOURCE_ICONS[lead.source] || Globe;
+                return (
+                  <div
+                    key={lead.id}
+                    className="glass-panel rounded-xl p-4"
+                  >
+                    <div className="flex items-start justify-between mb-2">
+                      <div className="min-w-0">
+                        <span className="text-base font-medium text-white/90 block">
+                          {lead.name}
+                        </span>
+                        <span className="text-sm text-white/40 block truncate">
+                          {lead.business}
+                        </span>
+                      </div>
+                      <span
+                        className={cn(
+                          "px-2.5 py-1 rounded-full text-xs font-medium shrink-0 ml-3",
+                          FOLLOW_UP_STYLES[lead.followUp],
+                        )}
+                      >
+                        {lead.followUp}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3 text-xs text-white/30">
+                      <span className="flex items-center gap-1">
+                        <SourceIcon className="w-3 h-3" />
+                        {lead.source}
+                      </span>
+                      <span>·</span>
+                      <span className="text-brand-cyan/60">{lead.responseTime}</span>
+                      <span>·</span>
+                      <span>{lead.date}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </motion.div>
         </div>
       </section>
