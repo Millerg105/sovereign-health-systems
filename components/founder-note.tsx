@@ -53,15 +53,15 @@ export function FounderNote() {
                                 <h3 className="text-3xl md:text-4xl font-heading font-bold text-white mb-2 tracking-tight leading-none">
                                     Founder-Led From Start To Finish.
                                 </h3>
-                                <p className="text-xl md:text-2xl font-heading font-bold text-brand-cyan mb-6 tracking-tight leading-tight">No outsourcing, no juniors - I build every system myself.</p>
+                                <p className="text-xl md:text-2xl font-heading font-bold text-brand-cyan mb-6 tracking-tight leading-tight">I stop trades businesses losing money — and I do it all myself.</p>
                             </div>
 
                             <div className="space-y-6 text-base md:text-lg text-white/80 font-light leading-relaxed">
                                 <p>
-                                    Every Sovereign system is shaped directly with you, then designed, wired, and refined by me personally. That means faster decisions, tighter execution, and no handoff once the project starts.
+                                    If your phone rings while you're on a job and nobody picks up, that's money gone. If a customer searches for you online and finds nothing, they call the next company. I fix both — personally.
                                 </p>
                                 <p>
-                                    You get a custom proposal, a clear rollout plan, and infrastructure built around how your business actually wins work.
+                                    You get a custom proposal, a clear rollout plan, and systems built around how your business actually wins work. No outsourcing, no juniors — just me, building what your business needs.
                                 </p>
                             </div>
 

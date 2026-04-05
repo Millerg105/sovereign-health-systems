@@ -1,27 +1,27 @@
 import { PortfolioPage } from "@/components/portfolio/portfolio-page";
 
 const TRADITIONAL = [
-  "WordPress templates with custom colours",
-  "3-6 week delivery timelines",
-  "GBP2,000-GBP10,000 for a digital brochure",
-  "No automation, no lead capture",
-  "GBP50-200/month to update plugins",
-  "Slow, bloated, outdated technology",
+  "A website that sits there doing nothing",
+  "3-6 weeks before you see anything",
+  "£2,000-£10,000 for a digital brochure",
+  "Missed calls still go to voicemail",
+  "£50-200/month just to update plugins",
+  "No booking, no follow-ups, no lead capture",
 ];
 
 const SOVEREIGN = [
-  "Custom-coded with Next.js & React",
-  "Delivered in days, not weeks",
-  "Premium quality without agency bloat",
-  "AI receptionist, SMS, booking built in",
-  "24/7 revenue recovery automation",
-  "Enterprise-grade technology stack",
+  "A website that actually books you jobs",
+  "Live in days, not weeks",
+  "Missed calls answered and followed up instantly",
+  "Online booking straight into your calendar",
+  "Past customers reactivated automatically",
+  "Everything managed — you don't touch a thing",
 ];
 
 const STATS = [
-  { value: "DAYS", detail: "Launch windows measured in execution speed, not dragged-out retainers." },
-  { value: "24/7", detail: "Automation layer stays live when your team is on-site, offline, or asleep." },
-  { value: "CUSTOM", detail: "Every platform is engineered around your offer, workflow, and conversion pressure points." },
+  { value: "DAYS", detail: "Your website and missed-call system go live in days — not weeks of back-and-forth." },
+  { value: "24/7", detail: "Your calls get answered and leads get chased even when you're on a job, asleep, or on holiday." },
+  { value: "YOURS", detail: "Everything we build belongs to you — inside your business, under your control, forever." },
 ];
 
 export function PortfolioComparison() {

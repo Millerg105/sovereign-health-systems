@@ -69,15 +69,15 @@ function Testimonials() {
                         </span>
 
                         <h2 className="text-3xl font-heading font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
-                            Custom Systems. Clear ROI. Direct Execution.
+                            Stop Losing Work. Start Recovering Revenue.
                         </h2>
 
                         <div className="space-y-4 text-base leading-relaxed text-white/80">
                             <p>
-                                Sovereign is built to give trade businesses a faster, tighter route from missed enquiry to booked work. Every system is shaped around your lead flow, capacity, and commercial goals.
+                                Every missed call is a lost job. Every day without a proper website is money walking to your competitors. Sovereign plugs those leaks — fast — so your business stops bleeding revenue.
                             </p>
                             <p>
-                                You work directly with the founder from strategy through launch, with no outsourced handoff and no generic package pretending to fit every business.
+                                You work directly with the founder from strategy through launch. No outsourced handoff, no generic package — just systems built around how your business actually wins work.
                             </p>
                         </div>
 
@@ -86,7 +86,7 @@ function Testimonials() {
                                 What You Get
                             </p>
                             <p className="text-sm leading-relaxed text-white/85 sm:text-base">
-                                <span className="font-semibold text-white">You get:</span> founder-led implementation, a custom build, and direct support through rollout. <span className="font-semibold text-white">We deliver:</span> a proposal built around the actual systems your business needs, not a one-size-fits-all package.
+                                <span className="font-semibold text-white">You get:</span> a website that actually works for you, calls answered 24/7, and leads chased automatically. <span className="font-semibold text-white">We deliver:</span> a system that stops you losing money and starts recovering revenue from day one.
                             </p>
                             <p className="mt-3 text-sm font-medium text-white italic">No long-term lock-in.</p>
                         </div>

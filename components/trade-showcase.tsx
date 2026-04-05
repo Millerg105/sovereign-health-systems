@@ -55,7 +55,7 @@ export function TradeShowcase() {
                             </p>
 
                             <p className="text-lg text-white/70">
-                                We build the sovereign digital <span className="text-white font-medium underline underline-offset-8 decoration-brand-cyan/30">infrastructure</span> for <span className="text-brand-cyan font-semibold">growing home service businesses.</span>
+                                We stop trades businesses <span className="text-white font-medium underline underline-offset-8 decoration-brand-cyan/30">losing money</span> from missed calls and no online presence — then help them <span className="text-brand-cyan font-semibold">grow.</span>
                             </p>
 
                             <div className="pt-2">

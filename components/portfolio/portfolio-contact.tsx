@@ -9,7 +9,7 @@ export function PortfolioContact() {
         <div className="flex flex-col justify-between border-b border-white/10 bg-[linear-gradient(180deg,rgba(2,5,9,0.9),rgba(1,3,6,0.98))] px-8 py-8 md:border-b-0 md:border-r md:px-10 md:py-10 lg:px-12 lg:py-12">
           <div>
             <h2 className="max-w-[10ch] font-heading text-[clamp(2.2rem,4vw,4.6rem)] font-semibold leading-[0.96] tracking-[-0.04em] text-white">
-              Let&apos;s Build Something Great.
+              Let&apos;s Stop You Losing Money.
             </h2>
             <div className="mt-6 h-px w-28 bg-[linear-gradient(90deg,rgba(34,211,238,0.85),rgba(59,130,246,0.4),transparent)]" />
           </div>
@@ -41,7 +41,7 @@ export function PortfolioContact() {
             </div>
 
             <p className="mt-8 max-w-2xl font-heading text-[1.2rem] italic leading-[1.55] text-white/52 sm:text-[1.45rem]">
-              Your business deserves digital infrastructure that works as hard as you do.
+              Your business shouldn&apos;t lose money just because you&apos;re busy doing the work.
             </p>
           </div>
         </div>

@@ -4,12 +4,12 @@ const SERVICES = [
   {
     title: "Custom-Coded Platforms",
     description:
-      "Bespoke digital infrastructure built with Next.js & React for speed, security, and total ownership. Enterprise-grade - not shared templates.",
+      "A proper website that actually brings in work — built from scratch, fast, mobile-ready, and designed to convert visitors into paying customers. Not a WordPress template.",
   },
   {
     title: "AI Receptionist",
     description:
-      "Your 24/7 front office. Handles enquiries, qualifies leads, and books meetings while your team focuses on high-value work.",
+      "Never miss a call again. When you're on a job, our AI answers, qualifies the lead, and books them in — so the customer doesn't call your competitor instead.",
   },
   {
     title: "Missed-Call Text-Back",
@@ -19,7 +19,7 @@ const SERVICES = [
   {
     title: "Automated Booking",
     description:
-      "High-tempo lead capture that locks in prospects immediately. No back-and-forth. Straight into your calendar.",
+      "Customers book themselves straight into your calendar — no phone tag, no back-and-forth texts. You just show up and do the job.",
   },
   {
     title: "SMS Reminders",
@@ -29,7 +29,7 @@ const SERVICES = [
   {
     title: "Revenue Recovery",
     description:
-      "Intelligent automation taking lead capture from 20-30% to over 95%. Your platform works harder than any admin hire.",
+      "Past customers sitting in a spreadsheet or nowhere at all? We reactivate them automatically — turning forgotten contacts back into booked jobs.",
   },
 ];
 
@@ -37,8 +37,8 @@ export function PortfolioServices() {
   return (
     <PortfolioPage>
       <div className="flex h-full flex-col px-8 py-8 sm:px-10 sm:py-10 lg:px-14 lg:py-12">
-        <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-white/55">Infrastructure Layer</div>
-        <h2 className="mt-4 font-heading text-[clamp(2.2rem,4.2vw,4.6rem)] font-semibold tracking-[-0.04em] text-white">What We Engineer</h2>
+        <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-white/55">How We Stop You Losing Money</div>
+        <h2 className="mt-4 font-heading text-[clamp(2.2rem,4.2vw,4.6rem)] font-semibold tracking-[-0.04em] text-white">What We Build For You</h2>
 
         <div className="mt-8 grid flex-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {SERVICES.map((service) => (

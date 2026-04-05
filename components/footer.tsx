@@ -23,7 +23,7 @@ export function Footer() {
           <div className="relative">
             <h2 className="mb-4 text-3xl md:text-4xl font-bold tracking-tight text-white">Stay Connected</h2>
             <p className="mb-6 text-white/80">
-              Join our newsletter for the latest automation insights and exclusive offers.
+              Tips on winning more jobs, recovering lost leads, and getting your trades business visible online.
             </p>
             <form
               className="relative"

@@ -20,7 +20,7 @@ export function CTA() {
                 </h2>
 
                 <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-10 leading-relaxed font-light">
-                    Join the elite clinics moving from "Answering Machine" to "Revenue Machine." Start your infrastructure build today.
+                    Join the trades businesses turning missed calls into booked jobs. Your free audit shows you exactly where you're losing money.
                 </p>
 
                 <div className="flex flex-col md:flex-row items-center justify-center gap-8 mb-12 text-sm text-brand-cyan font-medium">
@@ -55,7 +55,7 @@ export function CTA() {
                         variant="secondary"
                         size="lg"
                         className="w-full md:w-auto"
-                        onClick={() => window.open(`sms:${CONTACT_PHONE}?body=Hi Miller, I'd like to book a clinical audit.`, '_self')}
+                        onClick={() => window.open(`sms:${CONTACT_PHONE}?body=Hi Miller, I'd like to book a free audit for my business.`, '_self')}
                         leftIcon={<Smartphone className="w-5 h-5" />}
                     >
                         Text me instead
@@ -63,9 +63,9 @@ export function CTA() {
                 </div>
 
                 <div className="mt-16 bg-white/[0.02] border border-white/5 rounded-2xl p-8 max-w-2xl mx-auto backdrop-blur-sm">
-                    <p className="text-brand-cyan font-bold mb-2 uppercase text-[10px] tracking-wider font-mono">Managed Infrastructure ROI</p>
+                    <p className="text-brand-cyan font-bold mb-2 uppercase text-[10px] tracking-wider font-mono">Your Investment, Your Return</p>
                     <p className="text-sm text-white/40 leading-relaxed">
-                        1-3 months payback, then pure profit for years. We build assets you own, inside your business ecosystem, forever.
+                        Most clients pay back the cost within 2–4 weeks from recovered missed calls alone. After that, it's pure profit — and everything we build belongs to you.
                     </p>
                 </div>
             </div>

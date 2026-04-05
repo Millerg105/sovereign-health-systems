@@ -31,13 +31,13 @@ export function PortfolioAbout() {
               With a professional background in civil engineering at Curtins, one of the UK&apos;s leading structural and civil engineering consultancies, I bring precision, project management discipline and commercial delivery standards to every build.
             </p>
             <p className="mt-4 text-[0.96rem] leading-[1.58] sm:text-[1rem]">
-              Sovereign Systems is my digital infrastructure agency. Every platform is custom-coded using Next.js, React and Tailwind CSS - the same enterprise technology stack behind the fastest platforms in the world. No WordPress. No templates. Purpose-built systems engineered for speed, security and 24/7 lead capture.
+              Sovereign Systems exists for one reason: to stop trades businesses losing money from missed calls, slow follow-ups, and having no online presence. Every platform is custom-coded — no WordPress, no templates — purpose-built to make sure you never lose a job to a competitor who just picked up the phone first.
             </p>
             <p className="mt-4 text-[0.96rem] leading-[1.58] sm:text-[1rem]">
               My engineering background means I approach every project with precision and structure - not just creativity. I understand project delivery, client management, and professional standards because I work to those standards every day.
             </p>
             <p className="mt-4 text-[0.96rem] leading-[1.58] sm:text-[1rem]">
-              What I build isn&apos;t a website. It&apos;s a 24/7 front office that captures leads, automates follow-ups, and ensures your business never misses an opportunity - even when you&apos;re in a meeting, on-site, or closing a deal.
+              What I build isn&apos;t just a website. It&apos;s a system that answers your calls when you can&apos;t, follows up with every lead, and makes sure you never lose work just because you were busy doing the actual work.
             </p>
           </div>
 

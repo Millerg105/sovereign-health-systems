@@ -75,14 +75,14 @@ export function PricingSection() {
                         whileInView={{ opacity: 1, y: 0 }}
                         className="inline-block px-4 md:px-5 py-2 md:py-2.5 bg-white/5 border border-white/10 rounded-full text-white text-[clamp(0.75rem,2.5vw,0.875rem)] md:text-base font-mono uppercase tracking-widest mb-6 md:mb-8 backdrop-blur-sm"
                     >
-                        Sovereign Infrastructure • High-Yield Assets
+                        Stop Losing Money • Start Recovering Revenue
                     </motion.div>
                     <h2 className="text-[clamp(1.75rem,7vw,2.5rem)] sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-4 md:mb-6 tracking-tight leading-[0.95] md:leading-[0.9] px-4">
-                        We Build It. We Run It. <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-blue">You Just Pay Monthly.</span>
+                        We Handle Everything. <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-blue">You Just Focus on the Work.</span>
                     </h2>
                     <p className="text-[clamp(0.9375rem,3.5vw,1.125rem)] md:text-lg lg:text-xl text-white max-w-4xl mx-auto leading-relaxed px-6">
-                        Everything is built inside your business and belongs to you.
-                        The monthly fee keeps it all running, monitored, and <span className="text-white font-bold">improving.</span>
+                        Every system is built inside your business and belongs to you.
+                        One monthly fee covers everything — so you never lose another job to a missed call or a missing <span className="text-white font-bold">website.</span>
                     </p>
                 </div>
 
@@ -165,7 +165,7 @@ export function PricingSection() {
                                 Portfolio Preview
                             </div>
                             <span className="block max-w-md text-xl md:text-[1.65rem] font-heading font-bold text-white/95 mb-8 leading-tight">
-                                See the standard of platform, brand execution, and performance engineering behind Sovereign Systems.
+                                See real examples of what we build for trades businesses — and the results they get.
                             </span>
                             <Link
                                 href="/portfolio"
