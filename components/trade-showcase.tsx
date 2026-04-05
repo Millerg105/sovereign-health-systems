@@ -11,9 +11,9 @@ const items: CardStackItem[] = [
     },
     {
         id: 2,
-        title: "Cleaning",
-        description: "Contract cleaning, office maintenance, and deep cleans — scheduled, tracked, and scaled with zero admin overhead.",
-        imageSrc: "/showcase/cleaning.jpg",
+        title: "Electrical Services",
+        description: "Rewires, fault-finding, and emergency callouts — every lead captured, quoted, and followed up automatically.",
+        imageSrc: "/showcase/electrical-services.jpg",
     },
     {
         id: 3,
@@ -50,7 +50,7 @@ export function TradeShowcase() {
 
                         <div className="text-base sm:text-lg md:text-xl text-white/80 mb-8 leading-relaxed space-y-6 md:space-y-8 font-light max-w-lg">
                             <p className="border-l-2 border-brand-cyan/40 pl-5 md:pl-8 py-2">
-                                From <span className="text-white font-medium">Plumbers</span> to <span className="text-white font-medium">Cleaners</span>,
+                                From <span className="text-white font-medium">Plumbers</span> to <span className="text-white font-medium">Electricians</span>,
                                 <span className="text-white font-medium block mt-2 text-base sm:text-lg md:text-xl">HVAC Engineers to Pest Control.</span>
                             </p>
 
