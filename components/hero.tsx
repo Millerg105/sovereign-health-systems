@@ -34,16 +34,16 @@ export function Hero() {
                     className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/40 backdrop-blur-md border border-white/10 shadow-lg mb-8"
                 >
                     <span className="w-2 h-2 rounded-full bg-brand-cyan animate-pulse" />
-                    <span className="text-xs font-bold text-white uppercase tracking-wider">Accepting 2 New Clinics for Q1</span>
+                    <span className="text-xs font-bold text-white uppercase tracking-wider">Accepting New Projects</span>
                 </motion.div>
 
                 {/* Headline */}
                 <motion.h1
                     className="text-6xl md:text-8xl lg:text-9xl font-heading font-bold text-white mb-6 tracking-tight leading-[0.95] max-w-6xl"
                 >
-                    Revenue You Didn't <br />
+                    Websites, Automation, <br />
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-blue drop-shadow-[0_0_25px_rgba(34,211,238,0.3)]">
-                        Know You Lost.
+                        and AI Systems.
                     </span>
                 </motion.h1>
 
@@ -55,10 +55,10 @@ export function Hero() {
                     className="space-y-4 mb-12"
                 >
                     <p className="text-2xl md:text-3xl text-white font-medium tracking-tight">
-                        It’s your shortcut into the future.
+                        Built for businesses of all sizes.
                     </p>
                     <p className="text-lg md:text-xl text-white/50 max-w-3xl mx-auto leading-relaxed font-light">
-                        We capture missed calls, reply instantly, and book appointments automatically — so clinics grow without hiring.
+                        We design, build, and launch digital products for businesses of all sizes. Custom-coded. Live in 7 days. No templates. No WordPress.
                     </p>
                 </motion.div>
 
@@ -77,7 +77,7 @@ export function Hero() {
                             rightIcon={<ArrowRight className="w-5 h-5" />}
                             className="w-full md:w-auto"
                         >
-                            Book Your Free Strategy Audit
+                            Start a Project
                         </Button>
                         <Button
                             size="lg"
@@ -85,22 +85,22 @@ export function Hero() {
                             onClick={() => document.getElementById('roi')?.scrollIntoView({ behavior: 'smooth' })}
                             className="w-full md:w-auto"
                         >
-                            Analyze Your ROI
+                            View Our Work
                         </Button>
                     </div>
 
                     {/* Trust Microcopy */}
                     <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-mono uppercase tracking-[0.2em] text-white/40">
                         <span className="flex items-center gap-2">
-                            Built for private practices
+                            Built for businesses of all sizes
                         </span>
                         <span className="w-1.5 h-1.5 rounded-full bg-white/10 hidden md:block" />
                         <span className="flex items-center gap-2">
-                            2–3 week implementation
+                            5–7 day turnaround
                         </span>
                         <span className="w-1.5 h-1.5 rounded-full bg-white/10 hidden md:block" />
                         <span className="flex items-center gap-2">
-                            ROI tracking included
+                            Custom coded
                         </span>
                     </div>
                 </motion.div>

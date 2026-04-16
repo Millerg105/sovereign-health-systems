@@ -50,10 +50,10 @@ export function Navbar() {
     };
 
     const painPointOptions = [
-        { label: "Missed Leads", onClick: () => navigateToSection("problem"), Icon: <ShieldAlert className="h-4 w-4" /> },
-        { label: "Slow Follow-Up", onClick: () => navigateToSection("problem"), Icon: <Timer className="h-4 w-4" /> },
-        { label: "No-Show Drag", onClick: () => navigateToSection("problem"), Icon: <TrendingDown className="h-4 w-4" /> },
-        { label: "Admin Overload", onClick: () => navigateToSection("problem"), Icon: <AlertTriangle className="h-4 w-4" /> },
+        { label: "Web Design", onClick: () => navigateToSection("problem"), Icon: <ShieldAlert className="h-4 w-4" /> },
+        { label: "Automation", onClick: () => navigateToSection("problem"), Icon: <Timer className="h-4 w-4" /> },
+        { label: "AI Systems", onClick: () => navigateToSection("problem"), Icon: <TrendingDown className="h-4 w-4" /> },
+        { label: "Custom Platforms", onClick: () => navigateToSection("problem"), Icon: <AlertTriangle className="h-4 w-4" /> },
     ];
 
     const openRoadmapPlan = () => {
@@ -68,7 +68,7 @@ export function Navbar() {
 
     const valueOptions = [
         { label: "Return on Investment Calculator", onClick: () => navigateToSection("roi"), Icon: <Calculator className="h-4 w-4" /> },
-        { label: "14-Day Custom Roadmap", onClick: openRoadmapPlan, Icon: <FileText className="h-4 w-4" /> },
+        { label: "Project Roadmap", onClick: openRoadmapPlan, Icon: <FileText className="h-4 w-4" /> },
     ];
 
     const pricingOptions = [
@@ -77,7 +77,7 @@ export function Navbar() {
     ];
 
     const bookingOptions = [
-        { label: "Book Strategy Audit", onClick: () => navigateToSection("booking"), Icon: <CalendarCheck className="h-4 w-4" /> },
+        { label: "Start a Project", onClick: () => navigateToSection("booking"), Icon: <CalendarCheck className="h-4 w-4" /> },
         { label: "Message on WhatsApp", onClick: () => openExternal(WHATSAPP_URL), Icon: <MessageCircle className="h-4 w-4" /> },
         { label: "Email Us", onClick: () => (window.location.href = `mailto:${CONTACT_EMAIL}`), Icon: <Mail className="h-4 w-4" /> },
         { label: "Call Now", onClick: () => (window.location.href = `tel:${CONTACT_PHONE}`), Icon: <Phone className="h-4 w-4" /> },
@@ -112,14 +112,14 @@ export function Navbar() {
                         Portfolio
                     </Link>
                     <DropdownMenu options={valueOptions} triggerClassName="h-10 xl:h-12 px-3 xl:px-6 text-sm xl:text-base">Quick Links</DropdownMenu>
-                    <DropdownMenu options={painPointOptions} triggerClassName="h-10 xl:h-12 px-3 xl:px-6 text-sm xl:text-base">Pain Points</DropdownMenu>
+                    <DropdownMenu options={painPointOptions} triggerClassName="h-10 xl:h-12 px-3 xl:px-6 text-sm xl:text-base">Services</DropdownMenu>
                     <DropdownMenu options={pricingOptions} triggerClassName="h-10 xl:h-12 px-3 xl:px-6 text-sm xl:text-base">Pricing</DropdownMenu>
                     <DropdownMenu
                         options={bookingOptions}
                         triggerVariant="primary"
                         triggerClassName="h-10 xl:h-12 px-4 xl:px-7 text-sm xl:text-base"
                     >
-                        Book Strategy Audit
+                        Start a Project
                     </DropdownMenu>
                 </div>
 

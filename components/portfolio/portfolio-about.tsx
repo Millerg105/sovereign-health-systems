@@ -31,13 +31,13 @@ export function PortfolioAbout() {
               With a professional background in civil engineering at Curtins, one of the UK&apos;s leading structural and civil engineering consultancies, I bring precision, project management discipline and commercial delivery standards to every build.
             </p>
             <p className="mt-4 text-[0.96rem] leading-[1.58] sm:text-[1rem]">
-              Sovereign Systems exists for one reason: to stop trades businesses losing money from missed calls, slow follow-ups, and having no online presence. Every platform is custom-coded — no WordPress, no templates — purpose-built to make sure you never lose a job to a competitor who just picked up the phone first.
+              Sovereign Systems exists for one reason: to help businesses grow through custom websites, automation, and AI systems. Every platform is custom-coded — no WordPress, no templates — purpose-built to convert visitors into customers and save you hours every week.
             </p>
             <p className="mt-4 text-[0.96rem] leading-[1.58] sm:text-[1rem]">
               My engineering background means I approach every project with precision and structure - not just creativity. I understand project delivery, client management, and professional standards because I work to those standards every day.
             </p>
             <p className="mt-4 text-[0.96rem] leading-[1.58] sm:text-[1rem]">
-              What I build isn&apos;t just a website. It&apos;s a system that answers your calls when you can&apos;t, follows up with every lead, and makes sure you never lose work just because you were busy doing the actual work.
+              What I build isn&apos;t just a website. It&apos;s a digital system that captures leads, automates follow-ups, and makes sure you never lose a customer to a competitor with a better online presence.
             </p>
           </div>
 
@@ -69,7 +69,7 @@ export function PortfolioAbout() {
         </div>
 
         <div className="mt-5 font-body text-sm font-semibold text-brand-cyan text-glow sm:text-base">
-          Every missed call is a missed contract. We&apos;re here to stop that leak.
+          Every missed enquiry is a missed opportunity. We&apos;re here to fix that.
         </div>
       </div>
     </PortfolioPage>

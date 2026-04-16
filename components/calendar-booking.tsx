@@ -17,14 +17,14 @@ const CALL_TYPES = [
   {
     id: "quick",
     label: "15-Min Quick Call",
-    description: "A fast, focused chat to identify where you're losing revenue.",
+    description: "A fast, focused chat to scope your project and next steps.",
     duration: "15 min",
     icon: Phone,
   },
   {
     id: "strategy",
     label: "30-Min Strategy Audit",
-    description: "A deep-dive into your current systems with actionable next steps.",
+    description: "A deep-dive into your digital needs with a clear action plan.",
     duration: "30 min",
     icon: FileText,
   },
@@ -234,14 +234,14 @@ export function CalendarBooking() {
             </div>
 
             <h2 className="text-3xl sm:text-4xl md:text-7xl font-heading font-bold text-white mb-5 md:mb-6 leading-tight">
-              Book Your <br />
+              Start Your <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-blue">
-                Strategy Audit
+                Project
               </span>
             </h2>
 
             <p className="text-base sm:text-lg md:text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
-              No commitment. Walk away with a clear action plan to recover lost revenue.
+              No commitment. Walk away with a clear plan for your website, automation, or digital system.
             </p>
           </motion.div>
 
@@ -809,7 +809,7 @@ export function CalendarBooking() {
             transition={{ duration: 0.6, delay: 0.5 }}
             className="mt-8 text-center"
           >
-            <p className="text-sm text-white/40 mb-2">Trusted by Sovereign-powered businesses across Greater Manchester</p>
+            <p className="text-sm text-white/40 mb-2">Trusted by businesses across the UK</p>
             <div className="flex items-center justify-center gap-2 text-xs text-white/30">
               <Clock className="w-3 h-3" />
               <span>Average response time: 2 hours</span>

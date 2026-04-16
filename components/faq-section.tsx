@@ -11,38 +11,38 @@ const FAQ_DATA = [
         questions: [
             {
                 id: "q1",
-                question: "How long does implementation take?",
-                answer: "2\u20133 weeks from kickoff to fully live. We handle everything \u2014 you just give us access to your systems and approve the messaging."
+                question: "How long does a website take to build?",
+                answer: "Most sites go live within 5\u20137 days. Larger projects with automation or custom platforms take 2\u20134 weeks. We\u2019ll give you a clear timeline before we start."
             },
             {
                 id: "q2",
-                question: "Do I need to change my current systems?",
-                answer: "No. We build around what you already use. If you\u2019re running everything from your phone and a notebook, that\u2019s fine \u2014 we\u2019ll set up proper systems from scratch."
+                question: "What\u2019s included in a website build?",
+                answer: "Custom design, mobile optimisation, SEO setup, contact forms, analytics, and hosting configuration. No templates, no WordPress \u2014 everything is custom-coded and yours to keep."
             },
             {
                 id: "q3",
-                question: "What if I don't have a website?",
-                answer: "We build you one as part of every tier. If you have one that\u2019s outdated, we rebuild it."
+                question: "Do I need a retainer after launch?",
+                answer: "No. The website build is a one-off fee and it\u2019s yours. Retainers are optional \u2014 they cover hosting, updates, content changes, and ongoing support if you want it."
             }
         ]
     },
     {
-        category: "Pricing & ROI",
+        category: "Pricing & Process",
         questions: [
             {
                 id: "q4",
-                question: "What's the typical ROI?",
-                answer: "Most clients recover the cost of Sovereign within the first 2\u20134 weeks through captured missed calls and reactivated past customers alone."
+                question: "How much does a website cost?",
+                answer: "One-page sites start from \u00A3300. Multi-page sites from \u00A3500. Full builds with automation from \u00A3800. Enterprise platforms from \u00A35,000+. Every project is scoped and quoted upfront."
             },
             {
                 id: "q5",
                 question: "Are there any hidden fees?",
-                answer: "No. The only extra cost is usage \u2014 SMS and AI call fees passed through at cost (typically \u00A320\u2013\u00A350/mo). We never mark up."
+                answer: "No. You get a fixed quote before we start. The only ongoing costs are optional retainers and any third-party services (hosting, domain, email) which we\u2019ll outline upfront."
             },
             {
                 id: "q6",
-                question: "Can I cancel anytime?",
-                answer: "Yes. Month-to-month. No long-term contracts. Stay because it works."
+                question: "What if I need changes after launch?",
+                answer: "Small tweaks within 30 days are included. After that, you can either request one-off changes or join a monthly retainer for unlimited updates and support."
             }
         ]
     },
@@ -51,33 +51,33 @@ const FAQ_DATA = [
         questions: [
             {
                 id: "q7",
-                question: "How does the AI handle complex questions?",
-                answer: "It captures the enquiry, qualifies the lead, and routes it to you with full context. It\u2019s not replacing you \u2014 it\u2019s making sure you never miss a potential job."
+                question: "What tech stack do you use?",
+                answer: "We build with Next.js, React, and modern frameworks. Every site is custom-coded \u2014 no page builders, no WordPress. Fast, secure, and built to last."
             },
             {
                 id: "q8",
-                question: "Is my customer data secure?",
-                answer: "Yes. Everything is encrypted, GDPR-compliant, and hosted in the UK. Your data stays yours."
+                question: "Do I own the code and design?",
+                answer: "Yes. Everything we build belongs to you. Full source code, design files, and documentation are handed over on completion."
             },
             {
                 id: "q9",
-                question: "What happens if the system goes down?",
-                answer: "Our guarantee covers it. If we fail to capture a lead due to our error, your monthly fee for that month is waived."
+                question: "Can you integrate with my existing tools?",
+                answer: "Yes. We integrate with CRMs, email platforms, payment providers, calendars, and more. If it has an API, we can connect it."
             }
         ]
     },
     {
-        category: "Results",
+        category: "Support",
         questions: [
             {
                 id: "q10",
-                question: "How quickly will I see results?",
-                answer: "Most businesses see their first recovered lead within the first 7 days. The missed call text-back alone typically pays for itself in week one."
+                question: "What if I\u2019m not happy with the design?",
+                answer: "We include revision rounds in every project. You\u2019ll see the design before we build, and we refine until you\u2019re happy. No surprises."
             },
             {
                 id: "q11",
-                question: "What if it doesn't work for my business?",
-                answer: "Cancel anytime. No lock-in. But in our experience, if your phone rings and you sometimes miss it \u2014 it works."
+                question: "How do I get started?",
+                answer: "Book a call or send us a message. We\u2019ll scope your project, send a proposal, and get started as soon as you\u2019re ready. Most projects kick off within 48 hours."
             }
         ]
     }
@@ -158,7 +158,7 @@ export function FAQSection() {
                             size="md"
                             className="flex-1"
                         >
-                            Book Your Free Strategy Audit →
+                            Start a Project →
                         </Button>
                     </motion.div>
                 </div>

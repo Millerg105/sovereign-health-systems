@@ -60,7 +60,7 @@ export function DigitalAlchemy() {
                     className="absolute z-30 flex flex-col items-center justify-center pointer-events-none"
                 >
                     <p className="text-white font-mono text-xs sm:text-sm md:text-xl font-bold tracking-[0.18em] md:tracking-[0.3em] uppercase glow-text bg-[#020408]/90 backdrop-blur-xl px-5 sm:px-6 md:px-10 py-3 md:py-5 rounded-full border border-brand-cyan/50 shadow-[0_0_50px_-10px_rgba(34,211,238,0.3)] z-50 text-center">
-                        Your Competitors Are Already Here
+                        Your Industry Is Moving Online
                     </p>
                 </motion.div>
 
@@ -82,7 +82,7 @@ export function DigitalAlchemy() {
                         >
                             DON'T LOOK BACK IN 10 YEARS<br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan via-white to-brand-cyan animate-pulse drop-shadow-[0_0_25px_rgba(34,211,238,0.4)]">
-                                WISHING YOU STARTED TODAY.
+                                WISHING YOU'D BUILT THIS SOONER.
                             </span>
                         </motion.h2>
 
@@ -90,14 +90,14 @@ export function DigitalAlchemy() {
                         <motion.div style={{ opacity: supportOpacity, y: supportY }} className="mt-8 md:mt-14 max-w-4xl text-center px-4 sm:px-6">
                             <motion.div style={{ y: mobileSupportY }}>
                                 <p className="text-lg sm:text-xl md:text-3xl lg:text-4xl text-white/85 font-light leading-[1.3] mb-5 md:mb-6">
-                                    Right now, trades businesses like yours are losing thousands to missed calls, slow follow-ups, and having no online presence. <span className="text-white font-semibold">That stops today.</span>
+                                    Right now, businesses like yours are losing customers to slow websites, poor online presence, and manual processes. <span className="text-white font-semibold">That stops today.</span>
                                 </p>
                                 <p className="text-base sm:text-lg md:text-2xl text-white/85 leading-relaxed mb-6 md:mb-8">
-                                    We put systems in place that answer your calls, chase your leads, and book your jobs — so you stop bleeding money while you're on site. <span className="text-brand-cyan font-medium">Invest in your business. Stop losing work.</span>
+                                    We build websites, automation, and AI systems that capture leads and convert them into paying customers — on autopilot. <span className="text-brand-cyan font-medium">Invest in your digital presence. Stop losing business.</span>
                                 </p>
                                 <div className="mt-10 flex justify-center">
                                     <span className="inline-block px-5 py-2.5 md:px-6 md:py-3 border border-red-500/20 rounded-full text-sm md:text-lg text-red-400 font-mono uppercase tracking-[0.16em] md:tracking-widest bg-red-500/5 backdrop-blur-sm">
-                                        Join now before your area is taken
+                                        Limited availability — start your project today
                                     </span>
                                 </div>
                             </motion.div>

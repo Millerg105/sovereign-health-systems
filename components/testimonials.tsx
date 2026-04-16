@@ -6,8 +6,8 @@ import { Button } from "./ui/button";
 
 const TRUST_INDICATORS = [
     {
-        title: "7-Day Quick Win (Defined)",
-        detail: "Missed-call capture + inbox + first follow-up live",
+        title: "Live in 7 Days",
+        detail: "Website + lead capture + first automation live",
     },
     {
         title: "Founder-Led Implementation",
@@ -22,33 +22,33 @@ const TRUST_INDICATORS = [
 const ROADMAP_STEPS = [
     {
         days: "Days 0-7",
-        title: "Stop The Leak",
+        title: "Design & Build",
         outcomes: [
-            "Missed-call text-back live",
-            "Lead capture workflows active",
-            "Unified inbox connected",
+            "Website designed and built",
+            "Lead capture forms live",
+            "Analytics and tracking connected",
         ],
-        needs: "Access to phone/SMS provider + booking link + staff emails.",
+        needs: "Brand assets, copy preferences, and domain access.",
     },
     {
         days: "Days 8-14",
-        title: "Deploy Infrastructure",
+        title: "Review & Refine",
         outcomes: [
-            "Calendar sync and reminders deployed",
-            "Follow-up sequences activated",
-            "Tracking baseline established",
+            "Design revisions completed",
+            "Automation workflows activated",
+            "Integrations connected",
         ],
-        needs: "Customer list export or CRM access if available.",
+        needs: "Feedback on design and any third-party tool credentials.",
     },
     {
         days: "Days 15-30",
-        title: "Optimise & Scale",
+        title: "Launch & Grow",
         outcomes: [
-            "Scripts and automations refined",
-            "Performance audit and reactivation launched",
-            "ROI reporting handoff completed",
+            "Site launched and live",
+            "Performance monitoring active",
+            "Growth strategy handoff completed",
         ],
-        needs: "Approve messaging and allocate 15 mins/week for review.",
+        needs: "Final approval and 15 mins/week for review.",
     },
 ];
 
@@ -69,15 +69,15 @@ function Testimonials() {
                         </span>
 
                         <h2 className="text-3xl font-heading font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
-                            Stop Losing Work. Start Recovering Revenue.
+                            Stop Losing Customers. Start Growing Online.
                         </h2>
 
                         <div className="space-y-4 text-base leading-relaxed text-white/80">
                             <p>
-                                Every missed call is a lost job. Every day without a proper website is money walking to your competitors. Sovereign plugs those leaks — fast — so your business stops bleeding revenue.
+                                Every day without a proper website is a customer walking to your competitors. Every manual process is time you could spend on growth. Sovereign plugs those gaps — fast.
                             </p>
                             <p>
-                                You work directly with the founder from strategy through launch. No outsourced handoff, no generic package — just systems built around how your business actually wins work.
+                                You work directly with the founders from strategy through launch. No outsourced handoff, no generic package — just systems built around how your business actually works.
                             </p>
                         </div>
 
@@ -86,7 +86,7 @@ function Testimonials() {
                                 What You Get
                             </p>
                             <p className="text-sm leading-relaxed text-white/85 sm:text-base">
-                                <span className="font-semibold text-white">You get:</span> a website that actually works for you, calls answered 24/7, and leads chased automatically. <span className="font-semibold text-white">We deliver:</span> a system that stops you losing money and starts recovering revenue from day one.
+                                <span className="font-semibold text-white">You get:</span> a custom website, lead capture, and automation that works for you around the clock. <span className="font-semibold text-white">We deliver:</span> a digital system that turns visitors into customers from day one.
                             </p>
                             <p className="mt-3 text-sm font-medium text-white italic">No long-term lock-in.</p>
                         </div>
@@ -109,7 +109,7 @@ function Testimonials() {
                             className="w-full max-w-sm"
                             onClick={() => document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" })}
                         >
-                            Request Your Proposal
+                            Start a Project
                         </Button>
                     </motion.div>
 

@@ -8,58 +8,57 @@ import { ArrowRight, Check, Send } from "lucide-react";
 
 const PRICING_PLANS = [
     {
-        name: "FOUNDATION",
-        tagline: "Never Miss A Job",
-        price: "£99",
-        implementationFee: "£749",
-        description: "Your 'Always-On' front desk. Stops enquiry leaks and captures every missed call instantly.",
+        name: "STARTER",
+        tagline: "Get Online Fast",
+        price: "£300–£500",
+        implementationFee: undefined,
+        description: "A sharp, single-page website that gets your business online and looking professional — fast.",
         features: [
-            "Full Website — Built or Rebuilt For You",
-            "Missed Call Text-Back (Instant)",
-            "Every Lead Answered in Under 5 Minutes",
-            "Your Own Dashboard — Leads & Missed Calls",
-            "Done-For-You Setup — We Handle Everything",
-            "Monthly Check-In & Performance Report"
+            "One-Page Custom Website",
+            "Mobile-Optimised & Fast Loading",
+            "Contact Form & Enquiry Capture",
+            "Basic SEO Setup",
+            "Done-For-You — We Handle Everything",
+            "Live in 5–7 Days"
         ],
         highlight: false,
-        footerText: "Built for Stability"
+        footerText: "Built for Presence"
     },
     {
-        name: "ACCELERATOR",
-        tagline: "The Growth Package",
-        price: "£199",
-        implementationFee: "£1749",
-        description: "The 'Sweet Spot'. Full booking infrastructure plus campaigns to fill your calendar from past customer data.",
+        name: "STANDARD",
+        tagline: "The Full Package",
+        price: "£500–£1,000",
+        implementationFee: undefined,
+        description: "A multi-page site with everything you need to compete online and convert visitors into customers.",
         features: [
-            "Everything in Foundation, Plus:",
-            "Win Back Past Customers Automatically",
-            "Online Booking Synced to Your Calendar",
-            "Automatic Appointment Reminders",
-            "Website Chat That Books Jobs For You",
-            "Automated Follow-Ups on Old Leads",
-            "Full Dashboard — Jobs, Leads & Performance"
+            "Everything in Starter, Plus:",
+            "Multi-Page Site (Up to 5 Pages)",
+            "Custom Design — No Templates",
+            "Blog or News Section",
+            "Google Analytics & Tracking",
+            "CMS for Easy Content Updates",
+            "Priority Support for 30 Days"
         ],
         highlight: true,
         badge: "Most Popular",
         footerText: "Built for Growth"
     },
     {
-        name: "SOVEREIGN",
-        tagline: "Command Centre",
-        price: "£349",
-        implementationFee: "£2999",
-        description: "For multi-van or multi-location operations requiring deep integrations and high-volume architecture.",
+        name: "PREMIUM",
+        tagline: "Site + Automation",
+        price: "£800–£2,000",
+        implementationFee: undefined,
+        description: "A full website plus automation systems that capture leads, follow up, and save you hours every week.",
         features: [
-            "Everything in Accelerator, Plus:",
-            "Multiple Locations, One Dashboard",
-            "Connected to Your Existing Software",
-            "We Move All Your Data Over",
-            "Your Own App in the App Store",
-            "Direct Access to Me, Anytime",
-            "Built to Grow With You"
+            "Everything in Standard, Plus:",
+            "Lead Capture & Auto Follow-Up",
+            "Booking or Calendar Integration",
+            "Email & SMS Automation",
+            "CRM Setup & Integration",
+            "Ongoing Technical Support",
+            "Built to Scale With You"
         ],
         highlight: false,
-        priceNote: "+£97 per extra location",
         footerText: "Built for Scale"
     }
 ];
@@ -75,14 +74,14 @@ export function PricingSection() {
                         whileInView={{ opacity: 1, y: 0 }}
                         className="inline-block px-4 md:px-5 py-2 md:py-2.5 bg-white/5 border border-white/10 rounded-full text-white text-[clamp(0.75rem,2.5vw,0.875rem)] md:text-base font-mono uppercase tracking-widest mb-6 md:mb-8 backdrop-blur-sm"
                     >
-                        Stop Losing Money • Start Recovering Revenue
+                        Transparent Pricing • No Surprises
                     </motion.div>
                     <h2 className="text-[clamp(1.75rem,7vw,2.5rem)] sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-4 md:mb-6 tracking-tight leading-[0.95] md:leading-[0.9] px-4">
-                        We Handle Everything. <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-blue">You Just Focus on the Work.</span>
+                        One-Off Builds. <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-blue">Ongoing Retainers. Your Choice.</span>
                     </h2>
                     <p className="text-[clamp(0.9375rem,3.5vw,1.125rem)] md:text-lg lg:text-xl text-white max-w-4xl mx-auto leading-relaxed px-6">
-                        Every system is built inside your business and belongs to you.
-                        One monthly fee covers everything — so you never lose another job to a missed call or a missing <span className="text-white font-bold">website.</span>
+                        Every project is custom-coded and belongs to you.
+                        Pick a one-off build or add a retainer for ongoing support, updates, and <span className="text-white font-bold">growth.</span>
                     </p>
                 </div>
 
@@ -97,23 +96,20 @@ export function PricingSection() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-10 items-start p-6 sm:p-8 md:p-10 lg:p-14 rounded-[2rem] md:rounded-[3rem] bg-black/50 border border-white/10 backdrop-blur-xl mx-4 md:mx-0">
                         <div>
                             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white text-xs font-mono uppercase tracking-widest mb-5">
-                                Sovereign Monthly License
+                                Monthly Retainers
                             </div>
-                            <h3 className="text-3xl font-heading font-bold text-white mb-4">What does the monthly fee actually cover?</h3>
+                            <h3 className="text-3xl font-heading font-bold text-white mb-4">Want ongoing support after launch?</h3>
                             <p className="text-base text-white font-light mb-6 leading-relaxed">
                                 Think of it like having a full digital team on call — except you're not paying for 4 or 5 different tools and freelancers to stitch it all together. One monthly fee. Everything handled.
                             </p>
                             <p className="text-base text-white font-light mb-8 leading-relaxed">
-                                While you're out on a job, we keep your website live, answer your calls, book your appointments, chase your leads, and send you a monthly report showing exactly what we've recovered for you.
+                                We keep your website live, make updates, run your automations, and send you a monthly report showing exactly what's working.
                             </p>
                             <div className="grid grid-cols-1 gap-3">
                                 {[
-                                    "Your website — hosted, maintained, and kept fast",
-                                    "Calls and messages answered 24/7, even at 2am",
-                                    "Missed a call? We text them back in under 60 seconds",
-                                    "Jobs booked and reminders sent automatically",
-                                    "Monthly report showing exactly how much revenue we've recovered",
-                                    "All updates and tech stuff handled — you don't touch a thing"
+                                    "Foundation — £99/mo: hosting, maintenance, monthly check-in",
+                                    "Accelerator — £199/mo: + content updates, SEO, lead automation",
+                                    "Sovereign — £349/mo: + priority support, advanced integrations, growth strategy",
                                 ].map((item, i) => (
                                     <div key={i} className="flex items-start gap-3 text-white">
                                         <div className="w-1.5 h-1.5 rounded-full bg-brand-cyan mt-2 shrink-0" />
@@ -125,19 +121,19 @@ export function PricingSection() {
 
                         <div className="space-y-6">
                             <div className="p-7 rounded-3xl bg-black/40 border border-white/10">
-                                <p className="text-xs font-mono text-brand-cyan uppercase tracking-widest mb-3">Usage Costs — Passed Through at Cost</p>
+                                <p className="text-xs font-mono text-brand-cyan uppercase tracking-widest mb-3">Enterprise & Custom Platforms</p>
                                 <p className="text-sm text-white leading-relaxed">
-                                    The only extra costs are the direct provider fees (SMS via Twilio, AI via OpenAI) for the messages and calls your business generates. <span className="text-white font-bold">We never add markup.</span> Most Sovereign clients spend <span className="text-white font-bold">£20–£50/mo</span> in usage — often less than one recovered job pays back.
+                                    Need something bigger? Custom platforms, SaaS builds, and bespoke digital systems start from <span className="text-white font-bold">£5,000+</span>. Scoped to your exact requirements. <span className="text-white font-bold">Get in touch for a custom quote.</span>
                                 </p>
                             </div>
                             <div className="p-7 rounded-3xl bg-brand-cyan/10 border border-brand-cyan/40 backdrop-blur-xl">
                                 <p className="text-xs font-mono text-white uppercase tracking-widest mb-3">The Sovereign Guarantee</p>
                                 <p className="text-sm text-white leading-relaxed">
-                                    We stand behind every system we build. If the Sovereign infrastructure fails to capture a lead or respond within 5 minutes due to our error, <span className="text-white font-bold underline">your monthly license for that month is completely free.</span>
+                                    We stand behind every project we deliver. If your site isn't live within the agreed timeline due to our error, <span className="text-white font-bold underline">we'll discount your project fee by 20%.</span>
                                 </p>
                             </div>
                             <div className="p-5 rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 text-xs text-white font-mono leading-relaxed">
-                                <span className="text-white font-bold">TL;DR —</span> One flat monthly fee. One team. One system. No surprises.
+                                <span className="text-white font-bold">TL;DR —</span> Fixed project pricing. Optional retainer. One team. No surprises.
                             </div>
                         </div>
                     </div>
@@ -154,7 +150,7 @@ export function PricingSection() {
                             <Send className="w-12 h-12" />
                         </div>
                         <span className="text-3xl sm:text-[2.25rem] font-heading font-bold text-white mb-2 text-center">Refer A Business & Earn.</span>
-                        <p className="text-white text-[15px] font-light">Know another business owner who's missing calls? Refer them and get 20% off your monthly fee — or we'll pay you a referral fee directly.</p>
+                        <p className="text-white text-[15px] font-light">Know another business owner who needs a website or digital system? Refer them and earn a referral fee — or get 20% off your next project.</p>
                     </motion.button>
 
                     {/* Portfolio Module */}
@@ -165,7 +161,7 @@ export function PricingSection() {
                                 Portfolio Preview
                             </div>
                             <span className="block max-w-md text-xl md:text-[1.65rem] font-heading font-bold text-white/95 mb-8 leading-tight">
-                                See real examples of what we build for trades businesses — and the results they get.
+                                See real examples of what we build for businesses — and the results they get.
                             </span>
                             <Link
                                 href="/portfolio"
@@ -216,7 +212,7 @@ function PricingCard({ plan }: { plan: any }) {
                 <div className="flex flex-col items-center justify-center">
                     <div className="flex items-baseline gap-2">
                         <span className="text-[clamp(2.25rem,7vw,3rem)] sm:text-5xl lg:text-6xl font-bold text-white tracking-tighter tabular-nums">{plan.price}</span>
-                        <span className="text-white text-lg font-light">/mo</span>
+                        <span className="text-white text-lg font-light"></span>
                     </div>
                     {plan.priceNote && (
                         <div className="text-brand-cyan text-[14px] mt-3 uppercase tracking-[0.15em] font-bold">{plan.priceNote}</div>

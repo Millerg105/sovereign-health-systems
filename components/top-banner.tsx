@@ -13,14 +13,14 @@ export function PromoBanner() {
                 <div className="flex w-full items-center justify-between gap-2 sm:gap-6 relative z-10 sm:w-auto">
                     <p className="min-w-0 text-white text-[10px] sm:text-xs md:text-sm font-medium tracking-wide flex items-center gap-2 leading-tight sm:leading-normal">
                         <span className="shrink-0">🚀</span>
-                        <span className="text-balance sm:text-left">Got a trade business? Book a free audit</span>
+                        <span className="text-balance sm:text-left">Need a website, automation, or digital system? Live in 7 days.</span>
                     </p>
 
                     <Link
                         href="/#booking"
                         className="shrink-0 bg-[#00D4AA] hover:bg-[#00D4AA]/80 text-white px-3 py-1.5 sm:px-4 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-semibold transition-all duration-300 flex items-center gap-1.5 shadow-[0_0_10px_rgba(0,212,170,0.3)] hover:shadow-[0_0_15px_rgba(0,212,170,0.5)]"
                     >
-                        Book <span className="hidden sm:inline">Audit</span> <ArrowRight className="w-3 h-3" />
+                        Start <span className="hidden sm:inline">a project</span> <ArrowRight className="w-3 h-3" />
                     </Link>
                 </div>
             </div>

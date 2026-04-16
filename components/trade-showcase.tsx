@@ -5,26 +5,26 @@ import { CardStack, CardStackItem } from "@/components/ui/card-stack";
 const items: CardStackItem[] = [
     {
         id: 1,
-        title: "Plumbing",
-        description: "Emergency callouts, boiler installs, and heating repairs — automated from first call to five-star review.",
+        title: "Web Design",
+        description: "Custom-coded websites that load fast, look sharp, and convert visitors into paying customers.",
         imageSrc: "/showcase/plumbing.jpg",
     },
     {
         id: 2,
-        title: "Electrical Services",
-        description: "Rewires, fault-finding, and emergency callouts — every lead captured, quoted, and followed up automatically.",
+        title: "Business Automation",
+        description: "Lead capture, follow-ups, and workflows — automated so nothing falls through the cracks.",
         imageSrc: "/showcase/electrical-services.jpg",
     },
     {
         id: 3,
-        title: "Pest Control",
-        description: "High-urgency enquiries captured instantly. Every missed call is a job that goes to someone else.",
+        title: "AI Systems",
+        description: "Intelligent chatbots, AI assistants, and smart workflows that handle enquiries 24/7.",
         imageSrc: "/showcase/pest-control.jpg",
     },
     {
         id: 4,
-        title: "HVAC Engineers",
-        description: "Seasonal demand, repeat maintenance, and quote follow-ups — automated so nothing falls through the cracks.",
+        title: "Custom Platforms",
+        description: "Bespoke digital platforms, dashboards, and SaaS builds — engineered for scale.",
         imageSrc: "/showcase/hvac-engineers.jpg",
     },
 ];
@@ -40,26 +40,26 @@ export function TradeShowcase() {
                         {/* ... existing content ... */}
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-navy/50 border border-brand-cyan/20 text-sm font-bold text-brand-cyan mb-8 uppercase tracking-wider shadow-[0_0_15px_rgba(34,211,238,0.1)] text-glow backdrop-blur-sm">
                             <span className="w-2 h-2 rounded-full bg-brand-cyan animate-pulse" />
-                            Sovereign Partners
+                            What We Build
                         </div>
 
                         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-6 leading-[1.1] tracking-tight">
-                            Modernising Home Service <br />
+                            Modernising UK <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-blue italic">Businesses.</span>
                         </h2>
 
                         <div className="text-base sm:text-lg md:text-xl text-white/80 mb-8 leading-relaxed space-y-6 md:space-y-8 font-light max-w-lg">
                             <p className="border-l-2 border-brand-cyan/40 pl-5 md:pl-8 py-2">
-                                From <span className="text-white font-medium">Plumbers</span> to <span className="text-white font-medium">Electricians</span>,
-                                <span className="text-white font-medium block mt-2 text-base sm:text-lg md:text-xl">HVAC Engineers to Pest Control.</span>
+                                From <span className="text-white font-medium">startups</span> to <span className="text-white font-medium">established businesses</span>,
+                                <span className="text-white font-medium block mt-2 text-base sm:text-lg md:text-xl">local shops to national brands.</span>
                             </p>
 
                             <p className="text-lg text-white/70">
-                                We stop trades businesses <span className="text-white font-medium underline underline-offset-8 decoration-brand-cyan/30">losing money</span> from missed calls and no online presence — then help them <span className="text-brand-cyan font-semibold">grow.</span>
+                                We help businesses <span className="text-white font-medium underline underline-offset-8 decoration-brand-cyan/30">get online</span>, automate their operations, and build digital systems that <span className="text-brand-cyan font-semibold">drive growth.</span>
                             </p>
 
                             <div className="pt-2">
-                                <p className="text-sm font-mono text-brand-cyan/60 uppercase tracking-widest mb-3">Serving areas across</p>
+                                <p className="text-sm font-mono text-brand-cyan/60 uppercase tracking-widest mb-3">Serving businesses across</p>
                                 <div className="flex flex-wrap gap-2">
                                     {[
                                         "Greater Manchester", "Lancashire", "Merseyside", "Yorkshire",
@@ -76,13 +76,13 @@ export function TradeShowcase() {
                             <div className="pt-10">
                                 <div className="relative pl-6 border-l border-white/10">
                                     <p className="text-xl md:text-2xl font-heading font-bold leading-relaxed tracking-tight">
-                                        <span className="text-white">Your trade is your craft.</span>{" "}
+                                        <span className="text-white">Your business is your craft.</span>{" "}
                                         <span className="text-brand-cyan">Our</span>{" "}
                                         <span className="text-white">systems handle the</span>{" "}
-                                        <span className="text-red-500">admin,</span>{" "}
+                                        <span className="text-red-500">digital,</span>{" "}
                                         <br className="hidden md:block" />
-                                        <span className="text-white">so you can focus on the</span>{" "}
-                                        <span className="text-green-500 text-glow">work.</span>
+                                        <span className="text-white">so you can focus on</span>{" "}
+                                        <span className="text-green-500 text-glow">growth.</span>
                                     </p>
                                 </div>
                             </div>

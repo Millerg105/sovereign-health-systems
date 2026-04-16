@@ -1,50 +1,50 @@
 {
-  "niche": "clinics",
-  "updated_at": "2026-02-06T12:00:00Z",
+  "niche": "general",
+  "updated_at": "2026-04-16T12:00:00Z",
   "pain_points": [
     {
-      "id": "slow_follow_up",
+      "id": "no_online_presence",
       "icon": "Clock",
-      "title": "Slow follow-ups",
-      "symptom": "Patients enquire, then disappear before staff reply.",
-      "cost": "Lost bookings weekly + wasted ad spend.",
-      "proof_angles": ["speed-to-lead", "missed calls", "after-hours enquiries"],
+      "title": "No online presence",
+      "symptom": "Customers search for you and find nothing — or a slow, outdated site.",
+      "cost": "Lost credibility and missed enquiries.",
+      "proof_angles": ["first impressions", "search visibility", "mobile experience"],
       "copy_blocks": {
-        "headline": "Stop losing bookings to slow follow-ups.",
-        "subhead": "Every missed reply is a patient who books somewhere else.",
-        "bullet_ideas": ["Instant replies", "Auto reminders", "Follow-up until booked"]
+        "headline": "Stop losing customers to a missing website.",
+        "subhead": "Every day without a proper site is money walking to competitors.",
+        "bullet_ideas": ["Custom-coded site", "Live in 7 days", "Mobile-optimised"]
       }
     },
     {
-      "id": "admin_overload",
+      "id": "manual_processes",
       "icon": "AlertCircle",
-      "title": "Admin Overload",
-      "symptom": "Staff spend hours chasing leads instead of patient care.",
-      "cost": "Burnout and reduced clinic capacity.",
-      "proof_angles": ["staff efficiency", "automation ROI"],
+      "title": "Manual Processes",
+      "symptom": "Staff spend hours on repetitive tasks instead of revenue-generating work.",
+      "cost": "Wasted time and reduced capacity.",
+      "proof_angles": ["efficiency", "automation ROI"],
       "copy_blocks": {
-        "headline": "Free your staff from admin chaos.",
-        "subhead": "Let AI handle the repetitive chasing so your team can focus on care.",
-        "bullet_ideas": ["Zero manual data entry", "Automated rescheduling", "Smart inbox"]
+        "headline": "Free your team from manual chaos.",
+        "subhead": "Let automation handle the repetitive work so your team can focus on growth.",
+        "bullet_ideas": ["Zero manual data entry", "Automated follow-ups", "Smart workflows"]
       }
     },
     {
-      "id": "booking_friction",
+      "id": "slow_response",
       "icon": "XCircle",
-      "title": "Booking Friction",
-      "symptom": "Patients give up because booking is too hard or clunky.",
+      "title": "Slow Response Times",
+      "symptom": "Enquiries go unanswered and leads go cold before anyone responds.",
       "cost": "High bounce rates and lost revenue.",
-      "proof_angles": ["conversion rate", "user experience"],
+      "proof_angles": ["conversion rate", "speed-to-lead"],
       "copy_blocks": {
-        "headline": "Make booking effortless.",
-        "subhead": "A frictionless path from enquiry to confirmed appointment.",
-        "bullet_ideas": ["One-click booking", "Mobile optimized", "Instant confirmation"]
+        "headline": "Respond instantly. Convert more.",
+        "subhead": "Automated lead capture and instant follow-up — 24/7.",
+        "bullet_ideas": ["Instant auto-response", "Lead qualification", "CRM integration"]
       }
     }
   ],
   "hero": {
-    "headline": "Never Lose Patient Bookings Again.",
-    "subhead": "We automate lead follow-ups, appointment handling, and admin tasks so clinics get more bookings without hiring more staff.",
-    "cta": "Get Your Clinic Growth Diagnosis"
+    "headline": "Websites, Automation, and AI Systems.",
+    "subhead": "We design, build, and launch digital products for businesses of all sizes. Custom-coded. Live in 7 days. No templates. No WordPress.",
+    "cta": "Start a Project"
   }
 }

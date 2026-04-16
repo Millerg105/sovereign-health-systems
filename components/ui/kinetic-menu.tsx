@@ -214,7 +214,7 @@ export function KineticMenu() {
                             </li>
                             <li className="menu-list-item overflow-hidden">
                                 <button onClick={() => navigateToSection('problem')} className="nav-link block min-h-12 text-left w-full group">
-                                    <span className="nav-link-text inline-block text-[1.85rem] xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-white tracking-tight">Missing Leads?</span>
+                                    <span className="nav-link-text inline-block text-[1.85rem] xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-white tracking-tight">Services</span>
                                 </button>
                             </li>
                             <li className="menu-list-item overflow-hidden">
@@ -230,7 +230,7 @@ export function KineticMenu() {
                                         onClick={closeMenu}
                                         className="inline-flex items-center gap-3 px-6 py-3 sm:px-8 sm:py-4 bg-[#00D4AA] text-white text-lg sm:text-xl md:text-2xl font-semibold rounded-full hover:bg-[#00b390] transition-all shadow-[0_0_20px_rgba(0,212,170,0.3)] hover:shadow-[0_0_30px_rgba(0,212,170,0.5)]"
                                     >
-                                        Book Strategy Audit <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                                        Start a Project <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />
                                     </Link>
                                 </div>
                             </li>

@@ -16,7 +16,7 @@ type Message = {
 const WELCOME_MSG: Message = {
     id: "welcome",
     role: "bot",
-    text: "Hi, I'm the Sovereign AI assistant. Ask me anything about how we help trade businesses grow, or pick a common question below.",
+    text: "Hi, I'm the Sovereign AI assistant. Ask me anything about our web design, automation, and AI systems, or pick a common question below.",
     showFAQ: true,
 };
 
@@ -220,7 +220,7 @@ export function ChatWidget() {
                                 onClick={() => { document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' }); setIsOpen(false); }}
                                 className="btn-premium-primary w-full px-4 py-2.5 text-sm font-semibold"
                             >
-                                Book Your Free Strategy Audit
+                                Start a Project
                             </button>
                         </div>
                     </motion.div>

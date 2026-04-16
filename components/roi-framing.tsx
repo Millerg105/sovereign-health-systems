@@ -14,7 +14,7 @@ export function ROIFraming() {
                             The Real Cost of <span className="text-red-500">Inaction.</span>
                         </h2>
                         <p className="text-lg text-white/60">
-                            Every missed call is a patient who went to your competitor.
+                            Every missed enquiry is a customer who went to your competitor.
                         </p>
                     </div>
 

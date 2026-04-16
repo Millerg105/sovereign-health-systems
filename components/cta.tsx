@@ -20,7 +20,7 @@ export function CTA() {
                 </h2>
 
                 <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-10 leading-relaxed font-light">
-                    Join the trades businesses turning missed calls into booked jobs. Your free audit shows you exactly where you're losing money.
+                    Join the businesses building their digital presence with Sovereign Systems. Start a project and see the difference.
                 </p>
 
                 <div className="flex flex-col md:flex-row items-center justify-center gap-8 mb-12 text-sm text-brand-cyan font-medium">
@@ -65,7 +65,7 @@ export function CTA() {
                 <div className="mt-16 bg-white/[0.02] border border-white/5 rounded-2xl p-8 max-w-2xl mx-auto backdrop-blur-sm">
                     <p className="text-brand-cyan font-bold mb-2 uppercase text-[10px] tracking-wider font-mono">Your Investment, Your Return</p>
                     <p className="text-sm text-white/40 leading-relaxed">
-                        Most clients pay back the cost within 2–4 weeks from recovered missed calls alone. After that, it's pure profit — and everything we build belongs to you.
+                        Most clients see results within the first month. Everything we build belongs to you — custom-coded, no templates, no lock-in.
                     </p>
                 </div>
             </div>

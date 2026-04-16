@@ -45,7 +45,7 @@ export function PortfolioAboutClubDNA() {
         </div>
 
         <div className="mt-5 font-body text-sm font-semibold text-brand-cyan text-glow sm:text-base">
-          Every missed call is a missed contract. I&apos;m here to stop that leak.
+          Every missed enquiry is a missed opportunity. We&apos;re here to fix that.
         </div>
       </div>
     </PortfolioPage>

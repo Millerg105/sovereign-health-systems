@@ -65,13 +65,13 @@ export function ROICalculator() {
                             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-cyan/10 border border-brand-cyan/30 text-[10px] font-bold text-brand-cyan mb-6 uppercase tracking-[0.3em] backdrop-blur-sm"
                         >
                             <Info className="w-3 h-3" />
-                            Sovereign Revenue Audit
+                            Digital ROI Calculator
                         </motion.div>
                         <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4 tracking-tight">
-                            Sovereign <span className="text-brand-cyan">ROI Calculator.</span>
+                            What's your digital presence <span className="text-brand-cyan">costing you?</span>
                         </h2>
                         <p className="text-base text-white/80 max-w-2xl mx-auto font-light leading-relaxed">
-                            Plug in your own numbers. See exactly how much you're losing to missed calls and admin every month.
+                            Plug in your own numbers. See exactly how much you're losing to a weak online presence and manual processes.
                         </p>
                     </div>
 
@@ -80,7 +80,7 @@ export function ROICalculator() {
                         <div className="space-y-6">
                             <div className="p-6 md:p-8 rounded-[2rem] bg-black/40 border border-white/10 backdrop-blur-xl space-y-6 md:space-y-8">
                                 <div className="space-y-1 mb-2 md:mb-4 border-b border-white/5 pb-3 md:pb-4">
-                                    <h4 className="text-sm font-bold text-white uppercase tracking-wider">Step 1: Your Time & Rates</h4>
+                                    <h4 className="text-sm font-bold text-white uppercase tracking-wider">Step 1: Your Business Numbers</h4>
                                     <p className="text-xs text-white/40">These are the numbers you know off the top of your head.</p>
                                 </div>
 
@@ -90,9 +90,9 @@ export function ROICalculator() {
                                         <div className="space-y-1">
                                             <div className="flex items-center gap-2">
                                                 <PoundSterling className="w-4 h-4 text-brand-cyan" />
-                                                <label className="text-sm md:text-base font-medium text-white">Average Job Value</label>
+                                                <label className="text-sm md:text-base font-medium text-white">Average Project Value</label>
                                             </div>
-                                            <p className="text-[10px] text-white/40">What's your typical service or callout fee?</p>
+                                            <p className="text-[10px] text-white/40">What's your typical sale or project value?</p>
                                         </div>
                                         <span className="text-brand-cyan font-mono text-xl md:text-2xl font-bold tabular-nums tracking-tighter">£{sessionFee}</span>
                                     </div>
@@ -116,7 +116,7 @@ export function ROICalculator() {
                                                 <Clock className="w-4 h-4 text-brand-cyan" />
                                                 <label className="text-sm md:text-base font-medium text-white">Weekly Admin Hours</label>
                                             </div>
-                                            <p className="text-[10px] text-white/40">Time spent quoting, chasing payments, answering calls.</p>
+                                            <p className="text-[10px] text-white/40">Time spent on manual tasks, chasing leads, answering emails.</p>
                                         </div>
                                         <span className="text-brand-cyan font-mono text-xl md:text-2xl font-bold tabular-nums tracking-tighter">{adminHours}h</span>
                                     </div>
@@ -134,7 +134,7 @@ export function ROICalculator() {
 
                                 <div className="space-y-1 mb-4 border-b border-white/5 pb-4 pt-4">
                                     <h4 className="text-sm font-bold text-red-400 uppercase tracking-wider">Step 2: The Estimated Leak</h4>
-                                    <p className="text-xs text-white/40">How often do you miss the phone while working?</p>
+                                    <p className="text-xs text-white/40">How many enquiries slip through the cracks?</p>
                                 </div>
 
                                 {/* Missed Calls Slider */}
@@ -143,9 +143,9 @@ export function ROICalculator() {
                                         <div className="space-y-1">
                                             <div className="flex items-center gap-2">
                                                 <PhoneMissed className="w-4 h-4 text-red-400" />
-                                                <label className="text-sm md:text-base font-medium text-red-400">Weekly Missed Enquiries</label>
+                                                <label className="text-sm md:text-base font-medium text-red-400">Weekly Lost Enquiries</label>
                                             </div>
-                                            <p className="text-[10px] text-white/40">Number of calls that go to voicemail while you're on a job.</p>
+                                            <p className="text-[10px] text-white/40">Enquiries lost to a slow website, no follow-up, or poor online presence.</p>
                                         </div>
                                         <span className="text-red-400 font-mono text-xl md:text-2xl font-bold tabular-nums tracking-tighter">{missedCalls}</span>
                                     </div>
@@ -180,14 +180,14 @@ export function ROICalculator() {
                                 </div>
                                 <div className="flex items-center gap-2 mb-4">
                                     <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                                    <p className="text-red-400 text-[10px] font-mono uppercase tracking-[0.3em]">Total Revenue Bleed</p>
+                                    <p className="text-red-400 text-[10px] font-mono uppercase tracking-[0.3em]">Total Opportunity Cost</p>
                                 </div>
                                 <h3 className="text-5xl font-bold text-white mb-2 tracking-tighter">
                                     £{Math.round(monthlyLoss).toLocaleString()}<span className="text-xl text-white/20 font-light ml-2">/mo</span>
                                 </h3>
                                 <div className="space-y-3">
                                     <p className="text-white/40 text-[11px] font-medium leading-relaxed">
-                                        This is your business's <span className="text-white font-bold">Inactivity Tax</span>. It's the combined cost of hours wasted on admin plus revenue lost from customers you couldn't answer.
+                                        This is your business's <span className="text-white font-bold">digital gap</span>. It's the combined cost of hours wasted on manual processes plus revenue lost from enquiries that never convert.
                                     </p>
                                     <div className="p-3 rounded-lg bg-red-500/5 border border-red-500/10 text-[10px] text-red-300 font-mono uppercase tracking-wider">
                                         Annual Opportunity Cost: £{Math.round(annualLoss).toLocaleString()}
@@ -199,14 +199,14 @@ export function ROICalculator() {
                             <div className="p-8 rounded-[2rem] bg-brand-cyan/[0.08] border border-brand-cyan/20 relative overflow-hidden shadow-[0_20px_60px_rgba(34,211,238,0.1)] backdrop-blur-xl">
                                 <div className="flex items-center gap-2 mb-4">
                                     <TrendingUp className="w-3 h-3 text-brand-cyan" />
-                                    <p className="text-brand-cyan text-[10px] font-mono uppercase tracking-[0.3em]">Sovereign Impact Potential</p>
+                                    <p className="text-brand-cyan text-[10px] font-mono uppercase tracking-[0.3em]">Sovereign Systems Impact</p>
                                 </div>
                                 <h3 className="text-4xl font-bold text-white mb-6 tracking-tighter">
                                     +£{Math.round(recoveredRevenue).toLocaleString()}<span className="text-lg text-white/20 font-light ml-2">/mo</span>
                                 </h3>
 
                                 <p className="text-xs text-white/40 mb-8 leading-relaxed">
-                                    By automating your admin and deploying an AI Lead Agent, we give you back <span className="text-white font-bold">10 hours a week</span> and capture your missed revenue on autopilot.
+                                    With a proper website, automation, and lead capture in place, we give you back <span className="text-white font-bold">10 hours a week</span> and turn missed enquiries into paying clients.
                                 </p>
 
                                 <div className="grid grid-cols-2 gap-3 mb-8">
@@ -222,7 +222,7 @@ export function ROICalculator() {
                                         <p className="text-xl font-bold text-white">
                                             {breakEvenWeeks} <span className="text-[10px] text-white/40 font-normal">Weeks</span>
                                         </p>
-                                        <p className="text-[8px] text-white/20 leading-tight">Time to earn back your initial setup via extra bookings.</p>
+                                        <p className="text-[8px] text-white/20 leading-tight">Time to earn back your investment via new clients.</p>
                                     </div>
                                 </div>
 
@@ -236,15 +236,15 @@ export function ROICalculator() {
                                             className="mt-6"
                                         >
                                             <div className="mb-4 bg-brand-cyan/10 border border-brand-cyan/20 p-4 rounded-xl">
-                                                <p className="text-brand-cyan text-xs font-bold uppercase tracking-wider mb-1">Sovereign Audit Ready</p>
-                                                <p className="text-[11px] text-white/60 leading-relaxed">Let's build your infrastructure. Submit for a detailed 30-day rollout plan.</p>
+                                                <p className="text-brand-cyan text-xs font-bold uppercase tracking-wider mb-1">Ready to Fix This?</p>
+                                                <p className="text-[11px] text-white/60 leading-relaxed">Let's build your digital presence. Submit for a custom project proposal.</p>
                                             </div>
                                             <ContactForm
                                                 source="ROI Calculator"
                                                 showRevenueFields
                                                 initialData={{
                                                     revenue: `£${Math.round(monthlyLoss).toLocaleString()}/mo Loss`,
-                                                    problems: `${adminHours}h admin, ${missedCalls} missed calls/wk`
+                                                    problems: `${adminHours}h admin, ${missedCalls} lost enquiries/wk`
                                                 }}
                                             />
                                         </motion.div>
@@ -257,7 +257,7 @@ export function ROICalculator() {
                                             className="w-full"
                                             rightIcon={<ArrowRight className="w-5 h-5" />}
                                         >
-                                            Stop The Bleed Now
+                                            Get Your Free Proposal
                                         </Button>
                                     )}
                                 </AnimatePresence>

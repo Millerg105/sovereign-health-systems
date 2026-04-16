@@ -23,7 +23,7 @@ export function Footer() {
           <div className="relative">
             <h2 className="mb-4 text-3xl md:text-4xl font-bold tracking-tight text-white">Stay Connected</h2>
             <p className="mb-6 text-white/80">
-              Tips on winning more jobs, recovering lost leads, and getting your trades business visible online.
+              Tips on web design, automation, and growing your business online.
             </p>
             <form
               className="relative"
@@ -74,16 +74,16 @@ export function Footer() {
             <h3 className="mb-4 text-xl font-semibold text-white">Quick Links</h3>
             <nav className="space-y-2 text-base">
               <a href="#problem" className="block transition-colors hover:text-brand-cyan text-white/70">
-                Pain Points
+                Services
               </a>
               <a href="#solution" className="block transition-colors hover:text-brand-cyan text-white/70">
-                Our Solution
+                About Us
               </a>
               <a href="#pricing" className="block transition-colors hover:text-brand-cyan text-white/70">
                 Pricing
               </a>
               <a href="#booking" className="block transition-colors hover:text-brand-cyan text-white/70">
-                Book Your Free Strategy Audit
+                Start a Project
               </a>
             </nav>
           </div>

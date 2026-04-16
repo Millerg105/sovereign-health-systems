@@ -16,13 +16,13 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Sovereign Systems | Elite Trade Automation & ROI Recovery",
-  description: "Capture missed leads, automate quotes, and recover £5k+ in lost monthly revenue. Managed infrastructure for home service businesses. Fixed installation, not a subscription.",
-  keywords: ["trade automation", "home service AI", "lead response", "UK trade systems", "business efficiency"],
+  title: "Sovereign Systems | Web Design, Automation & AI Systems",
+  description: "Premium websites, automation, and AI systems for businesses across the UK. Built by Sovereign Digital Limited.",
+  keywords: ["web design", "business automation", "AI systems", "UK digital agency"],
   metadataBase: new URL("https://sovereignsystems.co.uk"),
   openGraph: {
-    title: "Sovereign Systems | Elite Trade Automation",
-    description: "Built for Sovereign Growth. Not a subscription.",
+    title: "Sovereign Systems | Web Design, Automation & AI Systems",
+    description: "Premium websites, automation, and AI systems for businesses across the UK.",
     url: "https://sovereignsystems.co.uk",
     siteName: "Sovereign Systems",
     images: [

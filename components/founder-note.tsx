@@ -53,26 +53,26 @@ export function FounderNote() {
                                 <h3 className="text-3xl md:text-4xl font-heading font-bold text-white mb-2 tracking-tight leading-none">
                                     Founder-Led From Start To Finish.
                                 </h3>
-                                <p className="text-xl md:text-2xl font-heading font-bold text-brand-cyan mb-6 tracking-tight leading-tight">I stop trades businesses losing money — and I do it all myself.</p>
+                                <p className="text-xl md:text-2xl font-heading font-bold text-brand-cyan mb-6 tracking-tight leading-tight">We build websites, automation, and AI systems — and we do it all ourselves.</p>
                             </div>
 
                             <div className="space-y-6 text-base md:text-lg text-white/80 font-light leading-relaxed">
                                 <p>
-                                    If your phone rings while you're on a job and nobody picks up, that's money gone. If a customer searches for you online and finds nothing, they call the next company. I fix both — personally.
+                                    Sovereign Systems is Miller Glenholmes and Joe Winstanley. We design, build, and launch digital products for businesses of all sizes — from one-page sites to full automation platforms.
                                 </p>
                                 <p>
-                                    You get a custom proposal, a clear rollout plan, and systems built around how your business actually wins work. No outsourcing, no juniors — just me, building what your business needs.
+                                    You get a custom proposal, a clear rollout plan, and systems built around how your business actually works. No outsourcing, no juniors — just us, building what your business needs.
                                 </p>
                             </div>
 
                             <div className="grid grid-cols-1 gap-4 pt-4 border-t border-white/10 mt-6">
                                 <div>
                                     <div className="text-xs font-mono text-brand-cyan uppercase tracking-wider mb-1">Live in 7 Days</div>
-                                    <div className="text-sm text-white/70 font-light">Missed-call capture + new website live within a week</div>
+                                    <div className="text-sm text-white/70 font-light">Your website or system live within a week</div>
                                 </div>
                                 <div>
                                     <div className="text-xs font-mono text-brand-cyan uppercase tracking-wider mb-1">Founder-Led</div>
-                                    <div className="text-sm text-white/70 font-light">No juniors, no outsourcing — founder-led from start to finish</div>
+                                    <div className="text-sm text-white/70 font-light">No juniors, no outsourcing — built by the founders</div>
                                 </div>
                                 <div>
                                     <div className="text-xs font-mono text-brand-cyan uppercase tracking-wider mb-1">Custom Proposal</div>
@@ -96,7 +96,7 @@ export function FounderNote() {
                                     size="lg"
                                     className="w-full md:w-auto"
                                 >
-                                    Book Strategy Audit
+                                    Start a Project
                                 </Button>
                                 <Link
                                     href="/portfolio"

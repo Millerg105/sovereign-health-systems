@@ -15,24 +15,24 @@ import {
 const PROBLEMS = [
     {
         icon: PhoneOff,
-        problem: "The Missed Call Tax",
-        pain: "62% of customers won't leave a voicemail. They just call the next company on Google. Every missed call while you're under a boiler or on a job is a missed £150+ booking.",
-        cost: "£1,200+/mo loss",
-        solution: "24/7 AI Receptionist captures every lead instantly."
+        problem: "No Online Presence",
+        pain: "If someone searches for your business and finds nothing — or a slow, outdated site — they go to a competitor. First impressions happen online, and you only get one.",
+        cost: "Lost credibility",
+        solution: "Custom-coded website live in 5–7 days."
     },
     {
         icon: Clock,
-        problem: "The Speed-to-Lead Gap",
-        pain: "Leads go cold after 5 minutes. If you're elbow-deep in a job when an enquiry comes in, that customer is gone by the time you get back to them.",
-        cost: "7x lower booking rate",
-        solution: "Instant automated SMS/WhatsApp follow-ups."
+        problem: "The Slow Response Gap",
+        pain: "Leads go cold after 5 minutes. If an enquiry hits your inbox and you don't reply fast, that potential customer has already moved on.",
+        cost: "7x lower conversion",
+        solution: "Instant automated follow-ups and lead capture."
     },
     {
         icon: Database,
-        problem: "The Dormant Database",
-        pain: "You've got hundreds of past customers sitting in a spreadsheet or nowhere at all. Without a reactivation system, you're leaving thousands on the table — annual boiler services, seasonal cleans, repeat maintenance.",
-        cost: "£5,000+ hidden revenue",
-        solution: "Automated 'Customer Reactivation' campaigns."
+        problem: "Manual Everything",
+        pain: "You're spending hours every week on repetitive tasks — chasing leads, sending emails, updating spreadsheets. That's time you could spend on actual revenue-generating work.",
+        cost: "10+ hours/wk wasted",
+        solution: "End-to-end automation built around your workflow."
     }
 ];
 
@@ -51,18 +51,18 @@ export function ProblemsSection() {
                     className="text-center mb-16"
                 >
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 mb-8">
-                        <span className="text-base sm:text-sm font-bold text-red-500 uppercase tracking-widest font-mono">Sovereign Diagnosis</span>
+                        <span className="text-base sm:text-sm font-bold text-red-500 uppercase tracking-widest font-mono">Common Problems We Solve</span>
                     </div>
 
                     <h2 className="text-[2.2rem] md:text-5xl font-heading font-bold text-white mb-6 leading-[1.1] tracking-tight">
-                        Every Day You Wait,<br />
+                        Every Day Without a System,<br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-orange-400 to-red-400">
-                            Money Walks Out the Door
+                            Opportunity Slips Away
                         </span>
                     </h2>
 
                     <p className="text-lg text-white/80 max-w-2xl mx-auto leading-relaxed">
-                        These aren't just admin headaches. They're silent profit killers costing UK home service businesses an average of <span className="text-white font-semibold">£47,000+ per year</span>.
+                        These aren't just inconveniences. They're silent growth killers costing businesses across the UK <span className="text-white font-semibold">thousands every year</span>.
                     </p>
                 </motion.div>
 
@@ -132,10 +132,10 @@ export function ProblemsSection() {
                         <div className="absolute inset-0 bg-gradient-to-br from-brand-cyan/10 via-transparent to-red-500/5 opacity-50 pointer-events-none" />
 
                         <p className="text-white text-2xl sm:text-3xl font-heading font-bold uppercase tracking-tight mb-3 relative z-10">
-                            You don't need <span className="text-red-500 drop-shadow-[0_0_15px_rgba(239,68,68,0.3)]">more leads</span>.
+                            You don't need <span className="text-red-500 drop-shadow-[0_0_15px_rgba(239,68,68,0.3)]">more traffic</span>.
                         </p>
                         <p className="text-white/70 text-lg sm:text-xl font-medium leading-[1.4] relative z-10">
-                            You need a <span className="text-white font-extrabold italic underline decoration-red-500 underline-offset-8 decoration-2 drop-shadow-[0_0_10px_rgba(239,68,68,0.2)]">system</span> that's better at keeping them.
+                            You need a <span className="text-white font-extrabold italic underline decoration-red-500 underline-offset-8 decoration-2 drop-shadow-[0_0_10px_rgba(239,68,68,0.2)]">system</span> that converts the traffic you already have.
                         </p>
                     </div>
                 </motion.div>

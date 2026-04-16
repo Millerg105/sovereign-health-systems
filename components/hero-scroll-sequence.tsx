@@ -11,13 +11,13 @@ export function HeroScrollSequence() {
                 titleComponent={
                     <div className="flex flex-col items-center text-center max-w-4xl mx-auto px-4 pointer-events-auto">
                         <h1 className="text-[clamp(2.25rem,8vw,3rem)] sm:text-5xl md:text-7xl lg:text-8xl font-heading font-bold text-white mt-8 md:mt-12 mb-0 tracking-tighter drop-shadow-2xl max-w-full break-words leading-[1.1]">
-                            Jobs You Didn&apos;t <br className="hidden sm:inline" />
+                            Websites, Automation, <br className="hidden sm:inline" />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-brand-cyan to-blue-400 animate-pulse">
-                                Know You Lost.
+                                and AI Systems.
                             </span>
                         </h1>
                         <p className="text-[clamp(0.875rem,3.5vw,1rem)] sm:text-lg md:text-xl lg:text-2xl text-white/85 max-w-2xl mt-6 mb-0 leading-relaxed px-2">
-                            We answer your missed calls, chase your leads, and book your jobs — automatically. So you can stay on site and stop losing work.
+                            We design, build, and launch digital products for businesses of all sizes. Custom-coded. Live in 7 days. No templates. No WordPress.
                         </p>
                         <div className="flex flex-col items-center gap-3 md:gap-6 w-full mt-8">
                             <div className="flex flex-col w-full gap-3 px-4 sm:px-8 md:px-0 md:flex-row md:w-auto md:gap-4">
@@ -27,15 +27,15 @@ export function HeroScrollSequence() {
                                     size="lg"
                                     className="w-full md:w-auto text-sm sm:text-base"
                                 >
-                                    Book Your Free Growth Audit
+                                    Start a Project
                                 </Button>
                                 <Button
-                                    onClick={() => document.getElementById('roi')?.scrollIntoView({ behavior: 'smooth' })}
+                                    onClick={() => window.location.href = '/portfolio'}
                                     variant="secondary"
                                     size="lg"
                                     className="w-full md:w-auto text-sm sm:text-base"
                                 >
-                                    Calculate Your Lost Revenue
+                                    View Our Work
                                 </Button>
                             </div>
 
@@ -44,18 +44,18 @@ export function HeroScrollSequence() {
                                 <div className="flex flex-wrap items-center justify-center gap-x-6 md:gap-x-10 gap-y-3 md:gap-y-4 opacity-80">
                                     <div className="flex items-center gap-2.5">
                                         <div className="w-2 h-2 rounded-full bg-brand-cyan" />
-                                        <span className="text-xs sm:text-sm md:text-lg font-mono uppercase tracking-[0.12em] sm:tracking-[0.2em] md:tracking-widest text-white">Built for home service businesses</span>
+                                        <span className="text-xs sm:text-sm md:text-lg font-mono uppercase tracking-[0.12em] sm:tracking-[0.2em] md:tracking-widest text-white">Built for businesses of all sizes</span>
                                     </div>
                                     <div className="flex items-center gap-2.5">
                                         <div className="w-2 h-2 rounded-full bg-brand-cyan" />
-                                        <span className="text-xs sm:text-sm md:text-lg font-mono uppercase tracking-[0.12em] sm:tracking-[0.2em] md:tracking-widest text-white">2–3 week implementation</span>
+                                        <span className="text-xs sm:text-sm md:text-lg font-mono uppercase tracking-[0.12em] sm:tracking-[0.2em] md:tracking-widest text-white">5–7 day turnaround</span>
                                     </div>
                                     <div className="flex items-center gap-2.5">
                                         <div className="w-2 h-2 rounded-full bg-brand-cyan" />
-                                        <span className="text-xs sm:text-sm md:text-lg font-mono uppercase tracking-[0.12em] sm:tracking-[0.2em] md:tracking-widest text-white">ROI tracking included</span>
+                                        <span className="text-xs sm:text-sm md:text-lg font-mono uppercase tracking-[0.12em] sm:tracking-[0.2em] md:tracking-widest text-white">Custom coded</span>
                                     </div>
                                 </div>
-                                <p className="text-[11px] sm:text-sm font-mono text-white/50 uppercase tracking-[0.1em] sm:tracking-[0.18em] text-center px-2">Limited to 3 new clients per month.</p>
+                                <p className="text-[11px] sm:text-sm font-mono text-white/50 uppercase tracking-[0.1em] sm:tracking-[0.18em] text-center px-2">Limited availability each month.</p>
                             </div>
                             <div className="mt-10 md:mt-16 w-full" />
                         </div>
@@ -80,8 +80,8 @@ export function HeroScrollSequence() {
                         {/* Dashboard Tabs */}
                         <div className="hidden md:flex items-center gap-1 px-6">
                             <div className="px-3 py-1.5 bg-brand-cyan/10 border-b-2 border-brand-cyan text-brand-cyan text-[10px] font-medium">Overview</div>
-                            <div className="px-3 py-1.5 text-white/40 text-[10px] font-medium">Jobs & Quotes</div>
-                            <div className="px-3 py-1.5 text-white/40 text-[10px] font-medium">Missed Calls</div>
+                            <div className="px-3 py-1.5 text-white/40 text-[10px] font-medium">Projects</div>
+                            <div className="px-3 py-1.5 text-white/40 text-[10px] font-medium">Leads</div>
                             <div className="px-3 py-1.5 text-white/40 text-[10px] font-medium">AI Assistant</div>
                             <div className="px-3 py-1.5 text-white/40 text-[10px] font-medium">Analytics</div>
                             <div className="px-3 py-1.5 text-white/40 text-[10px] font-medium">Integrations</div>
@@ -115,9 +115,9 @@ export function HeroScrollSequence() {
                                     { text: "Connect Gmail", icon: "✉️", status: 'completed' },
                                     { text: "Connect Outlook", icon: "📧", status: 'completed' },
                                     { text: "Sync Google Calendar", icon: "📅", status: 'active' },
-                                    { text: "Setup Missed Call Automation", icon: "📞", status: 'completed' },
+                                    { text: "Setup Lead Capture Forms", icon: "📞", status: 'completed' },
                                     { text: "Speak to Software AI", icon: "🤖", status: 'active' },
-                                    { text: "Enable SMS Auto-Reply", icon: "💬", status: 'completed' },
+                                    { text: "Enable Auto-Responders", icon: "💬", status: 'completed' },
                                     { text: "Integrate Stripe Payments", icon: "💳", status: 'pending' },
                                     { text: "Connect CRM (Salesforce)", icon: "📊", status: 'pending' },
                                     { text: "Link Social Media Accounts", icon: "📱", status: 'pending' },
@@ -182,7 +182,7 @@ export function HeroScrollSequence() {
                                 </div>
                                 <div className="grid grid-cols-2 gap-2 md:hidden">
                                     {[
-                                        { label: 'Quotes', tone: 'bg-cyan-500/10 border-cyan-500/20 text-cyan-300', icon: '📏' },
+                                        { label: 'Projects', tone: 'bg-cyan-500/10 border-cyan-500/20 text-cyan-300', icon: '📏' },
                                         { label: 'Priority', tone: 'bg-purple-500/10 border-purple-500/20 text-purple-300', icon: '⚠️' },
                                         { label: 'Job Sheet', tone: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-300', icon: '📄' },
                                         { label: 'AI Notes', tone: 'bg-blue-500/10 border-blue-500/20 text-blue-300', icon: '🤖' },
@@ -202,10 +202,10 @@ export function HeroScrollSequence() {
                                         <span className="text-[10px]">📋</span><span>Job Notes</span>
                                     </div>
                                     <div className="h-8 px-3.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center gap-1.5 text-[11px] text-cyan-300">
-                                        <span className="text-[10px]">📏</span><span>Quote Calculator</span>
+                                        <span className="text-[10px]">📏</span><span>Project Scope</span>
                                     </div>
                                     <div className="h-8 px-3.5 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center gap-1.5 text-[11px] text-purple-400">
-                                        <span className="text-[10px]">⚠️</span><span>Job Priority</span>
+                                        <span className="text-[10px]">⚠️</span><span>Priority</span>
                                     </div>
                                     <div className="h-8 px-3.5 rounded-lg bg-pink-500/10 border border-pink-500/20 flex items-center gap-1.5 text-[11px] text-pink-400">
                                         <span className="text-[10px]">📝</span><span>GDPR Records</span>
@@ -232,17 +232,17 @@ export function HeroScrollSequence() {
                                             <div className="w-3 h-3 rounded border border-emerald-500 bg-emerald-500/20 flex items-center justify-center">
                                                 <div className="text-[8px] text-emerald-400">✓</div>
                                             </div>
-                                            <p className="text-[10px] text-white/40 line-through">Review missed calls</p>
+                                            <p className="text-[10px] text-white/40 line-through">Review new enquiries</p>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <div className="w-3 h-3 rounded border border-emerald-500 bg-emerald-500/20 flex items-center justify-center">
                                                 <div className="text-[8px] text-emerald-400">✓</div>
                                             </div>
-                                            <p className="text-[10px] text-white/40 line-through">Check today&apos;s jobs</p>
+                                            <p className="text-[10px] text-white/40 line-through">Check today&apos;s projects</p>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <div className="w-3 h-3 rounded border border-white/20" />
-                                            <p className="text-[10px] text-white/70">Follow up on quotes sent</p>
+                                            <p className="text-[10px] text-white/70">Follow up on proposals sent</p>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <div className="w-3 h-3 rounded border border-white/20" />
@@ -295,10 +295,10 @@ export function HeroScrollSequence() {
                                     </div>
                                     <div className="space-y-1.5">
                                         <div className="flex-1 bg-white/5 rounded px-2 py-1">
-                                            <p className="text-[9px] text-white/60">How many jobs booked today?</p>
+                                            <p className="text-[9px] text-white/60">How many projects active today?</p>
                                         </div>
                                         <div className="flex-1 bg-purple-500/20 rounded px-2 py-1">
-                                            <p className="text-[9px] text-purple-200">You have 24 jobs booked...</p>
+                                            <p className="text-[9px] text-purple-200">You have 24 projects active...</p>
                                         </div>
                                         <div className="flex items-center gap-1.5 bg-white/5 rounded px-2 py-1">
                                             <div className="w-1 h-1 rounded-full bg-purple-400 animate-pulse" />
@@ -349,8 +349,8 @@ export function HeroScrollSequence() {
                                         <p className="text-xs text-purple-300 uppercase tracking-wide font-medium">Sovereign AI</p>
                                     </div>
                                     <div className="space-y-2">
-                                        <div className="rounded-lg bg-white/5 px-3 py-2 text-[10px] text-white/65">How many jobs booked today?</div>
-                                        <div className="rounded-lg bg-purple-500/20 px-3 py-2 text-[10px] text-purple-100">24 booked, 6 quotes sent, 3 callbacks recovered.</div>
+                                        <div className="rounded-lg bg-white/5 px-3 py-2 text-[10px] text-white/65">How many projects active today?</div>
+                                        <div className="rounded-lg bg-purple-500/20 px-3 py-2 text-[10px] text-purple-100">24 active, 6 proposals sent, 3 new leads captured.</div>
                                         <div className="grid grid-cols-2 gap-2">
                                             <div className="rounded-lg border border-white/10 bg-black/20 px-3 py-2">
                                                 <div className="text-[9px] uppercase tracking-[0.16em] text-white/35">Urgent</div>
@@ -402,15 +402,15 @@ export function HeroScrollSequence() {
                                 {/* Today's Appointments */}
                                 <div className="rounded-xl bg-white/[0.03] border border-white/10 p-4">
                                     <div className="flex items-center justify-between mb-3">
-                                        <h4 className="text-xs font-medium text-white/60 uppercase tracking-wide">Today&apos;s Jobs</h4>
-                                        <div className="text-[10px] text-brand-cyan font-mono">8 Booked</div>
+                                        <h4 className="text-xs font-medium text-white/60 uppercase tracking-wide">Today&apos;s Projects</h4>
+                                        <div className="text-[10px] text-brand-cyan font-mono">8 Active</div>
                                     </div>
                                     <div className="space-y-2">
                                         {[
-                                            { time: '09:00', name: 'Dave Thompson', type: 'Boiler Service', status: 'confirmed' },
-                                            { time: '10:30', name: 'Sarah Clarke', type: 'Quote Follow-Up', status: 'confirmed' },
+                                            { time: '09:00', name: 'Dave Thompson', type: 'Website Launch', status: 'confirmed' },
+                                            { time: '10:30', name: 'Sarah Clarke', type: 'Design Review', status: 'confirmed' },
                                             { time: '14:00', name: 'Mark Williams', type: 'New Enquiry', status: 'pending' },
-                                            { time: '15:30', name: 'Raj Patel', type: 'Emergency Callout', status: 'confirmed' },
+                                            { time: '15:30', name: 'Raj Patel', type: 'Automation Setup', status: 'confirmed' },
                                         ].map((apt, i) => (
                                             <div key={i} className="flex items-center gap-2 p-2 rounded-lg bg-white/[0.02] border border-white/5">
                                                 <div className="text-[10px] font-mono text-brand-cyan/80 w-10">{apt.time}</div>
