@@ -20,7 +20,7 @@ export function FounderNote() {
                 <div className="max-w-4xl mx-auto bg-black/40 backdrop-blur-2xl p-10 md:p-16 rounded-[3rem] border border-white/5 shadow-2xl">
                     <div className="flex flex-col md:flex-row items-center md:items-start gap-10 md:gap-16">
                         {/* Founder Cards */}
-                        <div className="shrink-0 flex flex-col sm:flex-row gap-8">
+                        <div className="shrink-0 flex flex-col gap-8">
                             {/* Miller */}
                             <div className="relative group">
                                 <div className="w-32 h-32 md:w-48 md:h-48 rounded-[2rem] border-2 border-brand-cyan/20 shadow-[0_0_50px_rgba(34,211,238,0.1)] overflow-hidden bg-white/5 relative z-10">
