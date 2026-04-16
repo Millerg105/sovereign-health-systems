@@ -5,7 +5,6 @@ import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { DropdownMenu } from "@/components/ui/dropdown-menu";
 import { usePathname, useRouter } from "next/navigation";
 import {
-    ArrowUpRight,
     CalendarCheck,
     Calculator,
     Code,
@@ -121,14 +120,9 @@ export function Navbar() {
                     >
                         Start a Project
                     </DropdownMenu>
-                    <a
-                        href="https://sovereignbookings.co.uk"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-sm text-emerald-400 hover:text-emerald-300 transition-colors"
-                    >
-                        Sovereign Bookings
-                        <ArrowUpRight className="h-3.5 w-3.5" />
+                    <span className="hidden lg:block border-l border-white/20 h-6 mx-3" />
+                    <a href="https://sovereignbookings.co.uk" target="_blank" rel="noopener noreferrer" className="hidden lg:flex items-center opacity-70 hover:opacity-100 transition-opacity ml-2">
+                        <Image src="/sovereign-bookings-logo.png" alt="Sovereign Bookings" width={140} height={35} className="object-contain" />
                     </a>
                 </div>
             </div>
