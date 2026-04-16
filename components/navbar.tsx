@@ -3,21 +3,21 @@
 import { useState } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { DropdownMenu } from "@/components/ui/dropdown-menu";
-import { KineticMenu } from "@/components/ui/kinetic-menu";
 import { usePathname, useRouter } from "next/navigation";
 import {
-    AlertTriangle,
+    ArrowUpRight,
     CalendarCheck,
     Calculator,
+    Code,
     FileText,
+    Lightbulb,
     Mail,
     MessageCircle,
     Phone,
     PoundSterling,
     Settings,
-    ShieldAlert,
-    Timer,
-    TrendingDown,
+    Sparkles,
+    Workflow,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -50,10 +50,10 @@ export function Navbar() {
     };
 
     const painPointOptions = [
-        { label: "Web Design", onClick: () => navigateToSection("problem"), Icon: <ShieldAlert className="h-4 w-4" /> },
-        { label: "Automation", onClick: () => navigateToSection("problem"), Icon: <Timer className="h-4 w-4" /> },
-        { label: "AI Systems", onClick: () => navigateToSection("problem"), Icon: <TrendingDown className="h-4 w-4" /> },
-        { label: "Custom Platforms", onClick: () => navigateToSection("problem"), Icon: <AlertTriangle className="h-4 w-4" /> },
+        { label: "Web Design & Development", onClick: () => navigateToSection("problem"), Icon: <Code className="h-4 w-4" /> },
+        { label: "Business Automation", onClick: () => navigateToSection("problem"), Icon: <Workflow className="h-4 w-4" /> },
+        { label: "AI Systems & Chatbots", onClick: () => navigateToSection("problem"), Icon: <Sparkles className="h-4 w-4" /> },
+        { label: "Digital Strategy", onClick: () => navigateToSection("problem"), Icon: <Lightbulb className="h-4 w-4" /> },
     ];
 
     const openRoadmapPlan = () => {
@@ -108,7 +108,7 @@ export function Navbar() {
 
                 {/* Desktop Menu */}
                 <div className="hidden lg:flex items-center gap-2 xl:gap-5">
-                    <Link href="/portfolio" className="inline-flex h-10 xl:h-12 items-center px-3 xl:px-6 text-sm xl:text-base font-medium text-white/80 transition-colors hover:text-brand-cyan">
+                    <Link href="/portfolio" className="btn-premium-secondary inline-flex items-center justify-center h-10 xl:h-12 px-3 xl:px-6 text-sm xl:text-base font-medium transition-colors">
                         Portfolio
                     </Link>
                     <DropdownMenu options={valueOptions} triggerClassName="h-10 xl:h-12 px-3 xl:px-6 text-sm xl:text-base">Quick Links</DropdownMenu>
@@ -121,11 +121,15 @@ export function Navbar() {
                     >
                         Start a Project
                     </DropdownMenu>
-                </div>
-
-                {/* Hamburger Menu (Sterling Gate Kinetic) - Visible on all screens, primary on mobile */}
-                <div className="ml-4">
-                    <KineticMenu />
+                    <a
+                        href="https://sovereignbookings.co.uk"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-sm text-emerald-400 hover:text-emerald-300 transition-colors"
+                    >
+                        Sovereign Bookings
+                        <ArrowUpRight className="h-3.5 w-3.5" />
+                    </a>
                 </div>
             </div>
         </motion.nav>

@@ -61,7 +61,7 @@ const SERVICE_OPTIONS = [
   "Redesign",
   "Online Booking",
   "SMS Reminders",
-  "Missed Call Text-Back",
+  "Lead Capture & Follow-Up",
   "Google Reviews",
   "Lead Capture",
   "Chatbot",

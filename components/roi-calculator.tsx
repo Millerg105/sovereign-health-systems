@@ -137,7 +137,7 @@ export function ROICalculator() {
                                     <p className="text-xs text-white/40">How many enquiries slip through the cracks?</p>
                                 </div>
 
-                                {/* Missed Calls Slider */}
+                                {/* Lost Enquiries Slider */}
                                 <div>
                                     <div className="flex justify-between mb-3 md:mb-4 items-end">
                                         <div className="space-y-1">

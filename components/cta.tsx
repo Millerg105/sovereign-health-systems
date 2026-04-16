@@ -47,7 +47,7 @@ export function CTA() {
                             className="relative w-full md:w-auto"
                             onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}
                         >
-                            Book Your Strategy Audit →
+                            Start a Project →
                         </Button>
                     </div>
 
@@ -55,7 +55,7 @@ export function CTA() {
                         variant="secondary"
                         size="lg"
                         className="w-full md:w-auto"
-                        onClick={() => window.open(`sms:${CONTACT_PHONE}?body=Hi Miller, I'd like to book a free audit for my business.`, '_self')}
+                        onClick={() => window.open(`sms:${CONTACT_PHONE}?body=Hi Miller, I'd like to discuss a project for my business.`, '_self')}
                         leftIcon={<Smartphone className="w-5 h-5" />}
                     >
                         Text me instead

@@ -25,7 +25,7 @@ export default function PrivacyPage() {
                             <li>Contact us directly via email or phone</li>
                             <li>Book a consultation through our booking links</li>
                         </ul>
-                        <p className="mt-4">This information may include your name, email address, clinic name, phone number, and business revenue data.</p>
+                        <p className="mt-4">This information may include your name, email address, business name, phone number, and business data.</p>
                     </section>
 
                     <section>

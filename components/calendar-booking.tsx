@@ -23,7 +23,7 @@ const CALL_TYPES = [
   },
   {
     id: "strategy",
-    label: "30-Min Strategy Audit",
+    label: "30-Min Discovery Call",
     description: "A deep-dive into your digital needs with a clear action plan.",
     duration: "30 min",
     icon: FileText,

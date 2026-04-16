@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 
 export function Implementation() {
     const steps = [
-        { title: "Day 1: Audit", desc: "We map your current patient journey and find the leaks." },
-        { title: "Day 3: Build", desc: "We configure your custom AI automation workflows." },
-        { title: "Day 7: Launch", desc: "We go live. Missed calls start turning into bookings instantly." },
-        { title: "Day 14: Optimise", desc: "We review the data and refine the AI for maximum conversion." }
+        { title: "Day 1: Scope", desc: "We map your requirements and plan the build." },
+        { title: "Day 3: Build", desc: "We design and develop your website and automations." },
+        { title: "Day 7: Launch", desc: "We go live. Your digital presence starts working immediately." },
+        { title: "Day 14: Optimise", desc: "We review performance and refine for maximum impact." }
     ];
 
     return (

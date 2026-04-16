@@ -105,7 +105,7 @@ export function ContactForm({ source = "General", showRevenueFields = false, ini
                     <input
                         required
                         type="text"
-                        placeholder="e.g. Smith's Plumbing"
+                        placeholder="e.g. Smith's Consulting"
                         className="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 focus:border-brand-cyan transition-all"
                         value={formData.businessName}
                         onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
@@ -132,7 +132,7 @@ export function ContactForm({ source = "General", showRevenueFields = false, ini
                                 onChange={(e) => setFormData({ ...formData, problems: e.target.value })}
                             >
                                 <option value="" disabled className="bg-[#0A0A0A]">Select Primary Pain Point</option>
-                                <option value="missed_calls" className="bg-[#0A0A0A]">Missed Calls/Revenue</option>
+                                <option value="missed_calls" className="bg-[#0A0A0A]">Lead Capture/Revenue</option>
                                 <option value="slow_reply" className="bg-[#0A0A0A]">Slow Lead Response</option>
                                 <option value="manual_followup" className="bg-[#0A0A0A]">Manual Follow-ups</option>
                                 <option value="no_shows" className="bg-[#0A0A0A]">Empty Slots / No-Shows</option>

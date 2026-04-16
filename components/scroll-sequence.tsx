@@ -176,7 +176,7 @@ function DashboardOverlay({ progress }: { progress: any }) {
     const opacity = useTransform(progress, [0.15, 0.2, 0.9, 1.0], [0, 1, 1, 0]);
     const scale = useTransform(progress, [0.15, 0.3], [0.95, 1]);
 
-    // Widget 1: Missed Calls (0.2-0.3)
+    // Widget 1: Lead Capture (0.2-0.3)
     const w1Opacity = useTransform(progress, [0.2, 0.25], [0, 1]);
     const w1Y = useTransform(progress, [0.2, 0.25], [20, 0]);
 
@@ -208,14 +208,14 @@ function DashboardOverlay({ progress }: { progress: any }) {
             {/* Grid Container */}
             <div className="relative w-[80vw] md:w-[60vw] h-[50vh] grid grid-cols-2 md:grid-cols-3 gap-6 pointer-events-auto">
 
-                {/* 1. MISSED CALLS */}
+                {/* 1. LEAD CAPTURE */}
                 <motion.div style={{ opacity: w1Opacity, y: w1Y }} className="col-span-1 bg-brand-navy/90 border border-brand-cyan/20 p-6 rounded-xl shadow-lg backdrop-blur-md">
                     <div className="flex justify-between mb-2">
                         <span className="text-brand-cyan text-xs font-mono uppercase">Capture</span>
                         <div className="w-2 h-2 bg-brand-cyan rounded-full animate-pulse" />
                     </div>
                     <div className="text-3xl font-bold text-white mb-1">12</div>
-                    <p className="text-xs text-white/50">Missed calls caught automatically</p>
+                    <p className="text-xs text-white/50">Enquiries captured automatically</p>
                 </motion.div>
 
                 {/* 2. RESPONSE TIME */}
@@ -248,7 +248,7 @@ function DashboardOverlay({ progress }: { progress: any }) {
                 <motion.div style={{ opacity: w5Opacity, y: w5Y }} className="col-span-1 bg-brand-navy/90 border border-purple-500/20 p-6 rounded-xl shadow-lg backdrop-blur-md">
                     <div className="text-purple-400 text-xs font-mono uppercase mb-2">Reactivation</div>
                     <div className="text-3xl font-bold text-white mb-1">28%</div>
-                    <p className="text-xs text-white/50">Old leads turned into customers</p>
+                    <p className="text-xs text-white/50">Past leads turned into customers</p>
                 </motion.div>
 
             </div>

@@ -96,7 +96,7 @@ export function Preloader({ onComplete }: PreloaderProps) {
                     transition={{ duration: 0.35, delay: 0.18 }}
                     className="text-[10px] md:text-xs font-mono uppercase tracking-[0.2em] text-white/45 mb-3"
                 >
-                    Home Service Growth Infrastructure
+                    Web Design, Automation & AI Systems
                 </motion.p>
 
                 {/* Big percentage number */}

@@ -52,7 +52,7 @@ function Footerdemo() {
                 Pricing
               </a>
               <a href="#audit" className="block transition-colors hover:text-brand-cyan text-white/70">
-                Strategy Audit
+                Start a Project
               </a>
             </nav>
           </div>

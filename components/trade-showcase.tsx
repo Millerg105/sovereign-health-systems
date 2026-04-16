@@ -7,25 +7,25 @@ const items: CardStackItem[] = [
         id: 1,
         title: "Web Design",
         description: "Custom-coded websites that load fast, look sharp, and convert visitors into paying customers.",
-        imageSrc: "/showcase/plumbing.jpg",
+        imageSrc: "/showcase/web-design.jpg",
     },
     {
         id: 2,
         title: "Business Automation",
         description: "Lead capture, follow-ups, and workflows — automated so nothing falls through the cracks.",
-        imageSrc: "/showcase/electrical-services.jpg",
+        imageSrc: "/showcase/automation.jpg",
     },
     {
         id: 3,
         title: "AI Systems",
         description: "Intelligent chatbots, AI assistants, and smart workflows that handle enquiries 24/7.",
-        imageSrc: "/showcase/pest-control.jpg",
+        imageSrc: "/showcase/ai-systems.jpg",
     },
     {
         id: 4,
         title: "Custom Platforms",
         description: "Bespoke digital platforms, dashboards, and SaaS builds — engineered for scale.",
-        imageSrc: "/showcase/hvac-engineers.jpg",
+        imageSrc: "/showcase/custom-platforms.jpg",
     },
 ];
 

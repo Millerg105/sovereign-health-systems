@@ -9,9 +9,9 @@ const PricingTiers = [
         name: "STARTER",
         price: "£1,500",
         period: "one-time setup",
-        desc: "For smaller clinics starting with automation.",
+        desc: "For businesses getting started online.",
         features: [
-            "Missed Call Text-Back System",
+            "Custom One-Page Website",
             "Lead Follow-Up Automation",
             "Basic Reporting",
             "Calendar Sync",
@@ -24,7 +24,7 @@ const PricingTiers = [
         name: "GROWTH",
         price: "£3,000",
         period: "one-time setup",
-        desc: "Best for most clinics efficiently scaling.",
+        desc: "Best for most businesses ready to grow.",
         features: [
             "Everything in Starter",
             "2-Way Booking + Reminders",
@@ -33,7 +33,7 @@ const PricingTiers = [
             "Lead Conversion Dashboard",
             "Priority Support"
         ],
-        cta: "Scale Your Clinic",
+        cta: "Scale Your Business",
         popular: true
     },
     {

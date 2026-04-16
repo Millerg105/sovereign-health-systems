@@ -140,7 +140,7 @@ export async function POST(req: Request) {
 
     const name = normalizeString(body.name);
     const business = normalizeString(body.business);
-    const clinicName = normalizeString(body.clinicName);
+    const clinicName = normalizeString(body.clinicName || body.businessName);
     const revenue = normalizeString(body.revenue);
     const problems = normalizeString(body.problems);
     const phone = normalizeString(body.phone);
@@ -211,7 +211,7 @@ export async function POST(req: Request) {
         <table style="width: 100%; border-collapse: collapse;">
           <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Name:</strong></td><td>${escapeHtml(name || "Not provided")}</td></tr>
           <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Email:</strong></td><td><a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></td></tr>
-          <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Clinic:</strong></td><td>${escapeHtml(clinicName || "Not provided")}</td></tr>
+          <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Business:</strong></td><td>${escapeHtml(clinicName || "Not provided")}</td></tr>
           <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Inquiry/ROI Data:</strong></td><td>${escapeHtml(revenue || "N/A")}</td></tr>
           <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>Pain Points:</strong></td><td>${escapeHtml(problems || "N/A")}</td></tr>
           <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><strong>IP Address:</strong></td><td>${escapeHtml(ip)}</td></tr>

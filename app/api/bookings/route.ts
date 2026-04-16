@@ -12,7 +12,7 @@ const GCAL_TIMEZONE = "Europe/London"
 
 const CALL_DURATION_MINUTES: Record<string, number> = {
   "15-Min Quick Call": 15,
-  "30-Min Strategy Audit": 30,
+  "30-Min Discovery Call": 30,
   "Full Discovery Session": 60,
 }
 

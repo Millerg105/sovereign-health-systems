@@ -27,12 +27,12 @@ export default function ThankYouPage() {
                     </div>
 
                     <h1 className="text-5xl md:text-7xl font-heading font-bold mb-8 tracking-tight">
-                        Audit Request <br />
+                        Enquiry <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan via-white to-brand-cyan">Received.</span>
                     </h1>
 
                     <p className="text-xl text-white/60 mb-12 leading-relaxed">
-                        We've received your business details. Miller is personally reviewing your data and will be in touch within 24 hours with your preliminary findings.
+                        We've received your details. Miller is personally reviewing your project and will be in touch within 24 hours.
                     </p>
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
@@ -42,7 +42,7 @@ export default function ThankYouPage() {
                             className="w-full sm:w-auto px-10 py-5 bg-brand-cyan text-black font-bold rounded-2xl hover:bg-brand-cyan/90 transition-all flex items-center justify-center gap-3 group"
                         >
                             <Calendar className="w-5 h-5" />
-                            Book Your Strategy Audit
+                            Start a Project
                             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </Link>
 

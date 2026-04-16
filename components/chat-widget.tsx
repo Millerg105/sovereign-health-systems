@@ -104,7 +104,7 @@ export function ChatWidget() {
             const botMsg: Message = {
                 id: (Date.now() + 1).toString(),
                 role: "bot",
-                text: answer ?? "I don't have a specific answer for that, but I'd love to help. Book your free 15–20 minute Sovereign Strategy Audit and we'll answer everything on the call.",
+                text: answer ?? "I don't have a specific answer for that, but I'd love to help. Book a free discovery call and we'll answer everything directly.",
             };
             setMessages(prev => [...prev, botMsg]);
             setIsTyping(false);

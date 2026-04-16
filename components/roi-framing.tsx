@@ -25,7 +25,7 @@ export function ROIFraming() {
                                 <PhoneMissed className="w-6 h-6 text-red-500" />
                             </div>
                             <div className="text-4xl font-bold text-white mb-2">5</div>
-                            <div className="text-sm text-white/60 uppercase tracking-widest font-mono">Missed Calls / Day</div>
+                            <div className="text-sm text-white/60 uppercase tracking-widest font-mono">Lost Enquiries / Day</div>
                         </div>
 
                         {/* Metric 2 */}

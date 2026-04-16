@@ -5,18 +5,18 @@ import { motion } from "framer-motion";
 const steps = [
     {
         num: "01",
-        title: "Book your strategy audit",
-        desc: "We analyze your current lead flow and find lost revenue gaps.",
+        title: "Tell us what you need",
+        desc: "We scope your project and identify the best approach.",
     },
     {
         num: "02",
         title: "We build your plan",
-        desc: "We design a custom automation roadmap for your specific business.",
+        desc: "We design and build your website, automation, or digital system.",
     },
     {
         num: "03",
         title: "We install & launch",
-        desc: "The system runs 24/7. You see more bookings within weeks.",
+        desc: "We launch, support, and optimise. You see results within days.",
     },
 ];
 

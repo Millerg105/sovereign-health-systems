@@ -4,23 +4,23 @@ const TRADITIONAL = [
   "A website that sits there doing nothing",
   "3-6 weeks before you see anything",
   "£2,000-£10,000 for a digital brochure",
-  "Missed calls still go to voicemail",
+  "Enquiries still go unanswered",
   "£50-200/month just to update plugins",
   "No booking, no follow-ups, no lead capture",
 ];
 
 const SOVEREIGN = [
-  "A website that actually books you jobs",
+  "A website that actually generates leads",
   "Live in days, not weeks",
-  "Missed calls answered and followed up instantly",
+  "Enquiries answered and followed up instantly",
   "Online booking straight into your calendar",
   "Past customers reactivated automatically",
   "Everything managed — you don't touch a thing",
 ];
 
 const STATS = [
-  { value: "DAYS", detail: "Your website and missed-call system go live in days — not weeks of back-and-forth." },
-  { value: "24/7", detail: "Your calls get answered and leads get chased even when you're on a job, asleep, or on holiday." },
+  { value: "DAYS", detail: "Your website and automation go live in days — not weeks of back-and-forth." },
+  { value: "24/7", detail: "Your enquiries get answered and leads get chased even when you're busy, asleep, or on holiday." },
   { value: "YOURS", detail: "Everything we build belongs to you — inside your business, under your control, forever." },
 ];
 
