@@ -121,8 +121,19 @@ export function Navbar() {
                         Start a Project
                     </DropdownMenu>
                     <span className="hidden lg:block border-l border-white/20 h-6 mx-3" />
-                    <a href="https://sovereignbookings.co.uk" target="_blank" rel="noopener noreferrer" className="hidden lg:flex items-center opacity-70 hover:opacity-100 transition-opacity ml-2">
-                        <Image src="/sovereign-bookings-logo.png" alt="Sovereign Bookings" width={140} height={35} className="object-contain" />
+                    <a
+                        href="https://sovereignbookings.co.uk"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hidden lg:inline-flex items-center h-10 xl:h-12 px-3 xl:px-6 rounded-full border border-white/20 hover:border-white/40 opacity-90 hover:opacity-100 transition-all"
+                    >
+                        <Image
+                            src="/sovereign-bookings-logo.png"
+                            alt="Sovereign Bookings"
+                            width={170}
+                            height={42}
+                            className="object-contain"
+                        />
                     </a>
                 </div>
             </div>
