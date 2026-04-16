@@ -9,7 +9,7 @@ const SERVICES = [
   {
     title: "AI Receptionist",
     description:
-      "Never miss a call again. When you're on a job, our AI answers, qualifies the lead, and books them in — so the customer doesn't call your competitor instead.",
+      "Never miss a call again. When you're busy, our AI answers, qualifies the lead, and books them in — so the customer doesn't call your competitor instead.",
   },
   {
     title: "Missed-Call Text-Back",
@@ -19,7 +19,7 @@ const SERVICES = [
   {
     title: "Automated Booking",
     description:
-      "Customers book themselves straight into your calendar — no phone tag, no back-and-forth texts. You just show up and do the job.",
+      "Customers book themselves straight into your calendar — no phone tag, no back-and-forth texts. You just show up ready to go.",
   },
   {
     title: "SMS Reminders",
@@ -29,7 +29,7 @@ const SERVICES = [
   {
     title: "Revenue Recovery",
     description:
-      "Past customers sitting in a spreadsheet or nowhere at all? We reactivate them automatically — turning forgotten contacts back into booked jobs.",
+      "Past customers sitting in a spreadsheet or nowhere at all? We reactivate them automatically — turning forgotten contacts back into paying customers.",
   },
 ];
 

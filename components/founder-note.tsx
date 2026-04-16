@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 
 export function FounderNote() {
     const [photoMissing, setPhotoMissing] = useState(false);
+    const [joePhotoMissing, setJoePhotoMissing] = useState(false);
 
     return (
         <section className="py-24 bg-transparent relative overflow-hidden">
@@ -18,33 +19,64 @@ export function FounderNote() {
             <div className="container mx-auto px-6 relative z-10">
                 <div className="max-w-4xl mx-auto bg-black/40 backdrop-blur-2xl p-10 md:p-16 rounded-[3rem] border border-white/5 shadow-2xl">
                     <div className="flex flex-col md:flex-row items-center md:items-start gap-10 md:gap-16">
-                        {/* Founder Image Placeholder */}
-                        <div className="shrink-0 relative group">
-                            <div className="w-32 h-32 md:w-48 md:h-48 rounded-[2rem] border-2 border-brand-cyan/20 shadow-[0_0_50px_rgba(34,211,238,0.1)] overflow-hidden bg-white/5 relative z-10">
-                                {!photoMissing ? (
-                                    <Image
-                                        src="/founder-photo-new.png"
-                                        alt="Miller, founder of Sovereign Systems"
-                                        fill
-                                        sizes="(max-width: 768px) 192px, 256px"
-                                        className="object-cover object-center"
-                                        quality={100}
-                                        priority
-                                        onError={() => setPhotoMissing(true)}
-                                    />
-                                ) : (
-                                    <div className="w-full h-full flex items-center justify-center text-white/10 group-hover:text-brand-cyan/40 transition-colors">
-                                        <Users className="w-16 h-16" />
-                                    </div>
-                                )}
-                                <div className="absolute inset-0 bg-gradient-to-t from-brand-cyan/20 to-transparent opacity-50" />
+                        {/* Founder Cards */}
+                        <div className="shrink-0 flex flex-col sm:flex-row gap-8">
+                            {/* Miller */}
+                            <div className="relative group">
+                                <div className="w-32 h-32 md:w-48 md:h-48 rounded-[2rem] border-2 border-brand-cyan/20 shadow-[0_0_50px_rgba(34,211,238,0.1)] overflow-hidden bg-white/5 relative z-10">
+                                    {!photoMissing ? (
+                                        <Image
+                                            src="/founder-photo-new.png"
+                                            alt="Miller, founder of Sovereign Systems"
+                                            fill
+                                            sizes="(max-width: 768px) 192px, 256px"
+                                            className="object-cover object-center"
+                                            quality={100}
+                                            priority
+                                            onError={() => setPhotoMissing(true)}
+                                        />
+                                    ) : (
+                                        <div className="w-full h-full flex items-center justify-center text-white/10 group-hover:text-brand-cyan/40 transition-colors">
+                                            <Users className="w-16 h-16" />
+                                        </div>
+                                    )}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-brand-cyan/20 to-transparent opacity-50" />
+                                </div>
+                                <div className="absolute -inset-4 border border-brand-cyan/10 rounded-[2.5rem] -z-10 group-hover:border-brand-cyan/30 transition-colors duration-500" />
+                                <div className="absolute -bottom-3 -right-3 bg-brand-cyan text-black text-[10px] font-black px-4 py-1.5 rounded-full border-2 border-black z-20 shadow-xl">
+                                    FOUNDER
+                                </div>
+                                <p className="mt-5 text-center text-sm font-heading font-bold text-white">Miller Glenholmes</p>
+                                <p className="text-center text-[11px] font-mono text-white/40 uppercase tracking-wider">Founder & Technical Director</p>
                             </div>
 
-                            {/* Decorative Frame */}
-                            <div className="absolute -inset-4 border border-brand-cyan/10 rounded-[2.5rem] -z-10 group-hover:border-brand-cyan/30 transition-colors duration-500" />
-
-                            <div className="absolute -bottom-3 -right-3 bg-brand-cyan text-black text-[10px] font-black px-4 py-1.5 rounded-full border-2 border-black z-20 shadow-xl">
-                                FOUNDER
+                            {/* Joe */}
+                            <div className="relative group">
+                                <div className="w-32 h-32 md:w-48 md:h-48 rounded-[2rem] border-2 border-brand-cyan/20 shadow-[0_0_50px_rgba(34,211,238,0.1)] overflow-hidden bg-white/5 relative z-10">
+                                    {!joePhotoMissing ? (
+                                        <Image
+                                            src="/joe-winstanley.jpg"
+                                            alt="Joe Winstanley, co-founder of Sovereign Systems"
+                                            fill
+                                            sizes="(max-width: 768px) 192px, 256px"
+                                            className="object-cover object-center"
+                                            quality={100}
+                                            priority
+                                            onError={() => setJoePhotoMissing(true)}
+                                        />
+                                    ) : (
+                                        <div className="w-full h-full flex items-center justify-center text-white/10 group-hover:text-brand-cyan/40 transition-colors">
+                                            <Users className="w-16 h-16" />
+                                        </div>
+                                    )}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-brand-cyan/20 to-transparent opacity-50" />
+                                </div>
+                                <div className="absolute -inset-4 border border-brand-cyan/10 rounded-[2.5rem] -z-10 group-hover:border-brand-cyan/30 transition-colors duration-500" />
+                                <div className="absolute -bottom-3 -right-3 bg-brand-cyan text-black text-[10px] font-black px-4 py-1.5 rounded-full border-2 border-black z-20 shadow-xl">
+                                    CO-FOUNDER
+                                </div>
+                                <p className="mt-5 text-center text-sm font-heading font-bold text-white">Joe Winstanley</p>
+                                <p className="text-center text-[11px] font-mono text-white/40 uppercase tracking-wider">Co-Founder & Sales Lead</p>
                             </div>
                         </div>
 
@@ -53,15 +85,18 @@ export function FounderNote() {
                                 <h3 className="text-3xl md:text-4xl font-heading font-bold text-white mb-2 tracking-tight leading-none">
                                     Founder-Led From Start To Finish.
                                 </h3>
-                                <p className="text-xl md:text-2xl font-heading font-bold text-brand-cyan mb-6 tracking-tight leading-tight">We build websites, automation, and AI systems — and we do it all ourselves.</p>
+                                <p className="text-xl md:text-2xl font-heading font-bold text-brand-cyan mb-6 tracking-tight leading-tight">We build websites, automation, and AI systems, and we do it all ourselves.</p>
                             </div>
 
                             <div className="space-y-6 text-base md:text-lg text-white/80 font-light leading-relaxed">
                                 <p>
-                                    Sovereign Systems is Miller Glenholmes and Joe Winstanley. We design, build, and launch digital products for businesses of all sizes — from one-page sites to full automation platforms.
+                                    Sovereign Systems is Miller Glenholmes and Joe Winstanley. We design, build, and launch digital products for businesses of all sizes, from one-page sites to full automation platforms.
                                 </p>
                                 <p>
-                                    You get a custom proposal, a clear rollout plan, and systems built around how your business actually works. No outsourcing, no juniors — just us, building what your business needs.
+                                    You get a custom proposal, a clear rollout plan, and systems built around how your business actually works. No outsourcing, no juniors, just us, building what your business needs.
+                                </p>
+                                <p className="text-white/60 italic text-sm md:text-base">
+                                    &quot;I&apos;m your first point of contact. I&apos;ll learn your business, understand what you need, and make sure we deliver exactly that. No hard sell, no jargon. Just straight talking and results.&quot; - Joe
                                 </p>
                             </div>
 
@@ -72,7 +107,7 @@ export function FounderNote() {
                                 </div>
                                 <div>
                                     <div className="text-xs font-mono text-brand-cyan uppercase tracking-wider mb-1">Founder-Led</div>
-                                    <div className="text-sm text-white/70 font-light">No juniors, no outsourcing — built by the founders</div>
+                                    <div className="text-sm text-white/70 font-light">No juniors, no outsourcing, built by the founders</div>
                                 </div>
                                 <div>
                                     <div className="text-xs font-mono text-brand-cyan uppercase tracking-wider mb-1">Custom Proposal</div>

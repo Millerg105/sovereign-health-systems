@@ -30,7 +30,7 @@ export function ROICalculator() {
     useEffect(() => {
         // Logic: 
         // 1. Admin Loss: Every hour spent on admin is an hour you COULD have been earning.
-        // For trades, maybe not full job rate, but let's keep the formula simple: time is money.
+        // Maybe not full project rate, but let's keep the formula simple: time is money.
         const monthlyAdminLoss = adminHours * (sessionFee / 2) * 4.33; // Conservative estimate: admin time worth 50% of revenue gen time
 
         // 2. Missed Lead Loss: Every missed inquiry is a lost job.

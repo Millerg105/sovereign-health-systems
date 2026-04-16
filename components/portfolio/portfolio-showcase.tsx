@@ -16,7 +16,7 @@ export function PortfolioShowcase({ groups }: PortfolioShowcaseProps) {
       <div className="flex h-full flex-col px-7 py-7 sm:px-9 sm:py-8 lg:px-12 lg:py-9">
         <h2 className="font-heading text-[clamp(2rem,3.9vw,4.2rem)] font-semibold tracking-[-0.04em] text-white">Portfolio Showcase</h2>
         <p className="mt-2 max-w-4xl font-body text-[0.95rem] leading-[1.6] text-white/68 sm:text-[1rem]">
-          Platforms built across accountancy, trades, fitness, automotive, e-commerce, and professional services.
+          Platforms built across accountancy, construction, fitness, automotive, e-commerce, and professional services.
         </p>
 
         <div className="mt-5 grid flex-1 gap-3 lg:grid-cols-2 xl:grid-cols-3">

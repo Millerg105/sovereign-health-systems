@@ -113,7 +113,7 @@ const PROJECTS: ProjectDefinition[] = [
     paragraphs: [
       "Demo platform built for a photography and creative services business.",
       "Showcases high-impact portfolio galleries, booking integration, and brand-first design language tailored for visual professionals.",
-      "Demonstrates that the Sovereign Systems pipeline extends beyond trades into creative and visual industries - same automation backbone, completely different aesthetic.",
+      "Demonstrates that the Sovereign Systems pipeline extends across industries - same automation backbone, completely different aesthetic.",
     ],
   },
   {
@@ -129,7 +129,7 @@ const PROJECTS: ProjectDefinition[] = [
     paragraphs: [
       "Platform built for a personal trainer showcasing training programmes, transformation galleries, client booking, and fitness-first brand design.",
       "Built to capture leads from social media traffic and convert them into booked consultations automatically.",
-      "Proves the pipeline handles health, wellness, and lifestyle businesses with the same precision as trades.",
+      "Proves the pipeline handles health, wellness, and lifestyle businesses with the same precision as any other sector.",
     ],
   },
   {
