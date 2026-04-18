@@ -30,12 +30,12 @@ const PIPELINE_ENTRIES: {
   status: PipelineStatus;
   result: string;
 }[] = [
-  { day: "Mon", time: "09:30", name: "Routes Platform",    location: "Manchester, UK",  budget: "£5,000",  status: "Proposal",  result: "Sent" },
-  { day: "Mon", time: "14:00", name: "ClubDNA",            location: "Manchester, UK",  budget: "£5,000",  status: "Proposal",  result: "Sent" },
-  { day: "Tue", time: "10:00", name: "LMK Luxe Tan",       location: "Wigan, UK",       budget: "£750",    status: "Build",     result: "In Progress" },
-  { day: "Wed", time: "11:30", name: "Omar (Site 1)",      location: "Bolton, UK",      budget: "£800",    status: "Discovery", result: "Awaiting Brief" },
-  { day: "Thu", time: "09:00", name: "Chris Kearns (K2C)", location: "Liverpool, UK",   budget: "£1,500",  status: "Discovery", result: "Portfolio Sent" },
-  { day: "Fri", time: "13:00", name: "Tranquil Gardens",   location: "Cheshire, UK",    budget: "£349/mo", status: "Live",      result: "Retainer Active" },
+  { day: "Mon", time: "09:30", name: "Westside Plumbing",     location: "Manchester, UK", budget: "£4,500",  status: "Proposal",  result: "Sent" },
+  { day: "Mon", time: "14:00", name: "Northstar Builders",    location: "Leeds, UK",      budget: "£5,200",  status: "Proposal",  result: "Sent" },
+  { day: "Tue", time: "10:00", name: "Cobblestone Drives",    location: "Wigan, UK",      budget: "£800",    status: "Build",     result: "In Progress" },
+  { day: "Wed", time: "11:30", name: "Greenfield Gardens",    location: "Bolton, UK",     budget: "£750",    status: "Discovery", result: "Awaiting Brief" },
+  { day: "Thu", time: "09:00", name: "Riverside Roofing",     location: "Liverpool, UK",  budget: "£1,500",  status: "Discovery", result: "Portfolio Sent" },
+  { day: "Fri", time: "13:00", name: "BrightSpark Electrical",location: "Cheshire, UK",   budget: "£349/mo", status: "Live",      result: "Retainer Active" },
 ];
 
 const FOLLOW_UPS: {
@@ -43,10 +43,10 @@ const FOLLOW_UPS: {
   action: string;
   priority: "high" | "medium" | "low";
 }[] = [
-  { name: "Andy Clark (Routes)", action: "Chase proposal response, 5 days since send",  priority: "high" },
-  { name: "Omar, Site 1 brief",  action: "Andy Rodan to confirm brief handoff",         priority: "high" },
-  { name: "Chris Kearns",        action: "Follow up portfolio send with Loom walkthrough", priority: "medium" },
-  { name: "Paul Aspey / RAM",    action: "Finish pitch and pricing deck",               priority: "low" },
+  { name: "Westside Plumbing",  action: "Chase proposal response, 5 days since send",     priority: "high" },
+  { name: "Greenfield Gardens", action: "Confirm brief handoff with site contact",        priority: "high" },
+  { name: "Riverside Roofing",  action: "Follow up portfolio send with Loom walkthrough", priority: "medium" },
+  { name: "Pinnacle Joinery",   action: "Finish pitch and pricing deck",                  priority: "low" },
 ];
 
 /* Included with every retainer, the Sovereign Systems stack */
@@ -84,10 +84,10 @@ const CHART_BARS = [
 ];
 
 const AI_INSIGHTS: { text: string; type: "action" | "positive" | "warning" }[] = [
-  { text: "Routes Platform proposal still open 5 days in. Suggest a short Loom chase.",                             type: "warning"  },
-  { text: "MRR up 18% month-on-month. You crossed your April retainer target a week early.",                       type: "positive" },
-  { text: "LMK Luxe Tan build is 80% done. Schedule a client review call Friday to hit 5-day turnaround.",         type: "action"   },
-  { text: "Conversion on /brief enquiries jumped from 11% to 19% after the pricing page rebuild last month.",      type: "positive" },
+  { text: "Page speed improved 12% after last optimisation pass.",                                            type: "positive" },
+  { text: "Form conversion up 8% since the contact form rebuild.",                                            type: "positive" },
+  { text: "All security patches applied, last scan 2 hours ago.",                                             type: "positive" },
+  { text: "Image optimisation pass scheduled for tonight, expect a brief render dip during deploy.",          type: "action"   },
 ];
 
 /* ═══════════════════ Status Styles ═══════════════════ */
@@ -267,32 +267,30 @@ export default function DashboardPage() {
             {/* Stats Row */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
               <div className="rounded-xl p-4 sm:p-5 md:p-6 bg-black/40 backdrop-blur-md border border-white/10">
-                <p className="font-mono font-medium uppercase tracking-[0.16em] mb-2 sm:mb-3 text-white/40" style={{ fontSize: "9px" }}>MRR (April)</p>
-                <p className="font-heading font-bold" style={{ fontSize: "clamp(24px, 4vw, 42px)", color: "#22d3ee", lineHeight: 1 }}>£1,947</p>
-                <p className="mt-1.5 sm:mt-2 text-[10px] sm:text-xs text-white/50">
-                  6 retainers active <span style={{ color: "#22d3ee" }}>+18%</span>
-                </p>
+                <p className="font-mono font-medium uppercase tracking-[0.16em] mb-2 sm:mb-3 text-white/40" style={{ fontSize: "9px" }}>Site Uptime</p>
+                <p className="font-heading font-bold" style={{ fontSize: "clamp(24px, 4vw, 42px)", color: "#22d3ee", lineHeight: 1 }}>99.97%</p>
+                <p className="mt-1.5 sm:mt-2 text-[10px] sm:text-xs text-white/50">30-day rolling</p>
               </div>
 
               <div className="rounded-xl p-4 sm:p-5 md:p-6 bg-black/40 backdrop-blur-md border border-white/10">
-                <p className="font-mono font-medium uppercase tracking-[0.16em] mb-2 sm:mb-3 text-white/40" style={{ fontSize: "9px" }}>Active Builds</p>
-                <p className="font-heading font-bold text-white" style={{ fontSize: "clamp(24px, 4vw, 42px)", lineHeight: 1 }}>4</p>
-                <p className="mt-1.5 sm:mt-2 text-[10px] sm:text-xs text-white/50">Target: 5 &middot; <span className="text-white/70">1 slot free</span></p>
+                <p className="font-mono font-medium uppercase tracking-[0.16em] mb-2 sm:mb-3 text-white/40" style={{ fontSize: "9px" }}>Monthly Traffic</p>
+                <p className="font-heading font-bold text-white" style={{ fontSize: "clamp(24px, 4vw, 42px)", lineHeight: 1 }}>2,847</p>
+                <p className="mt-1.5 sm:mt-2 text-[10px] sm:text-xs text-white/50">visitors &middot; <span style={{ color: "#22d3ee" }}>+18%</span> vs last month</p>
               </div>
 
               <div className="rounded-xl p-4 sm:p-5 md:p-6 bg-black/40 backdrop-blur-md border border-white/10">
-                <p className="font-mono font-medium uppercase tracking-[0.16em] mb-2 sm:mb-3 text-white/40" style={{ fontSize: "9px" }}>Pipeline Value</p>
-                <p className="font-heading font-bold text-white" style={{ fontSize: "clamp(24px, 4vw, 42px)", lineHeight: 1 }}>£18.4k</p>
+                <p className="font-mono font-medium uppercase tracking-[0.16em] mb-2 sm:mb-3 text-white/40" style={{ fontSize: "9px" }}>Form Leads</p>
+                <p className="font-heading font-bold text-white" style={{ fontSize: "clamp(24px, 4vw, 42px)", lineHeight: 1 }}>14</p>
                 <div className="mt-2 sm:mt-3 h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.08)" }}>
-                  <div className="h-full rounded-full" style={{ width: "76%", background: "linear-gradient(90deg, #14c6c4, #22d3ee, #3b82f6)" }} />
+                  <div className="h-full rounded-full" style={{ width: "70%", background: "linear-gradient(90deg, #14c6c4, #22d3ee, #3b82f6)" }} />
                 </div>
-                <p className="mt-1.5 text-[10px] sm:text-xs text-white/50">76% to £25k target</p>
+                <p className="mt-1.5 text-[10px] sm:text-xs text-white/50">via /brief and contact form</p>
               </div>
 
               <div className="rounded-xl p-4 sm:p-5 md:p-6 bg-black/40 backdrop-blur-md border border-white/10">
-                <p className="font-mono font-medium uppercase tracking-[0.16em] mb-2 sm:mb-3 text-white/40" style={{ fontSize: "9px" }}>Avg Build Value</p>
-                <p className="font-heading font-bold text-white" style={{ fontSize: "clamp(24px, 4vw, 42px)", lineHeight: 1 }}>£2.1k</p>
-                <p className="mt-1.5 sm:mt-2 text-[10px] sm:text-xs text-white/50">From 9 qualified leads</p>
+                <p className="font-mono font-medium uppercase tracking-[0.16em] mb-2 sm:mb-3 text-white/40" style={{ fontSize: "9px" }}>Avg Page Load</p>
+                <p className="font-heading font-bold text-white" style={{ fontSize: "clamp(24px, 4vw, 42px)", lineHeight: 1 }}>1.2s</p>
+                <p className="mt-1.5 sm:mt-2 text-[10px] sm:text-xs text-white/50">Core Web Vitals: <span style={{ color: "#22d3ee" }}>Good</span></p>
               </div>
             </div>
 
