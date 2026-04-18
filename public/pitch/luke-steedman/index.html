@@ -167,6 +167,93 @@ table.pricing tr.highlight td{border-bottom-color:var(--border)}
 .power-by.bookings{background:var(--accent-emerald-soft);color:#7dc4a0;border:1px solid var(--accent-emerald-border)}
 .power-by.bookings:hover{background:rgba(78,163,128,0.24);color:#9fd9bd}
 @media (max-width:900px){.three-ways{grid-template-columns:1fr}.three-ways .way:nth-child(3){grid-column:1;max-width:100%}}
+
+@media (max-width:768px){
+  .nav{top:12px;left:12px;padding:7px 12px;gap:9px;border-radius:999px}
+  .nav img{width:20px;height:20px}
+  .nav .brand{font-size:9px;letter-spacing:0.18em}
+  .nav .count{font-size:9px;padding-left:8px;margin-left:2px}
+  .nav-meta{top:12px;right:12px;font-size:8px;letter-spacing:0.14em;max-width:130px;line-height:1.45}
+
+  .slide{padding:88px 18px 96px;min-height:100dvh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .slide-inner{max-width:100%}
+
+  h1.display{font-size:clamp(32px,9.5vw,40px);margin-bottom:16px;line-height:1.08;letter-spacing:-0.015em}
+  h2.heading{font-size:clamp(28px,7.2vw,36px);line-height:1.12;margin-bottom:14px;letter-spacing:-0.01em}
+  .slide[data-i="7"] .heading{font-size:clamp(24px,6.6vw,30px)}
+  h3{font-size:18px;margin-bottom:8px}
+  p.lede{font-size:15px;line-height:1.55;max-width:100%}
+  .kicker{font-size:10px;letter-spacing:0.22em;margin-bottom:14px;gap:8px}
+  .kicker::before{width:18px}
+  .badge-private{font-size:9px;padding:5px 12px;margin-bottom:16px}
+  .pill{font-size:9px;padding:4px 10px}
+
+  .grid{gap:14px}
+  .g2,.g3,.g4{grid-template-columns:1fr}
+
+  .card{padding:20px}
+  .card.accent{padding:22px 20px}
+  .card h3{font-size:18px}
+
+  ul.tight{margin:12px 0}
+  ul.tight li{padding:8px 0;font-size:14px;gap:10px;line-height:1.5}
+  ul.tight li.check::before,ul.tight li.cross::before{flex:0 0 auto;width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;margin-top:2px}
+  ul.tight li.check::before{background:rgba(78,163,128,0.18);color:var(--accent-emerald)}
+  ul.tight li.cross::before{background:rgba(226,114,114,0.18);color:#e27272}
+
+  blockquote{font-size:14px;line-height:1.6;margin:18px 0 80px;padding:14px 16px}
+
+  .dash-wrap{grid-template-columns:1fr;gap:14px;margin-top:16px}
+  .dash-label{font-size:9px;padding:5px 10px;top:10px;left:10px}
+
+  .portfolio{grid-template-columns:1fr;gap:14px;margin-top:16px}
+  .port-img{aspect-ratio:16/10}
+  .port-body{padding:16px 16px 18px}
+  .port-title{font-size:17px}
+  .port-desc{font-size:13px;line-height:1.5}
+  .port-link{font-size:10px;word-break:break-all}
+
+  .three-ways{grid-template-columns:1fr;gap:12px;margin-top:12px;max-width:100%}
+  .three-ways .way:nth-child(3){grid-column:1;max-width:100%;margin-left:0;margin-right:0}
+  .way-img{aspect-ratio:16/9;max-height:200px}
+  .way-body{padding:16px 16px 18px}
+  .way h3{font-size:18px}
+  .way p{font-size:13px;line-height:1.55}
+  .power-by{width:100%;justify-content:center;padding:12px 14px;font-size:10px;box-sizing:border-box}
+
+  table.pricing{display:block;margin-top:14px}
+  table.pricing thead{display:none}
+  table.pricing tbody{display:block}
+  table.pricing tr{display:block;background:var(--bg-panel);border:1px solid var(--border-soft);border-radius:14px;padding:16px 18px;margin-bottom:12px}
+  table.pricing tr.highlight{border-color:var(--border);background:linear-gradient(180deg,rgba(212,165,116,0.08),rgba(212,165,116,0.01))}
+  table.pricing td{display:block;border:none;padding:4px 0;font-size:14px;line-height:1.5}
+  table.pricing td:first-child{padding-top:0;padding-bottom:8px;border-bottom:1px solid var(--border-soft);margin-bottom:10px}
+  table.pricing td.t-price{padding-top:10px;font-size:22px}
+  .t-name{font-size:18px}
+  .t-note{font-size:9px;margin-top:3px}
+
+  .upsell-banner{flex-direction:column;gap:10px;padding:16px 18px;margin-top:18px}
+  .upsell-banner p{font-size:13px;line-height:1.55}
+
+  .price-hero{padding:22px 20px;margin-top:14px}
+  .price-hero .big{font-size:48px}
+  .price-hero .big small{font-size:14px;margin-left:4px}
+  .price-hero .sub{font-size:10px;margin-bottom:12px}
+
+  .step{padding-bottom:18px}
+  .step .phase{font-size:9px;margin-bottom:5px}
+
+  .cta,.cta-ghost{display:block;width:100%;margin:10px 0 0;padding:16px 20px;min-height:52px;text-align:center;box-sizing:border-box;line-height:1.3;font-size:12px;letter-spacing:0.16em}
+  .cta-ghost{margin-left:0;word-break:break-word}
+
+  .hero-logo{width:60px;height:60px;margin:0 auto 16px;filter:drop-shadow(0 0 18px rgba(212,165,116,0.32))}
+
+  .arrows{bottom:14px;gap:8px;padding:0 12px}
+  .arrows button{width:40px;height:40px;font-size:13px}
+  .progress{gap:4px;padding:0 6px}
+  .dot{width:5px;height:5px}
+  .dot.active{transform:scale(1.3)}
+}
 </style>
 </head>
 <body>
