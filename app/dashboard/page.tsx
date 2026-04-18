@@ -1,858 +1,656 @@
 "use client";
 
-import { useState, useEffect, useMemo, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { getSupabaseBrowserClient } from "@/lib/supabase";
+import type { User } from "@supabase/supabase-js";
+import { Globe } from "@/components/ui/cobe-globe";
 import {
-  CalendarDays,
-  Clock,
-  CheckCircle2,
-  CalendarRange,
-  ChevronDown,
-  Loader2,
-  Phone,
-  PhoneMissed,
-  Mail,
-  FileText,
-  RefreshCw,
-  AlertCircle,
-  Inbox,
-  MessageSquare,
-  Users,
-  Zap,
-  Globe,
-} from "lucide-react";
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
-import { cn } from "@/lib/utils";
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardAction,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/interfaces-card";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
-/* ───────────────────────── Types ───────────────────────── */
+/* ═══════════════════ Demo Data — Agency Flavour ═══════════════════ */
 
-interface Booking {
-  id: string;
-  ref: string;
-  call_type: string;
-  booking_date: string;
-  booking_date_display: string;
-  booking_time: string;
+type PipelineStatus = "Live" | "Build" | "Proposal" | "Discovery";
+
+const PIPELINE_ENTRIES: {
+  day: string;
+  time: string;
   name: string;
-  business: string;
-  phone: string;
-  email: string;
-  help_text: string | null;
-  ip_address: string;
-  created_at: string;
-  status?: string;
-}
-
-type Filter = "all" | "pending" | "confirmed" | "this-week";
-
-/* ──────────────────────── Helpers ──────────────────────── */
-
-function getWeekBounds() {
-  const now = new Date();
-  const start = new Date(now);
-  start.setDate(now.getDate() - ((now.getDay() + 6) % 7)); // Monday
-  start.setHours(0, 0, 0, 0);
-  const end = new Date(start);
-  end.setDate(start.getDate() + 6);
-  end.setHours(23, 59, 59, 999);
-  return { start, end };
-}
-
-function resolveStatus(b: Booking) {
-  return b.status ?? "Pending";
-}
-
-/* ───────────────────── Summary Cards ──────────────────── */
-
-const CARD_CONFIG = [
-  { key: "total", label: "Total Bookings", icon: CalendarDays },
-  { key: "pending", label: "Pending", icon: Clock },
-  { key: "confirmed", label: "Confirmed", icon: CheckCircle2 },
-  { key: "thisWeek", label: "This Week", icon: CalendarRange },
-] as const;
-
-/* ───────────────────── Filter Config ──────────────────── */
-
-const FILTERS: { key: Filter; label: string }[] = [
-  { key: "all", label: "All" },
-  { key: "pending", label: "Pending" },
-  { key: "confirmed", label: "Confirmed" },
-  { key: "this-week", label: "This Week" },
+  location: string;
+  budget: string;
+  status: PipelineStatus;
+  result: string;
+}[] = [
+  { day: "Mon", time: "09:30", name: "Routes Platform",    location: "Manchester, UK",  budget: "£5,000",  status: "Proposal",  result: "Sent" },
+  { day: "Mon", time: "14:00", name: "ClubDNA",            location: "Manchester, UK",  budget: "£5,000",  status: "Proposal",  result: "Sent" },
+  { day: "Tue", time: "10:00", name: "LMK Luxe Tan",       location: "Wigan, UK",       budget: "£750",    status: "Build",     result: "In Progress" },
+  { day: "Wed", time: "11:30", name: "Omar (Site 1)",      location: "Bolton, UK",      budget: "£800",    status: "Discovery", result: "Awaiting Brief" },
+  { day: "Thu", time: "09:00", name: "Chris Kearns (K2C)", location: "Liverpool, UK",   budget: "£1,500",  status: "Discovery", result: "Portfolio Sent" },
+  { day: "Fri", time: "13:00", name: "Tranquil Gardens",   location: "Cheshire, UK",    budget: "£349/mo", status: "Live",      result: "Retainer Active" },
 ];
 
-/* ──────────────────── Mock: Missed Calls ─────────────────── */
-
-const MOCK_MISSED_CALLS = [
-  { id: "mc1", callerNumber: "07421 883 201", callerName: "James Whitfield", time: "Today, 2:14 PM", duration: "0:08", smsStatus: "Sent" as const, smsMessage: "Hi, sorry we missed your call! Reply here or we'll call you back within 15 mins." },
-  { id: "mc2", callerNumber: "07508 112 449", callerName: null, time: "Today, 11:32 AM", duration: "0:04", smsStatus: "Sent" as const, smsMessage: "Hi, sorry we missed your call! Reply here or we'll call you back within 15 mins." },
-  { id: "mc3", callerNumber: "07734 560 821", callerName: "Sarah Cottam", time: "Today, 9:07 AM", duration: "0:12", smsStatus: "Sent" as const, smsMessage: "Hi, sorry we missed your call! Reply here or we'll call you back within 15 mins." },
-  { id: "mc4", callerNumber: "01942 254 903", callerName: null, time: "Yesterday, 5:48 PM", duration: "0:06", smsStatus: "Pending" as const, smsMessage: "Hi, sorry we missed your call! Reply here or we'll call you back within 15 mins." },
-  { id: "mc5", callerNumber: "07901 334 776", callerName: "Dave Orrell", time: "Yesterday, 3:22 PM", duration: "0:15", smsStatus: "Sent" as const, smsMessage: "Hi, sorry we missed your call! Reply here or we'll call you back within 15 mins." },
-  { id: "mc6", callerNumber: "07812 990 415", callerName: "Karen McBride", time: "Mon, 4:55 PM", duration: "0:03", smsStatus: "Sent" as const, smsMessage: "Hi, sorry we missed your call! Reply here or we'll call you back within 15 mins." },
+const FOLLOW_UPS: {
+  name: string;
+  action: string;
+  priority: "high" | "medium" | "low";
+}[] = [
+  { name: "Andy Clark (Routes)", action: "Chase proposal response, 5 days since send",  priority: "high" },
+  { name: "Omar, Site 1 brief",  action: "Andy Rodan to confirm brief handoff",         priority: "high" },
+  { name: "Chris Kearns",        action: "Follow up portfolio send with Loom walkthrough", priority: "medium" },
+  { name: "Paul Aspey / RAM",    action: "Finish pitch and pricing deck",               priority: "low" },
 ];
 
-/* ──────────────────── Mock: Leads ─────────────────── */
-
-const MOCK_LEADS = [
-  { id: "ld1", name: "James Whitfield", business: "Whitfield Roofing", source: "Missed Call" as const, responseTime: "< 1 min", followUp: "Booked" as const, date: "Today" },
-  { id: "ld2", name: "Emma Richardson", business: "Richardson Interiors", source: "Website Form" as const, responseTime: "2 min", followUp: "Contacted" as const, date: "Today" },
-  { id: "ld3", name: "Paul Aspey", business: "Rock Artist Management", source: "Referral" as const, responseTime: "< 1 min", followUp: "Qualified" as const, date: "Yesterday" },
-  { id: "ld4", name: "Sarah Cottam", business: "Cottam Cleaning Co", source: "Google Ads" as const, responseTime: "3 min", followUp: "Booked" as const, date: "Yesterday" },
-  { id: "ld5", name: "Mark Gibson", business: "Gibson Plumbing", source: "Facebook" as const, responseTime: "8 min", followUp: "Awaiting" as const, date: "Mon 31 Mar" },
-  { id: "ld6", name: "Dave Orrell", business: "Orrell Heating & Plumbing", source: "WhatsApp" as const, responseTime: "< 1 min", followUp: "Qualified" as const, date: "Mon 31 Mar" },
+/* Included with every retainer, the Sovereign Systems stack */
+const INCLUDED_WITH_PLAN = [
+  { name: "Managed Hosting & Uptime",    desc: "Vercel edge deployment, 99.9% uptime, automatic SSL, continuous backups. Your site never goes dark.",             icon: "🚀" },
+  { name: "Monthly Performance Report",  desc: "Traffic, conversions, leads captured, Core Web Vitals. Delivered the first Monday of every month.",                 icon: "📊" },
+  { name: "On-Site SEO Upkeep",          desc: "Meta tags, schema, sitemaps, and content refreshes to keep you climbing Google rankings.",                          icon: "🔍" },
+  { name: "Security & Maintenance",      desc: "Dependency patches, bot protection, spam filtering, continuous security monitoring.",                               icon: "🛡️" },
+  { name: "Content & Copy Edits",        desc: "Up to 2 hours of content or copy changes per month. New pages, pricing updates, service tweaks, sorted.",           icon: "✍️" },
+  { name: "Analytics & Tracking",        desc: "GA4, Meta Pixel, conversion events wired and monitored. You see what works, not just what moves.",                 icon: "📈" },
+  { name: "Priority Support Channel",    desc: "Direct WhatsApp line to the build team. No ticket queues. Average response under 2 hours, business day.",          icon: "💬" },
 ];
 
-const SMS_STATUS_STYLES = {
-  Sent: "bg-emerald-500/15 text-emerald-400 border border-emerald-500/20",
-  Pending: "bg-amber-500/15 text-amber-400 border border-amber-500/20",
-  Failed: "bg-red-500/15 text-red-400 border border-red-500/20",
+/* Paid upgrades, bolt-on automations that stack on top of the retainer */
+const PAID_UPGRADES = [
+  { name: "AI Chat Agent",          desc: "24/7 site chatbot trained on your business. Books calls, answers FAQs, qualifies leads before they hit your inbox.",     icon: "🤖", price: "£79/mo",  checkoutUrl: "https://buy.stripe.com/5kQ4gs6317jD3nk0bQ97G08" },
+  { name: "Online Booking System",  desc: "Calendar-synced self-booking flow. Clients pick a slot, pay a deposit if you want, land straight on your calendar.",     icon: "📅", price: "£49/mo",  checkoutUrl: "https://buy.stripe.com/00w7sE4YXdI1e1Y5wa97G09" },
+  { name: "WhatsApp Inbox",         desc: "Centralised WhatsApp messaging for all leads. Reply from one dashboard, not your personal phone.",                       icon: "📱", price: "£49/mo",  checkoutUrl: "https://buy.stripe.com/aFa5kwcrp47r3nk2jY97G03" },
+  { name: "Missed Call Text-Back",  desc: "Missed a call? An instant SMS fires within 60 seconds. Stops hot leads bleeding to competitors.",                        icon: "📞", price: "£39/mo",  checkoutUrl: "https://buy.stripe.com/aFa9AMbnl8nH5vse2G97G0a" },
+  { name: "Review Harvester",       desc: "Automated Google review request sequence fires after every completed job. Builds reputation on autopilot.",              icon: "⭐", price: "£39/mo",  checkoutUrl: "https://buy.stripe.com/dRmdR28b99rL3nkgaO97G0b" },
+  { name: "Follow-Up Sequence",     desc: "7-day automated email and SMS chase after every lead. Stays on them so you don't have to.",                               icon: "🔁", price: "£29/mo",  checkoutUrl: "https://buy.stripe.com/6oUfZa2QPdI13nkgaO97G04" },
+  { name: "Stripe Auto-Invoicing",  desc: "Invoices generated and sent automatically after a confirmed booking. Get paid without chasing.",                         icon: "💳", price: "£29/mo",  checkoutUrl: "https://buy.stripe.com/eVq4gs2QP1Zj3nk9Mq97G05" },
+  { name: "Twilio Quote Line",      desc: "Dedicated local phone number for your business line. Calls route, record, and log automatically.",                       icon: "☎️", price: "£29/mo",  checkoutUrl: "https://buy.stripe.com/fZu3co2QP7jD9LI2jY97G06" },
+  { name: "Slack Show-Up Alerts",   desc: "Instant notification the moment a lead books in. Your team knows before the kettle boils.",                              icon: "🔔", price: "£19/mo",  checkoutUrl: "https://buy.stripe.com/4gMfZafDBgUd4ro9Mq97G07" },
+  { name: "Extra Location",         desc: "Add another site location to your Sovereign (Command Centre) tier. Routing, analytics, staff splits handled.",           icon: "📍", price: "£97/mo",  checkoutUrl: "https://buy.stripe.com/fZu8wI775gUd1fc5wa97G0c" },
+];
+
+const CHART_BARS = [
+  { month: "Nov", leads: 12, deals: 2 },
+  { month: "Dec", leads: 18, deals: 3 },
+  { month: "Jan", leads: 24, deals: 4 },
+  { month: "Feb", leads: 31, deals: 5 },
+  { month: "Mar", leads: 42, deals: 7 },
+  { month: "Apr", leads: 38, deals: 6 },
+];
+
+const AI_INSIGHTS: { text: string; type: "action" | "positive" | "warning" }[] = [
+  { text: "Routes Platform proposal still open 5 days in. Suggest a short Loom chase.",                             type: "warning"  },
+  { text: "MRR up 18% month-on-month. You crossed your April retainer target a week early.",                       type: "positive" },
+  { text: "LMK Luxe Tan build is 80% done. Schedule a client review call Friday to hit 5-day turnaround.",         type: "action"   },
+  { text: "Conversion on /brief enquiries jumped from 11% to 19% after the pricing page rebuild last month.",      type: "positive" },
+];
+
+/* ═══════════════════ Status Styles ═══════════════════ */
+
+const statusStyles: Record<PipelineStatus, string> = {
+  Live:      "bg-[rgba(34,211,238,0.1)] text-[#22d3ee] border-[rgba(34,211,238,0.25)]",
+  Build:     "bg-[rgba(59,130,246,0.1)] text-[#60a5fa] border-[rgba(59,130,246,0.25)]",
+  Proposal:  "bg-[rgba(250,204,21,0.08)] text-[#facc15] border-[rgba(250,204,21,0.2)]",
+  Discovery: "bg-white/5 text-white/70 border-white/10",
 };
 
-const FOLLOW_UP_STYLES = {
-  Booked: "bg-emerald-500/15 text-emerald-400 border border-emerald-500/20",
-  Contacted: "bg-blue-500/15 text-blue-400 border border-blue-500/20",
-  Awaiting: "bg-amber-500/15 text-amber-400 border border-amber-500/20",
-  Qualified: "bg-brand-cyan/15 text-brand-cyan border border-brand-cyan/20",
+const priorityStyles = {
+  high:   { dot: "#DC2626", text: "#F87171" },
+  medium: { dot: "#F59E0B", text: "#FBBF24" },
+  low:    { dot: "#22d3ee", text: "rgba(255,255,255,0.5)" },
 };
 
-const SOURCE_ICONS: Record<string, typeof Globe> = {
-  "Website Form": Globe,
-  "Missed Call": PhoneMissed,
-  "Google Ads": Zap,
-  Facebook: Globe,
-  Referral: Users,
-  WhatsApp: MessageSquare,
-};
-
-/* ═══════════════════════ Component ══════════════════════ */
+/* ═══════════════════ Component ═══════════════════ */
 
 export default function DashboardPage() {
-  const [bookings, setBookings] = useState<Booking[]>([]);
+  const router = useRouter();
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [activeFilter, setActiveFilter] = useState<Filter>("all");
-  const [expandedId, setExpandedId] = useState<string | null>(null);
-
-  /* ── Fetch ── */
-
-  const fetchBookings = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await fetch("/api/dashboard");
-      if (!res.ok) {
-        const body = await res.json().catch(() => ({}));
-        throw new Error(body.message || `Error ${res.status}`);
-      }
-      const data: Booking[] = await res.json();
-      setBookings(data);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to load bookings.");
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  const [activeTab, setActiveTab] = useState<"overview" | "pipeline" | "automations">("overview");
 
   useEffect(() => {
-    fetchBookings();
-  }, [fetchBookings]);
-
-  /* ── Derived ── */
-
-  const counts = useMemo(() => {
-    const { start, end } = getWeekBounds();
-    return {
-      total: bookings.length,
-      pending: bookings.filter((b) => resolveStatus(b) === "Pending").length,
-      confirmed: bookings.filter((b) => resolveStatus(b) === "Confirmed").length,
-      thisWeek: bookings.filter((b) => {
-        const d = new Date(b.booking_date);
-        return d >= start && d <= end;
-      }).length,
-    };
-  }, [bookings]);
-
-  const filteredBookings = useMemo(() => {
-    if (activeFilter === "all") return bookings;
-    if (activeFilter === "pending")
-      return bookings.filter((b) => resolveStatus(b) === "Pending");
-    if (activeFilter === "confirmed")
-      return bookings.filter((b) => resolveStatus(b) === "Confirmed");
-    const { start, end } = getWeekBounds();
-    return bookings.filter((b) => {
-      const d = new Date(b.booking_date);
-      return d >= start && d <= end;
+    const supabase = getSupabaseBrowserClient();
+    supabase.auth.getUser().then(({ data }) => {
+      if (!data.user) {
+        router.replace("/sign-in");
+      } else {
+        setUser(data.user);
+        setLoading(false);
+      }
     });
-  }, [bookings, activeFilter]);
+  }, [router]);
 
-  /* ── Toggle row ── */
+  const handleSignOut = async () => {
+    const supabase = getSupabaseBrowserClient();
+    await supabase.auth.signOut();
+    router.replace("/sign-in");
+  };
 
-  const toggle = (id: string) =>
-    setExpandedId((prev) => (prev === id ? null : id));
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#030303]">
+        <div className="text-center">
+          <div
+            className="w-8 h-8 border-2 rounded-full animate-spin mx-auto mb-4"
+            style={{ borderColor: "#22d3ee", borderTopColor: "transparent" }}
+          />
+          <p className="font-mono text-xs uppercase tracking-[0.16em] text-white/40">
+            Loading dashboard...
+          </p>
+        </div>
+      </div>
+    );
+  }
 
-  /* ═══════════════════════ Render ═══════════════════════ */
+  const userName = user?.user_metadata?.full_name || user?.email?.split("@")[0] || "Operator";
+  const userAvatar = user?.user_metadata?.avatar_url;
 
   return (
-    <main className="min-h-screen text-white selection:bg-brand-cyan/30">
-      <Navbar />
+    <div className="min-h-screen flex flex-col bg-[#030303] text-white">
+      {/* Ambient glow */}
+      <div
+        className="pointer-events-none fixed inset-0 z-0 opacity-40"
+        style={{
+          background:
+            "radial-gradient(ellipse at 20% 10%, rgba(34,211,238,0.08), transparent 50%), radial-gradient(ellipse at 80% 90%, rgba(59,130,246,0.06), transparent 50%)",
+        }}
+      />
 
-      <section className="relative pt-32 pb-24 overflow-hidden">
-        {/* Background texture */}
-        <div className="absolute inset-0 motherboard-texture opacity-10 pointer-events-none" />
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-brand-cyan/8 blur-[150px] rounded-full pointer-events-none" />
+      {/* Demo banner */}
+      <div
+        className="relative z-10 w-full text-center py-2.5 font-mono text-xs uppercase tracking-[0.12em]"
+        style={{ background: "rgba(34, 211, 238, 0.08)", color: "#22d3ee", borderBottom: "1px solid rgba(34, 211, 238, 0.15)" }}
+      >
+        Demo Mode &middot; live data activates when your retainer goes active
+      </div>
 
-        <div className="container mx-auto px-4 md:px-6 relative z-10">
-          {/* ── Header ── */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="mb-12"
+      {/* Top bar */}
+      <header className="relative z-10 w-full flex items-center justify-between px-4 sm:px-6 md:px-10 py-3 sm:py-4 border-b border-white/10">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          <Image
+            src="/logo.png"
+            alt="Sovereign Systems"
+            width={32}
+            height={32}
+            className="rounded-lg w-7 h-7 sm:w-8 sm:h-8"
+          />
+          <span
+            className="font-heading font-bold text-base sm:text-lg hidden sm:inline"
+            style={{
+              background: "linear-gradient(90deg, #14c6c4 0%, #22d3ee 52%, #35e6d1 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-cyan/10 border border-brand-cyan/20 mb-6">
-              <span className="text-xs font-mono uppercase tracking-widest text-brand-cyan">
-                Internal Dashboard
-              </span>
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold tracking-tight mb-4">
-              Booking{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-blue">
-                Dashboard
-              </span>
-            </h1>
-            <p className="text-lg text-white/50 max-w-xl">
-              Manage and track all incoming booking requests.
-            </p>
-          </motion.div>
+            Sovereign Systems
+          </span>
+          <span
+            className="font-heading font-bold text-sm sm:hidden"
+            style={{
+              background: "linear-gradient(90deg, #14c6c4 0%, #22d3ee 52%, #35e6d1 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
+            SS
+          </span>
+          <span
+            className="font-mono uppercase tracking-[0.16em] hidden sm:inline text-white/40"
+            style={{ fontSize: "10px" }}
+          >
+            OS
+          </span>
+        </div>
 
-          {/* ── Summary Cards ── */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-            {CARD_CONFIG.map((card, i) => {
-              const Icon = card.icon;
-              const value = counts[card.key];
-              return (
-                <motion.div
-                  key={card.key}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="glass-panel rounded-xl p-5 md:p-6 hover:border-brand-cyan/30 transition-all duration-300"
-                >
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-[11px] font-mono uppercase tracking-widest text-white/40">
-                      {card.label}
-                    </span>
-                    <Icon className="w-5 h-5 text-brand-cyan/60" />
-                  </div>
-                  <p className="text-3xl md:text-4xl font-heading font-bold text-white">
-                    {loading ? "—" : value}
-                  </p>
-                </motion.div>
-              );
-            })}
+        <div className="flex items-center gap-2 sm:gap-4">
+          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full" style={{ background: "rgba(34, 211, 238, 0.08)", border: "1px solid rgba(34, 211, 238, 0.2)" }}>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#22d3ee] animate-pulse" />
+            <span className="font-mono uppercase tracking-[0.12em]" style={{ fontSize: "10px", color: "#22d3ee" }}>Live</span>
           </div>
-
-          {/* ── Filter Bar ── */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="flex flex-wrap items-center gap-2 mb-8"
-          >
-            {FILTERS.map((f) => (
-              <button
-                key={f.key}
-                onClick={() => setActiveFilter(f.key)}
-                className={cn(
-                  "px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200",
-                  activeFilter === f.key
-                    ? "bg-brand-cyan/15 border-brand-cyan/40 text-brand-cyan"
-                    : "bg-white/5 border-white/10 text-white/50 hover:text-white hover:border-white/20",
-                )}
-              >
-                {f.label}
-              </button>
-            ))}
-
-            <button
-              onClick={fetchBookings}
-              disabled={loading}
-              className="ml-auto p-2.5 rounded-full bg-white/5 border border-white/10 text-white/40 hover:text-brand-cyan hover:border-brand-cyan/30 transition-all duration-200 disabled:opacity-40"
-              aria-label="Refresh bookings"
-            >
-              <RefreshCw
-                className={cn("w-4 h-4", loading && "animate-spin")}
+          <div className="flex items-center gap-2 sm:gap-3">
+            {userAvatar ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={userAvatar}
+                alt=""
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full ring-2 ring-[rgba(34,211,238,0.25)]"
+                referrerPolicy="no-referrer"
               />
-            </button>
-          </motion.div>
-
-          {/* ── Content Area ── */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
+            ) : (
+              <div
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-semibold text-xs sm:text-sm ring-2 ring-[rgba(34,211,238,0.25)]"
+                style={{ background: "rgba(255,255,255,0.06)", color: "#ffffff" }}
+              >
+                {userName[0]?.toUpperCase()}
+              </div>
+            )}
+            <span className="text-sm hidden sm:inline text-white/80">{userName}</span>
+          </div>
+          <button
+            onClick={handleSignOut}
+            className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.12em] px-2 sm:px-3 py-1 sm:py-1.5 rounded-md transition-all cursor-pointer hover:bg-white/5 text-white/50 border border-white/15 hover:border-white/30"
           >
-            {/* Error */}
-            {error && (
-              <div className="glass-panel rounded-2xl p-8 text-center mb-8 border-red-500/20">
-                <AlertCircle className="w-10 h-10 text-red-400/80 mx-auto mb-4" />
-                <p className="text-white/70 mb-4">{error}</p>
-                <button
-                  onClick={fetchBookings}
-                  className="px-5 py-2.5 rounded-full text-sm font-medium bg-white/5 border border-white/10 text-white/60 hover:text-white hover:border-white/20 transition-all"
-                >
-                  Try Again
-                </button>
+            Sign Out
+          </button>
+        </div>
+      </header>
+
+      {/* Tab bar */}
+      <div className="relative z-10 px-4 sm:px-6 md:px-10 pt-4 sm:pt-6 flex gap-1">
+        {(["overview", "pipeline", "automations"] as const).map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className="px-3 sm:px-5 py-2 sm:py-2.5 rounded-lg font-mono text-[10px] sm:text-xs uppercase tracking-[0.1em] sm:tracking-[0.12em] transition-all cursor-pointer"
+            style={{
+              background: activeTab === tab ? "rgba(34, 211, 238, 0.1)" : "transparent",
+              color: activeTab === tab ? "#22d3ee" : "rgba(255,255,255,0.5)",
+              border: activeTab === tab ? "1px solid rgba(34, 211, 238, 0.25)" : "1px solid transparent",
+            }}
+          >
+            {tab === "overview" ? "Overview" : tab === "pipeline" ? "Client Pipeline" : "Automations"}
+          </button>
+        ))}
+      </div>
+
+      {/* Main content */}
+      <div className="relative z-10 flex-1 px-4 sm:px-6 md:px-10 py-6 sm:py-8">
+        {activeTab === "overview" ? (
+          <div className="space-y-6 max-w-[1800px]">
+            {/* Stats Row */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+              <div className="rounded-xl p-4 sm:p-5 md:p-6 bg-black/40 backdrop-blur-md border border-white/10">
+                <p className="font-mono font-medium uppercase tracking-[0.16em] mb-2 sm:mb-3 text-white/40" style={{ fontSize: "9px" }}>MRR (April)</p>
+                <p className="font-heading font-bold" style={{ fontSize: "clamp(24px, 4vw, 42px)", color: "#22d3ee", lineHeight: 1 }}>£1,947</p>
+                <p className="mt-1.5 sm:mt-2 text-[10px] sm:text-xs text-white/50">
+                  6 retainers active <span style={{ color: "#22d3ee" }}>+18%</span>
+                </p>
               </div>
-            )}
 
-            {/* Loading */}
-            {loading && !error && (
-              <div className="glass-panel rounded-2xl flex flex-col items-center justify-center py-24">
-                <Loader2 className="w-8 h-8 text-brand-cyan animate-spin mb-4" />
-                <p className="text-white/40 text-sm">Loading bookings...</p>
+              <div className="rounded-xl p-4 sm:p-5 md:p-6 bg-black/40 backdrop-blur-md border border-white/10">
+                <p className="font-mono font-medium uppercase tracking-[0.16em] mb-2 sm:mb-3 text-white/40" style={{ fontSize: "9px" }}>Active Builds</p>
+                <p className="font-heading font-bold text-white" style={{ fontSize: "clamp(24px, 4vw, 42px)", lineHeight: 1 }}>4</p>
+                <p className="mt-1.5 sm:mt-2 text-[10px] sm:text-xs text-white/50">Target: 5 &middot; <span className="text-white/70">1 slot free</span></p>
               </div>
-            )}
 
-            {/* Table — Desktop */}
-            {!loading && !error && (
-              <>
-                {/* Desktop table */}
-                <div className="hidden lg:block glass-panel rounded-2xl overflow-hidden">
-                  {/* Header */}
-                  <div className="grid grid-cols-[100px_1fr_1fr_1fr_130px_90px_100px_40px] gap-4 px-6 py-4 border-b border-white/10">
-                    {["Ref", "Name", "Business", "Call Type", "Date", "Time", "Status", ""].map(
-                      (h) => (
-                        <span
-                          key={h}
-                          className="text-[11px] font-mono uppercase tracking-widest text-white/30"
-                        >
-                          {h}
-                        </span>
-                      ),
-                    )}
-                  </div>
+              <div className="rounded-xl p-4 sm:p-5 md:p-6 bg-black/40 backdrop-blur-md border border-white/10">
+                <p className="font-mono font-medium uppercase tracking-[0.16em] mb-2 sm:mb-3 text-white/40" style={{ fontSize: "9px" }}>Pipeline Value</p>
+                <p className="font-heading font-bold text-white" style={{ fontSize: "clamp(24px, 4vw, 42px)", lineHeight: 1 }}>£18.4k</p>
+                <div className="mt-2 sm:mt-3 h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.08)" }}>
+                  <div className="h-full rounded-full" style={{ width: "76%", background: "linear-gradient(90deg, #14c6c4, #22d3ee, #3b82f6)" }} />
+                </div>
+                <p className="mt-1.5 text-[10px] sm:text-xs text-white/50">76% to £25k target</p>
+              </div>
 
-                  {/* Rows */}
-                  {filteredBookings.length === 0 ? (
-                    <div className="text-center py-20">
-                      <Inbox className="w-12 h-12 text-white/10 mx-auto mb-4" />
-                      <p className="text-white/30 text-sm">No bookings found.</p>
+              <div className="rounded-xl p-4 sm:p-5 md:p-6 bg-black/40 backdrop-blur-md border border-white/10">
+                <p className="font-mono font-medium uppercase tracking-[0.16em] mb-2 sm:mb-3 text-white/40" style={{ fontSize: "9px" }}>Avg Build Value</p>
+                <p className="font-heading font-bold text-white" style={{ fontSize: "clamp(24px, 4vw, 42px)", lineHeight: 1 }}>£2.1k</p>
+                <p className="mt-1.5 sm:mt-2 text-[10px] sm:text-xs text-white/50">From 9 qualified leads</p>
+              </div>
+            </div>
+
+            {/* Chart + AI Insights */}
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-4 sm:gap-6">
+              <div className="rounded-xl pt-4 sm:pt-6 pb-0 px-4 sm:px-6 overflow-hidden bg-black/40 backdrop-blur-md border border-white/10">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 sm:mb-6">
+                  <p className="font-mono font-medium uppercase tracking-[0.16em] text-white/40" style={{ fontSize: "10px" }}>Leads vs Deals (6 Months)</p>
+                  <div className="flex items-center gap-4 sm:gap-5">
+                    <div className="flex items-center gap-1.5 sm:gap-2">
+                      <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-sm" style={{ background: "rgba(59, 130, 246, 0.25)", border: "1px solid rgba(59, 130, 246, 0.3)" }} />
+                      <span className="text-[10px] sm:text-xs text-white/50">Leads</span>
                     </div>
-                  ) : (
-                    filteredBookings.map((booking) => {
-                      const status = resolveStatus(booking);
-                      const isOpen = expandedId === booking.id;
-                      return (
-                        <div key={booking.id} className="group">
-                          <button
-                            onClick={() => toggle(booking.id)}
-                            className="w-full grid grid-cols-[100px_1fr_1fr_1fr_130px_90px_100px_40px] gap-4 px-6 py-4 border-b border-white/5 hover:bg-white/[0.03] transition-colors text-left items-center cursor-pointer"
-                          >
-                            <span className="text-sm font-mono text-brand-cyan/80">
-                              {booking.ref}
-                            </span>
-                            <span className="text-sm text-white/80 truncate">
-                              {booking.name}
-                            </span>
-                            <span className="text-sm text-white/60 truncate">
-                              {booking.business}
-                            </span>
-                            <span className="text-sm text-white/60 truncate">
-                              {booking.call_type}
-                            </span>
-                            <span className="text-sm text-white/50">
-                              {booking.booking_date_display}
-                            </span>
-                            <span className="text-sm text-white/50">
-                              {booking.booking_time}
-                            </span>
-                            <span>
-                              <span
-                                className={cn(
-                                  "inline-block px-2.5 py-1 rounded-full text-xs font-medium",
-                                  status === "Confirmed"
-                                    ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/20"
-                                    : "bg-amber-500/15 text-amber-400 border border-amber-500/20",
-                                )}
-                              >
-                                {status}
-                              </span>
-                            </span>
-                            <motion.div
-                              animate={{ rotate: isOpen ? 180 : 0 }}
-                              transition={{ duration: 0.3 }}
-                              className="text-white/30 group-hover:text-white/50 transition-colors justify-self-center"
-                            >
-                              <ChevronDown className="w-4 h-4" />
-                            </motion.div>
-                          </button>
+                    <div className="flex items-center gap-1.5 sm:gap-2">
+                      <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-sm" style={{ background: "linear-gradient(180deg, #22d3ee, #67e8f9)" }} />
+                      <span className="text-[10px] sm:text-xs text-white/50">Deals Won</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="h-64 -mx-4 sm:-mx-6 -mb-1">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <AreaChart data={CHART_BARS} margin={{ top: 5, right: 0, left: -20, bottom: -8 }}>
+                      <defs>
+                        <linearGradient id="leadsGrad" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="rgba(59, 130, 246, 0.25)" stopOpacity={0.8} />
+                          <stop offset="95%" stopColor="rgba(59, 130, 246, 0.25)" stopOpacity={0} />
+                        </linearGradient>
+                        <linearGradient id="dealsGrad" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="#22d3ee" stopOpacity={0.8} />
+                          <stop offset="95%" stopColor="#22d3ee" stopOpacity={0} />
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.06)" vertical={false} />
+                      <XAxis dataKey="month" tick={{ fontSize: 11, fill: "rgba(255,255,255,0.5)", fontFamily: "monospace" }} axisLine={false} tickLine={false} />
+                      <YAxis tick={{ fontSize: 11, fill: "rgba(255,255,255,0.5)", fontFamily: "monospace" }} axisLine={false} tickLine={false} />
+                      <Tooltip
+                        contentStyle={{
+                          background: "rgba(10, 10, 10, 0.95)",
+                          border: "1px solid rgba(255, 255, 255, 0.1)",
+                          borderRadius: "8px",
+                          fontSize: "12px",
+                          color: "#ffffff",
+                          fontFamily: "monospace",
+                          backdropFilter: "blur(12px)",
+                        }}
+                        labelStyle={{ color: "#22d3ee", fontWeight: 600 }}
+                      />
+                      <Area type="monotone" dataKey="leads" stroke="rgba(59, 130, 246, 0.6)" fillOpacity={1} fill="url(#leadsGrad)" strokeWidth={2} />
+                      <Area type="monotone" dataKey="deals" stroke="#22d3ee" fillOpacity={1} fill="url(#dealsGrad)" strokeWidth={2} />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
 
-                          <AnimatePresence initial={false}>
-                            {isOpen && (
-                              <motion.div
-                                initial={{ height: 0, opacity: 0 }}
-                                animate={{ height: "auto", opacity: 1 }}
-                                exit={{ height: 0, opacity: 0 }}
-                                transition={{
-                                  duration: 0.3,
-                                  ease: "easeInOut",
-                                }}
-                                className="overflow-hidden"
-                              >
-                                <div className="px-6 pb-6 pt-3 border-b border-white/5 bg-white/[0.01]">
-                                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                                    <div>
-                                      <span className="text-[11px] font-mono uppercase tracking-widest text-white/30 block mb-1.5">
-                                        <Phone className="w-3 h-3 inline mr-1.5 -mt-0.5" />
-                                        Phone
-                                      </span>
-                                      <a
-                                        href={`tel:${booking.phone}`}
-                                        className="text-sm text-white/80 hover:text-brand-cyan transition-colors"
-                                      >
-                                        {booking.phone}
-                                      </a>
-                                    </div>
-                                    <div>
-                                      <span className="text-[11px] font-mono uppercase tracking-widest text-white/30 block mb-1.5">
-                                        <Mail className="w-3 h-3 inline mr-1.5 -mt-0.5" />
-                                        Email
-                                      </span>
-                                      <a
-                                        href={`mailto:${booking.email}`}
-                                        className="text-sm text-white/80 hover:text-brand-cyan transition-colors break-all"
-                                      >
-                                        {booking.email}
-                                      </a>
-                                    </div>
-                                    <div>
-                                      <span className="text-[11px] font-mono uppercase tracking-widest text-white/30 block mb-1.5">
-                                        <FileText className="w-3 h-3 inline mr-1.5 -mt-0.5" />
-                                        Notes
-                                      </span>
-                                      <p className="text-sm text-white/60 leading-relaxed">
-                                        {booking.help_text || (
-                                          <span className="italic text-white/20">
-                                            No notes provided
-                                          </span>
-                                        )}
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div>
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
+              <div className="rounded-xl p-4 sm:p-6 flex flex-col bg-black/40 backdrop-blur-md border border-white/10">
+                <div className="flex items-center gap-2 mb-4 sm:mb-5">
+                  <div className="w-2 h-2 rounded-full bg-[#22d3ee] animate-pulse" />
+                  <p className="font-mono font-medium uppercase tracking-[0.16em] text-white/40" style={{ fontSize: "10px" }}>Sovereign AI</p>
+                </div>
+                <div className="flex-1 space-y-2.5 overflow-y-auto">
+                  {AI_INSIGHTS.map((insight, i) => (
+                    <div
+                      key={i}
+                      className="rounded-lg px-4 py-3 text-xs leading-relaxed"
+                      style={{
+                        background: insight.type === "positive"
+                          ? "rgba(34, 211, 238, 0.08)"
+                          : insight.type === "warning"
+                          ? "rgba(245, 158, 11, 0.08)"
+                          : "rgba(255, 255, 255, 0.03)",
+                        color: insight.type === "positive"
+                          ? "#67e8f9"
+                          : insight.type === "warning"
+                          ? "#FBBF24"
+                          : "rgba(255,255,255,0.75)",
+                        borderLeft: insight.type === "positive"
+                          ? "2px solid rgba(34, 211, 238, 0.4)"
+                          : insight.type === "warning"
+                          ? "2px solid rgba(245, 158, 11, 0.4)"
+                          : "2px solid rgba(255, 255, 255, 0.15)",
+                      }}
+                    >
+                      {insight.text}
+                    </div>
+                  ))}
+                </div>
+                <p className="text-xs mt-4 pt-3 italic text-white/40 border-t border-white/5">
+                  AI insights activate with live retainer data.
+                </p>
+              </div>
+            </div>
+
+            {/* Pipeline + Follow-ups */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+              <div className="rounded-xl p-4 sm:p-6 bg-black/40 backdrop-blur-md border border-white/10">
+                <p className="font-mono font-medium uppercase tracking-[0.16em] mb-4 sm:mb-5 text-white/40" style={{ fontSize: "10px" }}>This Week&apos;s Pipeline</p>
+                <div className="space-y-2.5">
+                  {PIPELINE_ENTRIES.slice(0, 4).map((entry) => (
+                    <div
+                      key={entry.day + entry.name}
+                      className="flex items-center gap-3 rounded-lg px-4 py-3"
+                      style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.05)" }}
+                    >
+                      <span className="shrink-0 w-2 h-2 rounded-full bg-[#22d3ee]" />
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-semibold text-white">{entry.name}</span>
+                          <span className="text-xs text-white/50">{entry.day} {entry.time}</span>
                         </div>
-                      );
-                    })
-                  )}
-                </div>
-
-                {/* Mobile cards */}
-                <div className="lg:hidden space-y-3">
-                  {filteredBookings.length === 0 ? (
-                    <div className="glass-panel rounded-2xl text-center py-16">
-                      <Inbox className="w-12 h-12 text-white/10 mx-auto mb-4" />
-                      <p className="text-white/30 text-sm">No bookings found.</p>
-                    </div>
-                  ) : (
-                    filteredBookings.map((booking) => {
-                      const status = resolveStatus(booking);
-                      const isOpen = expandedId === booking.id;
-                      return (
-                        <div
-                          key={booking.id}
-                          className="glass-panel rounded-xl overflow-hidden hover:border-brand-cyan/20 transition-all duration-300"
-                        >
-                          <button
-                            onClick={() => toggle(booking.id)}
-                            className="w-full p-4 text-left cursor-pointer"
-                          >
-                            <div className="flex items-start justify-between mb-2">
-                              <div className="flex-1 min-w-0">
-                                <span className="text-xs font-mono text-brand-cyan/70 block mb-1">
-                                  {booking.ref}
-                                </span>
-                                <span className="text-base font-medium text-white/90 block truncate">
-                                  {booking.name}
-                                </span>
-                                <span className="text-sm text-white/40 block truncate">
-                                  {booking.business}
-                                </span>
-                              </div>
-                              <div className="flex items-center gap-2 ml-3 shrink-0">
-                                <span
-                                  className={cn(
-                                    "px-2.5 py-1 rounded-full text-xs font-medium",
-                                    status === "Confirmed"
-                                      ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/20"
-                                      : "bg-amber-500/15 text-amber-400 border border-amber-500/20",
-                                  )}
-                                >
-                                  {status}
-                                </span>
-                                <motion.div
-                                  animate={{ rotate: isOpen ? 180 : 0 }}
-                                  transition={{ duration: 0.3 }}
-                                  className="text-white/30"
-                                >
-                                  <ChevronDown className="w-4 h-4" />
-                                </motion.div>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-3 text-xs text-white/30">
-                              <span>{booking.call_type}</span>
-                              <span>·</span>
-                              <span>{booking.booking_date_display}</span>
-                              <span>·</span>
-                              <span>{booking.booking_time}</span>
-                            </div>
-                          </button>
-
-                          <AnimatePresence initial={false}>
-                            {isOpen && (
-                              <motion.div
-                                initial={{ height: 0, opacity: 0 }}
-                                animate={{ height: "auto", opacity: 1 }}
-                                exit={{ height: 0, opacity: 0 }}
-                                transition={{
-                                  duration: 0.3,
-                                  ease: "easeInOut",
-                                }}
-                                className="overflow-hidden"
-                              >
-                                <div className="px-4 pb-4 pt-2 border-t border-white/5 space-y-3">
-                                  <div>
-                                    <span className="text-[11px] font-mono uppercase tracking-widest text-white/30 block mb-1">
-                                      <Phone className="w-3 h-3 inline mr-1 -mt-0.5" />
-                                      Phone
-                                    </span>
-                                    <a
-                                      href={`tel:${booking.phone}`}
-                                      className="text-sm text-white/80 hover:text-brand-cyan transition-colors"
-                                    >
-                                      {booking.phone}
-                                    </a>
-                                  </div>
-                                  <div>
-                                    <span className="text-[11px] font-mono uppercase tracking-widest text-white/30 block mb-1">
-                                      <Mail className="w-3 h-3 inline mr-1 -mt-0.5" />
-                                      Email
-                                    </span>
-                                    <a
-                                      href={`mailto:${booking.email}`}
-                                      className="text-sm text-white/80 hover:text-brand-cyan transition-colors break-all"
-                                    >
-                                      {booking.email}
-                                    </a>
-                                  </div>
-                                  <div>
-                                    <span className="text-[11px] font-mono uppercase tracking-widest text-white/30 block mb-1">
-                                      <FileText className="w-3 h-3 inline mr-1 -mt-0.5" />
-                                      Notes
-                                    </span>
-                                    <p className="text-sm text-white/60 leading-relaxed">
-                                      {booking.help_text || (
-                                        <span className="italic text-white/20">
-                                          No notes provided
-                                        </span>
-                                      )}
-                                    </p>
-                                  </div>
-                                </div>
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
-                        </div>
-                      );
-                    })
-                  )}
-                </div>
-              </>
-            )}
-          </motion.div>
-
-          {/* ════════════════ Missed Calls Section ════════════════ */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mt-16"
-          >
-            <div className="mb-8">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 mb-5">
-                <PhoneMissed className="w-3.5 h-3.5 text-red-400" />
-                <span className="text-xs font-mono uppercase tracking-widest text-red-400">
-                  Missed Calls
-                </span>
-              </div>
-              <h2 className="text-2xl md:text-3xl font-heading font-bold tracking-tight text-white mb-2">
-                Missed Call{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-amber-400">
-                  Recovery
-                </span>
-              </h2>
-              <p className="text-sm text-white/40">
-                Auto-SMS text-back — never lose a lead to a missed call.
-              </p>
-            </div>
-
-            {/* Mini stat cards */}
-            <div className="grid grid-cols-3 gap-3 mb-8">
-              {[
-                { label: "Total Missed", value: "6", icon: PhoneMissed },
-                { label: "SMS Sent", value: "5", icon: MessageSquare },
-                { label: "Recovery Rate", value: "83%", icon: Zap },
-              ].map((s, i) => (
-                <motion.div
-                  key={s.label}
-                  initial={{ opacity: 0, y: 15 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: i * 0.1 }}
-                  className="glass-panel rounded-xl p-4 md:p-5"
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-white/35">
-                      {s.label}
-                    </span>
-                    <s.icon className="w-4 h-4 text-red-400/50" />
-                  </div>
-                  <p className="text-2xl md:text-3xl font-heading font-bold text-white">
-                    {s.value}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Desktop table */}
-            <div className="hidden lg:block glass-panel rounded-2xl overflow-hidden">
-              <div className="grid grid-cols-[1fr_1fr_160px_80px_100px] gap-4 px-6 py-4 border-b border-white/10">
-                {["Caller", "Number", "Time", "Duration", "Auto-SMS"].map(
-                  (h) => (
-                    <span
-                      key={h}
-                      className="text-[11px] font-mono uppercase tracking-widest text-white/30"
-                    >
-                      {h}
-                    </span>
-                  ),
-                )}
-              </div>
-              {MOCK_MISSED_CALLS.map((call) => (
-                <div
-                  key={call.id}
-                  className="grid grid-cols-[1fr_1fr_160px_80px_100px] gap-4 px-6 py-4 border-b border-white/5 hover:bg-white/[0.03] transition-colors items-center"
-                >
-                  <span className="text-sm text-white/80">
-                    {call.callerName || (
-                      <span className="italic text-white/30">Unknown</span>
-                    )}
-                  </span>
-                  <span className="text-sm font-mono text-white/60">
-                    {call.callerNumber}
-                  </span>
-                  <span className="text-sm text-white/50">{call.time}</span>
-                  <span className="text-sm text-white/40">{call.duration}</span>
-                  <span
-                    className={cn(
-                      "inline-block px-2.5 py-1 rounded-full text-xs font-medium w-fit",
-                      SMS_STATUS_STYLES[call.smsStatus],
-                    )}
-                  >
-                    {call.smsStatus}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            {/* Mobile cards */}
-            <div className="lg:hidden space-y-3">
-              {MOCK_MISSED_CALLS.map((call) => (
-                <div
-                  key={call.id}
-                  className="glass-panel rounded-xl p-4"
-                >
-                  <div className="flex items-start justify-between mb-2">
-                    <div className="min-w-0">
-                      <span className="text-base font-medium text-white/90 block">
-                        {call.callerName || (
-                          <span className="italic text-white/40">Unknown Caller</span>
-                        )}
-                      </span>
-                      <span className="text-sm font-mono text-white/50 block">
-                        {call.callerNumber}
-                      </span>
-                    </div>
-                    <span
-                      className={cn(
-                        "px-2.5 py-1 rounded-full text-xs font-medium shrink-0 ml-3",
-                        SMS_STATUS_STYLES[call.smsStatus],
-                      )}
-                    >
-                      {call.smsStatus}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-3 text-xs text-white/30">
-                    <span>{call.time}</span>
-                    <span>·</span>
-                    <span>{call.duration}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* ════════════════ Leads Overview Section ════════════════ */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mt-16"
-          >
-            <div className="mb-8">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-cyan/10 border border-brand-cyan/20 mb-5">
-                <Users className="w-3.5 h-3.5 text-brand-cyan" />
-                <span className="text-xs font-mono uppercase tracking-widest text-brand-cyan">
-                  Leads Overview
-                </span>
-              </div>
-              <h2 className="text-2xl md:text-3xl font-heading font-bold tracking-tight text-white mb-2">
-                Lead{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-blue">
-                  Pipeline
-                </span>
-              </h2>
-              <p className="text-sm text-white/40">
-                Enquiry tracking & response times across all channels.
-              </p>
-            </div>
-
-            {/* Mini stat cards */}
-            <div className="grid grid-cols-3 gap-3 mb-8">
-              {[
-                { label: "Total Leads", value: "6", icon: Users },
-                { label: "Avg Response", value: "< 2 min", icon: Zap },
-                { label: "Qualified", value: "4", icon: CheckCircle2 },
-              ].map((s, i) => (
-                <motion.div
-                  key={s.label}
-                  initial={{ opacity: 0, y: 15 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: i * 0.1 }}
-                  className="glass-panel rounded-xl p-4 md:p-5"
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-white/35">
-                      {s.label}
-                    </span>
-                    <s.icon className="w-4 h-4 text-brand-cyan/50" />
-                  </div>
-                  <p className="text-2xl md:text-3xl font-heading font-bold text-white">
-                    {s.value}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Desktop table */}
-            <div className="hidden lg:block glass-panel rounded-2xl overflow-hidden">
-              <div className="grid grid-cols-[1fr_1fr_140px_120px_100px_100px] gap-4 px-6 py-4 border-b border-white/10">
-                {["Name", "Business", "Source", "Response", "Status", "Date"].map(
-                  (h) => (
-                    <span
-                      key={h}
-                      className="text-[11px] font-mono uppercase tracking-widest text-white/30"
-                    >
-                      {h}
-                    </span>
-                  ),
-                )}
-              </div>
-              {MOCK_LEADS.map((lead) => {
-                const SourceIcon = SOURCE_ICONS[lead.source] || Globe;
-                return (
-                  <div
-                    key={lead.id}
-                    className="grid grid-cols-[1fr_1fr_140px_120px_100px_100px] gap-4 px-6 py-4 border-b border-white/5 hover:bg-white/[0.03] transition-colors items-center"
-                  >
-                    <span className="text-sm text-white/80">{lead.name}</span>
-                    <span className="text-sm text-white/60 truncate">
-                      {lead.business}
-                    </span>
-                    <span className="text-sm text-white/50 flex items-center gap-2">
-                      <SourceIcon className="w-3.5 h-3.5 text-white/30" />
-                      {lead.source}
-                    </span>
-                    <span className="text-sm font-mono text-brand-cyan/70">
-                      {lead.responseTime}
-                    </span>
-                    <span
-                      className={cn(
-                        "inline-block px-2.5 py-1 rounded-full text-xs font-medium w-fit",
-                        FOLLOW_UP_STYLES[lead.followUp],
-                      )}
-                    >
-                      {lead.followUp}
-                    </span>
-                    <span className="text-sm text-white/40">{lead.date}</span>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Mobile cards */}
-            <div className="lg:hidden space-y-3">
-              {MOCK_LEADS.map((lead) => {
-                const SourceIcon = SOURCE_ICONS[lead.source] || Globe;
-                return (
-                  <div
-                    key={lead.id}
-                    className="glass-panel rounded-xl p-4"
-                  >
-                    <div className="flex items-start justify-between mb-2">
-                      <div className="min-w-0">
-                        <span className="text-base font-medium text-white/90 block">
-                          {lead.name}
-                        </span>
-                        <span className="text-sm text-white/40 block truncate">
-                          {lead.business}
-                        </span>
+                        <span className="text-xs text-white/50">{entry.location} &middot; {entry.budget}</span>
                       </div>
                       <span
-                        className={cn(
-                          "px-2.5 py-1 rounded-full text-xs font-medium shrink-0 ml-3",
-                          FOLLOW_UP_STYLES[lead.followUp],
-                        )}
+                        className={`font-mono font-medium uppercase tracking-[0.05em] rounded-full border px-3 py-1 ${statusStyles[entry.status]}`}
+                        style={{ fontSize: "10px" }}
                       >
-                        {lead.followUp}
+                        {entry.status}
                       </span>
                     </div>
-                    <div className="flex items-center gap-3 text-xs text-white/30">
-                      <span className="flex items-center gap-1">
-                        <SourceIcon className="w-3 h-3" />
-                        {lead.source}
-                      </span>
-                      <span>·</span>
-                      <span className="text-brand-cyan/60">{lead.responseTime}</span>
-                      <span>·</span>
-                      <span>{lead.date}</span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </motion.div>
-        </div>
-      </section>
+                  ))}
+                </div>
+                <button
+                  onClick={() => setActiveTab("pipeline")}
+                  className="mt-4 w-full text-center text-xs font-mono uppercase tracking-[0.12em] py-2.5 rounded-lg transition-all cursor-pointer"
+                  style={{ color: "#22d3ee", background: "rgba(34, 211, 238, 0.06)", border: "1px solid rgba(34, 211, 238, 0.15)" }}
+                >
+                  View full pipeline →
+                </button>
+              </div>
 
-      <Footer />
-    </main>
+              <div className="rounded-xl p-4 sm:p-6 bg-black/40 backdrop-blur-md border border-white/10">
+                <p className="font-mono font-medium uppercase tracking-[0.16em] mb-4 sm:mb-5 text-white/40" style={{ fontSize: "10px" }}>Follow-Ups Due</p>
+                <div className="space-y-2.5">
+                  {FOLLOW_UPS.map((item) => (
+                    <div
+                      key={item.name}
+                      className="flex items-start gap-3 rounded-lg px-4 py-3"
+                      style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.05)" }}
+                    >
+                      <span
+                        className="shrink-0 w-2 h-2 rounded-full mt-1.5"
+                        style={{ background: priorityStyles[item.priority].dot }}
+                      />
+                      <div className="flex-1 min-w-0">
+                        <span className="text-sm font-semibold block text-white">{item.name}</span>
+                        <span className="text-xs text-white/50">{item.action}</span>
+                      </div>
+                      <span
+                        className="font-mono uppercase tracking-[0.05em] shrink-0"
+                        style={{ fontSize: "10px", color: priorityStyles[item.priority].text }}
+                      >
+                        {item.priority}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Globe */}
+            <div className="rounded-xl p-6 sm:p-8 bg-black/40 backdrop-blur-md border border-white/10">
+              <p className="font-mono font-medium uppercase tracking-[0.16em] mb-6 text-center text-white/40" style={{ fontSize: "10px" }}>
+                Client Footprint &middot; 9 Active
+              </p>
+              <div className="max-w-lg mx-auto">
+                <Globe
+                  markers={[
+                    { id: "wigan",      location: [53.5448, -2.6318],  label: "Wigan, UK" },
+                    { id: "manchester", location: [53.4808, -2.2426],  label: "Manchester, UK" },
+                    { id: "liverpool",  location: [53.4084, -2.9916],  label: "Liverpool, UK" },
+                    { id: "london",     location: [51.5074, -0.1278],  label: "London, UK" },
+                    { id: "miami",      location: [25.7617, -80.1918], label: "Miami, US" },
+                    { id: "newyork",    location: [40.7128, -74.0060], label: "New York, US" },
+                    { id: "la",         location: [34.0522, -118.2437],label: "Los Angeles, US" },
+                    { id: "dallas",     location: [32.7767, -96.7970], label: "Dallas, US" },
+                    { id: "amsterdam",  location: [52.3676, 4.9041],   label: "Amsterdam, NL" },
+                  ]}
+                  arcs={[
+                    { id: "wigan-manc",      from: [53.5448, -2.6318], to: [53.4808, -2.2426] },
+                    { id: "wigan-london",    from: [53.5448, -2.6318], to: [51.5074, -0.1278] },
+                    { id: "wigan-miami",     from: [53.5448, -2.6318], to: [25.7617, -80.1918] },
+                    { id: "wigan-ny",        from: [53.5448, -2.6318], to: [40.7128, -74.0060] },
+                    { id: "wigan-la",        from: [53.5448, -2.6318], to: [34.0522, -118.2437] },
+                    { id: "wigan-dallas",    from: [53.5448, -2.6318], to: [32.7767, -96.7970] },
+                    { id: "wigan-amsterdam", from: [53.5448, -2.6318], to: [52.3676, 4.9041] },
+                    { id: "wigan-liverpool", from: [53.5448, -2.6318], to: [53.4084, -2.9916] },
+                  ]}
+                  dark={1}
+                  baseColor={[0.04, 0.06, 0.08]}
+                  glowColor={[0.05, 0.1, 0.15]}
+                  markerColor={[0.13, 0.83, 0.93]}
+                  arcColor={[0.13, 0.83, 0.93]}
+                  mapBrightness={4}
+                  speed={0.002}
+                />
+              </div>
+            </div>
+          </div>
+        ) : activeTab === "pipeline" ? (
+          <div className="max-w-[1800px]">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h2 className="font-heading font-bold text-white" style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)" }}>Client Pipeline</h2>
+                <p className="text-sm mt-1 text-white/50">Everything in flight this week &middot; builds, proposals, discovery.</p>
+              </div>
+              <div className="hidden sm:flex items-center gap-3 text-xs font-mono uppercase tracking-[0.1em] text-white/50">
+                <span>Week of 13 Apr 2026</span>
+              </div>
+            </div>
+
+            <div className="rounded-xl overflow-hidden bg-black/40 backdrop-blur-md border border-white/10">
+              <div className="hidden md:grid grid-cols-[60px_80px_1.4fr_1.2fr_120px_110px_130px] gap-3 px-5 py-3 border-b border-white/10">
+                {["Day", "Time", "Client", "Location", "Value", "Status", "Result"].map((h) => (
+                  <span key={h} className="font-mono uppercase tracking-[0.12em] text-white/40" style={{ fontSize: "10px" }}>{h}</span>
+                ))}
+              </div>
+              {PIPELINE_ENTRIES.map((entry, i) => (
+                <div
+                  key={i}
+                  className="grid grid-cols-1 md:grid-cols-[60px_80px_1.4fr_1.2fr_120px_110px_130px] gap-2 md:gap-3 px-5 py-4 items-center"
+                  style={{ borderBottom: i < PIPELINE_ENTRIES.length - 1 ? "1px solid rgba(255, 255, 255, 0.04)" : "none" }}
+                >
+                  <span className="text-sm font-semibold text-white">{entry.day}</span>
+                  <span className="text-sm font-mono text-white/50">{entry.time}</span>
+                  <span className="text-sm text-white">{entry.name}</span>
+                  <span className="text-sm text-white/70">{entry.location}</span>
+                  <span className="text-sm font-semibold font-mono text-white">{entry.budget}</span>
+                  <span
+                    className={`font-mono font-medium uppercase tracking-[0.05em] rounded-full border px-3 py-1 text-center ${statusStyles[entry.status]}`}
+                    style={{ fontSize: "10px" }}
+                  >
+                    {entry.status}
+                  </span>
+                  <span
+                    className="text-sm font-medium"
+                    style={{
+                      color: entry.result === "Retainer Active"
+                        ? "#22d3ee"
+                        : entry.result === "Sent" || entry.result === "In Progress"
+                        ? "#FBBF24"
+                        : "rgba(255,255,255,0.5)",
+                    }}
+                  >
+                    {entry.result}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="rounded-xl p-4 text-center bg-black/40 backdrop-blur-md border border-white/10">
+                <p className="font-mono text-xs uppercase tracking-[0.12em] mb-1 text-white/40">Total</p>
+                <p className="text-2xl font-bold text-white">6</p>
+              </div>
+              <div className="rounded-xl p-4 text-center bg-black/40 backdrop-blur-md border border-white/10">
+                <p className="font-mono text-xs uppercase tracking-[0.12em] mb-1 text-white/40">Live</p>
+                <p className="text-2xl font-bold" style={{ color: "#22d3ee" }}>1</p>
+              </div>
+              <div className="rounded-xl p-4 text-center bg-black/40 backdrop-blur-md border border-white/10">
+                <p className="font-mono text-xs uppercase tracking-[0.12em] mb-1 text-white/40">In Build</p>
+                <p className="text-2xl font-bold" style={{ color: "#60a5fa" }}>1</p>
+              </div>
+              <div className="rounded-xl p-4 text-center bg-black/40 backdrop-blur-md border border-white/10">
+                <p className="font-mono text-xs uppercase tracking-[0.12em] mb-1 text-white/40">Proposals Out</p>
+                <p className="text-2xl font-bold" style={{ color: "#FBBF24" }}>2</p>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="max-w-[1800px]">
+            <div className="mb-8">
+              <h2 className="font-heading font-bold text-white" style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)" }}>Automations</h2>
+              <p className="text-sm mt-1 text-white/50">
+                Everything included in your Sovereign Systems retainer, plus paid bolt-ons you can add when you&apos;re ready to scale.
+              </p>
+            </div>
+
+            <div className="space-y-10">
+              <div>
+                <p className="font-mono font-medium uppercase tracking-[0.16em] mb-2 flex items-center gap-2" style={{ fontSize: "10px", color: "#22d3ee" }}>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#22d3ee] animate-pulse" />
+                  Included with Your Retainer
+                </p>
+                <p className="text-xs mb-5 leading-relaxed text-white/50">
+                  The Sovereign Systems stack &middot; hosting, SEO, security, support. All rolled into your monthly.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {INCLUDED_WITH_PLAN.map((a) => (
+                    <div key={a.name} className="rounded-xl p-5 flex flex-col bg-black/40 backdrop-blur-md border border-white/10" style={{ borderLeft: "3px solid rgba(34, 211, 238, 0.4)" }}>
+                      <div className="flex items-start gap-3 mb-3">
+                        <span className="text-xl">{a.icon}</span>
+                        <div className="flex-1">
+                          <h3 className="text-sm font-semibold text-white">{a.name}</h3>
+                          <p className="text-xs mt-1.5 leading-relaxed text-white/50">{a.desc}</p>
+                        </div>
+                      </div>
+                      <div className="mt-auto pt-3 flex items-center gap-2 border-t border-white/5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#22d3ee]" />
+                        <span className="font-mono uppercase tracking-[0.1em]" style={{ fontSize: "10px", color: "#22d3ee" }}>Included</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <p className="font-mono font-medium uppercase tracking-[0.16em] mb-2 flex items-center gap-2 text-white/70" style={{ fontSize: "10px" }}>
+                  <span className="w-1.5 h-1.5 rounded-full bg-white/30" />
+                  Available Upgrades
+                </p>
+                <p className="text-xs mb-5 leading-relaxed text-white/50">
+                  Bolt-on automations that stack on top of your retainer &middot; activates inside 48 hours.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                  {PAID_UPGRADES.map((a) => (
+                    <Card key={a.name}>
+                      <CardHeader>
+                        <div className="flex items-start gap-3">
+                          <span className="text-xl">{a.icon}</span>
+                          <div className="flex-1">
+                            <CardTitle>{a.name}</CardTitle>
+                            <CardDescription>{a.desc}</CardDescription>
+                          </div>
+                        </div>
+                        <CardAction>
+                          <span className="font-mono font-semibold text-sm" style={{ color: "#22d3ee" }}>{a.price}</span>
+                        </CardAction>
+                      </CardHeader>
+                      <CardContent />
+                      <CardFooter>
+                        <div className="flex gap-2 w-full">
+                          <a
+                            href={a.checkoutUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex-1 text-center text-xs font-mono uppercase tracking-[0.12em] py-2.5 rounded-lg transition-all cursor-pointer"
+                            style={{ color: "#22d3ee", background: "rgba(34, 211, 238, 0.08)", border: "1px solid rgba(34, 211, 238, 0.2)" }}
+                          >
+                            Add to plan →
+                          </a>
+                          <a
+                            href="https://wa.me/447986767758?text=Hi%20Sovereign%20Systems%20%E2%80%93%20I%27d%20like%20to%20discuss%20the%20upgrade%20options"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex-1 text-center text-xs font-mono uppercase tracking-[0.12em] py-2.5 rounded-lg transition-all cursor-pointer text-white/60 hover:text-white"
+                            style={{ background: "rgba(255, 255, 255, 0.04)", border: "1px solid rgba(255, 255, 255, 0.1)" }}
+                          >
+                            Book a call
+                          </a>
+                        </div>
+                      </CardFooter>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
