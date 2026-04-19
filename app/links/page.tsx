@@ -28,6 +28,8 @@ type LinkCard = {
   href: string;
   external?: boolean;
   logo?: { src: string; alt: string };
+  emoji?: string;
+  thumb?: { src: string; alt: string };
   accent?: string;
 };
 
@@ -45,7 +47,7 @@ const cards: LinkCard[] = [
     sub: "Free site, pay £300 per qualified appointment",
     href: "https://sovereignbookings.co.uk/",
     external: true,
-    logo: { src: "/sovereign-bookings-logo.png", alt: "Sovereign Bookings" },
+    logo: { src: "/sb-icon.png", alt: "Sovereign Bookings" },
     accent: BOOKINGS_GREEN,
   },
   {
@@ -53,12 +55,14 @@ const cards: LinkCard[] = [
     sub: "Pick a slot, no hard sell",
     href: "https://sovereignbookings.co.uk/book-call",
     external: true,
+    emoji: "\uD83D\uDCDE",
   },
   {
     label: "Systems client dashboard",
     sub: "What our retainer clients see",
     href: "https://sovereignsystem.co.uk/dashboard",
     external: true,
+    thumb: { src: "/dash-systems.png", alt: "Systems dashboard preview" },
     accent: SYSTEMS_BLUE,
   },
   {
@@ -66,20 +70,29 @@ const cards: LinkCard[] = [
     sub: "Live appointment tracker for garden room companies",
     href: "https://sovereignbookings.co.uk/dashboard",
     external: true,
+    thumb: { src: "/dash-bookings.png", alt: "Bookings dashboard preview" },
     accent: BOOKINGS_GREEN,
+  },
+  {
+    label: "Luke Steedman — private proposal",
+    sub: "Sample custom proposal we built for a prospect",
+    href: "https://sovereignsystem.co.uk/pitch/luke-steedman",
+    external: true,
+    thumb: { src: "/luke-thumb.png", alt: "Luke Steedman proposal preview" },
   },
   {
     label: "Email us",
     sub: "contact.sovereignsystems@gmail.com",
     href: "mailto:contact.sovereignsystems@gmail.com",
     external: true,
+    emoji: "\u2709\uFE0F",
   },
 ];
 
 const socials = [
   {
     name: "Instagram",
-    href: "https://www.instagram.com/sovereignbookings/",
+    href: "https://www.instagram.com/sovereign.bookings/",
     svg: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <rect x="3" y="3" width="18" height="18" rx="5" />
@@ -89,17 +102,8 @@ const socials = [
     ),
   },
   {
-    name: "TikTok",
-    href: "https://www.tiktok.com/@sovereignbookings",
-    svg: (
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M19.6 6.7a5.3 5.3 0 0 1-3.2-1.1V15a5.5 5.5 0 1 1-5.5-5.5c.3 0 .6 0 .9.1v2.7a2.8 2.8 0 1 0 1.9 2.7V2h2.7a5.3 5.3 0 0 0 3.2 4.7Z" />
-      </svg>
-    ),
-  },
-  {
     name: "Facebook",
-    href: "https://www.facebook.com/sovereignbookings",
+    href: "https://www.facebook.com/profile.php?id=61573288566493",
     svg: (
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M13.5 21v-7.5h2.5l.4-3h-2.9V8.6c0-.9.3-1.5 1.6-1.5H17V4.4a23 23 0 0 0-2.4-.1c-2.4 0-4 1.4-4 4.1v2.1H8v3h2.6V21h2.9Z" />
@@ -108,7 +112,7 @@ const socials = [
   },
   {
     name: "LinkedIn",
-    href: "https://www.linkedin.com/company/112880250",
+    href: "https://www.linkedin.com/company/112880250/",
     svg: (
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M4.5 3.5A2 2 0 1 0 4.5 7.5 2 2 0 0 0 4.5 3.5ZM3 9h3v12H3V9Zm6 0h2.9v1.6h.1A3.2 3.2 0 0 1 15 9c3 0 3.6 2 3.6 4.5V21H15.7v-6.7c0-1.6 0-3.6-2.2-3.6S11 12.4 11 14.2V21H8V9Z" />
@@ -168,8 +172,21 @@ export default function LinksPage() {
                   />
                 )}
 
-                {/* Logo or spacer */}
-                {card.logo ? (
+                {/* Thumbnail / Logo / Emoji / Luke preview */}
+                {card.thumb ? (
+                  <div
+                    className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden border"
+                    style={{ borderColor: "#1f1f1f" }}
+                  >
+                    <Image
+                      src={card.thumb.src}
+                      alt={card.thumb.alt}
+                      width={96}
+                      height={96}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ) : card.logo ? (
                   <div
                     className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center"
                     style={{ background: "#fafafa" }}
@@ -181,6 +198,14 @@ export default function LinksPage() {
                       height={28}
                       className="object-contain"
                     />
+                  </div>
+                ) : card.emoji ? (
+                  <div
+                    className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center text-xl"
+                    style={{ background: "#111", border: "1px solid #1f1f1f" }}
+                    aria-hidden="true"
+                  >
+                    {card.emoji}
                   </div>
                 ) : (
                   <div className="flex-shrink-0 w-10 h-10" aria-hidden="true" />
