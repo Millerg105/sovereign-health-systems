@@ -41,6 +41,7 @@ type ProjectDefinition = Omit<PortfolioProject, "heroImage" | "supportingImages"
 
 const SHOWCASE_ORDER = [
   { id: "sovereign", label: "Sovereign Systems", imageNames: ["sovereign-1.png", "sovereign-2.png", "sovereign-3.png", "sovereign-4.png", "sovereign-5.png"] },
+  { id: "tranquil", label: "Tranquil Garden Rooms", imageNames: ["tranquil-1.png", "tranquil-2.png", "tranquil-3.png", "tranquil-4.png", "tranquil-5.png"] },
   { id: "cg-paving", label: "CG Paving", imageNames: ["cg-paving-1.png", "cg-paving-2.png", "cg-paving-3.png", "cg-paving-4.png", "cg-paving-5.png", "cg-paving-6.png", "cg-paving-7.png"] },
   { id: "tktax", label: "TK Tax", imageNames: ["tktax-1.png", "tktax-2.png", "tktax-3.png", "tktax-4.png"] },
   { id: "gibson", label: "Gibson Plumbing", imageNames: ["gibson-1.png", "gibson-2.png", "gibson-3.png", "gibson-4.png"] },
@@ -50,8 +51,25 @@ const SHOWCASE_ORDER = [
 
 const PROJECTS: ProjectDefinition[] = [
   {
-    id: "tktax",
+    id: "tranquil",
     number: "01",
+    name: "TRANQUIL GARDEN ROOMS",
+    subtitle: "Garden Rooms & Outdoor Builds",
+    typeLabel: "MASTER PORTFOLIO TEMPLATE",
+    summaryTitle: "Project Summary",
+    siteLabel: "View Tranquil Demo",
+    siteHref: "https://tranquil-garden-rooms.vercel.app/",
+    imageNames: ["tranquil-1.png", "tranquil-2.png", "tranquil-3.png", "tranquil-4.png", "tranquil-5.png"],
+    paragraphs: [
+      "Flagship build for the garden room niche - the standard every Sovereign site is now built against.",
+      "Full suite wired in: instant-quote flow, SMS confirmations, review automation, booking form, dashboard, and a gallery of real UK garden room installs.",
+      "Hero videos generated with Veo 2 give the homepage the feel of a national brand, not a local trade.",
+      "Built as the master template we clone for every new garden room client - same quality, different branding, deployed in days.",
+    ],
+  },
+  {
+    id: "tktax",
+    number: "02",
     name: "TK TAX",
     subtitle: "Accountancy Practice",
     typeLabel: "LIVE CLIENT",
@@ -68,7 +86,7 @@ const PROJECTS: ProjectDefinition[] = [
   },
   {
     id: "cg-paving",
-    number: "02",
+    number: "03",
     name: "CG PAVING",
     subtitle: "Landscaping & Paving",
     typeLabel: "MASTER DEMO",
@@ -85,7 +103,7 @@ const PROJECTS: ProjectDefinition[] = [
   },
   {
     id: "gibson",
-    number: "03",
+    number: "04",
     name: "GIBSON PLUMBING",
     subtitle: "Plumbing Services",
     typeLabel: "NICHE ADAPTATION",
@@ -102,7 +120,7 @@ const PROJECTS: ProjectDefinition[] = [
   },
   {
     id: "sikpix",
-    number: "04",
+    number: "05",
     name: "SIKPIX",
     subtitle: "Photography & Creative",
     typeLabel: "NICHE DEMO",
@@ -118,7 +136,7 @@ const PROJECTS: ProjectDefinition[] = [
   },
   {
     id: "alf",
-    number: "05",
+    number: "06",
     name: "ALFIE - Personal Trainer",
     subtitle: "Personal Training & Fitness",
     typeLabel: "NICHE DEMO",
@@ -134,7 +152,7 @@ const PROJECTS: ProjectDefinition[] = [
   },
   {
     id: "sovereign",
-    number: "06",
+    number: "07",
     name: "SOVEREIGN SYSTEMS",
     subtitle: "Agency Platform",
     typeLabel: "LIVE SITE",
@@ -203,12 +221,4 @@ export async function getPortfolioPageData(): Promise<PortfolioPageData> {
     label: group.label,
     siteLabel: projects.find((project) => project.id === group.id)?.siteLabel ?? "Demo - available on request",
     siteHref: projects.find((project) => project.id === group.id)?.siteHref,
-    heroImage: buildProjectImage(group.imageNames[0], availableImages, `${group.label} showcase hero screenshot`),
-  }));
-
-  return {
-    coverImage: buildProjectImage("sovereign-1.png", availableImages, "Sovereign Systems cover screenshot"),
-    projects,
-    showcaseGroups,
-  };
-}
+    heroImage: buildProjectImage(group.imageNames[0], availableImages, `${group.label} showcase hero 

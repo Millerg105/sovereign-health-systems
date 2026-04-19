@@ -8,6 +8,7 @@ import { PortfolioCaseStudy } from "@/components/portfolio/portfolio-case-study"
 import { PortfolioComparison } from "@/components/portfolio/portfolio-comparison";
 import { PortfolioContact } from "@/components/portfolio/portfolio-contact";
 import { PortfolioCover } from "@/components/portfolio/portfolio-cover";
+import { PortfolioHowWeWork } from "@/components/portfolio/portfolio-how-we-work";
 import { PortfolioServices } from "@/components/portfolio/portfolio-services";
 import { PortfolioShowcase } from "@/components/portfolio/portfolio-showcase";
 import { PortfolioTopbar } from "@/components/portfolio/portfolio-topbar";
@@ -33,6 +34,9 @@ export function PortfolioShell({ data }: PortfolioShellProps) {
         </motion.div>
         <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ ...transition, delay: 0.08 }}>
           <PortfolioServices />
+        </motion.div>
+        <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ ...transition, delay: 0.1 }}>
+          <PortfolioHowWeWork />
         </motion.div>
         {data.projects.map((project, index) => (
           <motion.div

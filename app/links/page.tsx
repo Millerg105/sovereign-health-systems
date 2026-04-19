@@ -27,7 +27,7 @@ type LinkCard = {
   sub: string;
   href: string;
   external?: boolean;
-  logo?: { src: string; alt: string };
+  logo?: { src: string; alt: string; wide?: boolean };
   emoji?: string;
   thumb?: { src: string; alt: string };
   accent?: string;
@@ -47,7 +47,7 @@ const cards: LinkCard[] = [
     sub: "Free site, pay £300 per qualified appointment",
     href: "https://sovereignbookings.co.uk/",
     external: true,
-    logo: { src: "/sb-icon.png", alt: "Sovereign Bookings" },
+    logo: { src: "/sb-icon.png", alt: "Sovereign Bookings", wide: true },
     accent: BOOKINGS_GREEN,
   },
   {
@@ -56,6 +56,14 @@ const cards: LinkCard[] = [
     href: "https://sovereignbookings.co.uk/book-call",
     external: true,
     emoji: "\uD83D\uDCDE",
+  },
+  {
+    label: "Portfolio",
+    sub: "Live sites, case studies and master demos",
+    href: "https://sovereignsystem.co.uk/portfolio",
+    external: true,
+    thumb: { src: "/portfolio-thumb.png", alt: "Portfolio preview" },
+    accent: SYSTEMS_BLUE,
   },
   {
     label: "Systems client dashboard",
@@ -72,13 +80,6 @@ const cards: LinkCard[] = [
     external: true,
     thumb: { src: "/dash-bookings.png", alt: "Bookings dashboard preview" },
     accent: BOOKINGS_GREEN,
-  },
-  {
-    label: "Luke Steedman — private proposal",
-    sub: "Sample custom proposal we built for a prospect",
-    href: "https://sovereignsystem.co.uk/pitch/luke-steedman",
-    external: true,
-    thumb: { src: "/luke-thumb.png", alt: "Luke Steedman proposal preview" },
   },
   {
     label: "Email us",
@@ -188,15 +189,14 @@ export default function LinksPage() {
                   </div>
                 ) : card.logo ? (
                   <div
-                    className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center"
-                    style={{ background: "#fafafa" }}
+                    className={`flex-shrink-0 h-12 flex items-center justify-center ${card.logo.wide ? "w-14" : "w-12"}`}
                   >
                     <Image
                       src={card.logo.src}
                       alt={card.logo.alt}
-                      width={28}
-                      height={28}
-                      className="object-contain"
+                      width={64}
+                      height={48}
+                      className={`object-contain h-12 ${card.logo.wide ? "w-14" : "w-12"}`}
                     />
                   </div>
                 ) : card.emoji ? (
