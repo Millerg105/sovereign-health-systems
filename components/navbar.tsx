@@ -101,7 +101,7 @@ export function Navbar() {
         { label: "Start a Project", onClick: () => navigateToSection("booking"), Icon: <CalendarCheck className="h-4 w-4" /> },
     ];
 
-    const pillItemClass = "px-3 py-2 rounded-full text-[11px] font-semibold uppercase tracking-[0.16em] text-white hover:text-brand-cyan transition-colors";
+    const pillItemClass = "px-3 py-1.5 rounded-full text-[11px] font-semibold uppercase tracking-[0.16em] text-white hover:text-brand-cyan transition-colors";
     const dropdownPrimaryClass = "h-9 lg:h-10 px-4 lg:px-5 text-xs lg:text-sm rounded-full";
 
     return (
@@ -134,7 +134,7 @@ export function Navbar() {
 
                 {/* Centre nav, md+ — Tranquil-style dark pill */}
                 <div className="hidden md:flex">
-                    <div className="flex items-center gap-1 rounded-full border border-white/20 bg-[#111827]/80 backdrop-blur-md shadow-[0_8px_22px_rgba(0,0,0,0.35)] px-3 py-1.5">
+                    <div className="flex items-center gap-1 rounded-full border border-white/15 bg-[#083344]/30 backdrop-blur-md shadow-[0_8px_22px_rgba(0,0,0,0.35)] px-3 py-1">
                         <Link href="/portfolio" className={`inline-flex items-center justify-center ${pillItemClass}`}>
                             Portfolio
                         </Link>
@@ -165,14 +165,14 @@ export function Navbar() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="Visit Sovereign Bookings"
-                        className="relative flex items-center justify-center w-10 h-10 lg:w-11 lg:h-11 rounded-xl overflow-hidden ring-1 ring-white/15 hover:ring-brand-cyan/60 transition-all hover:scale-105"
+                        className="relative flex items-center justify-center w-10 h-10 transition-transform hover:scale-105"
                     >
                         <Image
-                            src="/sovereign-bookings-logo.png"
+                            src="/sovereign-bookings-icon.png"
                             alt="Sovereign Bookings"
-                            width={44}
-                            height={44}
-                            className="object-contain w-full h-full"
+                            width={40}
+                            height={40}
+                            className="object-contain w-full h-full drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)]"
                         />
                     </a>
                 </div>
