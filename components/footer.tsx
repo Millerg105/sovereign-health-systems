@@ -125,20 +125,34 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar with System Status */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-center md:flex-row">
-          © {new Date().getFullYear()} Sovereign Systems. All rights reserved.
-          <nav className="flex flex-wrap justify-center md:justify-start gap-4 text-base items-center">
-            <Link href="/privacy" className="transition-colors hover:text-brand-cyan text-white/60">
-              Privacy Policy
-            </Link>
-            <Link href="/terms" className="transition-colors hover:text-brand-cyan text-white/60">
-              Terms of Service
-            </Link>
-            <div className="flex items-center gap-2 text-xs text-white/40 uppercase tracking-widest ml-4">
-              <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-              Systems Operational
-            </div>
-          </nav>
+        <div className="mt-12 border-t border-white/10 pt-8">
+          <p className="mb-6 text-center text-xs text-white/45">
+            Part of the Sovereign group. Looking for trades lead generation? Visit{" "}
+            <a
+              href="https://sovereignbookings.co.uk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-brand-cyan transition-colors"
+            >
+              Sovereign Bookings
+            </a>
+            .
+          </p>
+          <div className="flex flex-col items-center justify-between gap-4 text-center md:flex-row">
+            © {new Date().getFullYear()} Sovereign Systems. All rights reserved.
+            <nav className="flex flex-wrap justify-center md:justify-start gap-4 text-base items-center">
+              <Link href="/privacy" className="transition-colors hover:text-brand-cyan text-white/60">
+                Privacy Policy
+              </Link>
+              <Link href="/terms" className="transition-colors hover:text-brand-cyan text-white/60">
+                Terms of Service
+              </Link>
+              <div className="flex items-center gap-2 text-xs text-white/40 uppercase tracking-widest ml-4">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                Systems Operational
+              </div>
+            </nav>
+          </div>
         </div>
       </div>
     </footer>

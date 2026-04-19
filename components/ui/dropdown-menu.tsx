@@ -11,7 +11,7 @@ type DropdownMenuProps = {
     Icon?: React.ReactNode;
   }[];
   children: React.ReactNode;
-  triggerVariant?: "primary" | "secondary";
+  triggerVariant?: "primary" | "secondary" | "pill";
   triggerClassName?: string;
   menuClassName?: string;
 };
@@ -74,17 +74,21 @@ const DropdownMenu = ({ options, children, triggerVariant = "secondary", trigger
         onFocus={openDropdown}
         aria-expanded={isOpen}
         aria-haspopup="menu"
-        whileHover={{ scale: 1.01 }}
+        whileHover={triggerVariant === "pill" ? undefined : { scale: 1.01 }}
         whileTap={{ scale: 0.98 }}
-        className={`${triggerVariant === "primary" ? "btn-premium-primary" : "btn-premium-secondary"} inline-flex items-center justify-center gap-2 px-4 py-2 font-medium ${triggerClassName ?? ""}`}
+        className={
+          triggerVariant === "pill"
+            ? `inline-flex items-center justify-center gap-1 ${triggerClassName ?? ""}`
+            : `${triggerVariant === "primary" ? "btn-premium-primary" : "btn-premium-secondary"} inline-flex items-center justify-center gap-2 px-4 py-2 font-medium ${triggerClassName ?? ""}`
+        }
       >
         {children ?? "Menu"}
         <motion.span
-          className="ml-2"
+          className={triggerVariant === "pill" ? "ml-0" : "ml-2"}
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.25, ease: "easeInOut" }}
         >
-          <ChevronDown className="h-4 w-4" />
+          <ChevronDown className={triggerVariant === "pill" ? "h-3 w-3 opacity-70" : "h-4 w-4"} />
         </motion.span>
       </motion.button>
 

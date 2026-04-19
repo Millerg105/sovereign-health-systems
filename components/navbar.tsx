@@ -101,7 +101,7 @@ export function Navbar() {
         { label: "Start a Project", onClick: () => navigateToSection("booking"), Icon: <CalendarCheck className="h-4 w-4" /> },
     ];
 
-    const dropdownTriggerClass = "h-9 lg:h-10 px-3 lg:px-4 text-xs lg:text-sm rounded-full";
+    const pillItemClass = "px-3 py-2 rounded-full text-[11px] font-semibold uppercase tracking-[0.16em] text-white hover:text-brand-cyan transition-colors";
     const dropdownPrimaryClass = "h-9 lg:h-10 px-4 lg:px-5 text-xs lg:text-sm rounded-full";
 
     return (
@@ -132,24 +132,16 @@ export function Navbar() {
                     </span>
                 </button>
 
-                {/* Centre nav, md+ */}
-                <div className="hidden md:flex items-center gap-1 lg:gap-2">
-                    <Link
-                        href="/portfolio"
-                        className="inline-flex items-center justify-center h-9 lg:h-10 px-3 lg:px-4 text-xs lg:text-sm font-medium text-white/80 hover:text-brand-cyan rounded-full transition-colors"
-                    >
-                        Portfolio
-                    </Link>
-                    <DropdownMenu options={valueOptions} triggerClassName={dropdownTriggerClass}>Quick Links</DropdownMenu>
-                    <DropdownMenu options={painPointOptions} triggerClassName={dropdownTriggerClass}>Services</DropdownMenu>
-                    <DropdownMenu options={pricingOptions} triggerClassName={dropdownTriggerClass}>Pricing</DropdownMenu>
-                    <DropdownMenu
-                        options={bookingOptions}
-                        triggerVariant="primary"
-                        triggerClassName={dropdownPrimaryClass}
-                    >
-                        Start a Project
-                    </DropdownMenu>
+                {/* Centre nav, md+ — Tranquil-style dark pill */}
+                <div className="hidden md:flex">
+                    <div className="flex items-center gap-1 rounded-full border border-white/20 bg-[#111827]/80 backdrop-blur-md shadow-[0_8px_22px_rgba(0,0,0,0.35)] px-3 py-1.5">
+                        <Link href="/portfolio" className={`inline-flex items-center justify-center ${pillItemClass}`}>
+                            Portfolio
+                        </Link>
+                        <DropdownMenu options={valueOptions} triggerVariant="pill" triggerClassName={pillItemClass}>Quick Links</DropdownMenu>
+                        <DropdownMenu options={painPointOptions} triggerVariant="pill" triggerClassName={pillItemClass}>Services</DropdownMenu>
+                        <DropdownMenu options={pricingOptions} triggerVariant="pill" triggerClassName={pillItemClass}>Pricing</DropdownMenu>
+                    </div>
                 </div>
 
                 {/* Right CTAs, md+ */}
@@ -161,6 +153,13 @@ export function Navbar() {
                     >
                         Client Login
                     </Link>
+                    <DropdownMenu
+                        options={bookingOptions}
+                        triggerVariant="primary"
+                        triggerClassName={dropdownPrimaryClass}
+                    >
+                        Start a Project
+                    </DropdownMenu>
                     <a
                         href="https://sovereignbookings.co.uk"
                         target="_blank"
