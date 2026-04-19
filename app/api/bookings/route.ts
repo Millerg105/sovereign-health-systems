@@ -232,6 +232,7 @@ export async function POST(req: Request) {
     const supabase = getSupabaseServerClient()
     const { error: dbError } = await supabase.from("bookings").insert({
       ref,
+      brand: "systems",
       call_type: callType,
       booking_date: bookingDate,
       booking_date_display: bookingDateDisplay,
@@ -315,15 +316,4 @@ export async function POST(req: Request) {
               ],
             },
           },
-        })
-      } catch (calError) {
-        console.error("Google Calendar event failed:", calError)
-      }
-    }
-
-    return NextResponse.json({ success: true, ref })
-  } catch (error) {
-    console.error("Booking API Error:", error)
-    return NextResponse.json({ message: "Internal Server Error" }, { status: 500 })
-  }
-}
+        })
