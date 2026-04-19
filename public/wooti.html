@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Wooti · Social Media Lead Briefing · Sovereign Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e14;
+    --bg-2: #11161f;
+    --bg-3: #161d28;
+    --border: #1f2937;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --systems: #3b82f6;
+    --systems-glow: rgba(59, 130, 246, 0.15);
+    --bookings: #10b981;
+    --bookings-glow: rgba(16, 185, 129, 0.15);
+    --shared: #a855f7;
+    --shared-glow: rgba(168, 85, 247, 0.15);
+    --warn: #f59e0b;
+    --danger: #ef4444;
+    --ok: #10b981;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  a { color: var(--systems); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 48px 32px; }
+
+  /* HERO */
+  header.hero {
+    text-align: center;
+    padding: 72px 32px 56px;
+    border-bottom: 1px solid var(--border);
+    background: radial-gradient(ellipse at top, rgba(168, 85, 247, 0.10), transparent 70%);
+  }
+  header.hero .badge {
+    display: inline-block;
+    padding: 6px 14px;
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  header.hero h1 { font-size: 56px; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 14px; }
+  header.hero h1 .accent { color: var(--shared); }
+  header.hero .sub { color: var(--muted); font-size: 19px; max-width: 720px; margin: 0 auto; }
+  header.hero .meta { margin-top: 28px; font-size: 12px; color: var(--muted); letter-spacing: 0.5px; }
+
+  nav.jumplinks {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+    padding: 20px 32px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-2);
+    position: sticky; top: 0; z-index: 10;
+  }
+  nav.jumplinks a {
+    padding: 6px 12px;
+    font-size: 12px;
+    color: var(--muted);
+    border: 1px solid transparent;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.15s;
+  }
+  nav.jumplinks a:hover { color: var(--text); border-color: var(--border); background: var(--bg-3); text-decoration: none; }
+
+  section { margin: 72px 0; }
+  h2 {
+    font-size: 32px;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+    font-weight: 700;
+  }
+  h2 .num {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 38px;
+    text-align: center;
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 14px;
+    color: var(--muted);
+    margin-right: 14px;
+    vertical-align: middle;
+    font-weight: 600;
+  }
+  h3 { font-size: 18px; margin: 24px 0 12px; color: var(--text); font-weight: 600; }
+  .section-intro { color: var(--muted); font-size: 15px; max-width: 780px; margin-bottom: 28px; }
+  p { color: var(--muted); margin-bottom: 12px; }
+  p strong { color: var(--text); font-weight: 600; }
+
+  /* MISSION PILLARS */
+  .pillars {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  .pillar {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .pillar::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  }
+  .pillar.grow::before { background: var(--systems); }
+  .pillar.engage::before { background: var(--shared); }
+  .pillar.dm::before { background: var(--bookings); }
+  .pillar .icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; margin-bottom: 16px;
+  }
+  .pillar.grow .icon { background: var(--systems-glow); color: var(--systems); }
+  .pillar.engage .icon { background: var(--shared-glow); color: var(--shared); }
+  .pillar.dm .icon { background: var(--bookings-glow); color: var(--bookings); }
+  .pillar h3 { margin: 0 0 8px; font-size: 20px; }
+  .pillar .tagline { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
+  .pillar .target {
+    padding-top: 16px;
+    border-top: 1px dashed var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+  .pillar .target .k { color: var(--muted); text-transform: uppercase; font-size: 11px; letter-spacing: 1px; }
+  .pillar .target .v { color: var(--text); font-size: 18px; margin-top: 4px; font-weight: 600; }
+
+  /* KPI DASHBOARD */
+  .kpi-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+  }
+  .kpi {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    position: relative;
+  }
+  .kpi .label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted); }
+  .kpi .number { font-size: 42px; font-weight: 800; letter-spacing: -1px; margin-top: 8px; line-height: 1; }
+  .kpi .unit { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .kpi.accent-s .number { color: var(--systems); }
+  .kpi.accent-b .number { color: var(--bookings); }
+  .kpi.accent-p .number { color: var(--shared); }
+  .kpi.accent-w .number { color: var(--warn); }
+
+  .engagement-ladder {
+    margin-top: 32px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+  }
+  .engagement-ladder h3 { margin-top: 0; margin-bottom: 16px; font-size: 16px; }
+  .ladder-row {
+    display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--border);
+    font-size: 14px;
+  }
+  .ladder-row:last-child { border-bottom: none; }
+  .ladder-row .plat { font-weight: 600; }
+  .ladder-row .by-wk { color: var(--muted); font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+  .ladder-row .by-wk.target { color: var(--ok); }
+  .ladder-row .metric { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* BRAND CARDS */
+  .brand-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  }
+  .brand-card { padding: 28px; border-radius: 16px; border: 1px solid; }
+  .brand-card.systems {
+    border-color: var(--systems);
+    background: linear-gradient(180deg, var(--systems-glow), transparent);
+  }
+  .brand-card.bookings {
+    border-color: var(--bookings);
+    background: linear-gradient(180deg, var(--bookings-glow), transparent);
+  }
+  .brand-card .head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+  .brand-card h3 { font-size: 24px; margin: 0; font-weight: 700; }
+  .brand-card.systems h3 { color: var(--systems); }
+  .brand-card.bookings h3 { color: var(--bookings); }
+  .brand-card .role { font-size: 11px; padding: 4px 10px; border-radius: 999px; background: var(--bg-3); color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+  .brand-card .domain-row { display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
+  .brand-card .domain-row a {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    padding: 6px 10px; background: var(--bg-3); border: 1px solid var(--border); border-radius: 6px;
+  }
+  .brand-card ul { list-style: none; padding: 0; }
+  .brand-card li { padding: 10px 0; border-bottom: 1px dashed var(--border); font-size: 14px; display: flex; justify-content: space-between; gap: 16px; }
+  .brand-card li:last-child { border-bottom: none; }
+  .brand-card li .k { color: var(--muted); min-width: 110px; font-size: 13px; }
+  .brand-card li .v { color: var(--text); font-size: 13px; text-align: right; }
+
+  /* PLATFORM CARDS */
+  .platforms {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+  }
+  .plat-card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+  }
+  .plat-card .plat-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .plat-card h3 { margin: 0; font-size: 22px; font-weight: 700; }
+  .plat-card .plat-priority {
+    font-size: 11px; padding: 4px 10px; border-radius: 999px; text-transform: uppercase; letter-spacing: 1px;
+  }
+  .plat-priority.p1 { background: rgba(16, 185, 129, 0.15); color: var(--ok); border: 1px solid var(--ok); }
+  .plat-priority.p2 { background: rgba(245, 158, 11, 0.15); color: var(--warn); border: 1px solid var(--warn); }
+  .plat-card .cadence {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px;
+    padding: 10px 14px; background: var(--bg-3); border-radius: 8px; margin-bottom: 18px;
+  }
+  .plat-card .cadence .k { color: var(--muted); }
+  .plat-card ul { list-style: none; padding: 0; margin-bottom: 16px; }
+  .plat-card li { padding: 7px 0; font-size: 14px; color: var(--muted); padding-left: 20px; position: relative; }
+  .plat-card li::before { content: ''; position: absolute; left: 0; top: 16px; width: 6px; height: 6px; background: var(--shared); border-radius: 50%; }
+  .plat-card li strong { color: var(--text); }
+  .plat-card .plat-links { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 16px; border-top: 1px dashed var(--border); }
+  .plat-card .plat-links a {
+    padding: 6px 12px;
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--text);
+  }
+  .plat-card .plat-links a:hover { border-color: var(--shared); color: var(--shared); text-decoration: none; }
+
+  /* WEEK 1 CHECKLIST */
+  .checklist {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+  }
+  .check-item {
+    display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px dashed var(--border);
+    cursor: pointer;
+  }
+  .check-item:last-child { border-bottom: none; }
+  .check-item input[type="checkbox"] {
+    appearance: none;
+    min-width: 22px; height: 22px;
+    border: 1px solid var(--border); border-radius: 5px;
+    background: var(--bg-3);
+    cursor: pointer;
+    margin-top: 2px;
+    position: relative;
+    transition: all 0.15s;
+  }
+  .check-item input[type="checkbox"]:checked {
+    background: var(--ok); border-color: var(--ok);
+  }
+  .check-item input[type="checkbox"]:checked::after {
+    content: '✓'; position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%); color: var(--bg); font-weight: 800; font-size: 14px;
+  }
+  .check-item .content { flex: 1; }
+  .check-item .title { font-weight: 600; font-size: 15px; color: var(--text); }
+  .check-item input:checked + .content .title { text-decoration: line-through; color: var(--muted); }
+  .check-item .desc { color: var(--muted); font-size: 13px; margin-top: 4px; }
+  .check-item .tag {
+    font-size: 10px; padding: 3px 8px; border-radius: 999px;
+    background: var(--bg-3); color: var(--muted); text-transform: uppercase; letter-spacing: 1px;
+    align-self: flex-start;
+  }
+
+  /* RESOURCE CARDS */
+  .resource-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  }
+  .resource-card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    transition: all 0.15s;
+    display: block;
+    color: var(--text);
+  }
+  .resource-card:hover {
+    border-color: var(--shared);
+    transform: translateY(-2px);
+    text-decoration: none;
+  }
+  .resource-card .rtype {
+    font-size: 10px; padding: 3px 8px; border-radius: 999px;
+    background: var(--bg-3); color: var(--muted); text-transform: uppercase; letter-spacing: 1px;
+    display: inline-block; margin-bottom: 12px;
+  }
+  .resource-card h4 { font-size: 15px; margin-bottom: 6px; font-weight: 600; color: var(--text); }
+  .resource-card p { font-size: 13px; color: var(--muted); margin: 0; }
+  .resource-card .arrow { margin-top: 10px; color: var(--shared); font-size: 12px; letter-spacing: 0.5px; }
+
+  /* RULES */
+  .rules-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+  }
+  .rule {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--danger);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .rule .n {
+    display: inline-block; background: var(--bg-3); color: var(--danger);
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    padding: 2px 8px; border-radius: 4px; margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+  .rule h4 { font-size: 15px; margin-bottom: 6px; font-weight: 600; }
+  .rule p { font-size: 13px; margin: 0; }
+
+  /* SCRIPT BOX */
+  .script-box {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 20px;
+    position: relative;
+  }
+  .script-box .stag {
+    font-size: 10px; padding: 3px 8px; border-radius: 999px;
+    background: var(--bookings-glow); color: var(--bookings);
+    text-transform: uppercase; letter-spacing: 1px; display: inline-block; margin-bottom: 12px;
+    border: 1px solid var(--bookings);
+  }
+  .script-box .script {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; line-height: 1.7;
+    color: var(--text);
+    padding: 16px;
+    background: var(--bg-3);
+    border-radius: 8px;
+    border-left: 3px solid var(--bookings);
+  }
+  .copy-btn {
+    position: absolute; top: 16px; right: 16px;
+    background: var(--bg-3); color: var(--text);
+    border: 1px solid var(--border); border-radius: 6px;
+    padding: 6px 12px; font-size: 12px; cursor: pointer;
+    font-family: inherit;
+  }
+  .copy-btn:hover { border-color: var(--bookings); color: var(--bookings); }
+  .copy-btn.copied { color: var(--ok); border-color: var(--ok); }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 32px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 80px;
+  }
+  footer strong { color: var(--text); }
+  footer a { color: var(--shared); }
+
+  @media (max-width: 900px) {
+    header.hero h1 { font-size: 36px; }
+    .pillars, .kpi-grid, .brand-row, .platforms, .resource-grid, .rules-grid { grid-template-columns: 1fr; }
+    .ladder-row { grid-template-columns: 1fr 1fr; font-size: 13px; }
+    nav.jumplinks { font-size: 11px; }
+    .wrap { padding: 32px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <span class="badge">Sovereign Digital · Social Media Lead Briefing</span>
+  <h1>Wooti, <span class="accent">you're in.</span></h1>
+  <p class="sub">This is your operating manual. Grow the brand, engage the audience, send the DMs. Everything you need is one click away.</p>
+  <p class="meta">Confidential · Prepared 19 April 2026 · Sovereign Digital Limited</p>
+</header>
+
+<nav class="jumplinks">
+  <a href="#mission">01 Mission</a>
+  <a href="#numbers">02 Weekly Numbers</a>
+  <a href="#brands">03 The Two Brands</a>
+  <a href="#platforms">04 The Four Platforms</a>
+  <a href="#week1">05 Week 1 Setup</a>
+  <a href="#resources">06 Resource Library</a>
+  <a href="#rules">07 Hard Rules</a>
+  <a href="#commission">08 Commission</a>
+</nav>
+
+<div class="wrap">
+
+  <!-- ================== 01 MISSION ================== -->
+  <section id="mission">
+    <h2><span class="num">01</span>The Mission</h2>
+    <p class="section-intro">Three things. In this order. Grow the audience, engage the audience, turn engaged people into booked calls. Anything you do should slot into one of these.</p>
+    <div class="pillars">
+      <div class="pillar grow">
+        <div class="icon">↗</div>
+        <h3>Grow</h3>
+        <p class="tagline">Build the follower base across both brands. Real followers only, no shortcuts.</p>
+        <div class="target">
+          <div class="k">This week</div>
+          <div class="v">+100 new follows of target accounts</div>
+        </div>
+      </div>
+      <div class="pillar engage">
+        <div class="icon">◉</div>
+        <h3>Engage</h3>
+        <p class="tagline">Comment with value on target accounts before you ever slide into DMs. Warmth game.</p>
+        <div class="target">
+          <div class="k">This week</div>
+          <div class="v">35 warm comments on target posts</div>
+        </div>
+      </div>
+      <div class="pillar dm">
+        <div class="icon">→</div>
+        <h3>DM</h3>
+        <p class="tagline">Once warmth is there, send the message. Short, personal, no pitch slap.</p>
+        <div class="target">
+          <div class="k">This week</div>
+          <div class="v">50 qualified DMs sent</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================== 02 WEEKLY NUMBERS ================== -->
+  <section id="numbers">
+    <h2><span class="num">02</span>Weekly Numbers</h2>
+    <p class="section-intro">The floor, not the ceiling. Hit these every Monday to Friday. Log them in the shared Notion tracker end of each day so we can see the pattern.</p>
+    <div class="kpi-grid">
+      <div class="kpi accent-b">
+        <div class="label">DMs Sent</div>
+        <div class="number">50</div>
+        <div class="unit">per week · 10/day</div>
+      </div>
+      <div class="kpi accent-s">
+        <div class="label">New Follows</div>
+        <div class="number">100</div>
+        <div class="unit">target accounts · 20/day</div>
+      </div>
+      <div class="kpi accent-p">
+        <div class="label">Warm Comments</div>
+        <div class="number">35</div>
+        <div class="unit">per week · 7/day</div>
+      </div>
+      <div class="kpi accent-w">
+        <div class="label">Posts Published</div>
+        <div class="number">15</div>
+        <div class="unit">across 4 platforms · 3/day</div>
+      </div>
+    </div>
+
+    <div class="engagement-ladder">
+      <h3>Engagement Growth Targets (by end of Week 4)</h3>
+      <div class="ladder-row">
+        <div class="plat">LinkedIn · Systems page</div>
+        <div class="metric">Followers</div>
+        <div class="by-wk">Starting: 0</div>
+        <div class="by-wk target">Target: +200</div>
+      </div>
+      <div class="ladder-row">
+        <div class="plat">LinkedIn · Bookings page</div>
+        <div class="metric">Followers</div>
+        <div class="by-wk">Starting: ~10</div>
+        <div class="by-wk target">Target: +200</div>
+      </div>
+      <div class="ladder-row">
+        <div class="plat">TikTok · Bookings</div>
+        <div class="metric">Followers</div>
+        <div class="by-wk">Starting: 0</div>
+        <div class="by-wk target">Target: +500</div>
+      </div>
+      <div class="ladder-row">
+        <div class="plat">Instagram · Bookings</div>
+        <div class="metric">Followers</div>
+        <div class="by-wk">Starting: ~20</div>
+        <div class="by-wk target">Target: +300</div>
+      </div>
+      <div class="ladder-row">
+        <div class="plat">Facebook · Bookings page</div>
+        <div class="metric">Followers + group engagement</div>
+        <div class="by-wk">Starting: low</div>
+        <div class="by-wk target">Target: +100 + 5 group threads</div>
+      </div>
+      <div class="ladder-row">
+        <div class="plat">Your personal LinkedIn</div>
+        <div class="metric">Impressions per post</div>
+        <div class="by-wk">Starting: baseline</div>
+        <div class="by-wk target">Target: 1k+ avg by Week 4</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================== 03 BRANDS ================== -->
+  <section id="brands">
+    <h2><span class="num">03</span>The Two Brands</h2>
+    <p class="section-intro">You run socials for both. Every post picks one brand. Never mix voices, never cross offers. Click through, study the sites, read the copy.</p>
+    <div class="brand-row">
+      <div class="brand-card systems">
+        <div class="head">
+          <h3>Sovereign Systems</h3>
+          <span class="role">General Agency</span>
+        </div>
+        <div class="domain-row">
+          <a href="https://sovereignsystem.co.uk" target="_blank">sovereignsystem.co.uk</a>
+          <a href="https://sovereignsystem.co.uk/portfolio" target="_blank">/portfolio</a>
+          <a href="https://sovereignsystem.co.uk/dashboard" target="_blank">/dashboard demo</a>
+        </div>
+        <ul>
+          <li><span class="k">Who it's for</span><span class="v">Any trade or local business</span></li>
+          <li><span class="k">Offer</span><span class="v">Sites £500-£2k + retainers £99-£349/mo</span></li>
+          <li><span class="k">Voice</span><span class="v">Premium, technical, Northern, grounded</span></li>
+          <li><span class="k">Colour</span><span class="v">Blue #3b82f6</span></li>
+          <li><span class="k">Post cadence</span><span class="v">2-3/week LinkedIn + 3/week Instagram/FB</span></li>
+        </ul>
+      </div>
+      <div class="brand-card bookings">
+        <div class="head">
+          <h3>Sovereign Bookings</h3>
+          <span class="role">Specialist Arm</span>
+        </div>
+        <div class="domain-row">
+          <a href="https://sovereignbookings.co.uk" target="_blank">sovereignbookings.co.uk</a>
+          <a href="https://tranquil-garden-rooms.vercel.app" target="_blank">tranquil demo</a>
+        </div>
+        <ul>
+          <li><span class="k">Who it's for</span><span class="v">Garden room companies ONLY for now</span></li>
+          <li><span class="k">Offer</span><span class="v">£500 setup + £300/appointment + free site</span></li>
+          <li><span class="k">Voice</span><span class="v">Performance, numbers-first, "show up and quote"</span></li>
+          <li><span class="k">Colour</span><span class="v">Green #10b981</span></li>
+          <li><span class="k">Post cadence</span><span class="v">2-3/week LinkedIn + daily TikTok + daily IG</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================== 04 PLATFORMS ================== -->
+  <section id="platforms">
+    <h2><span class="num">04</span>The Four Platforms</h2>
+    <p class="section-intro">Each has its own rhythm. Don't cross-post identical content. Native uploads every time, no watermarks.</p>
+    <div class="platforms">
+
+      <div class="plat-card">
+        <div class="plat-head">
+          <h3>LinkedIn</h3>
+          <span class="plat-priority p1">Priority 1</span>
+        </div>
+        <div class="cadence">
+          <span class="k">Cadence:</span> 2-3 posts/week per brand page + 3-5 personal posts/week + 7 warm comments/day + 10 DMs/day
+        </div>
+        <ul>
+          <li><strong>Company pages:</strong> Systems + Bookings. Case studies, wins, screenshots, behind the scenes.</li>
+          <li><strong>Your personal profile:</strong> you post as yourself. Tag Sovereign. This reaches 10x further than company-page-only.</li>
+          <li><strong>Warm comments first:</strong> comment value on target posts for 5-7 days BEFORE DMing. No "great post".</li>
+          <li><strong>Long-form articles:</strong> one deep post every 2-3 weeks. Algorithm rewards it.</li>
+        </ul>
+        <div class="plat-links">
+          <a href="https://www.linkedin.com/company/112880250" target="_blank">Bookings page</a>
+          <a href="https://sovereignsystem.co.uk" target="_blank">Systems live site (for screenshots)</a>
+        </div>
+      </div>
+
+      <div class="plat-card">
+        <div class="plat-head">
+          <h3>TikTok</h3>
+          <span class="plat-priority p1">Priority 1</span>
+        </div>
+        <div class="cadence">
+          <span class="k">Cadence:</span> Daily. Bookings-first. Garden room content.
+        </div>
+        <ul>
+          <li><strong>Format:</strong> face-to-camera OR voice-over AI visuals. Raw, not polished.</li>
+          <li><strong>Angles:</strong> PPA explainer, "why most garden room sites lose money", before/after walkthroughs (Tranquil), build speed, AI leverage.</li>
+          <li><strong>No watermarks:</strong> export clean from your editor, upload native.</li>
+          <li><strong>Clickable link unlocks at 1k followers.</strong> Until then, put the URL in plain text in bio.</li>
+        </ul>
+        <div class="plat-links">
+          <a href="https://tranquil-garden-rooms.vercel.app" target="_blank">Tranquil walkthrough source</a>
+        </div>
+      </div>
+
+      <div class="plat-card">
+        <div class="plat-head">
+          <h3>Instagram</h3>
+          <span class="plat-priority p2">Priority 2</span>
+        </div>
+        <div class="cadence">
+          <span class="k">Cadence:</span> 1 reel/day + 3 stories/day + DMs
+        </div>
+        <ul>
+          <li><strong>Reels:</strong> alternate brand focus, lean Bookings 70%.</li>
+          <li><strong>Stories:</strong> behind the scenes, polls, countdowns. Keeps the algorithm warm.</li>
+          <li><strong>DMs:</strong> after warm engagement. Voice notes land better than text.</li>
+          <li><strong>Bio link:</strong> point at sovereignbookings.co.uk for Bookings, sovereignsystem.co.uk for Systems.</li>
+        </ul>
+      </div>
+
+      <div class="plat-card">
+        <div class="plat-head">
+          <h3>Facebook</h3>
+          <span class="plat-priority p2">Priority 2</span>
+        </div>
+        <div class="cadence">
+          <span class="k">Cadence:</span> 3 posts/week per brand + 5 groups
+        </div>
+        <ul>
+          <li><strong>Group strategy:</strong> join 5 local trade groups (NW England), post value once a week each.</li>
+          <li><strong>Page posts:</strong> case studies, client wins, content repurposed from LinkedIn.</li>
+          <li><strong>Messenger:</strong> same rules as IG DMs. Warm first, never cold pitch.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================== 05 WEEK 1 SETUP ================== -->
+  <section id="week1">
+    <h2><span class="num">05</span>Week 1 Setup</h2>
+    <p class="section-intro">Don't post anything yet. Week 1 is approval-gated. Tick these off as you go.</p>
+    <div class="checklist">
+      <label class="check-item">
+        <input type="checkbox">
+        <div class="content">
+          <div class="title">Log in to Sovereign Bookings Instagram + Facebook (credentials from Miller)</div>
+          <div class="desc">Both are already live. You're inheriting them.</div>
+        </div>
+        <span class="tag">30 min</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox">
+        <div class="content">
+          <div class="title">Set up Sovereign Bookings LinkedIn admin access</div>
+          <div class="desc">Miller adds you as admin on the company page (linkedin.com/company/112880250).</div>
+        </div>
+        <span class="tag">10 min</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox">
+        <div class="content">
+          <div class="title">Set up Sovereign Bookings TikTok account</div>
+          <div class="desc">Business account. Handle: @sovereignbookings. Bio + link + profile picture from brand folder.</div>
+        </div>
+        <span class="tag">30 min</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox">
+        <div class="content">
+          <div class="title">Update personal LinkedIn headline</div>
+          <div class="desc">Suggested: "Social Media Lead at Sovereign Bookings · performance lead-gen for garden room companies"</div>
+        </div>
+        <span class="tag">10 min</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox">
+        <div class="content">
+          <div class="title">Read the Sovereign Digital Strategy doc (North Star)</div>
+          <div class="desc">Two-brand architecture, decision rules, 90-day roadmap. Everything you need to answer "what would Miller and Joe do".</div>
+        </div>
+        <span class="tag">45 min</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox">
+        <div class="content">
+          <div class="title">Walk through the Tranquil live site</div>
+          <div class="desc">This is your flagship asset. Every Bookings post should point here or reference it.</div>
+        </div>
+        <span class="tag">20 min</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox">
+        <div class="content">
+          <div class="title">Draft 5 posts across both brands</div>
+          <div class="desc">2-3 Bookings LinkedIn + 1 Systems LinkedIn + 1 personal post + 1 TikTok script. Loom me the reasoning.</div>
+        </div>
+        <span class="tag">2 hrs</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox">
+        <div class="content">
+          <div class="title">Miller approves → we post → we iterate</div>
+          <div class="desc">After week 1, you've got free rein within the brand rules.</div>
+        </div>
+        <span class="tag">30 min</span>
+      </label>
+    </div>
+  </section>
+
+  <!-- ================== 06 RESOURCES ================== -->
+  <section id="resources">
+    <h2><span class="num">06</span>Resource Library</h2>
+    <p class="section-intro">Everything linked. Bookmark this page. If you're not sure what to look at, start here.</p>
+    <div class="resource-grid">
+
+      <a href="https://sovereignsystem.co.uk" target="_blank" class="resource-card">
+        <span class="rtype">Live Site</span>
+        <h4>Sovereign Systems</h4>
+        <p>Main agency site. Screenshots, portfolio pieces, dashboard demo.</p>
+        <div class="arrow">Open →</div>
+      </a>
+
+      <a href="https://sovereignbookings.co.uk" target="_blank" class="resource-card">
+        <span class="rtype">Live Site</span>
+        <h4>Sovereign Bookings</h4>
+        <p>PPA niche site. ROI calculator, booking wizard, PPA explainer.</p>
+        <div class="arrow">Open →</div>
+      </a>
+
+      <a href="https://tranquil-garden-rooms.vercel.app" target="_blank" class="resource-card">
+        <span class="rtype">Flagship Asset</span>
+        <h4>Tranquil Garden Rooms</h4>
+        <p>The master garden room mock. Screen-record walkthroughs from here for reels and TikToks.</p>
+        <div class="arrow">Open →</div>
+      </a>
+
+      <a href="https://cg-paving-mock.vercel.app" target="_blank" class="resource-card">
+        <span class="rtype">Portfolio Piece</span>
+        <h4>CG Paving Mock</h4>
+        <p>Shows we build for any trade. Useful Systems content, not a Bookings niche.</p>
+        <div class="arrow">Open →</div>
+      </a>
+
+      <a href="https://sovereignsystem.co.uk/dashboard" target="_blank" class="resource-card">
+        <span class="rtype">Product Demo</span>
+        <h4>Systems Dashboard</h4>
+        <p>The retainer upsell product. Great for Systems LinkedIn screenshot posts.</p>
+        <div class="arrow">Open →</div>
+      </a>
+
+      <a href="https://sovereignsystem.co.uk/pitch/luke-steedman" target="_blank" class="resource-card">
+        <span class="rtype">Sample Pitch</span>
+        <h4>Luke Steedman Pitch</h4>
+        <p>Example of how we pitch a new client. Useful context for the sales side.</p>
+        <div class="arrow">Open →</div>
+      </a>
+
+      <a href="https://www.linkedin.com/company/112880250" target="_blank" class="resource-card">
+        <span class="rtype">Social</span>
+        <h4>Bookings LinkedIn Page</h4>
+        <p>Company page you'll be admin on. Set up second, post from here.</p>
+        <div class="arrow">Open →</div>
+      </a>
+
+      <a href="https://drive.google.com/" target="_blank" class="resource-card">
+        <span class="rtype">Brand Assets</span>
+        <h4>Logo + Brand Files</h4>
+        <p>Wordmarks, icons, colour palette, fonts. Miller will share the folder direct. Don't create own assets.</p>
+        <div class="arrow">Get link from Miller →</div>
+      </a>
+
+      <a href="mailto:contact.sovereignsystems@gmail.com" class="resource-card">
+        <span class="rtype">Email</span>
+        <h4>Shared Sovereign Inbox</h4>
+        <p>contact.sovereignsystems@gmail.com. Use for any outbound email. Ask Miller for access.</p>
+        <div class="arrow">Compose →</div>
+      </a>
+
+    </div>
+
+    <div class="script-box">
+      <span class="stag">Copy-Paste Script</span>
+      <button class="copy-btn" onclick="copyScript(this)">Copy</button>
+      <h3 style="margin-top: 0; margin-bottom: 8px;">PPA Explainer — 45s Founder Talking Head or Voice-Over</h3>
+      <p style="margin-bottom: 16px; font-size: 13px;">Use on TikTok, Instagram reels, LinkedIn video, Facebook. Change the delivery for each platform.</p>
+      <div class="script" id="script-text">You're a garden room company tired of paying for leads that ghost you. We're not a lead company. You don't pay us until someone books a quote with you and actually shows up. £300 a show. That's it. Link in bio.</div>
+    </div>
+  </section>
+
+  <!-- ================== 07 RULES ================== -->
+  <section id="rules">
+    <h2><span class="num">07</span>Hard Rules</h2>
+    <p class="section-intro">Break these and we have a conversation. They exist for a reason.</p>
+    <div class="rules-grid">
+      <div class="rule">
+        <span class="n">Rule 01</span>
+        <h4>No em dashes in any copy</h4>
+        <p>Biggest AI tell on the internet. Hyphens or full stops only. Every caption, DM, post.</p>
+      </div>
+      <div class="rule">
+        <span class="n">Rule 02</span>
+        <h4>No buying followers</h4>
+        <p>Grow genuinely. 3-5 real posts per week. No shortcuts, no pods, no engagement rings.</p>
+      </div>
+      <div class="rule">
+        <span class="n">Rule 03</span>
+        <h4>Never post Systems retainer pricing publicly</h4>
+        <p>Sales-call only. Post "starts at £99/mo" max, never full tier breakdown.</p>
+      </div>
+      <div class="rule">
+        <span class="n">Rule 04</span>
+        <h4>Never cross brand streams</h4>
+        <p>Systems offer goes on Systems channels only. Bookings offer goes on Bookings channels only. No mixing.</p>
+      </div>
+      <div class="rule">
+        <span class="n">Rule 05</span>
+        <h4>No AI-generated stock visuals</h4>
+        <p>Use real Tranquil / dashboard / build-in-public assets. Veo 2, Nano Banana, phone captures allowed.</p>
+      </div>
+      <div class="rule">
+        <span class="n">Rule 06</span>
+        <h4>No emojis unless trade-relevant</h4>
+        <p>Hammer, spanner, garden, hard hat = fine. Fire, rocket, hundred-points = absolutely not.</p>
+      </div>
+      <div class="rule">
+        <span class="n">Rule 07</span>
+        <h4>Week 1 is approval-gated</h4>
+        <p>Loom every draft to Miller before posting. After Week 1 you've got free rein within the rules.</p>
+      </div>
+      <div class="rule">
+        <span class="n">Rule 08</span>
+        <h4>Warm before DM, always</h4>
+        <p>Comment on their posts for 5-7 days before ever sliding in. Cold DMs from new accounts get reported.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================== 08 COMMISSION ================== -->
+  <section id="commission">
+    <h2><span class="num">08</span>Commission & Tracking</h2>
+    <p class="section-intro">You get paid when your content closes a client. Here's how it works.</p>
+    <div class="kpi-grid">
+      <div class="kpi accent-b">
+        <div class="label">Commission Rate</div>
+        <div class="number">10%</div>
+        <div class="unit">of any close attributable to your content</div>
+      </div>
+      <div class="kpi accent-p">
+        <div class="label">Attribution Window</div>
+        <div class="number">30</div>
+        <div class="unit">days from first touch</div>
+      </div>
+      <div class="kpi accent-s">
+        <div class="label">Tracked In</div>
+        <div class="number" style="font-size: 22px; padding-top: 14px;">Notion DB</div>
+        <div class="unit">Client Accounts · Source = "Wooti"</div>
+      </div>
+      <div class="kpi accent-w">
+        <div class="label">First Review</div>
+        <div class="number">3</div>
+        <div class="unit">closes banked, then quarterly</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p><strong>Questions?</strong> WhatsApp Miller direct. Response within 12 hours on weekdays.</p>
+  <p style="margin-top: 8px;">Sovereign Digital Limited · Company no. registered 5 April 2026 · <a href="https://sovereignsystem.co.uk" target="_blank">sovereignsystem.co.uk</a></p>
+</footer>
+
+<script>
+  function copyScript(btn) {
+    const text = document.getElementById('script-text').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.classList.add('copied');
+      btn.innerText = 'Copied ✓';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.innerText = 'Copy';
+      }, 2000);
+    });
+  }
+</script>
+
+</body>
+</html>
