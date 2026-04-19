@@ -316,4 +316,15 @@ export async function POST(req: Request) {
               ],
             },
           },
-        })
+        })
+      } catch (calError) {
+        console.error("Google Calendar event failed:", calError)
+      }
+    }
+
+    return NextResponse.json({ success: true, ref })
+  } catch (error) {
+    console.error("Booking API Error:", error)
+    return NextResponse.json({ message: "Internal Server Error" }, { status: 500 })
+  }
+}
