@@ -221,4 +221,12 @@ export async function getPortfolioPageData(): Promise<PortfolioPageData> {
     label: group.label,
     siteLabel: projects.find((project) => project.id === group.id)?.siteLabel ?? "Demo - available on request",
     siteHref: projects.find((project) => project.id === group.id)?.siteHref,
-    heroImage: buildProjectImage(group.imageNames[0], availableImages, `${group.label} showcase hero 
+    heroImage: buildProjectImage(group.imageNames[0], availableImages, `${group.label} showcase hero screenshot`),
+  }));
+
+  return {
+    coverImage: buildProjectImage("sovereign-1.png", availableImages, "Sovereign Systems cover screenshot"),
+    projects,
+    showcaseGroups,
+  };
+} 
