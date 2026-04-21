@@ -7,10 +7,6 @@ const nextConfig: NextConfig = {
         source: "/pitch/luke-steedman",
         destination: "/pitch/luke-steedman/index.html",
       },
-      {
-        source: "/pitch/chris-kearns",
-        destination: "/pitch/chris-kearns/index.html",
-      },
     ];
   },
   async headers() {
