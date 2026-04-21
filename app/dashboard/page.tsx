@@ -243,7 +243,7 @@ export default function DashboardPage() {
       </header>
 
       {/* Tab bar */}
-      <div className="relative z-10 px-4 sm:px-6 md:px-10 pt-4 sm:pt-6 flex gap-1">
+      <div className="relative z-10 px-4 sm:px-6 md:px-10 pt-4 sm:pt-6 flex gap-1 flex-wrap">
         {(["overview", "pipeline", "automations"] as const).map((tab) => (
           <button
             key={tab}
@@ -258,6 +258,21 @@ export default function DashboardPage() {
             {tab === "overview" ? "Overview" : tab === "pipeline" ? "Client Pipeline" : "Automations"}
           </button>
         ))}
+        <button
+          onClick={() => router.push("/dashboard/prospects")}
+          className="px-3 sm:px-5 py-2 sm:py-2.5 rounded-lg font-mono text-[10px] sm:text-xs uppercase tracking-[0.1em] sm:tracking-[0.12em] transition-all cursor-pointer flex items-center gap-1.5"
+          style={{
+            background: "rgba(34, 211, 238, 0.05)",
+            color: "rgba(255,255,255,0.7)",
+            border: "1px solid rgba(34, 211, 238, 0.18)",
+          }}
+          title="Lead hub, niche matching, kanban"
+        >
+          Prospects
+          <span className="font-mono text-[8px] sm:text-[9px] px-1.5 py-0.5 rounded" style={{ background: "rgba(34, 211, 238, 0.15)", color: "#22d3ee" }}>
+            NEW
+          </span>
+        </button>
       </div>
 
       {/* Main content */}
