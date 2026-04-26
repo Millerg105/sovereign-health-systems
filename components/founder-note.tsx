@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 
 export function FounderNote() {
     const [photoMissing, setPhotoMissing] = useState(false);
-    const [joePhotoMissing, setJoePhotoMissing] = useState(false);
 
     return (
         <section className="py-24 bg-transparent relative overflow-hidden">
@@ -19,7 +18,7 @@ export function FounderNote() {
             <div className="container mx-auto px-6 relative z-10">
                 <div className="max-w-4xl mx-auto bg-black/40 backdrop-blur-2xl p-10 md:p-16 rounded-[3rem] border border-white/5 shadow-2xl">
                     <div className="flex flex-col md:flex-row items-center md:items-start gap-10 md:gap-16">
-                        {/* Founder Cards */}
+                        {/* Founder Card */}
                         <div className="shrink-0 flex flex-col gap-10">
                             {/* Miller */}
                             <div className="relative group">
@@ -49,35 +48,6 @@ export function FounderNote() {
                                 <p className="mt-4 text-center text-xs font-heading font-bold text-white">Miller Glenholmes</p>
                                 <p className="text-center text-[10px] font-mono text-white/40 uppercase tracking-wider leading-tight">Founder &amp; Technical Director</p>
                             </div>
-
-                            {/* Joe */}
-                            <div className="relative group">
-                                <div className="w-28 h-28 md:w-36 md:h-36 rounded-[1.5rem] border-2 border-brand-cyan/20 shadow-[0_0_50px_rgba(34,211,238,0.1)] overflow-hidden bg-white/5 relative z-10">
-                                    {!joePhotoMissing ? (
-                                        <Image
-                                            src="/joe-winstanley.jpg"
-                                            alt="Joe Winstanley, co-founder of Sovereign Systems"
-                                            fill
-                                            sizes="(max-width: 768px) 112px, 144px"
-                                            className="object-cover object-center"
-                                            quality={100}
-                                            priority
-                                            onError={() => setJoePhotoMissing(true)}
-                                        />
-                                    ) : (
-                                        <div className="w-full h-full flex items-center justify-center text-white/10 group-hover:text-brand-cyan/40 transition-colors">
-                                            <Users className="w-12 h-12" />
-                                        </div>
-                                    )}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-brand-cyan/20 to-transparent opacity-50" />
-                                </div>
-                                <div className="absolute -inset-3 border border-brand-cyan/10 rounded-[2rem] -z-10 group-hover:border-brand-cyan/30 transition-colors duration-500" />
-                                <div className="absolute -bottom-2.5 -right-2.5 bg-brand-cyan text-black text-[9px] font-black px-3 py-1 rounded-full border-2 border-black z-20 shadow-xl">
-                                    CO-FOUNDER
-                                </div>
-                                <p className="mt-4 text-center text-xs font-heading font-bold text-white">Joe Winstanley</p>
-                                <p className="text-center text-[10px] font-mono text-white/40 uppercase tracking-wider leading-tight">Co-Founder &amp; Sales Lead</p>
-                            </div>
                         </div>
 
                         <div className="text-center md:text-left flex-1 space-y-8">
@@ -85,18 +55,18 @@ export function FounderNote() {
                                 <h3 className="text-3xl md:text-4xl font-heading font-bold text-white mb-2 tracking-tight leading-none">
                                     Founder-Led From Start To Finish.
                                 </h3>
-                                <p className="text-xl md:text-2xl font-heading font-bold text-brand-cyan mb-6 tracking-tight leading-tight">We build websites, automation, and AI systems, and we do it all ourselves.</p>
+                                <p className="text-xl md:text-2xl font-heading font-bold text-brand-cyan mb-6 tracking-tight leading-tight">I build websites, automation, and AI systems, and I do it all myself.</p>
                             </div>
 
                             <div className="space-y-6 text-base md:text-lg text-white/80 font-light leading-relaxed">
                                 <p>
-                                    Sovereign Systems is Miller Glenholmes and Joe Winstanley. We design, build, and launch digital products for businesses of all sizes, from one-page sites to full automation platforms.
+                                    Sovereign Systems is me, Miller Glenholmes. I design, build, and launch digital products for businesses of all sizes, from one-page sites to full automation platforms.
                                 </p>
                                 <p>
-                                    You get a custom proposal, a clear rollout plan, and systems built around how your business actually works. No outsourcing, no juniors, just us, building what your business needs.
+                                    You get a custom proposal, a clear rollout plan, and systems built around how your business actually works. No outsourcing, no juniors, just me, building what your business needs.
                                 </p>
                                 <p className="text-white/60 italic text-sm md:text-base">
-                                    &quot;I&apos;m your first point of contact. I&apos;ll learn your business, understand what you need, and make sure we deliver exactly that. No hard sell, no jargon. Just straight talking and results.&quot; - Joe
+                                    &quot;I&apos;m your first point of contact and the person shipping the work. I&apos;ll learn your business, understand what you need, and make sure we deliver exactly that. No hard sell, no jargon. Straight talking and results.&quot; - Miller
                                 </p>
                             </div>
 
