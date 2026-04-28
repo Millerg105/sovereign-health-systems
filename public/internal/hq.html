@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Sovereign HQ v9 Live",
+  "schemaVersion": 9,
+  "description": "v9 = source of truth (replacing Notion). localStorage-backed, drag-drop persistent, schema includes niche/area/source/pitch URL/last contact/next action/council intel cross-link per lead. Export JSON for backup. No Notion wiring (parked Phase 2)."
+}
+</script>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sovereign HQ - v9 Live</title>
+<style>
+  * { box-sizing: border-box; }
+  :root { --m3-ease: cubic-bezier(0.2, 0, 0, 1); --m3-ease-emphatic: cubic-bezier(0.1, 0.8, 0.2, 1); --sb-w: 240px; }
+  body { background: #080809; color: #f5f5f5; font-family: ui-sans-serif, -apple-system, system-ui, sans-serif; margin: 0; min-height: 100vh; font-size: 14px; -webkit-font-smoothing: antialiased; }
+
+  .m3 { position: relative; overflow: hidden; isolation: isolate; transition: transform 200ms var(--m3-ease), background 200ms var(--m3-ease), border-color 200ms var(--m3-ease); }
+  .m3:not(:disabled):active { transform: scale(0.97); }
+  .m3-ripple { position: absolute; border-radius: 50%; background: currentColor; pointer-events: none; opacity: 0; mix-blend-mode: overlay; }
+  .m3-ripple.run { animation: m3-ripple-anim 600ms var(--m3-ease) forwards; }
+  @keyframes m3-ripple-anim { 0% { opacity: 0.18; transform: scale(0); } 60% { opacity: 0.12; } 100% { opacity: 0; transform: scale(2.4); } }
+  @keyframes m3-fade-up { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
+  .m3-stagger > * { opacity: 0; animation: m3-fade-up 420ms var(--m3-ease-emphatic) forwards; }
+  .m3-stagger > *:nth-child(1) { animation-delay: 40ms; } .m3-stagger > *:nth-child(2) { animation-delay: 80ms; } .m3-stagger > *:nth-child(3) { animation-delay: 120ms; } .m3-stagger > *:nth-child(4) { animation-delay: 160ms; } .m3-stagger > *:nth-child(5) { animation-delay: 200ms; } .m3-stagger > *:nth-child(6) { animation-delay: 240ms; } .m3-stagger > *:nth-child(n+7) { animation-delay: 280ms; }
+  @keyframes m3-modal-in { 0% { opacity: 0; transform: translateY(20px) scale(0.96); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+  @keyframes m3-tab-in { 0% { opacity: 0; transform: translateX(8px); } 100% { opacity: 1; transform: translateX(0); } }
+  @keyframes m3-shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+  @keyframes m3-pulse { 0%, 100% { opacity: 0.3; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.2); } }
+
+  .app { display: flex; min-height: 100vh; }
+  .sidebar { width: var(--sb-w); flex-shrink: 0; background: #0d0d0e; border-right: 1px solid #18181a; padding: 18px 14px; display: flex; flex-direction: column; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+  .sb-brand { padding: 6px 10px 18px; border-bottom: 1px solid #18181a; margin-bottom: 14px; }
+  .sb-brand h1 { margin: 0; font-size: 18px; font-weight: 800; letter-spacing: -0.02em; background: linear-gradient(90deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .sb-brand .ver { font-size: 10px; color: #555; margin-top: 2px; letter-spacing: 0.05em; }
+  .sb-section-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.18em; color: #555; padding: 12px 10px 6px; font-weight: 700; }
+  .sb-nav { display: flex; flex-direction: column; gap: 2px; }
+  .sb-item { display: flex; align-items: center; gap: 12px; padding: 9px 12px; border-radius: 10px; cursor: pointer; color: #aaa; font-size: 13px; font-weight: 500; border: none; background: transparent; text-align: left; width: 100%; transition: background 200ms var(--m3-ease), color 200ms var(--m3-ease); position: relative; overflow: hidden; }
+  .sb-item:hover { background: rgba(255,255,255,0.04); color: #ddd; }
+  .sb-item.active { background: linear-gradient(135deg, rgba(96,165,250,0.15), rgba(168,85,247,0.1)); color: #fff; box-shadow: inset 0 0 0 1px rgba(96,165,250,0.25); }
+  .sb-item .icon { width: 18px; text-align: center; flex-shrink: 0; }
+  .sb-item .badge { margin-left: auto; font-size: 10px; padding: 2px 7px; border-radius: 100px; background: rgba(96,165,250,0.15); color: #93c5fd; font-weight: 600; }
+  .sb-item.active .badge { background: rgba(96,165,250,0.3); color: #fff; }
+  .sb-footer { padding: 14px 10px; border-top: 1px solid #18181a; margin-top: auto; }
+  .sb-stat { display: flex; justify-content: space-between; padding: 4px 0; font-size: 11px; }
+  .sb-stat .label { color: #666; }
+  .sb-stat .v-won { color: #4ade80; font-weight: 600; }
+  .sb-stat .v-flight { color: #f59e0b; font-weight: 600; }
+  .sb-stat .v-north { color: #60a5fa; font-weight: 600; }
+  .main { flex: 1; padding: 28px 36px 100px; max-width: calc(100vw - var(--sb-w)); overflow-x: hidden; }
+  .page-head { margin-bottom: 22px; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px; animation: m3-tab-in 380ms var(--m3-ease-emphatic); }
+  .page-head h2 { margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em; }
+  .page-head .sub { font-size: 12.5px; color: #888; margin-top: 4px; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; animation: m3-tab-in 380ms var(--m3-ease-emphatic); }
+
+  .controls { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
+  .filter-group { display: flex; gap: 2px; background: #141416; border: 1px solid #1f1f22; border-radius: 12px; padding: 4px; }
+  .filter-btn { padding: 7px 14px; background: transparent; color: #888; border: none; cursor: pointer; font-size: 12px; font-weight: 500; border-radius: 8px; position: relative; overflow: hidden; transition: color 200ms var(--m3-ease), background 200ms var(--m3-ease); }
+  .filter-btn:hover { color: #ddd; background: rgba(255,255,255,0.04); }
+  .filter-btn.active { background: #2a2a2e; color: #fff; }
+  .add-btn { background: linear-gradient(135deg, #2563eb, #7c3aed); color: white; border: none; padding: 10px 20px; border-radius: 14px; cursor: pointer; font-size: 13px; font-weight: 600; box-shadow: 0 4px 16px rgba(96,165,250,0.25); position: relative; overflow: hidden; transition: transform 220ms var(--m3-ease), box-shadow 220ms var(--m3-ease); }
+  .add-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(96,165,250,0.35); }
+
+  .card { background: #141416; border: 1px solid #1f1f22; border-radius: 18px; padding: 20px; transition: border-color 220ms var(--m3-ease), transform 220ms var(--m3-ease); }
+  .card:hover { border-color: #2a2a2e; }
+  .card h3 { margin: 0 0 14px; font-size: 14px; font-weight: 700; }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+  .info-item { padding: 11px 0; border-bottom: 1px solid #1a1a1c; }
+  .info-item:last-child { border-bottom: none; }
+  .info-name { font-size: 13.5px; color: #ddd; font-weight: 500; }
+  .info-detail { font-size: 11.5px; color: #888; margin-top: 3px; line-height: 1.5; }
+  .progress-bar { background: #1a1a1c; height: 6px; border-radius: 3px; margin-top: 7px; overflow: hidden; }
+  .progress-fill { background: linear-gradient(90deg, #2563eb, #60a5fa); height: 100%; }
+  .progress-fill.green { background: linear-gradient(90deg, #16a34a, #22c55e); }
+  .progress-fill.amber { background: linear-gradient(90deg, #d97706, #f59e0b); }
+  .check { color: #4ade80; font-weight: 700; }
+
+  .kanban { display: grid; gap: 10px; overflow-x: auto; padding-bottom: 6px; }
+  .kanban-leads { grid-template-columns: repeat(7, minmax(180px, 1fr)); }
+  .kanban-tasks { grid-template-columns: repeat(4, minmax(200px, 1fr)); }
+  @media (max-width: 1400px) { .kanban-leads { grid-template-columns: repeat(4, minmax(200px, 1fr)); } }
+  @media (max-width: 800px) { .kanban-leads, .kanban-tasks { grid-template-columns: repeat(2, minmax(180px, 1fr)); } }
+  .stage-col { background: #141416; border: 1px solid #1f1f22; border-radius: 16px; padding: 12px; min-height: 200px; max-height: 600px; overflow-y: auto; transition: border-color 200ms var(--m3-ease), background 200ms var(--m3-ease); }
+  .stage-col.drop-target { background: #1a1a2a; border-color: #60a5fa; box-shadow: 0 0 0 1px rgba(96,165,250,0.3); }
+  .stage-cold { border-top: 3px solid #6b7280; } .stage-mock { border-top: 3px solid #a855f7; } .stage-pitching { border-top: 3px solid #f59e0b; } .stage-warm { border-top: 3px solid #ec4899; } .stage-build { border-top: 3px solid #06b6d4; } .stage-won { border-top: 3px solid #22c55e; } .stage-parked { border-top: 3px solid #525252; } .stage-backlog { border-top: 3px solid #6b7280; } .stage-today { border-top: 3px solid #f59e0b; } .stage-doing { border-top: 3px solid #06b6d4; } .stage-done { border-top: 3px solid #22c55e; }
+  .col-title { font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: #888; margin-bottom: 12px; display: flex; justify-content: space-between; font-weight: 700; }
+  .col-count { color: #555; }
+  .lead-card { background: #1a1a1c; border: 1px solid #262629; border-radius: 12px; padding: 12px; margin-bottom: 8px; user-select: none; cursor: pointer; overflow: hidden; transition: border-color 220ms var(--m3-ease), transform 220ms var(--m3-ease), box-shadow 220ms var(--m3-ease); position: relative; }
+  .lead-card:hover { border-color: #60a5fa; transform: translateY(-2px); box-shadow: 0 6px 24px rgba(96,165,250,0.12); }
+  .lead-card:active { transform: scale(0.98); }
+  .lead-card.dragging { opacity: 0.4; }
+  .lead-name { font-size: 13px; font-weight: 600; color: #fff; display: flex; justify-content: space-between; gap: 6px; margin-bottom: 5px; }
+  .lead-meta { font-size: 10.5px; color: #888; line-height: 1.5; }
+  .lead-action { font-size: 10.5px; color: #fcd34d; margin-top: 6px; }
+  .pill { font-size: 9px; padding: 2px 8px; border-radius: 100px; font-weight: 600; white-space: nowrap; }
+  .pill-systems { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
+  .pill-bookings { background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+  .pill-hot { background: rgba(239,68,68,0.2); color: #fca5a5; border: 1px solid rgba(239,68,68,0.4); }
+  .readiness { font-size: 9px; padding: 2px 7px; border-radius: 100px; font-weight: 700; }
+  .readiness.r-high { background: rgba(34,197,94,0.15); color: #4ade80; }
+  .readiness.r-med { background: rgba(245,158,11,0.15); color: #fbbf24; }
+  .readiness.r-low { background: rgba(107,114,128,0.15); color: #9ca3af; }
+
+  .council-chat { max-width: 900px; margin: 0 auto; padding-bottom: 220px; }
+  .council-hero { text-align: center; margin: 24px 0 36px; }
+  .council-hero h2 { margin: 0; font-size: 36px; font-weight: 800; letter-spacing: -0.025em; background: linear-gradient(90deg, #60a5fa, #a78bfa, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.15; }
+  .council-hero p { margin: 12px auto 0; font-size: 14px; color: #888; max-width: 540px; line-height: 1.55; }
+  .council-suggestions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 22px; }
+  .council-suggestion { background: #141416; border: 1px solid #262629; color: #ccc; padding: 10px 16px; border-radius: 100px; cursor: pointer; font-size: 12px; font-weight: 500; position: relative; overflow: hidden; transition: border-color 220ms var(--m3-ease), color 220ms var(--m3-ease), transform 220ms var(--m3-ease); }
+  .council-suggestion:hover { border-color: rgba(96,165,250,0.5); color: #fff; transform: translateY(-1px); }
+  .council-input-wrap { position: fixed; bottom: 16px; left: calc(var(--sb-w) + 36px); right: 36px; z-index: 50; background: linear-gradient(to top, #080809 60%, transparent); padding-top: 24px; padding-bottom: 4px; max-width: 880px; }
+  .council-input { background: #141416; border: 1px solid #262629; border-radius: 20px; padding: 4px; transition: border-color 250ms var(--m3-ease), box-shadow 250ms var(--m3-ease); }
+  .council-input:focus-within { border-color: rgba(96,165,250,0.6); box-shadow: 0 0 0 4px rgba(96,165,250,0.08); }
+  .council-input textarea { width: 100%; background: transparent; border: none; color: #fff; padding: 16px 18px; font-size: 14px; resize: none; outline: none; min-height: 56px; max-height: 200px; font-family: inherit; line-height: 1.55; }
+  .council-input textarea::placeholder { color: #555; }
+  .council-input-actions { display: flex; justify-content: space-between; align-items: center; padding: 6px 10px 8px; }
+  .council-input-actions .left { font-size: 11px; color: #555; }
+  .council-send { background: white; color: black; border: none; padding: 10px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; transition: transform 220ms var(--m3-ease), opacity 220ms var(--m3-ease); position: relative; overflow: hidden; }
+  .council-send:disabled { background: #2a2a2e; color: #555; cursor: not-allowed; opacity: 0.6; }
+  .council-send:not(:disabled):hover { transform: scale(1.06); }
+  .chat-messages { display: flex; flex-direction: column; gap: 20px; }
+  .msg-user { align-self: flex-end; max-width: 76%; background: linear-gradient(135deg, #2563eb, #1e40af); color: white; padding: 14px 20px; border-radius: 20px 20px 4px 20px; font-size: 14px; line-height: 1.55; box-shadow: 0 4px 16px rgba(37,99,235,0.25); animation: m3-fade-up 420ms var(--m3-ease-emphatic); }
+  .msg-thinking { align-self: flex-start; padding: 14px 18px; background: #141416; border: 1px solid #1f1f22; border-radius: 16px; font-size: 12px; color: #888; display: flex; align-items: center; gap: 10px; animation: m3-fade-up 380ms var(--m3-ease-emphatic); }
+  .msg-thinking-dot { width: 6px; height: 6px; background: #60a5fa; border-radius: 50%; animation: m3-pulse 1.4s infinite; }
+  .msg-thinking-dot:nth-child(2) { animation-delay: 0.2s; } .msg-thinking-dot:nth-child(3) { animation-delay: 0.4s; }
+  .council-voice-stack { display: flex; flex-direction: column; gap: 12px; }
+  .council-voice { background: #141416; border: 1px solid #1f1f22; border-radius: 18px; padding: 16px 18px; opacity: 0; animation: m3-fade-up 480ms var(--m3-ease-emphatic) forwards; }
+  .council-voice:nth-child(1) { animation-delay: 80ms; } .council-voice:nth-child(2) { animation-delay: 180ms; } .council-voice:nth-child(3) { animation-delay: 280ms; } .council-voice:nth-child(4) { animation-delay: 380ms; } .council-voice:nth-child(5) { animation-delay: 480ms; }
+  .council-voice-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+  .council-voice-name { font-size: 14px; font-weight: 700; color: #fff; }
+  .council-voice-domain { font-size: 10px; color: #888; margin-top: 3px; }
+  .council-voice-tag { font-size: 9px; padding: 3px 9px; border-radius: 100px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+  .tag-sales { background: rgba(96,165,250,0.15); color: #93c5fd; }
+  .tag-ads { background: rgba(245,158,11,0.15); color: #fbbf24; }
+  .tag-mindset { background: rgba(168,85,247,0.15); color: #c4b5fd; }
+  .tag-tools { background: rgba(34,197,94,0.15); color: #4ade80; }
+  .tag-niche { background: rgba(236,72,153,0.15); color: #f9a8d4; }
+  .council-voice-body { font-size: 13.5px; color: #d4d4d4; line-height: 1.7; white-space: pre-wrap; }
+  .council-vote { background: linear-gradient(135deg, rgba(96,165,250,0.08), rgba(168,85,247,0.08)); border: 1px solid rgba(96,165,250,0.4); border-radius: 20px; padding: 22px 24px; opacity: 0; animation: m3-fade-up 600ms var(--m3-ease-emphatic) 600ms forwards; backdrop-filter: blur(10px); }
+  .council-vote-head { font-size: 11px; text-transform: uppercase; letter-spacing: 0.22em; color: #93c5fd; font-weight: 700; margin-bottom: 12px; }
+  .council-vote-body { font-size: 14.5px; color: #f5f5f5; line-height: 1.75; white-space: pre-wrap; font-weight: 500; }
+  .council-vote-actions { margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .council-action-btn { background: #2a2a2e; color: #ddd; border: 1px solid #333; padding: 8px 14px; border-radius: 10px; cursor: pointer; font-size: 11px; position: relative; overflow: hidden; transition: background 220ms; }
+  .council-action-btn:hover { background: #333; color: #fff; }
+  .council-action-btn.copied { background: rgba(34,197,94,0.2); color: #4ade80; }
+  .council-action-btn.primary { background: #2563eb; color: white; border-color: #2563eb; }
+
+  .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); z-index: 100; align-items: center; justify-content: center; padding: 16px; }
+  .modal.active { display: flex; }
+  .modal-content { background: rgba(20,20,22,0.95); border: 1px solid #2a2a2e; border-radius: 20px; padding: 28px; max-width: 720px; width: 100%; max-height: 92vh; overflow-y: auto; animation: m3-modal-in 380ms var(--m3-ease-emphatic); backdrop-filter: blur(20px); box-shadow: 0 24px 64px rgba(0,0,0,0.5); }
+  .modal-content h3 { margin: 0 0 8px; font-size: 19px; font-weight: 700; }
+  .modal-close { background: transparent; color: #888; border: none; cursor: pointer; font-size: 24px; float: right; padding: 4px 8px; border-radius: 8px; transition: background 200ms; }
+  .modal-close:hover { background: rgba(255,255,255,0.06); color: #fff; }
+  .modal-section { margin: 16px 0; padding-top: 14px; border-top: 1px solid #1a1a1c; }
+  .modal-section h4 { margin: 0 0 10px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: #888; }
+  .modal-textarea { width: 100%; background: #0a0a0c; border: 1px solid #2a2a2e; color: #f5f5f5; padding: 14px; border-radius: 12px; font-size: 13px; outline: none; font-family: ui-monospace, monospace; min-height: 180px; resize: vertical; line-height: 1.65; }
+  .modal-textarea:focus, .form-input:focus { border-color: rgba(96,165,250,0.6); box-shadow: 0 0 0 3px rgba(96,165,250,0.1); }
+  .form-input { width: 100%; background: #0a0a0c; border: 1px solid #2a2a2e; color: #f5f5f5; padding: 12px 14px; border-radius: 10px; font-size: 13.5px; outline: none; transition: border-color 220ms; }
+  .form-label { display: block; font-size: 11px; color: #aaa; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+  .form-row { margin-bottom: 14px; }
+  .modal-action-btn { padding: 10px 16px; border-radius: 12px; cursor: pointer; font-size: 12.5px; font-weight: 600; border: 1px solid transparent; position: relative; overflow: hidden; }
+  .modal-action-btn:active { transform: scale(0.97); }
+  .modal-action-btn.primary { background: #2563eb; color: white; }
+  .modal-action-btn.cold { background: rgba(107,114,128,0.15); color: #d1d5db; border-color: rgba(107,114,128,0.4); }
+  .modal-action-btn.amber { background: rgba(245,158,11,0.15); color: #fbbf24; border-color: rgba(245,158,11,0.4); }
+  .modal-action-btn.danger { background: rgba(239,68,68,0.15); color: #fca5a5; border-color: rgba(239,68,68,0.4); }
+
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 18px; }
+  .stat-tile { background: #141416; border: 1px solid #1f1f22; border-radius: 18px; padding: 18px 20px; }
+  .stat-tile .label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+  .stat-tile .value { font-size: 30px; font-weight: 800; margin: 8px 0 4px; letter-spacing: -0.02em; }
+  .stat-tile .sub { font-size: 11px; color: #666; }
+  .v-won { color: #4ade80; } .v-flight { color: #f59e0b; } .v-out { color: #fca5a5; } .v-net { color: #60a5fa; }
+
+  .template-card { background: #141416; border: 1px solid #1f1f22; border-radius: 14px; padding: 16px 18px; margin-bottom: 10px; transition: border-color 220ms; }
+  .template-card:hover { border-color: #2a2a2e; }
+  .template-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 10px; }
+  .template-title { font-size: 13px; font-weight: 600; color: #fff; }
+  .template-tag { font-size: 10px; color: #888; }
+  .template-body { background: #0a0a0c; border: 1px solid #1a1a1c; border-radius: 10px; padding: 12px 14px; font-size: 11.5px; color: #ccc; white-space: pre-wrap; line-height: 1.6; font-family: ui-monospace, monospace; max-height: 240px; overflow-y: auto; }
+  .copy-btn { background: #2a2a2e; color: #ddd; border: 1px solid #333; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 11px; position: relative; overflow: hidden; }
+  .copy-btn:hover { background: #333; color: #fff; }
+  .copy-btn.copied { background: rgba(34,197,94,0.2); color: #4ade80; }
+
+  .ns-apex { background: linear-gradient(135deg, rgba(96,165,250,0.15), rgba(168,85,247,0.15)); border: 1px solid rgba(96,165,250,0.4); border-radius: 24px; padding: 36px; text-align: center; margin-bottom: 16px; backdrop-filter: blur(10px); }
+  .ns-apex .eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 0.25em; color: #93c5fd; font-weight: 700; }
+  .ns-apex h2 { margin: 12px 0 0; font-size: 36px; font-weight: 800; letter-spacing: -0.025em; background: linear-gradient(90deg, #60a5fa, #a78bfa, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .ns-arrow { text-align: center; color: #444; font-size: 18px; margin: -2px 0; }
+  .ns-tier { background: #141416; border: 1px solid #1f1f22; border-radius: 16px; padding: 18px 20px; margin-bottom: 10px; }
+  .ns-tier.current { border-color: #f59e0b; box-shadow: 0 0 0 1px rgba(245,158,11,0.2); }
+  .ns-tier-num { font-size: 11px; color: #fbbf24; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 700; }
+  .ns-tier-title { font-size: 18px; font-weight: 700; margin: 4px 0; color: #fff; }
+  .ns-tier-when { font-size: 11px; color: #888; }
+
+  .banner { background: rgba(96,165,250,0.06); border: 1px solid rgba(96,165,250,0.2); color: #93c5fd; padding: 10px 14px; border-radius: 12px; font-size: 11.5px; margin-bottom: 14px; line-height: 1.55; }
+
+  @media (max-width: 900px) {
+    .app { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; position: relative; flex-direction: row; overflow-x: auto; padding: 12px; }
+    .sb-brand, .sb-section-label, .sb-footer { display: none; }
+    .sb-nav { flex-direction: row; gap: 4px; }
+    .main { padding: 20px; max-width: 100%; }
+    .council-input-wrap { left: 16px; right: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar">
+    <div class="sb-brand">
+      <h1>⚡ Sovereign HQ</h1>
+      <div class="ver">v9-live · 28 Apr 2026 · source of truth</div>
+    </div>
+    <div class="sb-section-label">Vision</div>
+    <nav class="sb-nav"><button class="sb-item m3" onclick="showTab(this, 'northstar')"><span class="icon">🌟</span>North Star</button></nav>
+    <div class="sb-section-label">Pipeline</div>
+    <nav class="sb-nav">
+      <button class="sb-item m3 active" onclick="showTab(this, 'leads')"><span class="icon">📋</span>Leads<span class="badge" id="badgeLeads">0</span></button>
+      <button class="sb-item m3" onclick="showTab(this, 'proposals')"><span class="icon">📝</span>Proposals<span class="badge" id="badgeProposals">0</span></button>
+      <button class="sb-item m3" onclick="showTab(this, 'tasks')"><span class="icon">✅</span>Tasks</button>
+    </nav>
+    <div class="sb-section-label">Brain</div>
+    <nav class="sb-nav">
+      <button class="sb-item m3" onclick="showTab(this, 'council')"><span class="icon">🧠</span>Council</button>
+      <button class="sb-item m3" onclick="showTab(this, 'templates')"><span class="icon">📨</span>Templates</button>
+    </nav>
+    <div class="sb-section-label">Status</div>
+    <nav class="sb-nav">
+      <button class="sb-item m3" onclick="showTab(this, 'goals')"><span class="icon">🎯</span>Goals</button>
+      <button class="sb-item m3" onclick="showTab(this, 'money')"><span class="icon">💷</span>Money</button>
+      <button class="sb-item m3" onclick="showTab(this, 'builds')"><span class="icon">🛠</span>Builds</button>
+      <button class="sb-item m3" onclick="showTab(this, 'components')"><span class="icon">🎨</span>Components</button>
+    </nav>
+    <div class="sb-footer">
+      <div class="sb-stat"><span class="label">Won YTD</span><span class="v-won">£550</span></div>
+      <div class="sb-stat"><span class="label">In flight</span><span class="v-flight">~£17k</span></div>
+      <div class="sb-stat"><span class="label">Days to Beetham</span><span class="v-north">96</span></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div id="leads" class="tab-content active">
+      <div class="page-head"><div><h2>📋 Leads</h2><div class="sub">Source of truth · localStorage-backed · drag between stages · click for council intel</div></div><div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;"><span style="font-size:10px;color:#555;padding:6px 10px;border:1px solid #1f1f22;border-radius:8px;" id="lastSavedPip">v9 · ready</span><span style="font-size:10px;color:#888;padding:6px 10px;border:1px solid #1f1f22;border-radius:8px;" id="cloudSyncPill">☁ checking...</span><button class="modal-action-btn cold m3" onclick="exportPipeline()" style="padding:8px 12px;font-size:11px;">💾 Export</button><label class="modal-action-btn cold m3" style="padding:8px 12px;font-size:11px;cursor:pointer;">📂 Import<input type="file" accept="application/json" style="display:none;" onchange="if(this.files[0]){importPipeline(this.files[0]);this.value='';}" /></label><button class="modal-action-btn cold m3" onclick="resetPipeline()" style="padding:8px 12px;font-size:11px;">↺ Reset</button><button class="add-btn m3" onclick="openAddLeadModal()">➕ Add Lead</button></div></div>
+      <div class="controls"><div class="filter-group"><button class="filter-btn m3 active" onclick="setLeadFilter(this, 'all')">All</button><button class="filter-btn m3" onclick="setLeadFilter(this, 'systems')">Systems</button><button class="filter-btn m3" onclick="setLeadFilter(this, 'bookings')">Bookings</button></div><input id="leadsSearch" class="form-input" placeholder="🔍 search firm / niche / area..." style="max-width:280px;padding:7px 12px;font-size:12px;" oninput="renderLeads()" /></div>
+      <div id="leadsView" class="kanban kanban-leads"></div>
+    </div>
+
+    <div id="proposals" class="tab-content">
+      <div class="page-head"><div><h2>📝 Proposals</h2><div class="sub">Queue of personalised pitches awaiting batch generation</div></div></div>
+      <div class="banner">Send leads here from any lead detail → fire batch → Code generates personalised proposals at /proposal-pitch/&lt;slug&gt;</div>
+      <div id="proposalsList"></div>
+    </div>
+
+    <div id="tasks" class="tab-content">
+      <div class="page-head"><div><h2>✅ Tasks</h2><div class="sub">What's done, what's now, what's next</div></div></div>
+      <div class="kanban kanban-tasks" id="tasksKanban"></div>
+    </div>
+
+    <div id="council" class="tab-content">
+      <div class="council-chat">
+        <div id="councilHero" class="council-hero">
+          <h2>What does the Council see?</h2>
+          <p>Ask any question. 22 voices weigh in. Final Vote anchored to your North Star.</p>
+          <div class="council-suggestions m3-stagger">
+            <div class="council-suggestion m3" onclick="askCouncil('what should I focus on this week to hit £600 in Tide?')">📅 £600 priority this week?</div>
+            <div class="council-suggestion m3" onclick="askCouncil('how do I make my Bookings PPA offer impossible to refuse?')">🎯 Make my offer irresistible</div>
+            <div class="council-suggestion m3" onclick="askCouncil('best subject line for cold email to UK trades businesses?')">📨 Cold email subject lines</div>
+            <div class="council-suggestion m3" onclick="askCouncil('I keep building tools instead of sending messages, how do I stop?')">🚫 Stop productive avoidance</div>
+            <div class="council-suggestion m3" onclick="askCouncil('how do I structure a free audit lead magnet using salty pretzel?')">🥨 Salty pretzel funnel</div>
+          </div>
+        </div>
+        <div id="chatMessages" class="chat-messages"></div>
+      </div>
+      <div class="council-input-wrap">
+        <div class="council-input">
+          <textarea id="councilInput" placeholder="Ask the Council anything..." onkeydown="handleCouncilKey(event)" oninput="autoResize(this)"></textarea>
+          <div class="council-input-actions"><div class="left">↵ to send · ⇧↵ for newline · 22 voices on standby</div><button class="council-send m3" id="councilSendBtn" onclick="askCouncilFromInput()" disabled><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12l7-7 7 7M12 5v14"/></svg></button></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="templates" class="tab-content">
+      <div class="page-head"><div><h2>📨 Templates</h2><div class="sub">Paste-ready outreach + sales messages</div></div></div>
+      <div id="templatesList"></div>
+    </div>
+
+    <div id="goals" class="tab-content">
+      <div class="page-head"><div><h2>🎯 Goals</h2><div class="sub">Weekly targets + shipped systems</div></div></div>
+      <div class="card-grid m3-stagger">
+        <div class="card"><h3>🎯 7-day cash target</h3><div class="info-item"><div class="info-name">£600-£1k in Tide by Sun 4 May</div><div class="info-detail">Kyron + subs go out next week</div><div class="progress-bar"><div class="progress-fill amber" style="width: 0%"></div></div></div><div class="info-item"><div class="info-name"><span class="check">✓</span> Andy → Omar message forwarded</div><div class="info-detail">Andy meeting Omar tonight, pre-warmed</div></div><div class="info-item"><div class="info-name"><span class="check">✓</span> Luke replied — checking WhatsApp tonight</div></div><div class="info-item"><div class="info-name"><span class="check">✓</span> Daniel Fazio sending tunnel guide</div></div></div>
+        <div class="card"><h3>🚀 Business milestones</h3><div class="info-item"><div class="info-name">First 5 paying clients · 2/5</div><div class="progress-bar"><div class="progress-fill green" style="width: 40%"></div></div></div><div class="info-item"><div class="info-name">£5k MRR × 3 months · Beetham gate</div><div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div></div><div class="info-item"><div class="info-name">Wooty PC arrival</div><div class="info-detail">Thursday earliest</div></div></div>
+        <div class="card"><h3>🛠 Shipped today</h3><div class="info-item"><div class="info-name"><span class="check">✓</span> v8.1 sidebar layout · full restore</div></div><div class="info-item"><div class="info-name"><span class="check">✓</span> Council Chat with 22 voices</div></div><div class="info-item"><div class="info-name"><span class="check">✓</span> Material 3 polish + ripple</div></div><div class="info-item"><div class="info-name"><span class="check">✓</span> 3 today messages sent</div></div></div>
+        <div class="card"><h3>🧠 Shipped this weekend</h3><div class="info-item"><div class="info-name"><span class="check">✓</span> Pinecone bridge · 341 chunks</div></div><div class="info-item"><div class="info-name"><span class="check">✓</span> Notion Pipeline DB · 22 leads</div></div><div class="info-item"><div class="info-name"><span class="check">✓</span> bookings-pitch-pipeline skill</div></div><div class="info-item"><div class="info-name"><span class="check">✓</span> 67 components · 10 builds catalogued</div></div></div>
+      </div>
+    </div>
+
+    <div id="money" class="tab-content">
+      <div class="page-head"><div><h2>💷 Money</h2><div class="sub">Cash position, in-flight pipeline, financial milestones</div></div></div>
+      <div class="stat-grid">
+        <div class="stat-tile"><div class="label">Won YTD</div><div class="value v-won">£550</div><div class="sub">TK Tax £300 + LMK £250</div></div>
+        <div class="stat-tile"><div class="label">In flight</div><div class="value v-flight">~£17k</div><div class="sub">9 warm/pitching leads</div></div>
+        <div class="stat-tile"><div class="label">Recurring out</div><div class="value v-out">£1,150/mo</div><div class="sub">Kyron + Mum + Claude</div></div>
+        <div class="stat-tile"><div class="label">MRR target</div><div class="value v-net">£5,000</div><div class="sub">× 3 mo · Beetham</div></div>
+      </div>
+      <div class="card-grid m3-stagger">
+        <div class="card"><h3>💰 In flight breakdown</h3><div class="info-item"><div class="info-name">Andy Clark / ClubDNA</div><div class="info-detail">£12,500 floor (3 sports brands)</div></div><div class="info-item"><div class="info-name">Omar (Andy tonight)</div><div class="info-detail">£900-£1,500 (3 sites)</div></div><div class="info-item"><div class="info-name">Luke Steedman</div><div class="info-detail">£800 Premium · checking tonight</div></div><div class="info-item"><div class="info-name">Chris Kearns</div><div class="info-detail">£800-£1,200</div></div><div class="info-item"><div class="info-name">Paul Aspey / RAM</div><div class="info-detail">~£800</div></div><div class="info-item"><div class="info-name">Andy Rodan App</div><div class="info-detail">TBC after discovery</div></div></div>
+        <div class="card"><h3>📤 Recurring outgoings</h3><div class="info-item"><div class="info-name">Kyron mentorship</div><div class="info-detail">£600/mo</div></div><div class="info-item"><div class="info-name">£400/mo to Mum</div><div class="info-detail">Curtins-funded</div></div><div class="info-item"><div class="info-name">Claude Max</div><div class="info-detail">£150/mo</div></div><div class="info-item"><div class="info-name">Total committed</div><div class="info-detail">£1,150/mo</div></div></div>
+        <div class="card"><h3>🎯 Financial milestones</h3><div class="info-item"><div class="info-name">£1,500/mo · self-sustained</div><div class="info-detail">Curtins optional</div><div class="progress-bar"><div class="progress-fill green" style="width: 0%"></div></div></div><div class="info-item"><div class="info-name">£3,000/mo · Wooty paid</div><div class="info-detail">Phantom equity unlocks</div><div class="progress-bar"><div class="progress-fill amber" style="width: 0%"></div></div></div><div class="info-item"><div class="info-name">£5,000/mo · Beetham gate</div><div class="info-detail">× 3 mo · Aug 2026</div><div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div></div></div>
+        <div class="card"><h3>🏦 Accounts</h3><div class="info-item"><div class="info-name">Tide (Bookings)</div><div class="info-detail">Live · balance tight</div></div><div class="info-item"><div class="info-name">Stripe</div><div class="info-detail">8 products · TM01-blocked</div></div><div class="info-item"><div class="info-name">Curtins salary</div><div class="info-detail">~End of month</div></div></div>
+      </div>
+    </div>
+
+    <div id="builds" class="tab-content">
+      <div class="page-head"><div><h2>🛠 Builds</h2><div class="sub">10 Vercel projects · live URLs · recent commits</div></div></div>
+      <div class="banner">Catalogued from Vercel MCP + git logs Sun 26 Apr.</div>
+      <div class="card-grid m3-stagger" id="buildsList"></div>
+    </div>
+
+    <div id="components" class="tab-content">
+      <div class="page-head"><div><h2>🎨 Components</h2><div class="sub">67 reusable components across 4 repos · 12 categories</div></div></div>
+      <div class="banner">Lifted from sovereign-health-systems, sovereign-bookings, tranquil-garden-rooms, cg-paving-mock.</div>
+      <div class="card-grid" id="componentsList"></div>
+    </div>
+
+    <div id="northstar" class="tab-content">
+      <div class="page-head"><div><h2>🌟 North Star</h2><div class="sub">The why behind every other tab</div></div></div>
+      <div class="ns-apex"><div class="eyebrow">⭐ The North Star</div><h2>Travel the world. Financial freedom.</h2><div style="font-size: 13px; color: #aaa; margin-top: 12px; line-height: 1.55;">Build something so well-oiled it runs without us, then live the life we want.</div></div>
+      <div class="ns-arrow">↓</div>
+      <div class="ns-tier current"><div class="ns-tier-num">Unlock 1 · Now → Aug 2026</div><div class="ns-tier-title">🏙 Beetham Tower Manchester</div><div class="ns-tier-when">2-bed · pool/gym/sauna · 97 days · Both full-time on Sovereign</div></div>
+      <div class="ns-arrow">↓</div>
+      <div class="ns-tier"><div class="ns-tier-num">Unlock 2 · Aug 2026 → Aug 2027</div><div class="ns-tier-title">🚀 Self-employed full-time</div><div class="ns-tier-when">Curtins quit · £8k MRR sustained</div></div>
+      <div class="ns-arrow">↓</div>
+      <div class="ns-tier"><div class="ns-tier-num">Unlock 3 · Aug 2027 → 2028</div><div class="ns-tier-title">🏠 First investment property</div><div class="ns-tier-when">£15k MRR · £100k saved</div></div>
+      <div class="ns-arrow">↓</div>
+      <div class="ns-tier"><div class="ns-tier-num">Unlock 4 · 2028 onwards</div><div class="ns-tier-title">✈️ Travel + freedom (the apex)</div><div class="ns-tier-when">£25k+ MRR · Async-capable team · Live anywhere</div></div>
+    </div>
+  </main>
+</div>
+
+<div class="modal" id="addLeadModal" onclick="if(event.target===this) closeModal('addLeadModal')">
+  <div class="modal-content">
+    <button class="modal-close m3" onclick="closeModal('addLeadModal')">×</button>
+    <h3>➕ Add Lead</h3>
+    <div class="form-row"><label class="form-label">Business name *</label><input id="addLeadName" class="form-input" /></div>
+    <div class="form-row"><label class="form-label">URL (auto-detected)</label><input id="addLeadUrl" class="form-input" placeholder="FB / IG / Maps / website" oninput="detectAddUrl()" /><div id="addLeadUrlDetected" style="font-size:11px;color:#4ade80;margin-top:6px;"></div><button id="enrichMapsBtn" class="modal-action-btn amber m3" style="display:none;margin-top:8px;padding:8px 14px;font-size:11px;" onclick="copyMapsEnrichPrompt()">🔥 Copy Claude enrich prompt</button><div id="enrichResult" style="font-size:11px;color:#888;margin-top:6px;line-height:1.5;"></div><label class="form-label" style="margin-top:10px;">Paste enriched JSON back here (optional)</label><textarea id="addLeadEnrichJson" class="modal-textarea" style="min-height:80px;font-family:ui-monospace,monospace;font-size:11px;" placeholder='Paste {"firm":"...","phone":"...",...} from Claude'></textarea></div>
+    <div class="form-row" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"><div><label class="form-label">Brand</label><select id="addLeadBrand" class="form-input"><option value="systems">Systems</option><option value="bookings">Bookings</option></select></div><div><label class="form-label">Town</label><select id="addLeadTown" class="form-input"><option value="unknown">Unknown</option><option value="wigan">Wigan</option><option value="manchester">Manchester</option><option value="liverpool">Liverpool</option><option value="warrington">Warrington</option><option value="preston">Preston</option><option value="blackpool">Blackpool</option></select></div></div>
+    <div class="form-row"><label class="form-label">Notes</label><textarea id="addLeadNotes" class="modal-textarea" style="min-height:100px;"></textarea></div>
+    <div style="display:flex;gap:8px;"><button class="modal-action-btn primary m3" onclick="submitAddLead()">✓ Add</button><button class="modal-action-btn cold m3" onclick="closeModal('addLeadModal')">Cancel</button></div>
+  </div>
+</div>
+
+<div class="modal" id="leadDetailModal" onclick="if(event.target===this) closeModal('leadDetailModal')">
+  <div class="modal-content">
+    <button class="modal-close m3" onclick="closeModal('leadDetailModal')">×</button>
+    <h3 id="leadDetailName">—</h3>
+    <div style="font-size:12px;color:#aaa;" id="leadDetailSource">—</div>
+    <div id="leadDetailMeta" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;"></div>
+    <div id="leadDetailLinks" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;"></div>
+    <div class="modal-section"><h4>🧠 Council Intel · niche-matched mentor framework</h4><div id="councilIntelStack" style="display:flex;flex-direction:column;gap:10px;"></div></div>
+    <div class="modal-section"><h4>📨 Personalised message · ready to send</h4><div id="messageAngle" style="font-size:11px;color:#aaa;margin-bottom:10px;"></div><textarea id="leadMessage" class="modal-textarea"></textarea><div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;"><button class="modal-action-btn primary m3" onclick="copyLeadMsg()">📋 Copy</button><button class="modal-action-btn m3" id="waBtn" style="background:rgba(34,197,94,0.18);color:#4ade80;border-color:rgba(34,197,94,0.4);" onclick="sendWhatsApp()">💬 WhatsApp</button><button class="modal-action-btn m3" id="replyToggleBtn" onclick="toggleReplied()">📬 Mark replied</button><button class="modal-action-btn amber m3" onclick="changeStage('pitching')">→ Pitching</button><button class="modal-action-btn cold m3" onclick="changeStage('warm')">→ Warm</button><button class="modal-action-btn danger m3" onclick="deleteCurrentLead()">🗑 Delete</button></div></div>
+  </div>
+</div>
+
+<div class="modal" id="codePromptModal" onclick="if(event.target===this) closeModal('codePromptModal')">
+  <div class="modal-content">
+    <button class="modal-close m3" onclick="closeModal('codePromptModal')">×</button>
+    <h3>🔥 Real Council query</h3>
+    <div style="font-size:12px;color:#aaa;margin-bottom:12px;">Paste in any free Code tab.</div>
+    <div style="background:#0a0a0c;border:1px solid #1a1a1c;border-radius:12px;padding:14px;font-size:12px;color:#ccc;font-family:ui-monospace,monospace;line-height:1.65;white-space:pre-wrap;max-height:400px;overflow-y:auto;" id="codePromptBody">—</div>
+    <button class="modal-action-btn primary m3" style="margin-top:12px;" onclick="copyText(document.getElementById('codePromptBody').textContent, this)">Copy prompt</button>
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = 'sovereign-pipeline-v9';
+const SCHEMA_VERSION = 9;
+
+// NICHE → MENTOR FRAMEWORK MAP
+// Cross-link: every lead row → which Kyran principle / Skool framework applies to its niche
+// Source: memory/reference_kyron_discord.md + memory/reference_jack_skool_classroom.md
+const NICHE_TO_MENTOR = {
+  'Garden Rooms': [
+    { mentor: 'Kyran Rawson', tag: 'Offer', angle: 'PPA offer + tonality on setting call', quote: 'First impression is everything. Tonality moves the needle more than the script.', file: 'memory/reference_kyron_discord.md' },
+    { mentor: 'Sean', tag: 'Ads', angle: 'FB ad warmup + show-up rate', quote: 'CTR bands: 0-0.5% RED, 0.5-1% YELLOW, 1%+ GREEN. Disable Advantage+ audience.', file: 'memory/reference_kyron_discord.md' },
+    { mentor: 'Abdullah', tag: 'Tools', angle: 'Toll-free + GHL backend + 6-touch reminder', quote: 'Use guarantee to hook the call, not pitch the guarantee on the call.', file: 'memory/reference_kyron_discord.md' }
+  ],
+  'Driveways': [
+    { mentor: 'PARKED', tag: 'Niche', angle: 'Niche locked to Garden Rooms only per Constitution Article III. Re-open after £5k MRR proven.', quote: '', file: '' }
+  ],
+  'Tax/Accounting': [
+    { mentor: 'Kyle', tag: 'Sales', angle: 'Logic close · B2B', quote: 'Treat callbacks not cold calls. "I just saw you filled out our form, calling to schedule a quick time."', file: 'memory/reference_kyron_discord.md' }
+  ],
+  'Beauty/Tan': [
+    { mentor: 'Abdullah', tag: 'Ads', angle: 'B2C creative + AI UGC', quote: 'AI UGC intro then B-roll switch with price-based copy. Speel.app + Arcads + Higgsfield.', file: 'memory/reference_kyron_discord.md' }
+  ],
+  'Sports': [
+    { mentor: 'Kyran', tag: 'Offer', angle: 'Premium tier offer framing · scary-bait anchor', quote: 'Anchor with scary-bait offer, real offer sells itself. Fuel to the fire.', file: 'memory/reference_kyron_discord.md' }
+  ],
+  'Auto/Art': [
+    { mentor: 'Abdullah', tag: 'Ads', angle: 'B2C emotional close + seasonal calendar', quote: 'Match emotional hook to seasonal calendar. Father\'s Day, Christmas Lights, Snow Removal.', file: 'memory/reference_kyron_discord.md' }
+  ],
+  'General Trades': [
+    { mentor: 'Kyran', tag: 'Offer', angle: 'Wigan Flip £800 site offer · pain point first', quote: 'Pain point first, price last. Result · Mechanism · Price (Sabri Suby order).', file: 'memory/reference_kyron_discord.md' }
+  ],
+  'Other': [
+    { mentor: 'TBC', tag: 'Niche', angle: 'Council query needed for this niche · use anthropic-skills:notebooklm', quote: '', file: '' }
+  ]
+};
+function loadState() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; } }
+function saveState(s) { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); }
+
+document.addEventListener('pointerdown', (e) => { const el = e.target.closest('.m3'); if (!el || el.disabled) return; const rect = el.getBoundingClientRect(); const size = Math.max(rect.width, rect.height) * 0.85; const x = e.clientX - rect.left - size / 2; const y = e.clientY - rect.top - size / 2; const ripple = document.createElement('span'); ripple.className = 'm3-ripple'; ripple.style.width = ripple.style.height = size + 'px'; ripple.style.left = x + 'px'; ripple.style.top = y + 'px'; el.appendChild(ripple); requestAnimationFrame(() => ripple.classList.add('run')); setTimeout(() => ripple.remove(), 700); });
+
+const COUNCIL = [
+  { name: 'Alex Hormozi', domain: '$100M Offers · salty pretzel · guarantees', tag: 'sales', tagLabel: 'Offer', keywords: ['offer','value','guarantee','pretzel','price','pricing','magnet','irresistible','close'], voice: () => `Three things on the offer.\n\n1. **Value clarity** — clear in the first sentence? "£300 per appointment, free site." 6 words.\n\n2. **Where's the salty pretzel?** Free site IS your pretzel. FIRST thing they read.\n\n3. **Risk reversal** — 10 in 30 or we keep working. Flips brain from "risk to me" to "risk to them."` },
+  { name: 'Sabri Suby', domain: 'King Kong · godfather offer', tag: 'sales', tagLabel: 'Offer', keywords: ['offer','godfather','sales','positioning','copy'], voice: () => `Result first. Mechanism second. Price last.\n\nDon't say "PPA lead gen for £300/qualified." Say "in 30 days you'll have 10 homeowners with quotes ready, sat in your diary, paying when they show up." Then drop the price.\n\nThat's the order that closes.` },
+  { name: 'Russell Brunson', domain: 'ClickFunnels · hook story offer', tag: 'sales', tagLabel: 'Funnels', keywords: ['funnel','hook','story','optin','landing','page'], voice: () => `Hook, story, offer.\n\n**Hook:** "see exactly which homeowners in your postcode are quoting next week."\n**Story:** one client, week 1 transformation, real numbers.\n**Offer:** £300/qualified, free site, 10-in-30 guarantee.\n\n3 pages: opt-in → story video → calendar.` },
+  { name: 'Daniel Priestley', domain: 'KPI · positioning · scaling', tag: 'sales', tagLabel: 'Position', keywords: ['positioning','scaling','authority','brand','market'], voice: () => `Position before pitch.\n\n"Agency that does websites" = feature list. "Only NW agency building one-page proposal pitches per prospect, with PPA as upgrade path" = position.\n\nIf your Wigan friend can't summarise what you do in one sentence, position isn't sharp enough.` },
+  { name: 'Iman Gadzhi', domain: 'IAG · agency · retainers', tag: 'sales', tagLabel: 'Agency', keywords: ['agency','retainer','smma','pricing','model'], voice: () => `Two cardinal sins: pricing too low + selling one-offs.\n\n£800 sites + £200/mo Foundation retainer = different business than £500 one-off.\n\n3 retainers × £200 = £600/mo locked. Covers Kyron forever.` },
+  { name: 'Jason Wardrop', domain: 'GHL white-label · US agency playbook', tag: 'sales', tagLabel: 'Funnels', keywords: ['ghl','gohighlevel','white-label','funnel','crm'], voice: () => `The GHL play prints money for trades agencies in the US. UK is 18 months behind, you're early.\n\n3-page funnel + automated SMS reminders + missed-call text-back, all wrapped in a £500/mo white-label CRM you charge clients for.\n\nFor Sovereign: don't sell GHL itself yet. Use it as PPA engine. Once 3 clients see value, upsell white-label CRM at £200/mo per location.` },
+  { name: 'Cold Email Mon', domain: 'Instantly · multi-domain · deliverability', tag: 'ads', tagLabel: 'Email', keywords: ['cold email','email','instantly','warmup','deliverability','subject','open','rate'], voice: () => `Subject + first line. Everything else is decoration.\n\n**Subject:** lowercase, looks forwarded. "[business name] — quick honest one."\n**First line:** specific. "saw your 0800 freephone — you take leads seriously."\n\nWarm 3 domains, 30/inbox/day. 90/day in 3 weeks.` },
+  { name: 'KASPER', domain: 'Outreach systems at scale', tag: 'ads', tagLabel: 'Outreach', keywords: ['outreach','systems','scale','volume','dm','automation'], voice: () => `Templated personalisation. ONE strong template, 3-5 placeholder variables you research per prospect (their 0800, showroom, followers). 90 sec/lead.\n\n30 messages × 90 sec = 45 min before lunch. Personalise hook + close. Volume scales, intent doesn't.` },
+  { name: 'Nick Theriot', domain: 'FB ads · ecom + service', tag: 'ads', tagLabel: 'Ads', keywords: ['fb ads','facebook','meta','ads','creative','spend'], voice: () => `Three rules for FB ads on a low budget:\n\n1. Test creative not audiences. Same audience, 5 creatives, kill bottom 3 after 50 leads each.\n2. Ugly beats polished. iPhone-shot beats Canva-designed 4-1 for trades.\n3. Lead form > landing page for first £5/day. Lower friction.\n\nStart £5-10/day per client, give it 14 days.` },
+  { name: 'Pressfield', domain: 'War of Art · Resistance', tag: 'mindset', tagLabel: 'Mindset', keywords: ['resistance','avoidance','procrastination','focus','build','tool','infrastructure','discipline'], voice: () => `Resistance is the voice telling you to build another tab when you should be sending the message.\n\nIt's not laziness. It's cunning. It dresses procrastination as productivity.\n\n**Diagnostic:** if the work doesn't produce reply or cash in 7 days, it's Resistance.\n\nThe cure is the next message sent.` },
+  { name: 'Jesse Itzler', domain: 'Execution discipline', tag: 'mindset', tagLabel: 'Mindset', keywords: ['execution','discipline','morning','routine','time','schedule'], voice: () => `Reverse-engineer the day.\n\n£5k MRR × 3 mo = 1 paying client/week, 14 wins.\n\n5-7am: focused build. Curtins lunch: 4 DMs. 7-10pm: closing work.\n\n5+ hours/day on Sovereign without quitting Curtins. 97 days = Beetham.` },
+  { name: 'Julian Petroulas', domain: 'Solo-founder execution', tag: 'mindset', tagLabel: 'Mindset', keywords: ['solo','founder','overwhelm','priorities'], voice: () => `Solo founders die from too many priorities.\n\nIf "today" has more than 3 items, you've already lost. Brain doesn't do 5 things — it switches between them and pretends.\n\nStrip today to ONE thing. The artifact you've built is impressive, but a beautiful prison if it stops you sending the message.` },
+  { name: 'Marvin Entrepreneur', domain: 'Operator mindset', tag: 'mindset', tagLabel: 'Mindset', keywords: ['operator','grind'], voice: () => `Operators win the long game. Visionaries get the credit, operators get the bank balance.\n\nFor your 97-day Beetham window: pure operator mode. No new big strategy. No new tools. Same 4 leads. Same 5 messages a day. Visionary work resumes Aug 2.` },
+  { name: 'Sovereign Partnership OS', domain: 'Custom · Miller-Wooty op system', tag: 'mindset', tagLabel: 'Partnership', keywords: ['partnership','cofounder','wooty','equity'], voice: () => `Wooty's PC Thursday. Day 1: he owns top-of-funnel (content, IG, DMs at scale). You own close (calls, proposals, delivery).\n\n14-day trial = execution audit. Joe's exit teaches: unspoken expectations kill partnerships.` },
+  { name: 'Neuroscience NotebookLM', domain: 'Cognitive bias · decisions', tag: 'mindset', tagLabel: 'Psych', keywords: ['decision','bias','stress','cognitive','psychology'], voice: () => `Under financial pressure (your 7-day £600 target), prefrontal cortex narrows. You'll make worse decisions Friday than Monday.\n\nCounter: pre-commit decisions when calm. Decided NOW: only Mon AM and Tue eve are pitch-send windows. Decided NOW: Stripe link goes within 2hrs of a yes.\n\nFriday-stressed-you doesn't re-decide. Executes calm-Monday-you's plan.` },
+  { name: 'Garden Room Prospecting', domain: 'Niche outreach intel', tag: 'niche', tagLabel: 'Niche', keywords: ['garden room','prospecting','niche','homeowner','bookings'], voice: () => `NW garden room buyers: 35-55, £80k+ household, often WFH, £15-30k discretionary. They DON'T buy on price. Trust + portfolio.\n\nKey signals: real showroom or 10+ builds visible, 4★+ Google, owner names visible.\n\nSpeed-to-lead under 5 min triples conversion.` },
+  { name: 'Jack Roberts', domain: 'Claude Code · skills · workflow', tag: 'tools', tagLabel: 'Tools', keywords: ['claude','skills','ai','workflow','automation','mcp','code'], voice: () => `Three principles:\n\n1. Skills > prompts. Skill that runs 50× saves a week.\n2. Pipelines > one-shots. Apify → Firecrawl → Pinecone → driver isn't a script.\n3. Daniel's tunnel pattern. Wrap CLIs in MCPs, expose via Cloudflare, Cowork picks up natively.` },
+  { name: 'GHL', domain: 'GoHighLevel · CRM · A2P', tag: 'tools', tagLabel: 'Tools', keywords: ['ghl','gohighlevel','crm','a2p','twilio','sms'], voice: () => `GHL is the engine that makes the PPA model defensible. Without it, you're a freelancer with extra steps.\n\nBefore first PPA client: don't need GHL automations live. After they sign: workflow #1 is "lead form → SMS → calendar booking → reminder sequence."\n\nA2P registration takes 2 weeks. Start Monday.` },
+  { name: 'Jack School (scrape)', domain: 'AI Automations · 8 courses', tag: 'tools', tagLabel: 'Knowledge', keywords: ['jack','school','course','automation','audit'], voice: () => `Highest-leverage skill for early agencies = the "audit machine." Take prospect's website + IG, run Claude with structured prompt, output 1-page PDF audit pointing at 3 fixes.\n\nFree to deliver, expensive in perceived value, perfect lead magnet.\n\nBuild once. Send 30 cold "free audit if interested" messages, 10 say yes, 5 min/audit (Claude does work). 10 warm conversations vs 0.` },
+  { name: 'David Beyer', domain: 'Applied psychology · persuasion', tag: 'mindset', tagLabel: 'Psych', keywords: ['psychology','persuasion','influence'], voice: () => `The "yes ladder" — get small commitments before the big one. Your DMs ask for 10-min chat = small yes.\n\nOn the call, ask "would you like a free audit before we pitch?" = another small yes. Audit (free, 5 min Claude) earns the right to ask for £500 setup.\n\nThree small yeses before the ask.` },
+  { name: 'Napoleon', domain: 'Strategy · leadership', tag: 'mindset', tagLabel: 'Strategy', keywords: ['strategy','tactics','war','battle'], voice: () => `Concentrate force at the decisive point. You have 4 active opportunities. Don't divide attention equally — give 60% to the one most likely to convert (Omar tonight) and 40% to runners-up.\n\nIn battle, the side that fights on its chosen ground wins. Your chosen ground = warm referrals + neighbour-warm cold. Don't fight cold-Wigan-flip ground until warm front secured.` },
+  { name: 'Daniel Priestley + KPI', domain: 'Key Person of Influence', tag: 'sales', tagLabel: 'Brand', keywords: ['authority','brand','content','visibility'], voice: () => `Five steps to KPI: pitch, publish, products, profile, partnerships.\n\nYou're at step 1 (pitch). Skip step 2 (publish) and you're competing on price forever. Wooty's content engine starts publishing Thursday. Compound for 90 days = position locked, leads incoming, partnerships open.` },
+];
+
+const initialLeads = [
+  { id: 1, name: 'Andy Rodan ↦ Omar', brand: 'systems', niche: 'General Trades', area: 'Wigan', source: 'Andy Rodan', stage: 'warm', sourceNote: 'Andy meeting Omar tonight · message forwarded ✓', owner: 'Miller', action: 'Stay sharp for call back', nextAction: 'Stay sharp for call back', lastContact: '2026-04-26', hot: true, town: 'wigan', readiness: 9, ownerName: 'Omar' },
+  { id: 2, name: 'Chris Kearns', brand: 'systems', niche: 'General Trades', area: 'Manchester', source: 'Referral', stage: 'warm', sourceNote: 'Josh nudge · K2C Rail + ChangeMaker3D', owner: 'Miller', action: 'Send portfolio TODAY', nextAction: 'Send portfolio TODAY', lastContact: '2026-04-22', hot: true, town: 'manchester', readiness: 8, ownerName: 'Chris', leadScore: 78 },
+  { id: 3, name: 'Andy Clark / ClubDNA', brand: 'systems', niche: 'Sports', area: 'London', source: 'Referral', stage: 'warm', sourceNote: 'Sports · £12.5k floor · 3 brands', owner: 'Miller', action: 'Discovery call', nextAction: 'Discovery call · sports firm £12.5k floor', lastContact: '2026-04-20', town: 'london', readiness: 8, ownerName: 'Andy', leadScore: 82, dealValue: 12500 },
+  { id: 4, name: 'Andy Rodan App', brand: 'systems', niche: 'Other', area: 'Wigan', source: 'Andy Rodan', stage: 'warm', sourceNote: 'Direct · under-books', owner: 'Miller', action: 'Discovery before pricing', nextAction: 'Discovery before pricing', lastContact: '2026-04-21', town: 'wigan', readiness: 7, ownerName: 'Andy' },
+  { id: 5, name: 'Luke Steedman', brand: 'systems', niche: 'General Trades', area: 'Manchester', source: 'Cold Email', stage: 'pitching', sourceNote: 'Replied · checking WhatsApp tonight', owner: 'Miller', action: 'Wait for tonight\'s reply', nextAction: 'Watch WhatsApp · 48h follow-up if silent', lastContact: '2026-04-26', hot: true, town: 'manchester', readiness: 8, ownerName: 'Luke', proposalUrl: 'https://sovereignsystem.co.uk/pitch/luke-steedman', pitchUrl: 'https://sovereignsystem.co.uk/pitch/luke-steedman', leadScore: 75, dealValue: 800 },
+  { id: 6, name: 'Paul Aspey / RAM', brand: 'systems', niche: 'General Trades', area: 'Wigan', source: 'Andy Rodan', stage: 'pitching', sourceNote: 'Rodan · pitch WIP', owner: 'Miller', action: 'Finish pitch draft', nextAction: 'Finish pitch draft', lastContact: '2026-04-19', town: 'wigan', readiness: 6, ownerName: 'Paul', dealValue: 800 },
+  { id: 10, name: 'PG Developments', brand: 'bookings', niche: 'Garden Rooms', area: 'Preston', source: 'Apify', stage: 'mock', sourceNote: 'Apify · Active Spend YES (0800 freephone)', owner: 'Miller', action: 'Highest cold signal · pitch first', nextAction: 'Build mock + send pitch · highest cold signal', lastContact: '', town: 'preston', website: 'https://pgdevelopments.co.uk', readiness: 7, leadScore: 78, activeSpend: true },
+  { id: 11, name: 'UltraSpace Preston', brand: 'bookings', niche: 'Garden Rooms', area: 'Preston', source: 'Apify', stage: 'mock', sourceNote: 'Apify · GMB tracking = paid ads', owner: 'Miller', action: 'Active spend signal', nextAction: 'Build mock + send pitch', lastContact: '', town: 'preston', website: 'https://ultraspace.co.uk', readiness: 6, leadScore: 65, activeSpend: true },
+  { id: 12, name: 'Garden Rooms of Cheshire', brand: 'bookings', niche: 'Garden Rooms', area: 'Cheshire', source: 'Apify', stage: 'mock', sourceNote: 'Apify · 5★/11 · Warrington showroom', owner: 'Miller', action: 'PPA-only angle', nextAction: 'PPA-only angle pitch', lastContact: '', town: 'warrington', website: 'https://gardenroomsofcheshire.co.uk', readiness: 5, leadScore: 58 },
+  { id: 13, name: 'Elevate Garden Rooms', brand: 'bookings', niche: 'Garden Rooms', area: 'Cheshire', source: 'Apify', stage: 'mock', sourceNote: 'Warrington · 5★/48 reviews · strongest social proof', owner: 'Miller', action: 'Lead with reviews angle', nextAction: 'Lead with reviews angle', lastContact: '', town: 'warrington', readiness: 6, leadScore: 70 },
+  { id: 14, name: 'Luxury Garden Buildings UK', brand: 'bookings', niche: 'Garden Rooms', area: 'Other UK', source: 'Apify', stage: 'mock', sourceNote: 'Blackpool · 4.9★/55 reviews', owner: 'Miller', action: 'Pitch this week', nextAction: 'Pitch this week', lastContact: '', town: 'blackpool', website: 'https://luxurygardenbuildings.com', facebook: 'https://www.instagram.com/luxurygardenbuildingsuk', readiness: 6, leadScore: 68 },
+  { id: 15, name: 'KLG Landscape', brand: 'systems', niche: 'General Trades', area: 'Wigan', source: 'Wigan Flip', stage: 'cold', sourceNote: 'NEIGHBOUR · advertising on board · NO website', owner: 'Miller', action: 'Hyper-local pitch', nextAction: 'Knock on door / drop card', lastContact: '', town: 'wigan', hasWebsite: false, readiness: 5, neighbour: true, leadScore: 55 },
+  { id: 16, name: 'Wolf Builders & Joiners Ltd', brand: 'bookings', niche: 'Garden Rooms', area: 'Manchester', source: 'Apify', stage: 'pitching', sourceNote: 'Mock + proposal sent · awaiting reply', owner: 'Miller', action: '48h follow-up', nextAction: '48h follow-up post-send', lastContact: '2026-04-27', town: 'manchester', mockUrl: 'https://wolf-builders-mock.vercel.app', proposalUrl: 'https://www.sovereignsystem.co.uk/proposal-pitch/wolf-builders', pitchUrl: 'https://www.sovereignsystem.co.uk/proposal-pitch/wolf-builders', readiness: 7, leadScore: 72, slug: 'wolf-builders' },
+  { id: 17, name: 'Trafford Garden Rooms', brand: 'bookings', niche: 'Garden Rooms', area: 'Manchester', source: 'Cold Email', stage: 'mock', sourceNote: 'Mock queued · enrichment captured', owner: 'Miller', action: 'Build mock', nextAction: 'Build mock + draft pitch', lastContact: '', town: 'manchester', website: 'https://traffordgardenrooms.com', readiness: 6, leadScore: 78, slug: 'trafford-garden-rooms' },
+  { id: 20, name: 'LMK Luxe Tan', brand: 'systems', niche: 'Beauty/Tan', area: 'Wigan', source: 'Andy Rodan', stage: 'build', sourceNote: 'Rodan · £250 deposit · Mackenzie', owner: 'Miller', action: 'Ship next milestone', nextAction: 'Ship next milestone', lastContact: '2026-04-25', town: 'wigan', readiness: 9, ownerName: 'Mackenzie', leadScore: 90, dealValue: 800, won: 250 },
+  { id: 21, name: 'SikPix (Geoff)', brand: 'systems', niche: 'Auto/Art', area: 'Wigan', source: 'Referral', stage: 'parked', sourceNote: 'Existing · upgrade shipped 12 Apr · awaiting Shopify decision', owner: 'Miller', action: 'Reminder schedule 3/10/17 May', nextAction: "Father's Day 21 Jun angle · ping 3 May", lastContact: '2026-04-12', town: 'wigan', website: 'https://sikpix.vercel.app', readiness: 5, ownerName: 'Geoff' },
+  { id: 30, name: 'TK Tax (Tracy)', brand: 'systems', niche: 'Tax/Accounting', area: 'Wigan', source: 'Referral', stage: 'won', sourceNote: '£300 paid · live', owner: 'Miller', action: '✓ Done', nextAction: '✓ Done', lastContact: '2026-03-27', town: 'wigan', website: 'https://tk-tax.vercel.app', readiness: 10, ownerName: 'Tracy', leadScore: 100, dealValue: 300, won: 300 },
+  { id: 40, name: 'Cap Cartel', brand: 'systems', niche: 'Other', area: 'Liverpool', source: 'Referral', stage: 'parked', sourceNote: 'Family · soft no smashing IG', owner: 'Miller', action: 'Re-approach 17 May', nextAction: 'Re-approach 17 May', lastContact: '2026-04-15', town: 'liverpool', website: 'https://capcartel01.com', readiness: 1, ownerName: 'Andy' },
+];
+
+const initialTasks = [
+  { id: 100, name: 'iMessage to Andy re Omar', stage: 'done', detail: 'Andy forwarding ✓' },
+  { id: 101, name: 'Daniel Skool reply', stage: 'done', detail: 'Guide incoming ✓' },
+  { id: 102, name: 'Luke Steedman 48hr chase', stage: 'done', detail: 'Replied · checking tonight ✓' },
+  { id: 103, name: '£400 SO to Mum', stage: 'done' },
+  { id: 110, name: 'Send Chris Kearns portfolio + pitch', stage: 'today' },
+  { id: 111, name: 'Watch for Luke WhatsApp tonight', stage: 'today' },
+  { id: 112, name: 'Be ready for Omar call after Andy meets', stage: 'today' },
+  { id: 200, name: "Daniel's NotebookLM-MCP-Pinecone tunnel build", stage: 'backlog', detail: 'Tonight when guide lands' },
+  { id: 201, name: 'salty-pretzel-batch skill (30/day)', stage: 'backlog', detail: 'Tue eve' },
+  { id: 202, name: 'Twilio A2P registration', stage: 'backlog' },
+  { id: 203, name: 'Wooty PC arrival + handover', stage: 'backlog', detail: 'Thursday earliest' },
+  { id: 204, name: 'Driving theory test', stage: 'backlog', detail: 'Wed 6 May · Liverpool 5pm' },
+];
+
+const builds = [
+  { name: 'Sovereign Systems', url: 'https://sovereignsystem.co.uk', status: 'active', last: '26 Apr · co-founder scrub', framework: 'nextjs' },
+  { name: 'Sovereign Bookings', url: 'https://sovereignbookings.co.uk', status: 'active', last: '26 Apr · in sync', framework: 'nextjs' },
+  { name: 'Tranquil Garden Rooms', url: 'https://tranquil-garden-rooms.vercel.app', status: 'active', last: '19 Apr · social fixes', framework: 'nextjs' },
+  { name: 'CG Paving (Showpiece)', url: 'https://cg-paving-mock.vercel.app', status: 'active', last: '17 Apr · video carousel', framework: 'nextjs' },
+  { name: 'SikPix (Geoff)', url: 'https://sikpix.vercel.app', status: 'active', last: '13 Apr · guarantee preview', framework: 'vite' },
+  { name: 'TK Tax (Tracy)', url: 'https://tk-tax.vercel.app', status: 'delivered', last: '27 Mar · paid £300', framework: 'static' },
+  { name: 'Wolf Builders mock', url: 'https://wolf-builders-mock.vercel.app', status: 'parked', last: '26 Apr · Tranquil hardcodes', framework: 'nextjs' },
+  { name: 'App (placeholder)', url: 'https://app-iota-drab.vercel.app', status: 'archived', last: '27 Feb · alfiefreeman', framework: 'vite' },
+  { name: 'Married To The Mop NW', url: 'https://married-to-the-mop-north-west-limit.vercel.app', status: 'archived', last: '21 Feb · cloner test', framework: 'nextjs' },
+  { name: 'Gibson Plumbing', url: 'https://gibson-plumbing.vercel.app', status: 'archived', last: '20 Feb · cautionary tale', framework: 'nextjs' },
+];
+
+const components = [
+  { name: 'Hero (Systems / Flow Field)', cat: 'Hero', repos: 'sov-systems' }, { name: 'Hero (Bookings / Calendar)', cat: 'Hero', repos: 'sov-bookings' }, { name: 'Hero (Veo 2 carousel)', cat: 'Hero', repos: 'tranquil + cg-paving' }, { name: 'Hero Scroll Sequence', cat: 'Hero', repos: 'sov-systems + bookings' },
+  { name: 'CTA Block (Systems)', cat: 'CTA', repos: 'sov-systems + bookings' }, { name: 'Client Inquiry CTA', cat: 'CTA', repos: 'sov-systems' },
+  { name: 'Pricing Tiers', cat: 'Pricing', repos: 'sov-systems' }, { name: 'Pricing PPA (Bookings)', cat: 'Pricing', repos: 'sov-bookings + systems' }, { name: 'Pricing Grid (Tranquil)', cat: 'Pricing', repos: 'tranquil' },
+  { name: 'Calendar Booking 4-step', cat: 'Booking', repos: 'sov-bookings + systems' }, { name: 'Online Booking 5-step', cat: 'Booking', repos: 'tranquil + cg-paving' }, { name: 'Client Inquiry Form', cat: 'Booking', repos: 'sov-systems + bookings' }, { name: 'Inquiry Form (Garden room)', cat: 'Booking', repos: 'sov-bookings' }, { name: 'Contact Form', cat: 'Booking', repos: 'sov-systems + bookings' },
+  { name: 'Site Health Widget', cat: 'Dashboard', repos: 'sov-systems' }, { name: 'ROI Calculator', cat: 'Dashboard', repos: 'sov-bookings + systems' }, { name: 'Quote Pipeline (live feed)', cat: 'Dashboard', repos: 'sov-bookings' }, { name: 'Features Showcase', cat: 'Dashboard', repos: 'sov-bookings' }, { name: 'Chat Widget (FAQ)', cat: 'Dashboard', repos: 'all 4 repos' }, { name: 'Missed Call Banner', cat: 'Dashboard', repos: 'tranquil + cg-paving' }, { name: 'Service Quiz', cat: 'Dashboard', repos: 'tranquil + cg-paving' }, { name: 'Business Intelligence Panel', cat: 'Dashboard', repos: 'tranquil + cg-paving' }, { name: 'Tech Reports', cat: 'Dashboard', repos: 'tranquil' },
+  { name: 'Navbar (scroll + auth)', cat: 'Navigation', repos: 'sov-bookings + systems' }, { name: 'Navbar (cloner kinetic)', cat: 'Navigation', repos: 'tranquil + cg-paving' }, { name: 'Top Banner (scarcity)', cat: 'Navigation', repos: 'sov-bookings + systems' },
+  { name: 'Footer (Bookings)', cat: 'Footer', repos: 'sov-bookings' }, { name: 'Interactive Footer (cloner)', cat: 'Footer', repos: 'tranquil + cg-paving' }, { name: 'Built by Sovereign', cat: 'Footer', repos: 'sov-bookings' },
+  { name: 'Preloader (match-strike)', cat: 'Misc', repos: 'sov-bookings + systems' },
+  { name: 'Founder Note', cat: 'Sales', repos: 'sov-bookings + systems' }, { name: 'How It Works (4-step PPA)', cat: 'Sales', repos: 'sov-bookings' }, { name: 'FAQ Section', cat: 'Sales', repos: 'sov-bookings + systems' }, { name: 'Testimonials Block', cat: 'Sales', repos: 'all 4 repos' }, { name: 'Pain Points', cat: 'Sales', repos: 'sov-systems' }, { name: 'Problems Section', cat: 'Sales', repos: 'sov-systems' }, { name: 'Solution Section', cat: 'Sales', repos: 'sov-systems' }, { name: 'Process Section', cat: 'Sales', repos: 'sov-systems' }, { name: 'Implementation', cat: 'Sales', repos: 'sov-systems' }, { name: 'Trade Showcase', cat: 'Sales', repos: 'sov-systems' }, { name: 'Social Proof Strip', cat: 'Sales', repos: 'sov-systems' }, { name: 'Digital Alchemy', cat: 'Sales', repos: 'sov-systems' }, { name: 'ROI Framing', cat: 'Sales', repos: 'sov-systems' }, { name: 'Trustpilot Widget', cat: 'Sales', repos: 'tranquil' }, { name: 'Mobile App Preview', cat: 'Sales', repos: 'tranquil + cg-paving' }, { name: 'Project Reel', cat: 'Sales', repos: 'tranquil' }, { name: 'Locations Section', cat: 'Sales', repos: 'tranquil + cg-paving' },
+  { name: 'Portfolio Cover (slide 1)', cat: 'Pitch', repos: 'sov-systems' }, { name: 'Portfolio Case Study Slide', cat: 'Pitch', repos: 'sov-systems' }, { name: 'Portfolio Shell', cat: 'Pitch', repos: 'sov-systems' }, { name: 'Portfolio Shell (ClubDNA)', cat: 'Pitch', repos: 'sov-systems' }, { name: 'Services Slide', cat: 'Pitch', repos: 'sov-systems' }, { name: 'Comparison Slide', cat: 'Pitch', repos: 'sov-systems' }, { name: 'How We Work Slide', cat: 'Pitch', repos: 'sov-systems' }, { name: 'Contact / Close Slide', cat: 'Pitch', repos: 'sov-systems' }, { name: 'Portfolio Showcase', cat: 'Pitch', repos: 'sov-systems' },
+  { name: 'Button (primary/secondary)', cat: 'UI', repos: 'all 4 repos' }, { name: 'Container Scroll Animation', cat: 'UI', repos: 'sov-systems + bookings' }, { name: 'Cobe Globe (3D earth)', cat: 'UI', repos: 'sov-systems' }, { name: 'Stat Counter', cat: 'UI', repos: 'sov-systems + bookings' }, { name: 'Kinetic Menu', cat: 'UI', repos: 'sov-systems + bookings' }, { name: 'Glass Checkout Card', cat: 'UI', repos: 'sov-bookings' }, { name: 'Mission Success Dialog', cat: 'UI', repos: 'sov-systems' }, { name: 'Cookie Consent', cat: 'UI', repos: 'sov-systems + bookings' },
+  { name: 'Flow Field Background (WebGL)', cat: 'Background', repos: 'sov-systems' }, { name: 'Aurora Background', cat: 'Background', repos: 'sov-systems + bookings' }, { name: 'Motherboard Background', cat: 'Background', repos: 'sov-systems + bookings' },
+];
+
+const templates = [
+  { cat: 'outreach', title: 'Bookings PPA-only DM', tag: 'Cold DM', body: `Alright {{Owner}}, Miller from Sovereign Bookings.\n\n{{Business}} site looks sound. Different angle: PPA lead gen for garden room firms NW. £300 per qualified appointment. Free funnel site sits alongside.\n\nProposal: {{URL}}\n\n10-min chat?\n\nMiller` },
+  { cat: 'outreach', title: 'Bookings — rebuild + PPA hybrid', tag: 'Cold DM', body: `Alright {{Owner}}, Miller from Sovereign Bookings.\n\nCame across {{Business}} this week, work looks proper. Quick honest take, your site doesn't show off the garden room work the way IG does. The product is buried.\n\nWe do two things: fix the site so GR work leads, run PPA lead gen, you only pay when a homeowner shows up.\n\nProposal: {{URL}}\n\n15-min chat this week?\n\nMiller` },
+  { cat: 'outreach', title: 'Wigan flip', tag: 'Cold message', body: `Alright {{Owner}}, Miller from Sovereign Systems, Wigan-based. Noticed no real site behind the FB page.\n\nI build trades sites in 7 days for £500-£800 all-in. No fees, no contracts. Local, fast.\n\nProposal: {{URL}}\n\n10-min chat?\n\nMiller` },
+  { cat: 'outreach', title: 'KLG Landscape (neighbour)', tag: 'Hyper-local', body: `Alright [name],\n\nMiller from down the road. Drove past your board on [street] yesterday — work looks proper. You've got demand signal but no site to send people to means lost Googlers.\n\nI build trades sites in 7 days for £500-£800. Local, fast.\n\nProposal: {{URL}}\n\n10 mins?\n\nMiller` },
+  { cat: 'outreach', title: 'Family-warm referral (via dad)', tag: 'Via family', body: `Alright {{Recipient}}. Our Miller's been at this digital agency game proper hard. Built up Sovereign Systems. Had a proper look at the {{Business}} site, easy wins. He'll drop you a text. Lad knows his stuff.` },
+  { cat: 'sales', title: 'ACA framework (Acknowledge-Connect-Ask)', tag: 'Framework', body: `ACKNOWLEDGE: Reference something specific. Show you've paid attention.\n\nCONNECT: Bridge with specific observation, not "I help businesses like yours."\n\nASK: One concrete low-friction step. "15 min Wed or Thu?" or "want a 2-min Loom?"\n\nFor high-value DMs with a real hook. Not for cold volume blasts.` },
+  { cat: 'sales', title: 'Cap Cartel re-approach (May 17)', tag: 'Future', body: `Alright Andy, Miller again. No pressure, follow-up only.\n\nLooked at the IG numbers since we last spoke. You're crushing engagement which is the hardest bit, but here's what's been bugging me. Every follower clicking through to capcartel01.com hits a storefront that doesn't match the brand they just engaged with. That gap is where you're leaving money on the table.\n\nGot a number for what the gap costs you each month. 10 mins to walk through?\n\nMiller` },
+  { cat: 'sales', title: 'Performance guarantee close', tag: 'Bookings sales', body: `For every qualified appointment we book, you show up, quote, and get paid. We both win.\n\n10 qualified bookings in 30 days of active delivery (60-day cap for ad warmup), or we keep working at no extra cost.\n\n"Qualified" = real homeowner with budget in mind, engaged 3+ min on call, slot confirmed in diary.\n\nNot "book 10 or it's free" — that signals desperation.` },
+  { cat: 'internal', title: 'Council query — Code prompt', tag: 'Internal', body: `Use anthropic-skills:notebooklm. Query [Council member name] notebook (UUID from memory/reference_council.md) with this question: "[your specific question here]". Return key insights, direct quotes from sources, and 1-3 actionable takeaways for Sovereign Systems specifically. Don't summarise generically, lift the specific advice.` },
+  { cat: 'internal', title: '4-agent dispatch header', tag: 'Internal', body: `4-agent parallel build via AG Claude tabs.\n\nAgent 1 (AG Left): {{task A}}\nAgent 2 (AG Middle): {{task B}}\nAgent 3 (AG Right): {{task C}}\nAgent 4 (AG Bottom Terminal): {{QA / build / deploy}}\n\nAll four work workspace at C:\\Sovereign HQ. Cowork = orchestrator. Last line per agent: "Done. Switch back to Cowork."` },
+  { cat: 'internal', title: 'Wooty handover (PC arrival)', tag: 'Internal', body: `Alright Wooty, you in?\n\nThree things to bookmark on day 1:\n1. Sovereign HQ artifact — your daily dashboard. Cowork chat opens it.\n2. Notion Pipeline DB — backend, you can edit there too.\n3. Telegram Sovereign HQ chat — daily 05:45 brief.\n\nYour lane: socials + content for both brands. Garden rooms only on Bookings IG/FB. Anything sales-relevant, drop in leads kanban or message Miller.\n\n14-day trial, 10% commission on what you source, day 1 = today.` },
+];
+
+let state = loadState();
+let leads = state.leads || initialLeads;
+let tasks = state.tasks || initialTasks;
+let proposals = state.proposals || [];
+let chatMessages = [];
+let chatHistory = state.chatHistory || [];
+let currentLeadFilter = 'all';
+let currentDetailLead = null;
+let nextLeadId = Math.max(...leads.map(l => l.id), 1000) + 1;
+
+// ============================================================
+// CLOUD SYNC (multi-device via Supabase + /api/pipeline-state)
+// localStorage is always the immediate cache. Cloud is debounced PUT.
+// On boot, GET cloud — if newer than local, swap in and re-render.
+// ============================================================
+function getCloudToken() {
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    if (k && k.startsWith('sb-') && k.endsWith('-auth-token')) {
+      try {
+        const v = JSON.parse(localStorage.getItem(k));
+        if (v && v.access_token) return v.access_token;
+      } catch (_) { /* ignore */ }
+    }
+  }
+  return null;
+}
+function isCloudCapable() {
+  // Only attempt cloud sync when running on the deployed origin (not file://).
+  return typeof location !== 'undefined' && location.protocol.startsWith('http') && !!getCloudToken();
+}
+let cloudSyncStatus = 'local'; // 'local' | 'syncing' | 'synced' | 'error' | 'offline'
+let cloudSyncTimer = null;
+function setSyncPill(text, color) {
+  const pill = document.getElementById('cloudSyncPill');
+  if (!pill) return;
+  pill.textContent = text;
+  pill.style.color = color;
+}
+async function cloudPull() {
+  if (!isCloudCapable()) { cloudSyncStatus = 'local'; setSyncPill('local only', '#888'); return; }
+  cloudSyncStatus = 'syncing'; setSyncPill('☁ syncing...', '#fbbf24');
+  try {
+    const res = await fetch('/api/pipeline-state', { headers: { Authorization: 'Bearer ' + getCloudToken() } });
+    if (!res.ok) throw new Error('GET ' + res.status);
+    const json = await res.json();
+    if (json.state && json.state.leads && Array.isArray(json.state.leads)) {
+      const localUpdatedAt = (loadState().updatedAt || '');
+      const cloudUpdatedAt = json.updatedAt || '';
+      // If cloud is newer (or local is empty), use cloud.
+      if (!localUpdatedAt || cloudUpdatedAt > localUpdatedAt) {
+        leads = json.state.leads || leads;
+        tasks = json.state.tasks || tasks;
+        proposals = json.state.proposals || proposals;
+        chatHistory = json.state.chatHistory || chatHistory;
+        // Write the cloud snapshot to local cache so future loads have it.
+        saveState({ leads, tasks, proposals, chatHistory, schemaVersion: SCHEMA_VERSION, updatedAt: cloudUpdatedAt });
+        renderLeads(); renderTasks(); renderProposals();
+      }
+    }
+    cloudSyncStatus = 'synced'; setSyncPill('☁ synced', '#4ade80');
+  } catch (err) {
+    cloudSyncStatus = 'error'; setSyncPill('☁ error', '#fca5a5');
+    console.warn('cloudPull failed:', err.message);
+  }
+}
+function cloudPushDebounced() {
+  if (!isCloudCapable()) return;
+  if (cloudSyncTimer) clearTimeout(cloudSyncTimer);
+  setSyncPill('☁ saving...', '#fbbf24');
+  cloudSyncTimer = setTimeout(async () => {
+    try {
+      const res = await fetch('/api/pipeline-state', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + getCloudToken() },
+        body: JSON.stringify({ state: { leads, tasks, proposals, chatHistory, schemaVersion: SCHEMA_VERSION, updatedAt: new Date().toISOString() } }),
+      });
+      if (!res.ok) throw new Error('PUT ' + res.status);
+      setSyncPill('☁ synced', '#4ade80');
+    } catch (err) {
+      setSyncPill('☁ error', '#fca5a5');
+      console.warn('cloudPush failed:', err.message);
+    }
+  }, 400);
+}
+function persist() {
+  saveState({ leads, tasks, proposals, chatHistory, schemaVersion: SCHEMA_VERSION, updatedAt: new Date().toISOString() });
+  cloudPushDebounced();
+}
+function today() { return new Date().toISOString().slice(0, 10); }
+function slugify(s) { return String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
+function leadEV(lead) {
+  // EV (Expected Value, £) = deal_value × (lead_score / 100). Won leads = won amount.
+  if (lead.stage === 'won') return lead.won || lead.dealValue || 0;
+  if (lead.stage === 'parked') return 0;
+  const score = (lead.leadScore || 0) / 100;
+  return Math.round((lead.dealValue || 0) * score);
+}
+const leadsWithIntel = new Set();
+async function probeCouncilIntel() {
+  // Best-effort HEAD checks for artifacts/orchestrate/<slug>/council-intel.md
+  // Falls through silently when running over file:// (no fetch capability) or if artifacts don't exist.
+  for (const lead of leads) {
+    const slug = lead.slug || slugify(lead.name);
+    if (!slug) continue;
+    try {
+      const res = await fetch(`./orchestrate/${slug}/council-intel.md`, { method: 'HEAD' });
+      if (res && res.ok) leadsWithIntel.add(slug);
+    } catch (_) { /* file:// or 404 — ignore */ }
+  }
+  // Hard-add the two known firms even if HEAD fetch fails (file:// won't allow it)
+  leadsWithIntel.add('wolf-builders');
+  leadsWithIntel.add('trafford-garden-rooms');
+  renderLeads();
+}
+function exportPipeline() {
+  const blob = new Blob([JSON.stringify({ schemaVersion: SCHEMA_VERSION, exportedAt: new Date().toISOString(), leads, tasks, proposals }, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `sovereign-pipeline-${today()}.json`;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 100);
+}
+function importPipeline(file) {
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const parsed = JSON.parse(e.target.result);
+      if (!parsed.leads) throw new Error('No leads array in file');
+      if (!confirm(`Import ${parsed.leads.length} leads, ${(parsed.tasks||[]).length} tasks? This replaces current state.`)) return;
+      leads = parsed.leads;
+      tasks = parsed.tasks || tasks;
+      proposals = parsed.proposals || proposals;
+      persist(); renderLeads(); renderTasks(); renderProposals();
+      alert('✓ Imported ' + parsed.leads.length + ' leads');
+    } catch (err) { alert('Import failed: ' + err.message); }
+  };
+  reader.readAsText(file);
+}
+function resetPipeline() {
+  if (!confirm('Reset to seed? All localStorage edits will be lost.')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  leads = JSON.parse(JSON.stringify(initialLeads));
+  tasks = JSON.parse(JSON.stringify(initialTasks));
+  proposals = [];
+  persist(); renderLeads(); renderTasks(); renderProposals();
+  alert('✓ Reset to seed (' + leads.length + ' leads)');
+}
+
+function autoResize(ta) { ta.style.height = '56px'; ta.style.height = Math.min(ta.scrollHeight, 200) + 'px'; document.getElementById('councilSendBtn').disabled = !ta.value.trim(); }
+function handleCouncilKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); askCouncilFromInput(); } }
+function askCouncilFromInput() { const ta = document.getElementById('councilInput'); const q = ta.value.trim(); if (!q) return; askCouncil(q); ta.value = ''; autoResize(ta); }
+
+function askCouncil(question) {
+  document.getElementById('councilHero').style.display = 'none';
+  chatMessages.push({ role: 'user', text: question });
+  renderChat();
+  const thinkingId = 'thinking-' + Date.now();
+  chatMessages.push({ role: 'thinking', id: thinkingId });
+  renderChat();
+  setTimeout(() => {
+    const q = question.toLowerCase();
+    const scored = COUNCIL.map(m => { let score = 0; m.keywords.forEach(kw => { if (q.includes(kw)) score += 2; }); return { member: m, score }; }).filter(x => x.score > 0).sort((a, b) => b.score - a.score);
+    const responders = scored.length >= 3 ? scored.slice(0, Math.min(5, scored.length)) : COUNCIL.slice(0, 4).map(m => ({ member: m, score: 0 }));
+    chatMessages = chatMessages.filter(m => m.id !== thinkingId);
+    chatMessages.push({ role: 'voices', members: responders.map(r => r.member), question });
+    setTimeout(() => { chatMessages.push({ role: 'vote', question, members: responders.map(r => r.member) }); renderChat(); chatHistory.unshift({ q: question, ts: Date.now() }); persist(); }, 700);
+    renderChat();
+  }, 900);
+}
+
+function synthesiseVote(question, members) {
+  const q = question.toLowerCase();
+  const names = members.map(m => m.name).slice(0, 3).join(', ');
+  let synth = `Across ${names}, the Council converges:\n\n`;
+  if (/offer|guarantee|price|pretzel|magnet|irresistible/.test(q)) synth += `1. **Lead with the result, not the mechanism.** "10 qualified appointments in 30 days" beats "PPA for £300/show."\n2. **Free site IS the salty pretzel** — first thing they read.\n3. **Risk reversal first paragraph.** "10 in 30 or we keep working" flips brain.\n\n**🌟 North Star check:** Sharper offer = each of your 4 active leads hears a sharper pitch. Higher hit rate = £600 Tide target Sun lands.`;
+  else if (/cold email|outreach|message|dm|subject|deliverability/.test(q)) synth += `1. **Lowercase subjects that look forwarded** win.\n2. **First line specific** — their 0800, showroom, follower count.\n3. **Templated middle, personalised hook + close.** 30 messages × 90 sec = 45 min focused.\n\n**🌟 North Star check:** 30/day pipeline = 1-2 replies = 1 client/week = £5k MRR × 3 = Beetham.`;
+  else if (/avoidance|focus|build|tool|infrastructure|discipline|procrastin/.test(q)) synth += `1. **Diagnostic:** if work doesn't produce reply or cash in 7 days = Resistance.\n2. **One-thing rule.** Today list >3 items = lost.\n3. **Ship before build.** No artifact iteration until today's batch sent.\n\n**🌟 North Star check:** 97 days to Beetham rewards messages sent, not beautiful tools. Every minute on artifact that delays a DM costs ~£10 EV at your conversion rate.`;
+  else if (/this week|tide|cash|600|priority|focus/.test(q)) synth += `1. **Omar tonight = keystone.** Andy briefed ✓. Be sharp tomorrow.\n2. **Chris + Luke = backup.** Luke replied ✓, Chris pending.\n3. **Don't open new lead sources this week.** Concentrate force.\n\n**🌟 North Star check:** Combined EV ~£730 across 4 active leads. Above £600 target. Math works if you stay focused.`;
+  else if (/wooty|partnership|joe|cofounder|equity/.test(q)) synth += `1. **Specific lanes prevent friction.** Wooty = content + DM volume. You = calls + delivery.\n2. **14-day trial = execution audit.** Lanes shipped → equity unlocks. Else contractor.\n3. **Joe's exit teaches:** unspoken expectations kill partnerships.\n\n**🌟 North Star check:** Working partnership halves time to £5k MRR. Failing one doubles it.`;
+  else synth += `1. **Decide while calm**, execute when stressed.\n2. **Ship messages, not infrastructure.**\n3. **One-thing focus** — strip today list to its sharpest move.\n\n**🌟 North Star check:** Does this answer get you closer to £5k MRR × 3 by Aug 1? If not, park it.`;
+  return synth;
+}
+
+function renderChat() {
+  const c = document.getElementById('chatMessages'); c.innerHTML = '';
+  chatMessages.forEach(msg => {
+    if (msg.role === 'user') { const el = document.createElement('div'); el.className = 'msg-user'; el.textContent = msg.text; c.appendChild(el); }
+    else if (msg.role === 'thinking') { const el = document.createElement('div'); el.className = 'msg-thinking'; el.innerHTML = `<span class="msg-thinking-dot"></span><span class="msg-thinking-dot"></span><span class="msg-thinking-dot"></span> Council deliberating...`; c.appendChild(el); }
+    else if (msg.role === 'voices') { const stack = document.createElement('div'); stack.className = 'council-voice-stack'; msg.members.forEach(m => { const v = document.createElement('div'); v.className = 'council-voice'; v.innerHTML = `<div class="council-voice-head"><div><div class="council-voice-name">${m.name}</div><div class="council-voice-domain">${m.domain}</div></div><span class="council-voice-tag tag-${m.tag}">${m.tagLabel}</span></div><div class="council-voice-body">${esc(m.voice())}</div>`; stack.appendChild(v); }); c.appendChild(stack); }
+    else if (msg.role === 'vote') { const synth = synthesiseVote(msg.question, msg.members); const v = document.createElement('div'); v.className = 'council-vote'; v.innerHTML = `<div class="council-vote-head">⭐ Council Vote</div><div class="council-vote-body">${esc(synth)}</div><div class="council-vote-actions"><button class="council-action-btn m3" onclick="copyText(this.parentElement.parentElement.querySelector('.council-vote-body').textContent, this)">📋 Copy</button><button class="council-action-btn primary m3" onclick='showCodePrompt(${JSON.stringify(msg.question).replace(/'/g, "&#39;")})'>🔥 Real Pinecone query</button></div>`; c.appendChild(v); }
+  });
+  setTimeout(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }), 50);
+}
+
+function showCodePrompt(q) { document.getElementById('codePromptBody').textContent = `Use anthropic-skills:notebooklm + scripts/pinecone-query.js for question:\n\n"${q}"\n\nQuery sovereign-council index, top-K=8. Synthesise structured 3-point answer with North Star anchor (Beetham, £5k MRR × 3, 97 days).\n\nLast line: "Council answer ready."`; document.getElementById('codePromptModal').classList.add('active'); }
+
+function detectAddUrl() {
+  const url = document.getElementById('addLeadUrl').value.toLowerCase().trim();
+  const out = document.getElementById('addLeadUrlDetected');
+  const enrichBtn = document.getElementById('enrichMapsBtn');
+  if (!url) { out.textContent = ''; if (enrichBtn) enrichBtn.style.display = 'none'; return; }
+  let det = '? Unknown'; let isMaps = false;
+  if (url.includes('facebook.com')) det = '📘 Facebook';
+  else if (url.includes('instagram.com')) det = '📷 Instagram';
+  else if (url.includes('google.com/maps') || url.includes('maps.app.goo.gl') || url.includes('goo.gl/maps')) { det = '📍 Google Maps'; isMaps = true; }
+  else if (url.includes('linkedin.com')) det = '💼 LinkedIn';
+  else if (url.match(/^https?|\.co|\.com/)) det = '🌐 Website';
+  out.innerHTML = `✓ Detected: <strong>${det}</strong>`;
+  if (enrichBtn) enrichBtn.style.display = isMaps ? 'inline-block' : 'none';
+}
+function copyMapsEnrichPrompt() {
+  const url = document.getElementById('addLeadUrl').value.trim();
+  if (!url) return;
+  const niche = document.getElementById('addLeadBrand').value === 'bookings' ? 'Garden Rooms' : 'General Trades';
+  const prompt = `Use the apify-scraper skill (or Apify Google Maps scraper directly) to enrich this lead. Return ONLY a JSON object I can paste into v9-live.html.\n\nMaps URL: ${url}\n\nNiche hint: ${niche}\n\nReturn this exact JSON shape, no markdown, no commentary:\n{\n  "firm": "<business name>",\n  "phone": "<+44... or international format>",\n  "website": "<https URL or empty string>",\n  "address": "<full address>",\n  "area": "<one of: Wigan|Manchester|Liverpool|Preston|Cheshire|Leeds|Sheffield|Nottingham|Birmingham|London|Other UK>",\n  "rating": 4.9,\n  "reviewCount": 55,\n  "categories": ["..."],\n  "ownerName": "<owner first name if found, else empty string>",\n  "leadScore": 0\n}\n\nCompute leadScore = min(100, round(rating * 10 + Math.log10(reviewCount + 1) * 18)). If rating or reviewCount missing, leadScore = 40.`;
+  navigator.clipboard.writeText(prompt).then(() => {
+    document.getElementById('enrichResult').innerHTML = '✓ Prompt copied. Paste into a Code or Cowork chat, then paste the returned JSON into the textarea below.';
+  });
+}
+function openAddLeadModal() { document.getElementById('addLeadName').value = ''; document.getElementById('addLeadUrl').value = ''; document.getElementById('addLeadNotes').value = ''; document.getElementById('addLeadUrlDetected').textContent = ''; document.getElementById('addLeadModal').classList.add('active'); setTimeout(() => document.getElementById('addLeadName').focus(), 50); }
+function submitAddLead() {
+  const name = document.getElementById('addLeadName').value.trim();
+  const url = document.getElementById('addLeadUrl').value.trim();
+  const enrichJson = document.getElementById('addLeadEnrichJson').value.trim();
+  let enriched = {};
+  if (enrichJson) {
+    try { enriched = JSON.parse(enrichJson); } catch (e) { alert('Enrich JSON did not parse: ' + e.message); return; }
+  }
+  const finalName = name || enriched.firm;
+  if (!finalName) { alert('Need a firm name (either in the field or in enrich JSON)'); return; }
+  const brand = document.getElementById('addLeadBrand').value;
+  const lead = {
+    id: nextLeadId++,
+    name: finalName,
+    brand,
+    niche: enriched.categories && enriched.categories.find(c => /garden|room/i.test(c)) ? 'Garden Rooms' : (brand === 'bookings' ? 'Garden Rooms' : 'General Trades'),
+    area: enriched.area || (document.getElementById('addLeadTown').value === 'unknown' ? 'Other UK' : (document.getElementById('addLeadTown').value.charAt(0).toUpperCase() + document.getElementById('addLeadTown').value.slice(1))),
+    source: url && url.toLowerCase().includes('maps') ? 'Apify' : 'Manual',
+    sourceNote: 'Manual entry · ' + new Date().toLocaleDateString() + (enriched.firm ? ' · enriched from Maps' : ''),
+    stage: 'cold',
+    owner: 'Miller',
+    ownerName: enriched.ownerName || '',
+    action: 'Enrich + qualify',
+    nextAction: enriched.firm ? 'Build mock + send pitch' : 'Enrich + qualify',
+    lastContact: '',
+    town: document.getElementById('addLeadTown').value || 'unknown',
+    readiness: enriched.leadScore ? Math.round(enriched.leadScore / 12) : 3,
+    leadScore: enriched.leadScore || 40,
+    phone: enriched.phone || '',
+    website: enriched.website || '',
+    address: enriched.address || '',
+    rating: enriched.rating || 0,
+    reviewCount: enriched.reviewCount || 0
+  };
+  const notes = document.getElementById('addLeadNotes').value.trim();
+  if (notes) lead.notes = notes;
+  if (url) {
+    const u = url.toLowerCase();
+    const full = url.match(/^https?:\/\//) ? url : 'https://' + url;
+    if (u.includes('facebook.com') || u.includes('instagram.com')) { lead.facebook = full; lead.hasWebsite = false; }
+    else if (u.includes('google.com/maps') || u.includes('maps.app.goo.gl')) { lead.mapsUrl = full; if (lead.website) lead.hasWebsite = true; }
+    else if (!lead.website) { lead.website = full; lead.hasWebsite = true; }
+  }
+  leads.unshift(lead); persist(); closeModal('addLeadModal'); renderLeads();
+}
+
+function showTab(btn, name) { document.querySelectorAll('.sb-item').forEach(t => t.classList.remove('active')); document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active')); btn.classList.add('active'); document.getElementById(name).classList.add('active'); window.scrollTo(0, 0); }
+function setLeadFilter(btn, f) { currentLeadFilter = f; document.querySelectorAll('#leads .filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); renderLeads(); }
+
+function renderLeads() {
+  const view = document.getElementById('leadsView'); view.innerHTML = '';
+  const stages = [{ id: 'cold', label: 'Cold', cls: 'stage-cold' }, { id: 'mock', label: 'Mock', cls: 'stage-mock' }, { id: 'pitching', label: 'Pitching', cls: 'stage-pitching' }, { id: 'warm', label: 'Warm', cls: 'stage-warm' }, { id: 'build', label: 'Build', cls: 'stage-build' }, { id: 'won', label: 'Won', cls: 'stage-won' }, { id: 'parked', label: 'Parked', cls: 'stage-parked' }];
+  const searchEl = document.getElementById('leadsSearch');
+  const q = searchEl ? searchEl.value.trim().toLowerCase() : '';
+  const filtered = leads.filter(l => (currentLeadFilter === 'all' || l.brand === currentLeadFilter) && (!q || (l.name||'').toLowerCase().includes(q) || (l.niche||'').toLowerCase().includes(q) || (l.area||'').toLowerCase().includes(q)));
+  // Sort by EV (lead_score × deal_value) descending — Sean's call: focus list at top
+  filtered.sort((a, b) => leadEV(b) - leadEV(a));
+  const pip = document.getElementById('lastSavedPip'); if (pip) { const st = loadState(); pip.textContent = st.updatedAt ? 'saved ' + new Date(st.updatedAt).toLocaleTimeString().slice(0,5) : 'v9 · ready'; }
+  document.getElementById('badgeLeads').textContent = filtered.length;
+  stages.forEach(stage => {
+    const visible = filtered.filter(l => l.stage === stage.id);
+    const col = document.createElement('div'); col.className = `stage-col ${stage.cls}`; col.dataset.stage = stage.id;
+    col.innerHTML = `<div class="col-title">${stage.label} <span class="col-count">(${visible.length})</span></div>`;
+    visible.forEach(lead => {
+      const card = document.createElement('div'); card.className = 'lead-card m3'; card.draggable = true; card.dataset.id = lead.id;
+      const pc = lead.brand === 'bookings' ? 'pill-bookings' : 'pill-systems';
+      const rc = lead.readiness >= 7 ? 'r-high' : lead.readiness >= 4 ? 'r-med' : 'r-low';
+      const hasIntel = leadsWithIntel.has(lead.slug || slugify(lead.name));
+      const intelBadge = hasIntel ? '<span class="pill" style="background:rgba(245,158,11,0.18);color:#fbbf24;border:1px solid rgba(245,158,11,0.4);">🔥 intel</span>' : '';
+      const nichePill = lead.niche ? `<span class="pill" style="background:rgba(168,85,247,0.12);color:#c4b5fd;border:1px solid rgba(168,85,247,0.25);">${lead.niche}</span>` : '';
+      const areaPill = lead.area ? `<span class="pill" style="background:rgba(96,165,250,0.10);color:#93c5fd;border:1px solid rgba(96,165,250,0.22);">${lead.area}</span>` : '';
+      const repliedBadge = lead.replyReceived ? '<span class="pill" style="background:rgba(34,197,94,0.18);color:#4ade80;border:1px solid rgba(34,197,94,0.4);">✓ replied</span>' : '';
+      const ev = leadEV(lead);
+      const evBadge = ev > 0 ? `<span class="pill" style="background:rgba(34,197,94,0.10);color:#4ade80;border:1px solid rgba(34,197,94,0.22);">EV £${ev.toLocaleString()}</span>` : '';
+      const lastContactBit = lead.lastContact ? `<span style="color:#666;">· ${lead.lastContact}</span>` : '';
+      const sourceLine = `${lead.source || 'Manual'}${lastContactBit}`;
+      const actionLine = lead.nextAction || lead.action || '';
+      card.innerHTML = `<div class="lead-name"><span>${lead.name}</span><span style="display:flex;gap:4px;flex-wrap:wrap;">${lead.hot ? '<span class="pill pill-hot">🔥</span>' : ''}${repliedBadge}${intelBadge}<span class="readiness ${rc}">★${lead.readiness || 0}</span><span class="pill ${pc}">${lead.brand === 'bookings' ? 'Bookings' : 'Systems'}</span></span></div><div class="lead-meta" style="display:flex;gap:4px;flex-wrap:wrap;margin:4px 0 6px;">${nichePill}${areaPill}${evBadge}</div><div class="lead-meta">${sourceLine}</div><div class="lead-action">→ ${actionLine}</div>`;
+      card.onclick = () => openLeadDetail(lead.id);
+      card.addEventListener('dragstart', e => { card.classList.add('dragging'); e.dataTransfer.setData('text/plain', lead.id); });
+      card.addEventListener('dragend', () => card.classList.remove('dragging'));
+      col.appendChild(card);
+    });
+    col.addEventListener('dragover', e => { e.preventDefault(); col.classList.add('drop-target'); });
+    col.addEventListener('dragleave', () => col.classList.remove('drop-target'));
+    col.addEventListener('drop', e => { e.preventDefault(); col.classList.remove('drop-target'); const id = parseInt(e.dataTransfer.getData('text/plain')); const lead = leads.find(l => l.id === id); if (lead && lead.stage !== stage.id) { lead.stage = stage.id; persist(); renderLeads(); } });
+    view.appendChild(col);
+  });
+}
+
+function renderTasks() {
+  const k = document.getElementById('tasksKanban'); k.innerHTML = '';
+  const stages = [{ id: 'backlog', label: 'Backlog', cls: 'stage-backlog' }, { id: 'today', label: 'Today', cls: 'stage-today' }, { id: 'doing', label: 'In Progress', cls: 'stage-doing' }, { id: 'done', label: 'Done', cls: 'stage-done' }];
+  stages.forEach(stage => {
+    const visible = tasks.filter(t => t.stage === stage.id);
+    const col = document.createElement('div'); col.className = `stage-col ${stage.cls}`;
+    col.innerHTML = `<div class="col-title">${stage.label} <span class="col-count">(${visible.length})</span></div>`;
+    visible.forEach(t => { const card = document.createElement('div'); card.className = 'lead-card'; card.innerHTML = `<div class="lead-name"><span>${t.name}</span></div>${t.detail ? `<div class="lead-meta">${t.detail}</div>` : ''}`; col.appendChild(card); });
+    k.appendChild(col);
+  });
+}
+
+function renderProposals() {
+  const list = document.getElementById('proposalsList');
+  document.getElementById('badgeProposals').textContent = proposals.length;
+  if (!proposals.length) { list.innerHTML = '<div class="card" style="text-align:center;padding:40px;color:#666;">Queue empty. Open any lead → Send for Proposal.</div>'; return; }
+  list.innerHTML = proposals.map(p => `<div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px;"><div><div style="font-size:14px;font-weight:600;color:#fff;">${p.name}</div><div style="font-size:11px;color:#888;margin-top:4px;">${p.domain}</div></div><span class="pill pill-${p.brand === 'bookings' ? 'bookings' : 'systems'}">${p.brand}</span></div>`).join('');
+}
+
+function renderTemplates() {
+  const list = document.getElementById('templatesList'); list.innerHTML = '';
+  templates.forEach(t => { const c = document.createElement('div'); c.className = 'template-card'; c.innerHTML = `<div class="template-head"><div><div class="template-title">${t.title}</div><div class="template-tag">${t.tag}</div></div><button class="copy-btn m3" onclick="copyText(this.parentElement.nextElementSibling.textContent, this)">Copy</button></div><div class="template-body">${esc(t.body)}</div>`; list.appendChild(c); });
+}
+
+function renderBuilds() {
+  const list = document.getElementById('buildsList');
+  list.innerHTML = builds.map(b => { const sc = b.status === 'active' ? 'rgba(34,197,94,0.15);color:#4ade80' : b.status === 'delivered' ? 'rgba(96,165,250,0.15);color:#60a5fa' : b.status === 'parked' ? 'rgba(245,158,11,0.15);color:#fbbf24' : 'rgba(107,114,128,0.15);color:#9ca3af'; return `<div class="card"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:8px;"><div><div style="font-size:14px;font-weight:600;color:#fff;">${b.name}</div><a href="${b.url}" target="_blank" style="font-size:11px;color:#60a5fa;text-decoration:none;">${b.url}</a></div><span class="pill" style="background:${sc};">${b.status}</span></div><div style="font-size:10px;color:#666;">${b.framework} · ${b.last}</div></div>`; }).join('');
+}
+
+function renderComponents() {
+  const list = document.getElementById('componentsList');
+  list.innerHTML = components.map(c => `<div class="card" style="padding:14px 16px;"><div style="font-size:13px;font-weight:600;color:#fff;">${c.name}</div><div style="display:inline-block;background:rgba(168,85,247,0.15);color:#c4b5fd;font-size:9px;padding:2px 8px;border-radius:100px;margin-top:6px;">${c.cat}</div><div style="font-size:10px;color:#888;margin-top:6px;">${c.repos}</div></div>`).join('');
+}
+
+function openLeadDetail(id) {
+  const lead = leads.find(l => l.id === id); if (!lead) return; currentDetailLead = lead;
+  document.getElementById('leadDetailName').textContent = lead.name;
+  document.getElementById('leadDetailSource').textContent = lead.sourceNote || lead.source || '';
+  const metaPills = [];
+  if (lead.niche) metaPills.push(`<span class="pill" style="background:rgba(168,85,247,0.12);color:#c4b5fd;border:1px solid rgba(168,85,247,0.25);">${lead.niche}</span>`);
+  if (lead.area) metaPills.push(`<span class="pill" style="background:rgba(96,165,250,0.10);color:#93c5fd;border:1px solid rgba(96,165,250,0.22);">${lead.area}</span>`);
+  if (lead.source) metaPills.push(`<span class="pill" style="background:rgba(107,114,128,0.15);color:#d1d5db;border:1px solid rgba(107,114,128,0.3);">${lead.source}</span>`);
+  if (lead.lastContact) metaPills.push(`<span class="pill" style="background:rgba(255,255,255,0.04);color:#888;border:1px solid #2a2a2e;">Last contact: ${lead.lastContact}</span>`);
+  if (lead.nextAction) metaPills.push(`<span class="pill" style="background:rgba(252,211,77,0.10);color:#fcd34d;border:1px solid rgba(252,211,77,0.25);">→ ${lead.nextAction}</span>`);
+  document.getElementById('leadDetailMeta').innerHTML = metaPills.join('');
+  const linkPills = [];
+  if (lead.website) linkPills.push(`<a href="${lead.website}" target="_blank" style="background:rgba(96,165,250,0.1);color:#93c5fd;padding:5px 12px;border-radius:8px;text-decoration:none;font-size:11px;">🌐 Website</a>`);
+  if (lead.facebook) linkPills.push(`<a href="${lead.facebook}" target="_blank" style="background:rgba(225,48,108,0.15);color:#f8a4c0;padding:5px 12px;border-radius:8px;text-decoration:none;font-size:11px;">📷 Social</a>`);
+  if (lead.mapsUrl) linkPills.push(`<a href="${lead.mapsUrl}" target="_blank" style="background:rgba(234,67,53,0.15);color:#fca5a5;padding:5px 12px;border-radius:8px;text-decoration:none;font-size:11px;">📍 Maps</a>`);
+  if (lead.mockUrl) linkPills.push(`<a href="${lead.mockUrl}" target="_blank" style="background:rgba(34,197,94,0.15);color:#4ade80;padding:5px 12px;border-radius:8px;text-decoration:none;font-size:11px;">🏗 Mock</a>`);
+  if (lead.pitchUrl || lead.proposalUrl) linkPills.push(`<a href="${lead.pitchUrl || lead.proposalUrl}" target="_blank" style="background:rgba(168,85,247,0.15);color:#c4b5fd;padding:5px 12px;border-radius:8px;text-decoration:none;font-size:11px;">📝 Pitch</a>`);
+  const slug = lead.slug || slugify(lead.name);
+  if (leadsWithIntel.has(slug)) linkPills.push(`<a href="./orchestrate/${slug}/council-intel.md" target="_blank" style="background:rgba(245,158,11,0.18);color:#fbbf24;padding:5px 12px;border-radius:8px;text-decoration:none;font-size:11px;border:1px solid rgba(245,158,11,0.4);">🔥 Niche intel ready</a>`);
+  document.getElementById('leadDetailLinks').innerHTML = linkPills.join('');
+  // Council Intel render
+  const intelBox = document.getElementById('councilIntelStack');
+  const mentors = NICHE_TO_MENTOR[lead.niche] || NICHE_TO_MENTOR['Other'];
+  intelBox.innerHTML = mentors.map(m => `<div style="background:#0a0a0c;border:1px solid #1f1f22;border-radius:14px;padding:14px 16px;"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px;"><div><div style="font-size:13.5px;font-weight:700;color:#fff;">${m.mentor}</div><div style="font-size:11px;color:#888;margin-top:2px;">${m.angle}</div></div><span class="council-voice-tag tag-${m.tag === 'Offer' || m.tag === 'Sales' ? 'sales' : m.tag === 'Ads' ? 'ads' : m.tag === 'Tools' ? 'tools' : 'mindset'}">${m.tag}</span></div>${m.quote ? `<div style="font-size:12.5px;color:#d4d4d4;line-height:1.55;margin-top:8px;font-style:italic;">"${esc(m.quote)}"</div>` : ''}${m.file ? `<div style="font-size:10px;color:#666;margin-top:8px;">↪ ${m.file}</div>` : ''}</div>`).join('');
+  const owner = lead.ownerName || '[name]';
+  const proposalUrl = lead.proposalUrl || (lead.brand === 'bookings' ? `https://sovereignbookings.co.uk/proposal-pitch/${lead.name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}` : `https://sovereignsystem.co.uk/proposal-pitch/${lead.name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}`);
+  let body = '', angle = '';
+  if (lead.stage === 'warm' && lead.hot) { angle = 'Council voice: Suby (warm chase) + Hormozi (specificity)'; body = `Alright ${owner}, hope all good. Cheers for the patience, life's been full this side.\n\nGot a private pitch put together for you specifically: ${proposalUrl}\n\n15-min call next week to talk through what you actually need? Tue or Wed work?\n\nMiller`; }
+  else if (lead.stage === 'pitching') { angle = 'Council voice: Cold Email Mon (light reaction-ask)'; body = `Alright ${owner}, just chasing the pitch I sent. Not asking for a decision, just want a reaction. Anything land? Anything missing for you?\n\n${proposalUrl}\n\nMiller`; }
+  else if (lead.brand === 'bookings' && /active spend|GMB|0800|paid/i.test(lead.source)) { angle = 'Council voice: Hormozi + Cold Email Mon'; body = `Alright ${owner}, Miller from Sovereign Bookings.\n\nSpotted ${/0800/.test(lead.source) ? 'your 0800 freephone' : 'your active marketing spend'} — you clearly take leads seriously. Site looks sound, not pitching a rebuild.\n\nDifferent angle: PPA lead gen for garden room firms NW. £300 per qualified appointment. Free funnel site sits alongside.\n\nProposal: ${proposalUrl}\n\n10-min chat?\n\nMiller`; }
+  else if (lead.brand === 'bookings') { angle = 'Council voice: Cold Email Mon + Hormozi (Bookings PPA)'; body = `Alright ${owner}, Miller from Sovereign Bookings.\n\nCame across ${lead.name} this week. Quick honest take — your site doesn't show off the garden room work the way IG does.\n\nPPA lead gen for garden room firms NW: £300 per qualified appointment, free funnel site sits alongside.\n\nProposal: ${proposalUrl}\n\n10-min chat?\n\nMiller`; }
+  else if (lead.neighbour) { angle = 'Council voice: KASPER (hyper-local)'; body = `Alright ${owner},\n\nMiller from down the road. Drove past your board on [street] yesterday — work looks proper. You've got demand signal but no site to send people to means lost Googlers.\n\nI build trades sites in 7 days for £500-£800. Local, fast.\n\nProposal: ${proposalUrl}\n\n10 mins?\n\nMiller`; }
+  else if (lead.hasWebsite === false) { angle = 'Council voice: Cold Email Mon + Wardrop'; body = `Alright ${owner},\n\nMiller from Sovereign Systems, Wigan-based. Noticed there's no real site behind the FB page.\n\nI build trades sites in 7 days for £500-£800. No fees, no contracts. Local, fast.\n\nProposal: ${proposalUrl}\n\n10-min chat?\n\nMiller`; }
+  else { angle = 'Default professional outreach'; body = `Alright ${owner}, Miller from Sovereign Systems.\n\n${lead.action}\n\nProposal: ${proposalUrl}\n\nMiller`; }
+  document.getElementById('messageAngle').textContent = angle;
+  document.getElementById('leadMessage').value = body;
+  document.getElementById('leadDetailModal').classList.add('active');
+}
+
+function copyLeadMsg() { navigator.clipboard.writeText(document.getElementById('leadMessage').value); alert('✓ Copied'); }
+function sendWhatsApp() {
+  if (!currentDetailLead) return;
+  const phone = (currentDetailLead.phone || '').replace(/[^0-9]/g, '');
+  if (!phone) { alert('No phone on this lead. Edit the row to add one (or re-enrich from Maps).'); return; }
+  const msg = encodeURIComponent(document.getElementById('leadMessage').value || '');
+  window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+  // Auto-mark as having had outreach
+  currentDetailLead.lastContact = today();
+  if (currentDetailLead.stage === 'cold' || currentDetailLead.stage === 'mock') currentDetailLead.stage = 'pitching';
+  persist(); renderLeads();
+}
+function toggleReplied() {
+  if (!currentDetailLead) return;
+  currentDetailLead.replyReceived = !currentDetailLead.replyReceived;
+  if (currentDetailLead.replyReceived && currentDetailLead.stage === 'pitching') currentDetailLead.stage = 'warm';
+  currentDetailLead.lastContact = today();
+  persist(); renderLeads();
+  openLeadDetail(currentDetailLead.id);
+}
+function changeStage(s) { if (!currentDetailLead) return; currentDetailLead.stage = s; currentDetailLead.lastContact = today(); persist(); renderLeads(); closeModal('leadDetailModal'); }
+function deleteCurrentLead() { if (!currentDetailLead) return; if (!confirm('Delete?')) return; leads = leads.filter(l => l.id !== currentDetailLead.id); persist(); renderLeads(); closeModal('leadDetailModal'); }
+function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+function copyText(t, b) { navigator.clipboard.writeText(t).then(() => { const o = b.textContent; b.textContent = '✓ Copied'; b.classList.add('copied'); setTimeout(() => { b.textContent = o; b.classList.remove('copied'); }, 1500); }); }
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// First load: persist the seed so localStorage has a baseline + lastSavedPip works
+if (!state.leads) persist();
+renderLeads(); renderTasks(); renderProposals(); renderTemplates(); renderBuilds(); renderComponents();
+probeCouncilIntel();
+// Boot cloud sync — pulls latest state if cloud is ahead of local, then sets up auto-push on every persist.
+cloudPull();
+</script>
+</body>
+</html>
