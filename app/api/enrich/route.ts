@@ -166,11 +166,13 @@ No em dashes anywhere.`;
 
   let resp;
   try {
+    // Haiku 4.5 — fast structural extraction. Sonnet adds latency without
+    // meaningful quality lift for JSON output of this shape.
     resp = await anthropic.messages.create({
-      model: "claude-sonnet-4-6",
-      max_tokens: 2000,
+      model: "claude-haiku-4-5-20251001",
+      max_tokens: 1500,
       messages: [{ role: "user", content: prompt }],
-    });
+    }, { timeout: 35000 });
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
     return NextResponse.json({ error: `Anthropic call failed: ${msg}` }, { status: 502 });
