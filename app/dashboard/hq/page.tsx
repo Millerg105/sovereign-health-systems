@@ -39,6 +39,23 @@ export default function HQPage() {
         setUser(data.user);
         if (allowlist.includes(email)) {
           setStatus("allowed");
+          // Fire-and-forget engagement log — Trial tab signal.
+          try {
+            const { data: sess } = await supabase.auth.getSession();
+            const token = sess.session?.access_token;
+            if (token) {
+              fetch("/api/log-signin", {
+                method: "POST",
+                headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+                body: JSON.stringify({
+                  userAgent: typeof navigator !== "undefined" ? navigator.userAgent : null,
+                  viewport: typeof window !== "undefined" ? `${window.innerWidth}x${window.innerHeight}` : null,
+                }),
+              }).catch(() => {});
+            }
+          } catch {
+            // Non-fatal — never block sign-in on logging.
+          }
         } else {
           setStatus("denied");
         }

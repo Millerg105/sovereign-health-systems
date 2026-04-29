@@ -110,6 +110,28 @@ export function todayISO(): string {
   return new Date().toISOString().slice(0, 10);
 }
 
+// Phase 0 SHARP: per-user engagement log for /dashboard/hq actions.
+// Backs the Trial tab signal (Wooty 14-day trial pass/fail).
+// Fire-and-forget, never throws — logging must not break the action.
+export async function logEngagement(
+  userId: string,
+  email: string,
+  actionKind: string,
+  context?: Record<string, unknown>,
+): Promise<void> {
+  try {
+    const supabase = getServiceClient();
+    await supabase.from("hq_engagement_log").insert({
+      user_id: userId,
+      email,
+      action_kind: actionKind,
+      context: context || null,
+    });
+  } catch (err) {
+    console.warn("[engagement-log] insert failed (non-fatal)", err);
+  }
+}
+
 // Per-niche mentor framework lifted server-side from the dashboard's NICHE_TO_MENTOR map.
 // Used as system context for /api/enrich and /api/make-pitch.
 export type Mentor = { mentor: string; tag: string; angle: string; quote: string };
