@@ -121,7 +121,7 @@ export function ChatWidget() {
         if (e.key === "Enter") sendMessage(inputValue);
     };
 
-    if (pathname.startsWith("/portfolio")) {
+    if (pathname.startsWith("/portfolio") || pathname.startsWith("/dashboard")) {
         return null;
     }
 

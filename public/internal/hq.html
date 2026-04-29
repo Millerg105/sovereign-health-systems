@@ -48,7 +48,7 @@
   .sb-stat .v-won { color: #4ade80; font-weight: 600; }
   .sb-stat .v-flight { color: #f59e0b; font-weight: 600; }
   .sb-stat .v-north { color: #60a5fa; font-weight: 600; }
-  .main { flex: 1; padding: 28px 36px 100px; max-width: calc(100vw - var(--sb-w)); overflow-x: hidden; }
+  .main { flex: 1; padding: 28px 36px 32px; max-width: calc(100vw - var(--sb-w)); overflow-x: hidden; }
   .page-head { margin-bottom: 22px; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px; animation: m3-tab-in 380ms var(--m3-ease-emphatic); }
   .page-head h2 { margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em; }
   .page-head .sub { font-size: 12.5px; color: #888; margin-top: 4px; }
@@ -82,7 +82,7 @@
   .kanban-tasks { grid-template-columns: repeat(4, minmax(200px, 1fr)); }
   @media (max-width: 1400px) { .kanban-leads { grid-template-columns: repeat(4, minmax(200px, 1fr)); } }
   @media (max-width: 800px) { .kanban-leads, .kanban-tasks { grid-template-columns: repeat(2, minmax(180px, 1fr)); } }
-  .stage-col { background: #141416; border: 1px solid #1f1f22; border-radius: 16px; padding: 12px; min-height: 200px; max-height: 600px; overflow-y: auto; transition: border-color 200ms var(--m3-ease), background 200ms var(--m3-ease); }
+  .stage-col { background: #141416; border: 1px solid #1f1f22; border-radius: 16px; padding: 12px; min-height: calc(100vh - 260px); max-height: calc(100vh - 200px); overflow-y: auto; transition: border-color 200ms var(--m3-ease), background 200ms var(--m3-ease); }
   .stage-col.drop-target { background: #1a1a2a; border-color: #60a5fa; box-shadow: 0 0 0 1px rgba(96,165,250,0.3); }
   .stage-cold { border-top: 3px solid #6b7280; } .stage-mock { border-top: 3px solid #a855f7; } .stage-pitching { border-top: 3px solid #f59e0b; } .stage-warm { border-top: 3px solid #ec4899; } .stage-build { border-top: 3px solid #06b6d4; } .stage-won { border-top: 3px solid #22c55e; } .stage-parked { border-top: 3px solid #525252; } .stage-backlog { border-top: 3px solid #6b7280; } .stage-today { border-top: 3px solid #f59e0b; } .stage-doing { border-top: 3px solid #06b6d4; } .stage-done { border-top: 3px solid #22c55e; }
   .col-title { font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: #888; margin-bottom: 12px; display: flex; justify-content: space-between; font-weight: 700; }
