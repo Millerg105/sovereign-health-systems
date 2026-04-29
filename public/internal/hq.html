@@ -1014,8 +1014,8 @@ function renderLeadActionRow(lead) {
   buttons.push({ icon: '🚀', label: 'Make Pitch', color: 'rgba(168,85,247,0.18)', text: '#c4b5fd', border: 'rgba(168,85,247,0.4)', onclick: `makePitch(${lead.id})` });
   buttons.push({ icon: '🔥', label: 'Enrich', color: 'rgba(245,158,11,0.18)', text: '#fbbf24', border: 'rgba(245,158,11,0.4)', onclick: `enrichLead(${lead.id})` });
   buttons.push({ icon: '📋', label: 'Copy msg', color: 'rgba(96,165,250,0.18)', text: '#93c5fd', border: 'rgba(96,165,250,0.4)', onclick: 'copyLeadMsg()' });
-  buttons.push({ icon: lead.replyReceived ? '✓' : '📬', label: lead.replyReceived ? 'Got reply ✓' : 'Got reply', color: lead.replyReceived ? 'rgba(34,197,94,0.25)' : 'rgba(255,255,255,0.05)', text: lead.replyReceived ? '#4ade80' : '#aaa', border: lead.replyReceived ? 'rgba(34,197,94,0.5)' : '#2a2a2e', onclick: 'toggleReplied()' });
-  row.innerHTML = buttons.map(b => `<button class="modal-action-btn m3" style="background:${b.color};color:${b.text};border:1px solid ${b.border};padding:10px 14px;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:6px;" onclick="${b.onclick}">${b.icon} ${b.label}</button>`).join('');
+  buttons.push({ icon: lead.replyReceived ? '✓' : '📬', label: lead.replyReceived ? 'Got reply ✓' : 'Got reply', color: lead.replyReceived ? 'rgba(34,197,94,0.25)' : 'rgba(255,255,255,0.05)', text: lead.replyReceived ? '#4ade80' : '#aaa', border: lead.replyReceived ? 'rgba(34,197,94,0.5)' : '#2a2a2e', opacity: 1, onclick: 'toggleReplied()' });
+  row.innerHTML = buttons.map(b => `<button class="modal-action-btn m3" style="background:${b.color};color:${b.text};border:1px solid ${b.border};padding:10px 14px;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:6px;opacity:${b.opacity ?? 1};" onclick="${b.onclick}">${b.icon} ${b.label}</button>`).join('');
   // Stage row: explicit stage transitions + delete
   const stages = [
     { s: 'mock', label: '→ Mock', color: 'rgba(168,85,247,0.15)', text: '#c4b5fd', border: 'rgba(168,85,247,0.3)' },
@@ -1026,6 +1026,75 @@ function renderLeadActionRow(lead) {
     { s: 'parked', label: '→ Parked', color: 'rgba(107,114,128,0.15)', text: '#9ca3af', border: 'rgba(107,114,128,0.3)' },
   ];
   stageRow.innerHTML = stages.filter(x => x.s !== lead.stage).map(x => `<button class="modal-action-btn m3" style="background:${x.color};color:${x.text};border:1px solid ${x.border};padding:8px 12px;font-size:11.5px;" onclick="changeStage('${x.s}')">${x.label}</button>`).join('') + `<button class="modal-action-btn danger m3" style="margin-left:auto;padding:8px 12px;font-size:11.5px;" onclick="deleteCurrentLead()">🗑 Delete</button>`;
+}
+
+// ============================================================
+// Always-on social action flows. Each prompts for missing data,
+// saves it to the lead, then fires the action.
+// ============================================================
+function gmailFlow() {
+  if (!currentDetailLead) return;
+  if (!currentDetailLead.email) {
+    const v = prompt('No email on file for ' + currentDetailLead.name + '. Enter their email:');
+    if (!v) return;
+    currentDetailLead.email = v.trim();
+    persist();
+    openLeadDetail(currentDetailLead.id); // re-render to update fade state
+  }
+  const subject = encodeURIComponent(currentDetailLead.brand === 'bookings' ? `Quick mock for ${currentDetailLead.name}` : `Built ${currentDetailLead.name} a quick mockup + private proposal`);
+  sendGmail(currentDetailLead.email, subject);
+}
+function whatsappFlow() {
+  if (!currentDetailLead) return;
+  if (!currentDetailLead.phone) {
+    const v = prompt('No phone on file for ' + currentDetailLead.name + '. Enter their phone (international, e.g. +44...):');
+    if (!v) return;
+    currentDetailLead.phone = v.trim();
+    persist();
+    openLeadDetail(currentDetailLead.id);
+  }
+  sendWhatsApp();
+}
+function igFlow() {
+  if (!currentDetailLead) return;
+  let url = currentDetailLead.instagramUrl || (currentDetailLead.facebook && currentDetailLead.facebook.toLowerCase().includes('instagram.com') ? currentDetailLead.facebook : '');
+  if (!url) {
+    const v = prompt('No Instagram on file for ' + currentDetailLead.name + '. Paste their IG URL or @username:');
+    if (!v) return;
+    let cleaned = v.trim();
+    if (!cleaned.startsWith('http')) {
+      cleaned = 'https://www.instagram.com/' + cleaned.replace(/^@/, '').replace(/^\//, '');
+    }
+    currentDetailLead.instagramUrl = cleaned;
+    if (!currentDetailLead.facebook) currentDetailLead.facebook = cleaned;
+    persist();
+    openLeadDetail(currentDetailLead.id);
+    url = cleaned;
+  }
+  // Use the openSocialChat with platform='ig' but override the URL source by setting a temp field
+  currentDetailLead._socialChatUrl = url;
+  openSocialChat('ig');
+  delete currentDetailLead._socialChatUrl;
+}
+function fbFlow() {
+  if (!currentDetailLead) return;
+  let url = currentDetailLead.facebookUrl || (currentDetailLead.facebook && currentDetailLead.facebook.toLowerCase().includes('facebook.com') ? currentDetailLead.facebook : '');
+  if (!url) {
+    const v = prompt('No Facebook on file for ' + currentDetailLead.name + '. Paste their FB page URL or username:');
+    if (!v) return;
+    let cleaned = v.trim();
+    if (!cleaned.startsWith('http')) {
+      cleaned = 'https://www.facebook.com/' + cleaned.replace(/^\//, '');
+    }
+    currentDetailLead.facebookUrl = cleaned;
+    if (!currentDetailLead.facebook) currentDetailLead.facebook = cleaned;
+    persist();
+    openLeadDetail(currentDetailLead.id);
+    url = cleaned;
+  }
+  currentDetailLead._socialChatUrl = url;
+  openSocialChat('fb');
+  delete currentDetailLead._socialChatUrl;
 }
 
 function sendGmail(email, subjectEnc) {
@@ -1058,7 +1127,11 @@ function extractSocialUsername(url, platform) {
 // so user can paste once Messenger/IG opens (neither platform supports URL prefill).
 function openSocialChat(platform) {
   if (!currentDetailLead) return;
-  const url = currentDetailLead.facebook || '';
+  // Prefer the per-platform field, fall back to the override (set by ig/fbFlow), then legacy 'facebook'
+  let url = '';
+  if (platform === 'ig') url = currentDetailLead.instagramUrl || currentDetailLead._socialChatUrl || (currentDetailLead.facebook && currentDetailLead.facebook.toLowerCase().includes('instagram.com') ? currentDetailLead.facebook : '');
+  else if (platform === 'fb') url = currentDetailLead.facebookUrl || currentDetailLead._socialChatUrl || (currentDetailLead.facebook && currentDetailLead.facebook.toLowerCase().includes('facebook.com') ? currentDetailLead.facebook : '');
+  else url = currentDetailLead.facebook || '';
   const message = document.getElementById('leadMessage').value || '';
   if (!url) { alert('No social link on this lead.'); return; }
   const username = extractSocialUsername(url, platform);
