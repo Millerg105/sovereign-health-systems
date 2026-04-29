@@ -224,7 +224,7 @@
     </nav>
     <div class="sb-section-label">Brain</div>
     <nav class="sb-nav">
-      <button class="sb-item m3" onclick="showTab(this, 'council')"><span class="icon">🧠</span>Council</button>
+      <button class="sb-item m3" onclick="showTab(this, 'intel')"><span class="icon">🔍</span>Intel<span class="badge" id="badgeIntel">5</span></button>
       <button class="sb-item m3" onclick="showTab(this, 'templates')"><span class="icon">📨</span>Templates</button>
     </nav>
     <div class="sb-section-label">Status</div>
@@ -259,27 +259,15 @@
       <div class="kanban kanban-tasks" id="tasksKanban"></div>
     </div>
 
-    <div id="council" class="tab-content">
-      <div class="council-chat">
-        <div id="councilHero" class="council-hero">
-          <h2>What does the Council see?</h2>
-          <p>Ask any question. 22 voices weigh in. Final Vote anchored to your North Star.</p>
-          <div class="council-suggestions m3-stagger">
-            <div class="council-suggestion m3" onclick="askCouncil('what should I focus on this week to hit £600 in Tide?')">📅 £600 priority this week?</div>
-            <div class="council-suggestion m3" onclick="askCouncil('how do I make my Bookings PPA offer impossible to refuse?')">🎯 Make my offer irresistible</div>
-            <div class="council-suggestion m3" onclick="askCouncil('best subject line for cold email to UK trades businesses?')">📨 Cold email subject lines</div>
-            <div class="council-suggestion m3" onclick="askCouncil('I keep building tools instead of sending messages, how do I stop?')">🚫 Stop productive avoidance</div>
-            <div class="council-suggestion m3" onclick="askCouncil('how do I structure a free audit lead magnet using salty pretzel?')">🥨 Salty pretzel funnel</div>
-          </div>
-        </div>
-        <div id="chatMessages" class="chat-messages"></div>
-      </div>
-      <div class="council-input-wrap">
-        <div class="council-input">
-          <textarea id="councilInput" placeholder="Ask the Council anything..." onkeydown="handleCouncilKey(event)" oninput="autoResize(this)"></textarea>
-          <div class="council-input-actions"><div class="left">↵ to send · ⇧↵ for newline · 22 voices on standby</div><button class="council-send m3" id="councilSendBtn" onclick="askCouncilFromInput()" disabled><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12l7-7 7 7M12 5v14"/></svg></button></div>
-        </div>
-      </div>
+    <!-- Council tab removed 29 Apr — Miller has council chats in Claude/Cowork now.
+         Intel tab below is the new Brain surface. NICHE_TO_MENTOR map still wires
+         the lead-detail mentor framework; the in-dashboard chat is gone. -->
+
+
+    <div id="intel" class="tab-content">
+      <div class="page-head"><div><h2>🔍 Intel</h2><div class="sub">Trending threads + best AI tips. Click "Run scan" → paste prompt into Code/Cowork → Claude pulls top sources. Phase 2: auto-fires nightly via Apify.</div></div></div>
+      <div class="banner">5 curated topics. Each card copies a paste-ready scan prompt. The "Make NotebookLM" button (Phase 3) will create a notebook with 50 deep-research sources.</div>
+      <div class="card-grid m3-stagger" id="intelTopicsGrid"></div>
     </div>
 
     <div id="templates" class="tab-content">
@@ -359,8 +347,9 @@
     <div style="font-size:12px;color:#aaa;" id="leadDetailSource">—</div>
     <div id="leadDetailMeta" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;"></div>
     <div id="leadDetailLinks" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;"></div>
-    <div class="modal-section"><h4>🧠 Council Intel · niche-matched mentor framework</h4><div id="councilIntelStack" style="display:flex;flex-direction:column;gap:10px;"></div></div>
-    <div class="modal-section"><h4>📨 Personalised message · ready to send</h4><div id="messageAngle" style="font-size:11px;color:#aaa;margin-bottom:10px;"></div><textarea id="leadMessage" class="modal-textarea"></textarea><div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;"><button class="modal-action-btn primary m3" onclick="copyLeadMsg()">📋 Copy</button><button class="modal-action-btn m3" id="waBtn" style="background:rgba(34,197,94,0.18);color:#4ade80;border-color:rgba(34,197,94,0.4);" onclick="sendWhatsApp()">💬 WhatsApp</button><button class="modal-action-btn m3" id="replyToggleBtn" onclick="toggleReplied()">📬 Mark replied</button><button class="modal-action-btn amber m3" onclick="changeStage('pitching')">→ Pitching</button><button class="modal-action-btn cold m3" onclick="changeStage('warm')">→ Warm</button><button class="modal-action-btn danger m3" onclick="deleteCurrentLead()">🗑 Delete</button></div></div>
+    <div id="leadCouncilOneLiner" style="font-size:11px;color:#888;margin-top:10px;padding:8px 12px;background:#0a0a0c;border:1px solid #1f1f22;border-radius:10px;"></div>
+    <div class="modal-section"><h4>📨 Personalised message · ready to send</h4><div id="messageAngle" style="font-size:11px;color:#aaa;margin-bottom:10px;"></div><textarea id="leadMessage" class="modal-textarea"></textarea></div>
+    <div class="modal-section"><h4>⚡ Actions</h4><div id="leadActionRow" style="display:flex;gap:8px;flex-wrap:wrap;"></div><div id="leadStageRow" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:1px solid #1a1a1c;"></div></div>
   </div>
 </div>
 
@@ -793,8 +782,11 @@ function renderLeads() {
   const searchEl = document.getElementById('leadsSearch');
   const q = searchEl ? searchEl.value.trim().toLowerCase() : '';
   const filtered = leads.filter(l => (currentLeadFilter === 'all' || l.brand === currentLeadFilter) && (!q || (l.name||'').toLowerCase().includes(q) || (l.niche||'').toLowerCase().includes(q) || (l.area||'').toLowerCase().includes(q)));
-  // Sort by EV (lead_score × deal_value) descending — Sean's call: focus list at top
-  filtered.sort((a, b) => leadEV(b) - leadEV(a));
+  // Sort: flagged leads first, then by EV (lead_score × deal_value) descending — Sean's focus rule.
+  filtered.sort((a, b) => {
+    if ((b.flagged ? 1 : 0) !== (a.flagged ? 1 : 0)) return (b.flagged ? 1 : 0) - (a.flagged ? 1 : 0);
+    return leadEV(b) - leadEV(a);
+  });
   const pip = document.getElementById('lastSavedPip'); if (pip) { const st = loadState(); pip.textContent = st.updatedAt ? 'saved ' + new Date(st.updatedAt).toLocaleTimeString().slice(0,5) : 'v9 · ready'; }
   document.getElementById('badgeLeads').textContent = filtered.length;
   stages.forEach(stage => {
@@ -815,7 +807,8 @@ function renderLeads() {
       const lastContactBit = lead.lastContact ? `<span style="color:#666;">· ${lead.lastContact}</span>` : '';
       const sourceLine = `${lead.source || 'Manual'}${lastContactBit}`;
       const actionLine = lead.nextAction || lead.action || '';
-      card.innerHTML = `<div class="lead-name"><span>${lead.name}</span><span style="display:flex;gap:4px;flex-wrap:wrap;">${lead.hot ? '<span class="pill pill-hot">🔥</span>' : ''}${repliedBadge}${intelBadge}<span class="readiness ${rc}">★${lead.readiness || 0}</span><span class="pill ${pc}">${lead.brand === 'bookings' ? 'Bookings' : 'Systems'}</span></span></div><div class="lead-meta" style="display:flex;gap:4px;flex-wrap:wrap;margin:4px 0 6px;">${nichePill}${areaPill}${evBadge}</div><div class="lead-meta">${sourceLine}</div><div class="lead-action">→ ${actionLine}</div>`;
+      const flagBtn = `<button class="flag-btn" onclick="event.stopPropagation(); toggleFlag(${lead.id}); return false;" title="${lead.flagged ? 'Unflag' : 'Flag for follow-up'}" style="background:transparent;border:none;cursor:pointer;font-size:14px;padding:0 2px;line-height:1;color:${lead.flagged ? '#ef4444' : '#444'};">${lead.flagged ? '🚩' : '⚐'}</button>`;
+      card.innerHTML = `<div class="lead-name"><span style="display:flex;align-items:center;gap:6px;">${flagBtn}<span>${lead.name}</span></span><span style="display:flex;gap:4px;flex-wrap:wrap;">${lead.hot ? '<span class="pill pill-hot">🔥</span>' : ''}${repliedBadge}${intelBadge}<span class="readiness ${rc}">★${lead.readiness || 0}</span><span class="pill ${pc}">${lead.brand === 'bookings' ? 'Bookings' : 'Systems'}</span></span></div><div class="lead-meta" style="display:flex;gap:4px;flex-wrap:wrap;margin:4px 0 6px;">${nichePill}${areaPill}${evBadge}</div><div class="lead-meta">${sourceLine}</div><div class="lead-action">→ ${actionLine}</div>`;
       card.onclick = () => openLeadDetail(lead.id);
       card.addEventListener('dragstart', e => { card.classList.add('dragging'); e.dataTransfer.setData('text/plain', lead.id); });
       card.addEventListener('dragend', () => card.classList.remove('dragging'));
@@ -862,6 +855,81 @@ function renderComponents() {
   list.innerHTML = components.map(c => `<div class="card" style="padding:14px 16px;"><div style="font-size:13px;font-weight:600;color:#fff;">${c.name}</div><div style="display:inline-block;background:rgba(168,85,247,0.15);color:#c4b5fd;font-size:9px;padding:2px 8px;border-radius:100px;margin-top:6px;">${c.cat}</div><div style="font-size:10px;color:#888;margin-top:6px;">${c.repos}</div></div>`).join('');
 }
 
+// ============================================================
+// INTEL TAB — curated topic scans, paste-ready Claude prompts
+// Phase 1 (now): copy-paste pattern. Phase 2: auto via Apify.
+// Phase 3: "Make NotebookLM" with 50 deep-research sources.
+// ============================================================
+const INTEL_TOPICS = [
+  {
+    id: 'agency-0-to-10k',
+    icon: '🚀',
+    title: '0 → £10k MRR AI agency',
+    sub: 'How operators got from £0 to first £10k month. Real case studies, not theory.',
+    sources: 'r/Entrepreneur · r/SmallBusiness · X (Hormozi/Gadzhi/Wardrop) · Skool agency communities',
+    color: 'rgba(34,197,94,0.10)',
+    border: 'rgba(34,197,94,0.3)',
+    promptTopic: 'how AI agencies got from £0 to £10k MRR. Pay-per-appointment model, web design retainers, automation services. UK angle if possible.',
+  },
+  {
+    id: 'claude-code-hacks',
+    icon: '⚡',
+    title: 'Claude Code hacks',
+    sub: 'Newest Claude Code features, slash commands, skills, MCP wiring, agent dispatch patterns.',
+    sources: 'r/ClaudeAI · X (Karpathy/Anthropic/Jack Roberts) · Skool Memory OS · Anthropic blog',
+    color: 'rgba(96,165,250,0.10)',
+    border: 'rgba(96,165,250,0.3)',
+    promptTopic: 'newest Claude Code hacks, slash commands, skills, MCP integrations, agent SDK patterns. Last 30 days only. Real Anthropic features, not marketing.',
+  },
+  {
+    id: 'cold-email-replies',
+    icon: '📨',
+    title: 'Cold email reply rates',
+    sub: 'What\'s working in cold email Q2 2026. Subject lines, opening hooks, send tools, deliverability.',
+    sources: 'r/Emailmarketing · X (Cold Email Mon/Lemlist/Instantly) · Reddit Coldemail',
+    color: 'rgba(245,158,11,0.10)',
+    border: 'rgba(245,158,11,0.3)',
+    promptTopic: 'cold email subject lines + opening hooks getting 10%+ reply rates in 2026. UK trades + small business niches preferred. Multi-domain warmup tactics.',
+  },
+  {
+    id: 'garden-room-marketing',
+    icon: '🏡',
+    title: 'Garden room marketing UK',
+    sub: 'Lead gen for garden room firms. FB ads, Google, organic. What converts homeowners.',
+    sources: 'r/UKBusiness · r/HomeImprovement · X (UK trades) · FB groups · Houzz forums',
+    color: 'rgba(168,85,247,0.10)',
+    border: 'rgba(168,85,247,0.3)',
+    promptTopic: 'how UK garden room companies are getting leads in 2026. FB ads creative, lead form vs landing page, average CPL, show-up rate, what homeowners actually click.',
+  },
+  {
+    id: 'skool-wins',
+    icon: '🏆',
+    title: 'Skool community wins',
+    sub: 'Latest big-wins from Kyron + Jack Skool + adjacent agency communities. Specific numbers.',
+    sources: 'Skool Kyron · Skool Jack Roberts · Skool agency communities · X testimonial threads',
+    color: 'rgba(236,72,153,0.10)',
+    border: 'rgba(236,72,153,0.3)',
+    promptTopic: 'recent agency wins shared in Skool communities (Kyron Consulting, Jack Roberts AI Native, agency mastermind groups). Look for £/month numbers, niche pivots, automation stacks. Last 60 days.',
+  },
+];
+function renderIntel() {
+  const grid = document.getElementById('intelTopicsGrid');
+  if (!grid) return;
+  grid.innerHTML = INTEL_TOPICS.map(t => `<div class="card" style="background:${t.color};border-color:${t.border};padding:18px 20px;display:flex;flex-direction:column;gap:10px;"><div style="display:flex;align-items:flex-start;gap:10px;"><span style="font-size:28px;line-height:1;">${t.icon}</span><div style="flex:1;"><div style="font-size:14px;font-weight:700;color:#fff;">${t.title}</div><div style="font-size:11.5px;color:#aaa;margin-top:4px;line-height:1.5;">${t.sub}</div></div></div><div style="font-size:10px;color:#666;line-height:1.5;border-top:1px solid #1a1a1c;padding-top:8px;margin-top:4px;"><strong>Sources:</strong> ${t.sources}</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;"><button class="modal-action-btn m3" style="background:rgba(245,158,11,0.18);color:#fbbf24;border:1px solid rgba(245,158,11,0.4);padding:8px 12px;font-size:11.5px;font-weight:600;flex:1;" onclick="runIntelScan('${t.id}')">🔥 Run scan</button><button class="modal-action-btn m3" style="background:rgba(96,165,250,0.10);color:#93c5fd;border:1px solid rgba(96,165,250,0.3);padding:8px 12px;font-size:11px;font-weight:600;" onclick="makeIntelNotebook('${t.id}')" title="Phase 3: auto-generates a NotebookLM with 50 sources">📚 Notebook</button></div></div>`).join('');
+}
+function runIntelScan(topicId) {
+  const t = INTEL_TOPICS.find(x => x.id === topicId);
+  if (!t) return;
+  const prompt = `Run a web research scan on this topic. Use WebSearch + WebFetch.\n\n**Topic:** ${t.promptTopic}\n\n**Sources to prioritise:** ${t.sources}\n\nReturn the top 10 results in this exact format (markdown):\n\n## ${t.title} — Top 10 finds (${new Date().toISOString().slice(0,10)})\n\n1. **[Title](URL)** — source · date\n   1-line takeaway: <what's actually useful, not what the article says generically>\n   Why it matters for Sovereign: <one line connecting it to garden room PPA / agency 0→10k / Wigan flips>\n\n[... 9 more ...]\n\n## Top 3 actions for Sovereign this week\n- <bullet>\n- <bullet>\n- <bullet>\n\nRules: skip listicles and SEO-spam. Each finding must have a specific number, name, or tactic. If a thread has 100+ comments, mine the comments not just the OP. UK angle preferred where relevant.`;
+  navigator.clipboard.writeText(prompt).then(() => alert(`🔥 Scan prompt copied for "${t.title}". Paste into Code or Cowork — Claude will return the top 10 finds in markdown.`));
+}
+function makeIntelNotebook(topicId) {
+  const t = INTEL_TOPICS.find(x => x.id === topicId);
+  if (!t) return;
+  const prompt = `Use the anthropic-skills:notebooklm skill to create a new NotebookLM notebook for this topic, then deep-research-import 50 sources into it.\n\n**Notebook title:** ${t.title} · ${new Date().toISOString().slice(0,10)}\n\n**Topic seed:** ${t.promptTopic}\n\n**Source priority:** ${t.sources}\n\nSteps:\n1. Create the notebook via the notebooklm skill (private to my Google account).\n2. Run deep research: WebSearch the topic and adjacent queries. Aim for 50 high-signal URLs (not listicles, not SEO spam). Each URL must have a specific number, tactic, or named operator.\n3. Add all 50 URLs as sources to the notebook.\n4. Generate an audio overview (15-min mindmap-style) so I can listen on commute.\n5. Return the notebook URL + audio overview URL.\n\nIf 50 high-signal sources can't be found, return what you have (minimum 20) plus a note on what was filtered. Don't pad with low-quality sources.`;
+  navigator.clipboard.writeText(prompt).then(() => alert(`📚 NotebookLM build prompt copied for "${t.title}". Paste into Code — fires the notebooklm skill + 50-source deep research. Phase 3 of the Intel system.`));
+}
+
 function openLeadDetail(id) {
   const lead = leads.find(l => l.id === id); if (!lead) return; currentDetailLead = lead;
   document.getElementById('leadDetailName').textContent = lead.name;
@@ -882,10 +950,14 @@ function openLeadDetail(id) {
   const slug = lead.slug || slugify(lead.name);
   if (leadsWithIntel.has(slug)) linkPills.push(`<a href="./orchestrate/${slug}/council-intel.md" target="_blank" style="background:rgba(245,158,11,0.18);color:#fbbf24;padding:5px 12px;border-radius:8px;text-decoration:none;font-size:11px;border:1px solid rgba(245,158,11,0.4);">🔥 Niche intel ready</a>`);
   document.getElementById('leadDetailLinks').innerHTML = linkPills.join('');
-  // Council Intel render
-  const intelBox = document.getElementById('councilIntelStack');
+  // Council Intel — collapsed to one-liner. The wall of mentor cards was noise.
+  // Click to expand into a popover via showFullCouncilIntel().
+  const oneLiner = document.getElementById('leadCouncilOneLiner');
   const mentors = NICHE_TO_MENTOR[lead.niche] || NICHE_TO_MENTOR['Other'];
-  intelBox.innerHTML = mentors.map(m => `<div style="background:#0a0a0c;border:1px solid #1f1f22;border-radius:14px;padding:14px 16px;"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px;"><div><div style="font-size:13.5px;font-weight:700;color:#fff;">${m.mentor}</div><div style="font-size:11px;color:#888;margin-top:2px;">${m.angle}</div></div><span class="council-voice-tag tag-${m.tag === 'Offer' || m.tag === 'Sales' ? 'sales' : m.tag === 'Ads' ? 'ads' : m.tag === 'Tools' ? 'tools' : 'mindset'}">${m.tag}</span></div>${m.quote ? `<div style="font-size:12.5px;color:#d4d4d4;line-height:1.55;margin-top:8px;font-style:italic;">"${esc(m.quote)}"</div>` : ''}${m.file ? `<div style="font-size:10px;color:#666;margin-top:8px;">↪ ${m.file}</div>` : ''}</div>`).join('');
+  const lead_mentor = mentors[0] || { mentor: 'TBC', angle: '' };
+  oneLiner.innerHTML = `<span style="color:#aaa;">🧠 Framework:</span> <strong style="color:#fff;">${lead_mentor.mentor}</strong> · ${lead_mentor.angle} <a href="#" onclick="showFullCouncilIntel(event, ${lead.id})" style="color:#60a5fa;text-decoration:none;margin-left:6px;">expand</a>`;
+  // Render the action rows
+  renderLeadActionRow(lead);
   const owner = lead.ownerName || '[name]';
   const proposalUrl = lead.proposalUrl || (lead.brand === 'bookings' ? `https://sovereignbookings.co.uk/proposal-pitch/${lead.name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}` : `https://sovereignsystem.co.uk/proposal-pitch/${lead.name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}`);
   let body = '', angle = '';
@@ -902,6 +974,158 @@ function openLeadDetail(id) {
 }
 
 function copyLeadMsg() { navigator.clipboard.writeText(document.getElementById('leadMessage').value); alert('✓ Copied'); }
+
+function renderLeadActionRow(lead) {
+  const row = document.getElementById('leadActionRow');
+  const stageRow = document.getElementById('leadStageRow');
+  if (!row || !stageRow) return;
+  const buttons = [];
+  const message = () => document.getElementById('leadMessage').value || '';
+  // Gmail: compose to lead's email if present
+  if (lead.email) {
+    const subject = encodeURIComponent(lead.brand === 'bookings' ? `Quick mock for ${lead.name}` : `Built ${lead.name} a quick mockup + private proposal`);
+    buttons.push({ icon: '📧', label: 'Gmail', color: 'rgba(234,67,53,0.15)', text: '#fca5a5', border: 'rgba(234,67,53,0.4)', onclick: `sendGmail('${esc(lead.email)}', ${JSON.stringify(subject).replace(/'/g, "&#39;")})` });
+  }
+  // WhatsApp: only if phone
+  if (lead.phone) {
+    buttons.push({ icon: '💬', label: 'WhatsApp', color: 'rgba(34,197,94,0.18)', text: '#4ade80', border: 'rgba(34,197,94,0.4)', onclick: 'sendWhatsApp()' });
+  }
+  // Instagram + Facebook — open DIRECT MESSAGE not just profile, auto-copy message to clipboard
+  if (lead.facebook) {
+    if (lead.facebook.toLowerCase().includes('instagram.com')) {
+      buttons.push({ icon: '📷', label: 'IG DM', color: 'rgba(225,48,108,0.15)', text: '#f8a4c0', border: 'rgba(225,48,108,0.4)', onclick: `openSocialChat('ig')` });
+      // Also offer profile view as a secondary smaller button
+      buttons.push({ icon: '👁', label: 'View IG', color: 'rgba(225,48,108,0.06)', text: '#f8a4c0', border: 'rgba(225,48,108,0.2)', onclick: `window.open('${esc(lead.facebook)}', '_blank')` });
+    } else if (lead.facebook.toLowerCase().includes('facebook.com')) {
+      buttons.push({ icon: '📘', label: 'FB DM', color: 'rgba(59,130,246,0.15)', text: '#93c5fd', border: 'rgba(59,130,246,0.4)', onclick: `openSocialChat('fb')` });
+      buttons.push({ icon: '👁', label: 'View FB', color: 'rgba(59,130,246,0.06)', text: '#93c5fd', border: 'rgba(59,130,246,0.2)', onclick: `window.open('${esc(lead.facebook)}', '_blank')` });
+    } else {
+      buttons.push({ icon: '🔗', label: 'Social', color: 'rgba(168,85,247,0.15)', text: '#c4b5fd', border: 'rgba(168,85,247,0.4)', onclick: `window.open('${esc(lead.facebook)}', '_blank')` });
+    }
+  }
+  // Maps if present
+  if (lead.mapsUrl) {
+    buttons.push({ icon: '📍', label: 'Maps', color: 'rgba(234,67,53,0.15)', text: '#fca5a5', border: 'rgba(234,67,53,0.4)', onclick: `window.open('${esc(lead.mapsUrl)}', '_blank')` });
+  }
+  // Always available: Make Pitch, Enrich, Copy, Got reply
+  buttons.push({ icon: '🚀', label: 'Make Pitch', color: 'rgba(168,85,247,0.18)', text: '#c4b5fd', border: 'rgba(168,85,247,0.4)', onclick: `makePitch(${lead.id})` });
+  buttons.push({ icon: '🔥', label: 'Enrich', color: 'rgba(245,158,11,0.18)', text: '#fbbf24', border: 'rgba(245,158,11,0.4)', onclick: `enrichLead(${lead.id})` });
+  buttons.push({ icon: '📋', label: 'Copy msg', color: 'rgba(96,165,250,0.18)', text: '#93c5fd', border: 'rgba(96,165,250,0.4)', onclick: 'copyLeadMsg()' });
+  buttons.push({ icon: lead.replyReceived ? '✓' : '📬', label: lead.replyReceived ? 'Got reply ✓' : 'Got reply', color: lead.replyReceived ? 'rgba(34,197,94,0.25)' : 'rgba(255,255,255,0.05)', text: lead.replyReceived ? '#4ade80' : '#aaa', border: lead.replyReceived ? 'rgba(34,197,94,0.5)' : '#2a2a2e', onclick: 'toggleReplied()' });
+  row.innerHTML = buttons.map(b => `<button class="modal-action-btn m3" style="background:${b.color};color:${b.text};border:1px solid ${b.border};padding:10px 14px;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:6px;" onclick="${b.onclick}">${b.icon} ${b.label}</button>`).join('');
+  // Stage row: explicit stage transitions + delete
+  const stages = [
+    { s: 'mock', label: '→ Mock', color: 'rgba(168,85,247,0.15)', text: '#c4b5fd', border: 'rgba(168,85,247,0.3)' },
+    { s: 'pitching', label: '→ Pitching', color: 'rgba(245,158,11,0.15)', text: '#fbbf24', border: 'rgba(245,158,11,0.3)' },
+    { s: 'warm', label: '→ Warm', color: 'rgba(236,72,153,0.15)', text: '#f9a8d4', border: 'rgba(236,72,153,0.3)' },
+    { s: 'build', label: '→ Build', color: 'rgba(6,182,212,0.15)', text: '#67e8f9', border: 'rgba(6,182,212,0.3)' },
+    { s: 'won', label: '→ Won', color: 'rgba(34,197,94,0.18)', text: '#4ade80', border: 'rgba(34,197,94,0.4)' },
+    { s: 'parked', label: '→ Parked', color: 'rgba(107,114,128,0.15)', text: '#9ca3af', border: 'rgba(107,114,128,0.3)' },
+  ];
+  stageRow.innerHTML = stages.filter(x => x.s !== lead.stage).map(x => `<button class="modal-action-btn m3" style="background:${x.color};color:${x.text};border:1px solid ${x.border};padding:8px 12px;font-size:11.5px;" onclick="changeStage('${x.s}')">${x.label}</button>`).join('') + `<button class="modal-action-btn danger m3" style="margin-left:auto;padding:8px 12px;font-size:11.5px;" onclick="deleteCurrentLead()">🗑 Delete</button>`;
+}
+
+function sendGmail(email, subjectEnc) {
+  const body = encodeURIComponent(document.getElementById('leadMessage').value || '');
+  const url = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}&su=${subjectEnc}&body=${body}`;
+  window.open(url, '_blank');
+  // Auto-mark outreach
+  if (currentDetailLead) {
+    currentDetailLead.lastContact = today();
+    if (currentDetailLead.stage === 'cold' || currentDetailLead.stage === 'mock') currentDetailLead.stage = 'pitching';
+    persist(); renderLeads();
+  }
+}
+
+// Extract IG/FB username from a profile URL — handles trailing slashes, query strings, /p/ post URLs.
+function extractSocialUsername(url, platform) {
+  try {
+    const u = new URL(url);
+    let path = u.pathname.replace(/^\/+|\/+$/g, '');
+    // Strip post/reel/story segments — keep only the username
+    path = path.split('/')[0];
+    if (!path || path === 'p' || path === 'reel' || path === 'stories') return null;
+    return path;
+  } catch (_) {
+    return null;
+  }
+}
+
+// Open a social DM with the lead. Auto-copies the personalised message to clipboard
+// so user can paste once Messenger/IG opens (neither platform supports URL prefill).
+function openSocialChat(platform) {
+  if (!currentDetailLead) return;
+  const url = currentDetailLead.facebook || '';
+  const message = document.getElementById('leadMessage').value || '';
+  if (!url) { alert('No social link on this lead.'); return; }
+  const username = extractSocialUsername(url, platform);
+  if (!username) { alert('Couldn\'t parse a username from the social URL. Opening the profile instead.'); window.open(url, '_blank'); return; }
+  // Copy message first so it's ready to paste
+  let chatUrl;
+  if (platform === 'ig') {
+    chatUrl = `https://ig.me/m/${username}`;
+  } else if (platform === 'fb') {
+    chatUrl = `https://m.me/${username}`;
+  } else {
+    chatUrl = url;
+  }
+  // Copy + open
+  if (message && navigator.clipboard) {
+    navigator.clipboard.writeText(message).then(() => {
+      window.open(chatUrl, '_blank');
+      // Brief toast
+      const toast = document.createElement('div');
+      toast.textContent = '✓ Message copied. Paste in chat (Ctrl+V).';
+      toast.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#1a1a1c;color:#4ade80;padding:12px 20px;border-radius:12px;border:1px solid rgba(34,197,94,0.4);z-index:1000;font-size:13px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,0.5);';
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    });
+  } else {
+    window.open(chatUrl, '_blank');
+  }
+  // Auto-mark outreach
+  currentDetailLead.lastContact = today();
+  if (currentDetailLead.stage === 'cold' || currentDetailLead.stage === 'mock') currentDetailLead.stage = 'pitching';
+  persist(); renderLeads();
+}
+
+function makePitch(id) {
+  const lead = leads.find(l => l.id === id) || currentDetailLead;
+  if (!lead) return;
+  const slug = lead.slug || slugify(lead.name);
+  const prompt = `Use the bookings-pitch-pipeline skill (or pitch-builder for Systems brand) to build a personalised pitch for "${lead.name}".\n\nDetails:\n- Brand: ${lead.brand}\n- Niche: ${lead.niche}\n- Area: ${lead.area}\n- Slug: ${slug}\n- Website: ${lead.website || '(none)'}\n- Lead score: ${lead.leadScore || 'TBC'}\n- Source: ${lead.source}\n\nGoals:\n1. Build/refresh mock at ${lead.brand === 'bookings' ? 'bookings' : 'systems'}-${slug}-mock.vercel.app (Tranquil Garden Rooms style for Bookings, Premium template for Systems).\n2. Generate proposal at https://www.sovereignsystem.co.uk/proposal-pitch/${slug} (Chris Kearns 12-slide standard).\n3. Update this lead in v9 with the URLs once shipped (Mock URL + Pitch URL fields).\n4. Move lead to Pitching stage when both deployed.\n\nReturn: { mockUrl, pitchUrl, deployedAt } JSON when done.`;
+  navigator.clipboard.writeText(prompt).then(() => alert('🚀 Make-pitch prompt copied. Paste into Code/Cowork to fire the pitch pipeline.'));
+}
+
+function enrichLead(id) {
+  const lead = leads.find(l => l.id === id) || currentDetailLead;
+  if (!lead) return;
+  const url = lead.website || lead.mapsUrl || lead.facebook || '';
+  if (!url) { alert('No URL on this lead to enrich. Add a website, Maps URL, or social link first.'); return; }
+  let prompt;
+  if (url.includes('google.com/maps') || url.includes('maps.app.goo.gl')) {
+    prompt = `Use the lead-enrich-from-maps skill on this URL: ${url}\n\nReturn JSON in the v9 shape (firm, phone, email, website, address, area, rating, reviewCount, ownerName, leadScore). Update this lead in v9 by pasting the JSON into the Add Lead modal's enrich field, OR tell me the field updates so I apply manually.\n\nLead context:\n- Current name: ${lead.name}\n- Niche: ${lead.niche}\n- Area: ${lead.area}`;
+  } else {
+    prompt = `Use Firecrawl (mcp__firecrawl tools or anthropic-skills:apify-scraper if firecrawl unavailable) to scrape this lead's site and return enriched JSON.\n\nURL: ${url}\nLead: ${lead.name}\nNiche: ${lead.niche}\nArea: ${lead.area}\n\nExtract and return ONLY this JSON (no commentary):\n{\n  "firm": "<best business name from the page>",\n  "phone": "<+44... if found>",\n  "email": "<info@... or owner email if found>",\n  "ownerName": "<owner first name if found>",\n  "address": "<full address if listed>",\n  "rating": 0,\n  "reviewCount": 0,\n  "categories": ["..."],\n  "leadScore": <int, see below>,\n  "websiteIssue": "<one-line diagnosis: what's missing or weak (mobile UX, no online booking, buried services, etc)>",\n  "heroHeadline": "<their current hero headline>",\n  "pitchAngle": "<one-line angle for outreach based on the diagnosis>"\n}\n\nleadScore = base 50, +10 if site loads under 2s, +10 if has booking system, +5 if recent reviews visible, +5 if portfolio of 5+ jobs, -10 if no mobile contact, -10 if no clear pricing. Cap 0-100.\n\nThen tell me the 3 fields most worth updating on this lead row in v9, with one-line reasons each.`;
+  }
+  navigator.clipboard.writeText(prompt).then(() => alert('🔥 Enrich prompt copied. Paste into Code/Cowork to run.'));
+}
+
+function showFullCouncilIntel(e, id) {
+  e.preventDefault();
+  const lead = leads.find(l => l.id === id); if (!lead) return;
+  const mentors = NICHE_TO_MENTOR[lead.niche] || NICHE_TO_MENTOR['Other'];
+  const html = mentors.map(m => `<div style="background:#0a0a0c;border:1px solid #1f1f22;border-radius:12px;padding:12px 14px;margin-bottom:8px;"><div style="font-size:13px;font-weight:700;color:#fff;">${m.mentor}</div><div style="font-size:11px;color:#888;margin-top:2px;">${m.angle}</div>${m.quote ? `<div style="font-size:12px;color:#d4d4d4;line-height:1.55;margin-top:6px;font-style:italic;">"${esc(m.quote)}"</div>` : ''}${m.file ? `<div style="font-size:10px;color:#666;margin-top:6px;">↪ ${m.file}</div>` : ''}</div>`).join('');
+  const oneLiner = document.getElementById('leadCouncilOneLiner');
+  oneLiner.innerHTML = `<div style="font-size:11px;color:#aaa;margin-bottom:8px;">🧠 Niche-matched mentor framework (collapse: <a href="#" onclick="collapseCouncilIntel(event,${id});return false;" style="color:#60a5fa;text-decoration:none;">−</a>)</div>${html}`;
+}
+function collapseCouncilIntel(e, id) {
+  e.preventDefault();
+  const lead = leads.find(l => l.id === id); if (!lead) return;
+  const mentors = NICHE_TO_MENTOR[lead.niche] || NICHE_TO_MENTOR['Other'];
+  const m = mentors[0];
+  document.getElementById('leadCouncilOneLiner').innerHTML = `<span style="color:#aaa;">🧠 Framework:</span> <strong style="color:#fff;">${m.mentor}</strong> · ${m.angle} <a href="#" onclick="showFullCouncilIntel(event, ${id});return false;" style="color:#60a5fa;text-decoration:none;margin-left:6px;">expand</a>`;
+}
 function sendWhatsApp() {
   if (!currentDetailLead) return;
   const phone = (currentDetailLead.phone || '').replace(/[^0-9]/g, '');
@@ -911,6 +1135,11 @@ function sendWhatsApp() {
   // Auto-mark as having had outreach
   currentDetailLead.lastContact = today();
   if (currentDetailLead.stage === 'cold' || currentDetailLead.stage === 'mock') currentDetailLead.stage = 'pitching';
+  persist(); renderLeads();
+}
+function toggleFlag(id) {
+  const lead = leads.find(l => l.id === id); if (!lead) return;
+  lead.flagged = !lead.flagged;
   persist(); renderLeads();
 }
 function toggleReplied() {
@@ -929,7 +1158,7 @@ function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').re
 
 // First load: persist the seed so localStorage has a baseline + lastSavedPip works
 if (!state.leads) persist();
-renderLeads(); renderTasks(); renderProposals(); renderTemplates(); renderBuilds(); renderComponents();
+renderLeads(); renderTasks(); renderProposals(); renderTemplates(); renderBuilds(); renderComponents(); renderIntel();
 probeCouncilIntel();
 // Boot cloud sync — pulls latest state if cloud is ahead of local, then sets up auto-push on every persist.
 cloudPull();
