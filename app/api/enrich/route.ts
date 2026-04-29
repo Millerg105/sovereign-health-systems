@@ -211,6 +211,9 @@ No em dashes anywhere.`;
   if (enriched.mentorPrincipleApplied) patch.mentorPrincipleApplied = enriched.mentorPrincipleApplied;
   if (enriched.opener4Line) patch.opener = enriched.opener4Line;
   patch.lastEnrichedAt = new Date().toISOString();
+  // Auto-bump cold leads into the new "enriched" kanban column. Don't override
+  // leads already further down the funnel.
+  if (lead.stage === "cold") patch.stage = "enriched";
 
   const newState = mutateLead(state || {}, body.leadId, patch);
   await saveState(auth.userId, newState);
