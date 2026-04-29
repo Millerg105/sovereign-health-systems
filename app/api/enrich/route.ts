@@ -30,6 +30,16 @@ type EnrichResult = {
   opener4Line?: string;
 };
 
+// Hard timeout wrapper. AbortSignal.timeout doesn't reliably propagate
+// through every transport in Vercel's Node runtime, so we belt-and-braces
+// with Promise.race against a wall-clock timer.
+function withTimeout<T>(p: Promise<T>, ms: number, fallback: T): Promise<T> {
+  return Promise.race([
+    p,
+    new Promise<T>((resolve) => setTimeout(() => resolve(fallback), ms)),
+  ]);
+}
+
 async function scrapeMaps(url: string): Promise<string> {
   const token = process.env.APIFY_TOKEN;
   if (!token) return `(Apify token missing — could not scrape ${url})`;
@@ -43,7 +53,7 @@ async function scrapeMaps(url: string): Promise<string> {
       scrapeReviews: false,
       scrapeContacts: true,
     },
-    { waitSecs: 50 },
+    { waitSecs: 35 },
   );
   const { items } = await client.dataset(run.defaultDatasetId).listItems({ limit: 1 });
   if (!items?.length) return `(Maps scrape returned no items for ${url})`;
@@ -131,7 +141,14 @@ async function handleEnrich(req: NextRequest) {
 
   const isMaps = url.includes("google.com/maps") || url.includes("maps.app.goo.gl");
   const t0 = Date.now();
-  const scrapeOutput = isMaps ? await scrapeMaps(url) : await scrapeSite(url);
+  // Hard 12s ceiling. If the scrape hangs (Vercel runtime sometimes ignores
+  // AbortSignal.timeout for stuck sockets), fall back to scrape-skipped so
+  // Anthropic can still generate output from lead metadata + mentor framework.
+  const scrapeOutput = await withTimeout(
+    isMaps ? scrapeMaps(url) : scrapeSite(url),
+    12000,
+    `(scrape skipped — exceeded 12s ceiling for ${url})`,
+  );
   console.log("[/api/enrich] scrape done", { isMaps, ms: Date.now() - t0, len: scrapeOutput.length });
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
