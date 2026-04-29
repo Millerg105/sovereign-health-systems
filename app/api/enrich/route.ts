@@ -79,27 +79,13 @@ async function scrapeMaps(url: string): Promise<string> {
   );
 }
 
-async function scrapeSite(url: string): Promise<string> {
-  try {
-    const r = await fetch(url, {
-      headers: { "user-agent": "SovereignSystemsBot/1.0 (+https://sovereignsystem.co.uk)" },
-      signal: AbortSignal.timeout(15000),
-    });
-    if (!r.ok) return `(Site fetch failed ${r.status} for ${url})`;
-    const html = await r.text();
-    // Strip scripts, styles, tags. Compress whitespace.
-    const text = html
-      .replace(/<script[\s\S]*?<\/script>/gi, " ")
-      .replace(/<style[\s\S]*?<\/style>/gi, " ")
-      .replace(/<[^>]+>/g, " ")
-      .replace(/\s+/g, " ")
-      .trim()
-      .slice(0, 8000);
-    return text;
-  } catch (err) {
-    return `(Site fetch error: ${err instanceof Error ? err.message : String(err)})`;
-  }
-}
+// Site fetching deliberately removed: Vercel's Node runtime was hanging on
+// stuck sockets in a way that ignored both AbortSignal.timeout and
+// Promise.race wall-clock timers (likely event-loop blocked by TLS or HTTP/2
+// stream). For non-Maps URLs we now skip scrape entirely and let Anthropic
+// work from lead metadata + niche mentor framework. To bring back richer
+// site data later, route through Apify's web-scraper actor (it manages its
+// own infra) or Firecrawl rather than native fetch.
 
 export async function POST(req: NextRequest) {
   try {
@@ -141,15 +127,13 @@ async function handleEnrich(req: NextRequest) {
 
   const isMaps = url.includes("google.com/maps") || url.includes("maps.app.goo.gl");
   const t0 = Date.now();
-  // Hard 12s ceiling. If the scrape hangs (Vercel runtime sometimes ignores
-  // AbortSignal.timeout for stuck sockets), fall back to scrape-skipped so
-  // Anthropic can still generate output from lead metadata + mentor framework.
-  const scrapeOutput = await withTimeout(
-    isMaps ? scrapeMaps(url) : scrapeSite(url),
-    12000,
-    `(scrape skipped — exceeded 12s ceiling for ${url})`,
-  );
-  console.log("[/api/enrich] scrape done", { isMaps, ms: Date.now() - t0, len: scrapeOutput.length });
+  // Maps URLs go through Apify (its own infra, reliable). Non-Maps URLs are
+  // not scraped server-side — Anthropic works from lead metadata + mentor
+  // framework. See site-fetch removal note above.
+  const scrapeOutput = isMaps
+    ? await withTimeout(scrapeMaps(url), 40000, `(Apify timeout for ${url})`)
+    : `(no scrape — non-Maps URL ${url}; Anthropic will work from lead metadata + mentor framework)`;
+  console.log("[/api/enrich] scrape phase done", { isMaps, ms: Date.now() - t0, len: scrapeOutput.length });
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
