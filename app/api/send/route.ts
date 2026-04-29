@@ -6,6 +6,7 @@ import {
   buildWhatsapp,
   findLead,
   loadState,
+  logEngagement,
   mutateLead,
   routeChannel,
   saveState,
@@ -52,6 +53,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Lead has no email — cannot send via Gmail." }, { status: 400 });
     }
     const url = buildMailto(lead.email, lead.pitchSubject, lead.pitchBody);
+    await logEngagement(auth.userId, auth.email, "send", { leadId: body.leadId, channel: "gmail-mailto" });
     return NextResponse.json({ channel, url, leadId: body.leadId });
   }
 
@@ -60,6 +62,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Lead has no phone — cannot send via WhatsApp." }, { status: 400 });
     }
     const url = buildWhatsapp(lead.phone, `${lead.pitchSubject}\n\n${lead.pitchBody}`);
+    await logEngagement(auth.userId, auth.email, "send", { leadId: body.leadId, channel: "whatsapp" });
     return NextResponse.json({ channel, url, leadId: body.leadId });
   }
 
@@ -102,6 +105,8 @@ export async function POST(req: NextRequest) {
     };
     const newState = mutateLead(state || {}, body.leadId, patch);
     await saveState(auth.userId, newState);
+
+    await logEngagement(auth.userId, auth.email, "send", { leadId: body.leadId, channel: "resend", messageId: r.data?.id });
 
     return NextResponse.json({ channel, sent: true, messageId: r.data?.id, leadId: body.leadId });
   }

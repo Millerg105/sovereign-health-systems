@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { authenticateRequest, getServiceClient } from "@/lib/hq";
+import { authenticateRequest, getServiceClient, logEngagement } from "@/lib/hq";
 
 export const runtime = "nodejs";
 
@@ -60,6 +60,13 @@ export async function POST(req: NextRequest) {
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
   if (!data) return NextResponse.json({ error: "Row not found" }, { status: 404 });
+
+  await logEngagement(auth.userId, auth.email, "reading_queue_action", {
+    id: body.id,
+    action: body.action,
+    council_member_slug: data.council_member_slug,
+    source: data.source,
+  });
 
   // For deepen-seat, return a markdown snippet ready to append to the seat card.
   if (body.action === "deepen-seat") {

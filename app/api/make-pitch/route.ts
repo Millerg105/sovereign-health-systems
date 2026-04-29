@@ -4,6 +4,7 @@ import {
   authenticateRequest,
   findLead,
   loadState,
+  logEngagement,
   mentorContext,
   mutateLead,
   saveState,
@@ -143,6 +144,8 @@ ${mentorMd}
   await saveState(auth.userId, newState);
 
   const channel = routeChannel({ ...lead, ...patch });
+
+  await logEngagement(auth.userId, auth.email, "make_pitch", { leadId: body.leadId, leadName: lead.name, channel });
 
   return NextResponse.json({
     success: true,
