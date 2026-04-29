@@ -981,23 +981,24 @@ function renderLeadActionRow(lead) {
   if (!row || !stageRow) return;
   const buttons = [];
   const message = () => document.getElementById('leadMessage').value || '';
+  // Brand-icon helper (Sovereign Socials assets at /internal/icons/<name>.png)
+  const brandIcon = (name) => `<img src="./icons/${name}.png" alt="${name}" style="width:18px;height:18px;object-fit:contain;display:inline-block;vertical-align:middle;" />`;
   // Gmail: compose to lead's email if present
   if (lead.email) {
     const subject = encodeURIComponent(lead.brand === 'bookings' ? `Quick mock for ${lead.name}` : `Built ${lead.name} a quick mockup + private proposal`);
-    buttons.push({ icon: '📧', label: 'Gmail', color: 'rgba(234,67,53,0.15)', text: '#fca5a5', border: 'rgba(234,67,53,0.4)', onclick: `sendGmail('${esc(lead.email)}', ${JSON.stringify(subject).replace(/'/g, "&#39;")})` });
+    buttons.push({ icon: brandIcon('gmail'), label: 'Gmail', color: 'rgba(234,67,53,0.15)', text: '#fca5a5', border: 'rgba(234,67,53,0.4)', onclick: `sendGmail('${esc(lead.email)}', ${JSON.stringify(subject).replace(/'/g, "&#39;")})` });
   }
   // WhatsApp: only if phone
   if (lead.phone) {
-    buttons.push({ icon: '💬', label: 'WhatsApp', color: 'rgba(34,197,94,0.18)', text: '#4ade80', border: 'rgba(34,197,94,0.4)', onclick: 'sendWhatsApp()' });
+    buttons.push({ icon: brandIcon('whatsapp'), label: 'WhatsApp', color: 'rgba(34,197,94,0.18)', text: '#4ade80', border: 'rgba(34,197,94,0.4)', onclick: 'sendWhatsApp()' });
   }
   // Instagram + Facebook — open DIRECT MESSAGE not just profile, auto-copy message to clipboard
   if (lead.facebook) {
     if (lead.facebook.toLowerCase().includes('instagram.com')) {
-      buttons.push({ icon: '📷', label: 'IG DM', color: 'rgba(225,48,108,0.15)', text: '#f8a4c0', border: 'rgba(225,48,108,0.4)', onclick: `openSocialChat('ig')` });
-      // Also offer profile view as a secondary smaller button
+      buttons.push({ icon: brandIcon('instagram'), label: 'IG DM', color: 'rgba(225,48,108,0.15)', text: '#f8a4c0', border: 'rgba(225,48,108,0.4)', onclick: `openSocialChat('ig')` });
       buttons.push({ icon: '👁', label: 'View IG', color: 'rgba(225,48,108,0.06)', text: '#f8a4c0', border: 'rgba(225,48,108,0.2)', onclick: `window.open('${esc(lead.facebook)}', '_blank')` });
     } else if (lead.facebook.toLowerCase().includes('facebook.com')) {
-      buttons.push({ icon: '📘', label: 'FB DM', color: 'rgba(59,130,246,0.15)', text: '#93c5fd', border: 'rgba(59,130,246,0.4)', onclick: `openSocialChat('fb')` });
+      buttons.push({ icon: brandIcon('facebook'), label: 'FB DM', color: 'rgba(59,130,246,0.15)', text: '#93c5fd', border: 'rgba(59,130,246,0.4)', onclick: `openSocialChat('fb')` });
       buttons.push({ icon: '👁', label: 'View FB', color: 'rgba(59,130,246,0.06)', text: '#93c5fd', border: 'rgba(59,130,246,0.2)', onclick: `window.open('${esc(lead.facebook)}', '_blank')` });
     } else {
       buttons.push({ icon: '🔗', label: 'Social', color: 'rgba(168,85,247,0.15)', text: '#c4b5fd', border: 'rgba(168,85,247,0.4)', onclick: `window.open('${esc(lead.facebook)}', '_blank')` });
