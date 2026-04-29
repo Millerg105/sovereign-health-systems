@@ -78,13 +78,13 @@
   .check { color: #4ade80; font-weight: 700; }
 
   .kanban { display: grid; gap: 10px; overflow-x: auto; padding-bottom: 6px; }
-  .kanban-leads { grid-template-columns: repeat(7, minmax(180px, 1fr)); }
+  .kanban-leads { grid-template-columns: repeat(8, minmax(170px, 1fr)); }
   .kanban-tasks { grid-template-columns: repeat(4, minmax(200px, 1fr)); }
   @media (max-width: 1400px) { .kanban-leads { grid-template-columns: repeat(4, minmax(200px, 1fr)); } }
   @media (max-width: 800px) { .kanban-leads, .kanban-tasks { grid-template-columns: repeat(2, minmax(180px, 1fr)); } }
   .stage-col { background: #141416; border: 1px solid #1f1f22; border-radius: 16px; padding: 12px; min-height: calc(100vh - 260px); max-height: calc(100vh - 200px); overflow-y: auto; transition: border-color 200ms var(--m3-ease), background 200ms var(--m3-ease); }
   .stage-col.drop-target { background: #1a1a2a; border-color: #60a5fa; box-shadow: 0 0 0 1px rgba(96,165,250,0.3); }
-  .stage-cold { border-top: 3px solid #6b7280; } .stage-mock { border-top: 3px solid #a855f7; } .stage-pitching { border-top: 3px solid #f59e0b; } .stage-warm { border-top: 3px solid #ec4899; } .stage-build { border-top: 3px solid #06b6d4; } .stage-won { border-top: 3px solid #22c55e; } .stage-parked { border-top: 3px solid #525252; } .stage-backlog { border-top: 3px solid #6b7280; } .stage-today { border-top: 3px solid #f59e0b; } .stage-doing { border-top: 3px solid #06b6d4; } .stage-done { border-top: 3px solid #22c55e; }
+  .stage-cold { border-top: 3px solid #6b7280; } .stage-enriched { border-top: 3px solid #fbbf24; } .stage-mock { border-top: 3px solid #a855f7; } .stage-pitching { border-top: 3px solid #f59e0b; } .stage-warm { border-top: 3px solid #ec4899; } .stage-build { border-top: 3px solid #06b6d4; } .stage-won { border-top: 3px solid #22c55e; } .stage-parked { border-top: 3px solid #525252; } .stage-backlog { border-top: 3px solid #6b7280; } .stage-today { border-top: 3px solid #f59e0b; } .stage-doing { border-top: 3px solid #06b6d4; } .stage-done { border-top: 3px solid #22c55e; }
   .col-title { font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: #888; margin-bottom: 12px; display: flex; justify-content: space-between; font-weight: 700; }
   .col-count { color: #555; }
   .lead-card { background: #1a1a1c; border: 1px solid #262629; border-radius: 12px; padding: 12px; margin-bottom: 8px; user-select: none; cursor: pointer; overflow: hidden; transition: border-color 220ms var(--m3-ease), transform 220ms var(--m3-ease), box-shadow 220ms var(--m3-ease); position: relative; }
@@ -786,7 +786,7 @@ function setLeadFilter(btn, f) { currentLeadFilter = f; document.querySelectorAl
 
 function renderLeads() {
   const view = document.getElementById('leadsView'); view.innerHTML = '';
-  const stages = [{ id: 'cold', label: 'Cold', cls: 'stage-cold' }, { id: 'mock', label: 'Mock', cls: 'stage-mock' }, { id: 'pitching', label: 'Pitching', cls: 'stage-pitching' }, { id: 'warm', label: 'Warm', cls: 'stage-warm' }, { id: 'build', label: 'Build', cls: 'stage-build' }, { id: 'won', label: 'Won', cls: 'stage-won' }, { id: 'parked', label: 'Parked', cls: 'stage-parked' }];
+  const stages = [{ id: 'cold', label: 'Cold', cls: 'stage-cold' }, { id: 'enriched', label: 'Enriched', cls: 'stage-enriched' }, { id: 'mock', label: 'Mock', cls: 'stage-mock' }, { id: 'pitching', label: 'Pitching', cls: 'stage-pitching' }, { id: 'warm', label: 'Warm', cls: 'stage-warm' }, { id: 'build', label: 'Build', cls: 'stage-build' }, { id: 'won', label: 'Won', cls: 'stage-won' }, { id: 'parked', label: 'Parked', cls: 'stage-parked' }];
   const searchEl = document.getElementById('leadsSearch');
   const q = searchEl ? searchEl.value.trim().toLowerCase() : '';
   const filtered = leads.filter(l => (currentLeadFilter === 'all' || l.brand === currentLeadFilter) && (!q || (l.name||'').toLowerCase().includes(q) || (l.niche||'').toLowerCase().includes(q) || (l.area||'').toLowerCase().includes(q)));
@@ -1096,6 +1096,7 @@ function renderLeadActionRow(lead) {
   // Stage breadcrumb: shows the full funnel, current stage highlighted, click any to move.
   const stages = [
     { s: 'cold', label: 'Cold', color: '#6b7280' },
+    { s: 'enriched', label: 'Enriched', color: '#fbbf24' },
     { s: 'mock', label: 'Mock', color: '#a855f7' },
     { s: 'pitching', label: 'Pitching', color: '#f59e0b' },
     { s: 'warm', label: 'Warm', color: '#ec4899' },
