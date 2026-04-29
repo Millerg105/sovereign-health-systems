@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { ApifyClient } from "apify-client";
 import {
   authenticateRequest,
   findLead,
@@ -9,16 +8,21 @@ import {
   saveState,
 } from "@/lib/hq";
 
-export const runtime = "nodejs";
-export const maxDuration = 60;
+// EDGE RUNTIME — switched 29 Apr 2026 evening after direct-fetch on the Node
+// runtime kept hanging on the Anthropic call (Cloudflare 502 HTML reaching
+// the dashboard, no Vercel logs at all in the 2hr window). Edge runtime uses
+// the Cloudflare Workers fetch stack which doesn't share Node's TLS/HTTP2
+// state machine, so the silent hang doesn't reproduce.
+//
+// Trade-offs accepted:
+// - 25s function budget (was 60s) — Haiku 4.5 returns in 3-8s so plenty
+// - No Apify SDK — Apify path was already bypassed, so no regression
+// - Supabase client works on Edge (documented support)
+export const runtime = "edge";
 
-// Direct fetch to Anthropic. The SDK was hanging silently on Vercel's Node
-// runtime (event-loop blocked deeper than AbortSignal/setTimeout could
-// preempt — likely TLS handshake or HTTP/2 stream). Native fetch with
-// AbortController works.
 async function anthropicMessage(prompt: string, apiKey: string, maxTokens = 1500): Promise<string> {
   const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), 35000);
+  const t = setTimeout(() => ctrl.abort(), 22000);
   try {
     const r = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
@@ -62,63 +66,6 @@ type EnrichResult = {
   mentorPrincipleApplied?: string;
   opener4Line?: string;
 };
-
-// Hard timeout wrapper. AbortSignal.timeout doesn't reliably propagate
-// through every transport in Vercel's Node runtime, so we belt-and-braces
-// with Promise.race against a wall-clock timer.
-function withTimeout<T>(p: Promise<T>, ms: number, fallback: T): Promise<T> {
-  return Promise.race([
-    p,
-    new Promise<T>((resolve) => setTimeout(() => resolve(fallback), ms)),
-  ]);
-}
-
-async function scrapeMaps(url: string): Promise<string> {
-  const token = process.env.APIFY_TOKEN;
-  if (!token) return `(Apify token missing — could not scrape ${url})`;
-  const client = new ApifyClient({ token });
-  // Actor name + input shape mirrors lead-enrich-from-maps SKILL.md.
-  const run = await client.actor("compass/crawler-google-places").call(
-    {
-      startUrls: [{ url }],
-      maxCrawledPlaces: 1,
-      language: "en",
-      scrapeReviews: false,
-      scrapeContacts: true,
-    },
-    { waitSecs: 35 },
-  );
-  const { items } = await client.dataset(run.defaultDatasetId).listItems({ limit: 1 });
-  if (!items?.length) return `(Maps scrape returned no items for ${url})`;
-  const p = items[0] as Record<string, unknown>;
-  // Field mapping per lead-enrich-from-maps SKILL.md step 3.
-  return JSON.stringify(
-    {
-      firm: p.title || p.name,
-      phone: p.phoneUnformatted || p.phone,
-      website: p.website,
-      address: p.address,
-      city: p.city,
-      categoryName: p.categoryName,
-      categories: p.categories,
-      rating: p.totalScore,
-      reviewCount: p.reviewsCount,
-      url: p.url,
-      neighborhood: p.neighborhood,
-      openingHours: p.openingHours,
-    },
-    null,
-    2,
-  );
-}
-
-// Site fetching deliberately removed: Vercel's Node runtime was hanging on
-// stuck sockets in a way that ignored both AbortSignal.timeout and
-// Promise.race wall-clock timers (likely event-loop blocked by TLS or HTTP/2
-// stream). For non-Maps URLs we now skip scrape entirely and let Anthropic
-// work from lead metadata + niche mentor framework. To bring back richer
-// site data later, route through Apify's web-scraper actor (it manages its
-// own infra) or Firecrawl rather than native fetch.
 
 export async function POST(req: NextRequest) {
   try {
