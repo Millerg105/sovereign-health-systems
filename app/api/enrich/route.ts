@@ -92,6 +92,17 @@ async function scrapeSite(url: string): Promise<string> {
 }
 
 export async function POST(req: NextRequest) {
+  try {
+    return await handleEnrich(req);
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    const stack = err instanceof Error ? err.stack : "";
+    console.error("[/api/enrich] uncaught:", msg, stack);
+    return NextResponse.json({ error: `enrich crashed: ${msg}` }, { status: 500 });
+  }
+}
+
+async function handleEnrich(req: NextRequest) {
   const auth = await authenticateRequest(req);
   if ("error" in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
 
@@ -108,6 +119,7 @@ export async function POST(req: NextRequest) {
   const state = await loadState(auth.userId);
   const lead = findLead(state, body.leadId);
   if (!lead) return NextResponse.json({ error: "Lead not found" }, { status: 404 });
+  console.log("[/api/enrich] lead", { id: lead.id, name: lead.name, niche: lead.niche, website: lead.website, mapsUrl: lead.mapsUrl, facebook: lead.facebook });
 
   const url = lead.website || lead.mapsUrl || lead.facebook || "";
   if (!url) {
@@ -118,7 +130,9 @@ export async function POST(req: NextRequest) {
   }
 
   const isMaps = url.includes("google.com/maps") || url.includes("maps.app.goo.gl");
+  const t0 = Date.now();
   const scrapeOutput = isMaps ? await scrapeMaps(url) : await scrapeSite(url);
+  console.log("[/api/enrich] scrape done", { isMaps, ms: Date.now() - t0, len: scrapeOutput.length });
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
@@ -165,6 +179,7 @@ ${scrapeOutput}
 No em dashes anywhere.`;
 
   let resp;
+  const t1 = Date.now();
   try {
     // Haiku 4.5 — fast structural extraction. Sonnet adds latency without
     // meaningful quality lift for JSON output of this shape.
@@ -173,8 +188,10 @@ No em dashes anywhere.`;
       max_tokens: 1500,
       messages: [{ role: "user", content: prompt }],
     }, { timeout: 35000 });
+    console.log("[/api/enrich] anthropic done", { ms: Date.now() - t1, stop_reason: resp.stop_reason });
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
+    console.error("[/api/enrich] anthropic failed", { msg, ms: Date.now() - t1 });
     return NextResponse.json({ error: `Anthropic call failed: ${msg}` }, { status: 502 });
   }
 

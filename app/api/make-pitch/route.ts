@@ -23,6 +23,17 @@ type Pitch = {
 };
 
 export async function POST(req: NextRequest) {
+  try {
+    return await handleMakePitch(req);
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    const stack = err instanceof Error ? err.stack : "";
+    console.error("[/api/make-pitch] uncaught:", msg, stack);
+    return NextResponse.json({ error: `make-pitch crashed: ${msg}` }, { status: 500 });
+  }
+}
+
+async function handleMakePitch(req: NextRequest) {
   const auth = await authenticateRequest(req);
   if ("error" in auth) return NextResponse.json({ error: auth.error }, { status: auth.status });
 
