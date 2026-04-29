@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import Anthropic from "@anthropic-ai/sdk";
 import { ApifyClient } from "apify-client";
 import {
   authenticateRequest,
@@ -12,6 +11,40 @@ import {
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
+
+// Direct fetch to Anthropic. The SDK was hanging silently on Vercel's Node
+// runtime (event-loop blocked deeper than AbortSignal/setTimeout could
+// preempt — likely TLS handshake or HTTP/2 stream). Native fetch with
+// AbortController works.
+async function anthropicMessage(prompt: string, apiKey: string, maxTokens = 1500): Promise<string> {
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), 35000);
+  try {
+    const r = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": apiKey,
+        "anthropic-version": "2023-06-01",
+      },
+      body: JSON.stringify({
+        model: "claude-haiku-4-5-20251001",
+        max_tokens: maxTokens,
+        messages: [{ role: "user", content: prompt }],
+      }),
+      signal: ctrl.signal,
+    });
+    clearTimeout(t);
+    if (!r.ok) {
+      const errText = await r.text();
+      throw new Error(`Anthropic ${r.status}: ${errText.slice(0, 300)}`);
+    }
+    const j = (await r.json()) as { content?: Array<{ type: string; text?: string }> };
+    return (j.content || []).map((b) => (b.type === "text" ? b.text || "" : "")).join("").trim();
+  } finally {
+    clearTimeout(t);
+  }
+}
 
 type EnrichResult = {
   firm?: string;
@@ -141,7 +174,6 @@ async function handleEnrich(req: NextRequest) {
 
   const { markdown: mentorMd } = mentorContext(lead.niche);
 
-  const anthropic = new Anthropic({ apiKey });
   const prompt = `Enrich this lead by combining the scrape data and the mentor framework. Output a single JSON object then a 4-line outreach opener.
 
 **Lead:** ${lead.name}
@@ -178,28 +210,16 @@ ${scrapeOutput}
 
 No em dashes anywhere.`;
 
-  let resp;
+  let text: string;
   const t1 = Date.now();
   try {
-    // Haiku 4.5 — fast structural extraction. Sonnet adds latency without
-    // meaningful quality lift for JSON output of this shape.
-    resp = await anthropic.messages.create({
-      model: "claude-haiku-4-5-20251001",
-      max_tokens: 1500,
-      messages: [{ role: "user", content: prompt }],
-    }, { timeout: 35000 });
-    console.log("[/api/enrich] anthropic done", { ms: Date.now() - t1, stop_reason: resp.stop_reason });
+    text = await anthropicMessage(prompt, apiKey);
+    console.log("[/api/enrich] anthropic done", { ms: Date.now() - t1, len: text.length });
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
     console.error("[/api/enrich] anthropic failed", { msg, ms: Date.now() - t1 });
     return NextResponse.json({ error: `Anthropic call failed: ${msg}` }, { status: 502 });
   }
-
-  const text =
-    resp.content
-      .map((b) => (b.type === "text" ? b.text : ""))
-      .join("")
-      .trim() || "";
 
   const jsonMatch = text.match(/\{[\s\S]*\}/);
   if (!jsonMatch) {
