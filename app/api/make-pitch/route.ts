@@ -11,13 +11,15 @@ import {
   todayISO,
 } from "@/lib/hq";
 
-export const runtime = "nodejs";
-export const maxDuration = 60;
+// EDGE RUNTIME — Anthropic calls hang on Vercel's Node runtime even with
+// direct fetch + AbortController (likely TLS/HTTP2 stack issue). Edge runs
+// on Cloudflare Workers, different stack, no hang. 25s function budget is
+// fine for Haiku 4.5 (3-8s typical).
+export const runtime = "edge";
 
-// Direct fetch — Anthropic SDK was hanging silently on Vercel's Node runtime.
 async function anthropicMessage(prompt: string, apiKey: string, maxTokens = 1500): Promise<string> {
   const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), 35000);
+  const t = setTimeout(() => ctrl.abort(), 22000);
   try {
     const r = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
