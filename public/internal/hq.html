@@ -98,7 +98,7 @@
   .check { color: #4ade80; font-weight: 700; }
 
   .kanban { display: grid; gap: 10px; overflow-x: auto; padding-bottom: 6px; }
-  .kanban-leads { grid-template-columns: repeat(8, minmax(170px, 1fr)); }
+  .kanban-leads { grid-template-columns: repeat(7, minmax(170px, 1fr)); }
   .kanban-tasks { grid-template-columns: repeat(4, minmax(200px, 1fr)); }
   @media (max-width: 1400px) { .kanban-leads { grid-template-columns: repeat(4, minmax(200px, 1fr)); } }
   @media (max-width: 800px) { .kanban-leads, .kanban-tasks { grid-template-columns: repeat(2, minmax(180px, 1fr)); } }
@@ -327,6 +327,18 @@
         <div class="card"><h3>🎯 Financial milestones</h3><div class="info-item"><div class="info-name">£1,500/mo · self-sustained</div><div class="info-detail">Curtins optional</div><div class="progress-bar"><div class="progress-fill green" style="width: 0%"></div></div></div><div class="info-item"><div class="info-name">£3,000/mo · Wooty paid</div><div class="info-detail">Phantom equity unlocks</div><div class="progress-bar"><div class="progress-fill amber" style="width: 0%"></div></div></div><div class="info-item"><div class="info-name">£5,000/mo · Beetham gate</div><div class="info-detail">× 3 mo · Aug 2026</div><div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div></div></div>
         <div class="card"><h3>🏦 Accounts</h3><div class="info-item"><div class="info-name">Tide (Bookings)</div><div class="info-detail">Live · balance tight</div></div><div class="info-item"><div class="info-name">Stripe</div><div class="info-detail">8 products · TM01-blocked</div></div><div class="info-item"><div class="info-name">Curtins salary</div><div class="info-detail">~End of month</div></div></div>
       </div>
+      <div class="card" style="margin-top:14px;">
+        <h3 style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+          <span>📊 Pipeline EV by stage</span>
+          <span style="font-size:10px;color:rgba(255,255,255,0.4);font-family:ui-monospace,monospace;letter-spacing:0.16em;text-transform:uppercase;font-weight:500;">expected value · live from kanban</span>
+        </h3>
+        <div id="moneyChart" style="margin-top:8px;"></div>
+        <div style="display:flex;gap:18px;margin-top:14px;font-size:11px;color:rgba(255,255,255,0.55);">
+          <span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:2px;background:#22d3ee;"></span>Systems</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:2px;background:#4ade80;"></span>Bookings</span>
+          <span style="margin-left:auto;font-family:ui-monospace,monospace;color:rgba(255,255,255,0.4);" id="moneyChartTotal"></span>
+        </div>
+      </div>
     </div>
 
     <div id="builds" class="tab-content">
@@ -352,6 +364,15 @@
       <div class="ns-tier"><div class="ns-tier-num">Unlock 3 · Aug 2027 → 2028</div><div class="ns-tier-title">🏠 First investment property</div><div class="ns-tier-when">£15k MRR · £100k saved</div></div>
       <div class="ns-arrow">↓</div>
       <div class="ns-tier"><div class="ns-tier-num">Unlock 4 · 2028 onwards</div><div class="ns-tier-title">✈️ Travel + freedom (the apex)</div><div class="ns-tier-when">£25k+ MRR · Async-capable team · Live anywhere</div></div>
+      <div class="card" style="margin-top:24px;text-align:center;">
+        <h3 style="display:flex;align-items:center;justify-content:center;gap:10px;font-size:11px;font-family:ui-monospace,monospace;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.4);font-weight:500;">
+          <span style="width:6px;height:6px;border-radius:50%;background:#22d3ee;"></span>
+          Pipeline footprint <span id="globeLeadCount" style="color:rgba(255,255,255,0.6);">· 0 leads</span>
+        </h3>
+        <div style="display:flex;justify-content:center;margin-top:8px;">
+          <canvas id="leadsGlobe" style="width:520px;height:520px;max-width:100%;contain:layout paint size;"></canvas>
+        </div>
+      </div>
     </div>
   </main>
 </div>
@@ -463,14 +484,14 @@ const initialLeads = [
   { id: 4, name: 'Andy Rodan App', brand: 'systems', niche: 'Other', area: 'Wigan', source: 'Andy Rodan', stage: 'warm', sourceNote: 'Direct · under-books', owner: 'Miller', action: 'Discovery before pricing', nextAction: 'Discovery before pricing', lastContact: '2026-04-21', town: 'wigan', readiness: 7, ownerName: 'Andy' },
   { id: 5, name: 'Luke Steedman', brand: 'systems', niche: 'General Trades', area: 'Manchester', source: 'Cold Email', stage: 'pitching', sourceNote: 'Replied · checking WhatsApp tonight', owner: 'Miller', action: 'Wait for tonight\'s reply', nextAction: 'Watch WhatsApp · 48h follow-up if silent', lastContact: '2026-04-26', hot: true, town: 'manchester', readiness: 8, ownerName: 'Luke', proposalUrl: 'https://sovereignsystem.co.uk/pitch/luke-steedman', pitchUrl: 'https://sovereignsystem.co.uk/pitch/luke-steedman', leadScore: 75, dealValue: 800 },
   { id: 6, name: 'Paul Aspey / RAM', brand: 'systems', niche: 'General Trades', area: 'Wigan', source: 'Andy Rodan', stage: 'pitching', sourceNote: 'Rodan · pitch WIP', owner: 'Miller', action: 'Finish pitch draft', nextAction: 'Finish pitch draft', lastContact: '2026-04-19', town: 'wigan', readiness: 6, ownerName: 'Paul', dealValue: 800 },
-  { id: 10, name: 'PG Developments', brand: 'bookings', niche: 'Garden Rooms', area: 'Preston', source: 'Apify', stage: 'mock', sourceNote: 'Apify · Active Spend YES (0800 freephone)', owner: 'Miller', action: 'Highest cold signal · pitch first', nextAction: 'Build mock + send pitch · highest cold signal', lastContact: '', town: 'preston', website: 'https://pgdevelopments.co.uk', readiness: 7, leadScore: 78, activeSpend: true },
-  { id: 11, name: 'UltraSpace Preston', brand: 'bookings', niche: 'Garden Rooms', area: 'Preston', source: 'Apify', stage: 'mock', sourceNote: 'Apify · GMB tracking = paid ads', owner: 'Miller', action: 'Active spend signal', nextAction: 'Build mock + send pitch', lastContact: '', town: 'preston', website: 'https://ultraspace.co.uk', readiness: 6, leadScore: 65, activeSpend: true },
-  { id: 12, name: 'Garden Rooms of Cheshire', brand: 'bookings', niche: 'Garden Rooms', area: 'Cheshire', source: 'Apify', stage: 'mock', sourceNote: 'Apify · 5★/11 · Warrington showroom', owner: 'Miller', action: 'PPA-only angle', nextAction: 'PPA-only angle pitch', lastContact: '', town: 'warrington', website: 'https://gardenroomsofcheshire.co.uk', readiness: 5, leadScore: 58 },
-  { id: 13, name: 'Elevate Garden Rooms', brand: 'bookings', niche: 'Garden Rooms', area: 'Cheshire', source: 'Apify', stage: 'mock', sourceNote: 'Warrington · 5★/48 reviews · strongest social proof', owner: 'Miller', action: 'Lead with reviews angle', nextAction: 'Lead with reviews angle', lastContact: '', town: 'warrington', readiness: 6, leadScore: 70 },
-  { id: 14, name: 'Luxury Garden Buildings UK', brand: 'bookings', niche: 'Garden Rooms', area: 'Other UK', source: 'Apify', stage: 'mock', sourceNote: 'Blackpool · 4.9★/55 reviews', owner: 'Miller', action: 'Pitch this week', nextAction: 'Pitch this week', lastContact: '', town: 'blackpool', website: 'https://luxurygardenbuildings.com', facebook: 'https://www.instagram.com/luxurygardenbuildingsuk', readiness: 6, leadScore: 68 },
+  { id: 10, name: 'PG Developments', brand: 'bookings', niche: 'Garden Rooms', area: 'Preston', source: 'Apify', stage: 'enriched', sourceNote: 'Apify · Active Spend YES (0800 freephone)', owner: 'Miller', action: 'Highest cold signal · pitch first', nextAction: 'Build mock + send pitch · highest cold signal', lastContact: '', town: 'preston', website: 'https://pgdevelopments.co.uk', readiness: 7, leadScore: 78, activeSpend: true },
+  { id: 11, name: 'UltraSpace Preston', brand: 'bookings', niche: 'Garden Rooms', area: 'Preston', source: 'Apify', stage: 'enriched', sourceNote: 'Apify · GMB tracking = paid ads', owner: 'Miller', action: 'Active spend signal', nextAction: 'Build mock + send pitch', lastContact: '', town: 'preston', website: 'https://ultraspace.co.uk', readiness: 6, leadScore: 65, activeSpend: true },
+  { id: 12, name: 'Garden Rooms of Cheshire', brand: 'bookings', niche: 'Garden Rooms', area: 'Cheshire', source: 'Apify', stage: 'enriched', sourceNote: 'Apify · 5★/11 · Warrington showroom', owner: 'Miller', action: 'PPA-only angle', nextAction: 'PPA-only angle pitch', lastContact: '', town: 'warrington', website: 'https://gardenroomsofcheshire.co.uk', readiness: 5, leadScore: 58 },
+  { id: 13, name: 'Elevate Garden Rooms', brand: 'bookings', niche: 'Garden Rooms', area: 'Cheshire', source: 'Apify', stage: 'enriched', sourceNote: 'Warrington · 5★/48 reviews · strongest social proof', owner: 'Miller', action: 'Lead with reviews angle', nextAction: 'Lead with reviews angle', lastContact: '', town: 'warrington', readiness: 6, leadScore: 70 },
+  { id: 14, name: 'Luxury Garden Buildings UK', brand: 'bookings', niche: 'Garden Rooms', area: 'Other UK', source: 'Apify', stage: 'enriched', sourceNote: 'Blackpool · 4.9★/55 reviews', owner: 'Miller', action: 'Pitch this week', nextAction: 'Pitch this week', lastContact: '', town: 'blackpool', website: 'https://luxurygardenbuildings.com', facebook: 'https://www.instagram.com/luxurygardenbuildingsuk', readiness: 6, leadScore: 68 },
   { id: 15, name: 'KLG Landscape', brand: 'systems', niche: 'General Trades', area: 'Wigan', source: 'Wigan Flip', stage: 'cold', sourceNote: 'NEIGHBOUR · advertising on board · NO website', owner: 'Miller', action: 'Hyper-local pitch', nextAction: 'Knock on door / drop card', lastContact: '', town: 'wigan', hasWebsite: false, readiness: 5, neighbour: true, leadScore: 55 },
   { id: 16, name: 'Wolf Builders & Joiners Ltd', brand: 'bookings', niche: 'Garden Rooms', area: 'Manchester', source: 'Apify', stage: 'pitching', sourceNote: 'Mock + proposal sent · awaiting reply', owner: 'Miller', action: '48h follow-up', nextAction: '48h follow-up post-send', lastContact: '2026-04-27', town: 'manchester', mockUrl: 'https://wolf-builders-mock.vercel.app', proposalUrl: 'https://www.sovereignsystem.co.uk/proposal-pitch/wolf-builders', pitchUrl: 'https://www.sovereignsystem.co.uk/proposal-pitch/wolf-builders', readiness: 7, leadScore: 72, slug: 'wolf-builders' },
-  { id: 17, name: 'Trafford Garden Rooms', brand: 'bookings', niche: 'Garden Rooms', area: 'Manchester', source: 'Cold Email', stage: 'mock', sourceNote: 'Mock queued · enrichment captured', owner: 'Miller', action: 'Build mock', nextAction: 'Build mock + draft pitch', lastContact: '', town: 'manchester', website: 'https://traffordgardenrooms.com', readiness: 6, leadScore: 78, slug: 'trafford-garden-rooms' },
+  { id: 17, name: 'Trafford Garden Rooms', brand: 'bookings', niche: 'Garden Rooms', area: 'Manchester', source: 'Cold Email', stage: 'enriched', sourceNote: 'Mock queued · enrichment captured', owner: 'Miller', action: 'Build mock', nextAction: 'Build mock + draft pitch', lastContact: '', town: 'manchester', website: 'https://traffordgardenrooms.com', readiness: 6, leadScore: 78, slug: 'trafford-garden-rooms' },
   { id: 20, name: 'LMK Luxe Tan', brand: 'systems', niche: 'Beauty/Tan', area: 'Wigan', source: 'Andy Rodan', stage: 'build', sourceNote: 'Rodan · £250 deposit · Mackenzie', owner: 'Miller', action: 'Ship next milestone', nextAction: 'Ship next milestone', lastContact: '2026-04-25', town: 'wigan', readiness: 9, ownerName: 'Mackenzie', leadScore: 90, dealValue: 800, won: 250 },
   { id: 21, name: 'SikPix (Geoff)', brand: 'systems', niche: 'Auto/Art', area: 'Wigan', source: 'Referral', stage: 'parked', sourceNote: 'Existing · upgrade shipped 12 Apr · awaiting Shopify decision', owner: 'Miller', action: 'Reminder schedule 3/10/17 May', nextAction: "Father's Day 21 Jun angle · ping 3 May", lastContact: '2026-04-12', town: 'wigan', website: 'https://sikpix.vercel.app', readiness: 5, ownerName: 'Geoff' },
   { id: 30, name: 'TK Tax (Tracy)', brand: 'systems', niche: 'Tax/Accounting', area: 'Wigan', source: 'Referral', stage: 'won', sourceNote: '£300 paid · live', owner: 'Miller', action: '✓ Done', nextAction: '✓ Done', lastContact: '2026-03-27', town: 'wigan', website: 'https://tk-tax.vercel.app', readiness: 10, ownerName: 'Tracy', leadScore: 100, dealValue: 300, won: 300 },
@@ -801,12 +822,20 @@ function submitAddLead() {
   leads.unshift(lead); persist(); closeModal('addLeadModal'); renderLeads();
 }
 
-function showTab(btn, name) { document.querySelectorAll('.sb-item').forEach(t => t.classList.remove('active')); document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active')); btn.classList.add('active'); document.getElementById(name).classList.add('active'); window.scrollTo(0, 0); }
+function showTab(btn, name) {
+  document.querySelectorAll('.sb-item').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(name).classList.add('active');
+  window.scrollTo(0, 0);
+  if (name === 'money') renderMoneyChart();
+  if (name === 'northstar') renderGlobe();
+}
 function setLeadFilter(btn, f) { currentLeadFilter = f; document.querySelectorAll('#leads .filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); renderLeads(); }
 
 function renderLeads() {
   const view = document.getElementById('leadsView'); view.innerHTML = '';
-  const stages = [{ id: 'cold', label: 'Cold', cls: 'stage-cold' }, { id: 'enriched', label: 'Enriched', cls: 'stage-enriched' }, { id: 'mock', label: 'Mock', cls: 'stage-mock' }, { id: 'pitching', label: 'Pitching', cls: 'stage-pitching' }, { id: 'warm', label: 'Warm', cls: 'stage-warm' }, { id: 'build', label: 'Build', cls: 'stage-build' }, { id: 'won', label: 'Won', cls: 'stage-won' }, { id: 'parked', label: 'Parked', cls: 'stage-parked' }];
+  const stages = [{ id: 'cold', label: 'Cold', cls: 'stage-cold' }, { id: 'enriched', label: 'Enriched', cls: 'stage-enriched' }, { id: 'pitching', label: 'Pitching', cls: 'stage-pitching' }, { id: 'warm', label: 'Warm', cls: 'stage-warm' }, { id: 'build', label: 'Build', cls: 'stage-build' }, { id: 'won', label: 'Won', cls: 'stage-won' }, { id: 'parked', label: 'Parked', cls: 'stage-parked' }];
   const searchEl = document.getElementById('leadsSearch');
   const q = searchEl ? searchEl.value.trim().toLowerCase() : '';
   const filtered = leads.filter(l => (currentLeadFilter === 'all' || l.brand === currentLeadFilter) && (!q || (l.name||'').toLowerCase().includes(q) || (l.niche||'').toLowerCase().includes(q) || (l.area||'').toLowerCase().includes(q)));
@@ -1117,7 +1146,6 @@ function renderLeadActionRow(lead) {
   const stages = [
     { s: 'cold', label: 'Cold', color: '#6b7280' },
     { s: 'enriched', label: 'Enriched', color: '#fbbf24' },
-    { s: 'mock', label: 'Mock', color: '#a855f7' },
     { s: 'pitching', label: 'Pitching', color: '#f59e0b' },
     { s: 'warm', label: 'Warm', color: '#ec4899' },
     { s: 'build', label: 'Build', color: '#06b6d4' },
@@ -1457,10 +1485,123 @@ function closeModal(id) { document.getElementById(id).classList.remove('active')
 function copyText(t, b) { navigator.clipboard.writeText(t).then(() => { const o = b.textContent; b.textContent = '✓ Copied'; b.classList.add('copied'); setTimeout(() => { b.textContent = o; b.classList.remove('copied'); }, 1500); }); }
 function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
+/* ─── Money tab: pipeline EV by stage (vanilla SVG, no deps) ─── */
+function renderMoneyChart() {
+  const host = document.getElementById('moneyChart');
+  if (!host) return;
+  const stagesOrder = [
+    { id: 'cold', label: 'Cold', color: '#6b7280' },
+    { id: 'enriched', label: 'Enriched', color: '#fbbf24' },
+    { id: 'pitching', label: 'Pitching', color: '#f59e0b' },
+    { id: 'warm', label: 'Warm', color: '#ec4899' },
+    { id: 'build', label: 'Build', color: '#06b6d4' },
+    { id: 'won', label: 'Won', color: '#22c55e' },
+  ];
+  // EV per lead: dealValue (or niche default) × leadScore/100. Rough but honest.
+  function ev(lead) {
+    const score = (typeof lead.leadScore === 'number' ? lead.leadScore : 50) / 100;
+    let v = lead.dealValue;
+    if (typeof v !== 'number') {
+      // Niche-specific defaults that match what the v9 seed pitches at.
+      v = lead.brand === 'bookings' ? 800 : (lead.brand === 'systems' ? 800 : 600);
+    }
+    return Math.round(v * score);
+  }
+  const all = leads || [];
+  const rows = stagesOrder.map(s => {
+    const sub = all.filter(l => l.stage === s.id);
+    const sys = sub.filter(l => l.brand === 'systems').reduce((a, l) => a + ev(l), 0);
+    const bk = sub.filter(l => l.brand === 'bookings').reduce((a, l) => a + ev(l), 0);
+    return { ...s, sys, bk, total: sys + bk, count: sub.length };
+  });
+  const maxTotal = Math.max(1, ...rows.map(r => r.total));
+  const grandTotal = rows.reduce((a, r) => a + r.total, 0);
+  const fmt = n => '£' + n.toLocaleString('en-GB');
+  const html = rows.map(r => {
+    const sysPct = r.total > 0 ? (r.sys / maxTotal) * 100 : 0;
+    const bkPct = r.total > 0 ? (r.bk / maxTotal) * 100 : 0;
+    return `
+      <div style="display:grid;grid-template-columns:84px 1fr 110px;gap:14px;align-items:center;padding:7px 0;">
+        <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;display:flex;align-items:center;gap:6px;">
+          <span style="width:6px;height:6px;border-radius:50%;background:${r.color};"></span>${r.label}
+          <span style="margin-left:auto;font-family:ui-monospace,monospace;font-size:9.5px;color:rgba(255,255,255,0.35);">${r.count}</span>
+        </div>
+        <div style="position:relative;height:18px;background:rgba(255,255,255,0.04);border-radius:4px;overflow:hidden;">
+          <div style="position:absolute;left:0;top:0;bottom:0;width:${sysPct}%;background:#22d3ee;transition:width 600ms cubic-bezier(0.1,0.8,0.2,1);"></div>
+          <div style="position:absolute;left:${sysPct}%;top:0;bottom:0;width:${bkPct}%;background:#4ade80;transition:left 600ms cubic-bezier(0.1,0.8,0.2,1),width 600ms cubic-bezier(0.1,0.8,0.2,1);"></div>
+        </div>
+        <div style="text-align:right;font-family:ui-monospace,monospace;font-size:12px;color:#fff;font-weight:600;">${fmt(r.total)}</div>
+      </div>`;
+  }).join('');
+  host.innerHTML = html;
+  const totalEl = document.getElementById('moneyChartTotal');
+  if (totalEl) totalEl.textContent = `Total in flight ${fmt(grandTotal)}`;
+}
+
+/* ─── North Star: leads globe via cobe (dynamic import) ─── */
+const UK_AREA_COORDS = {
+  'Wigan': [53.5448, -2.6318], 'Manchester': [53.4808, -2.2426], 'Liverpool': [53.4084, -2.9916],
+  'Bolton': [53.5786, -2.4282], 'Warrington': [53.3900, -2.5970], 'Preston': [53.7632, -2.7031],
+  'Blackpool': [53.8175, -3.0357], 'Cheshire': [53.1879, -2.5290], 'Leeds': [53.8008, -1.5491],
+  'Sheffield': [53.3811, -1.4701], 'Nottingham': [52.9548, -1.1581], 'London': [51.5074, -0.1278],
+  'Other UK': [53.5448, -2.6318],
+};
+let __globeState = { phi: 4.95, instance: null, ro: null };
+async function renderGlobe() {
+  const canvas = document.getElementById('leadsGlobe');
+  if (!canvas) return;
+  const all = (leads || []).filter(l => l.stage !== 'parked');
+  const cnt = document.getElementById('globeLeadCount');
+  if (cnt) cnt.textContent = `· ${all.length} ${all.length === 1 ? 'lead' : 'leads'}`;
+  const markers = all.map(l => {
+    const c = UK_AREA_COORDS[l.area] || UK_AREA_COORDS['Other UK'];
+    const stageBoost = l.stage === 'won' ? 0.10 : l.stage === 'build' ? 0.085 : l.stage === 'warm' ? 0.075 : l.stage === 'pitching' ? 0.06 : 0.045;
+    return { location: c, size: stageBoost };
+  });
+  if (__globeState.instance) {
+    // Already booted — just resize-trigger so cobe reads fresh markers next frame.
+    if (typeof __globeState.instance.update === 'function') __globeState.instance.update({ markers });
+    return;
+  }
+  let createGlobe;
+  try {
+    const mod = await import('https://esm.sh/cobe@0.6.3');
+    createGlobe = mod.default || mod;
+  } catch (err) {
+    canvas.style.display = 'none';
+    if (cnt) cnt.textContent = `· globe lib failed to load`;
+    console.warn('[globe] cobe import failed', err);
+    return;
+  }
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  const size = 520;
+  canvas.width = size * dpr; canvas.height = size * dpr;
+  __globeState.instance = createGlobe(canvas, {
+    devicePixelRatio: dpr,
+    width: size * dpr,
+    height: size * dpr,
+    phi: __globeState.phi,
+    theta: 0.3,
+    dark: 1,
+    diffuse: 1.2,
+    mapSamples: 16000,
+    mapBrightness: 4,
+    baseColor: [0.04, 0.06, 0.08],
+    markerColor: [0.13, 0.83, 0.93],
+    glowColor: [0.05, 0.1, 0.15],
+    markers,
+    onRender: (state) => {
+      state.phi = __globeState.phi;
+      __globeState.phi += 0.003;
+    },
+  });
+}
+
 // First load: persist the seed so localStorage has a baseline + lastSavedPip works
 if (!state.leads) persist();
 renderLeads(); renderTasks(); renderProposals(); renderTemplates(); renderBuilds(); renderComponents(); renderIntel();
 probeCouncilIntel();
+renderMoneyChart(); // pre-render so the Money tab is hot the moment it opens
 // Boot cloud sync — pulls latest state if cloud is ahead of local, then sets up auto-push on every persist.
 cloudPull();
 </script>
