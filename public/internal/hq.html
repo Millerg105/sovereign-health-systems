@@ -985,30 +985,29 @@ function renderLeadActionRow(lead) {
   const message = () => document.getElementById('leadMessage').value || '';
   // Brand-icon helper (Sovereign Socials assets at /internal/icons/<name>.png)
   const brandIcon = (name) => `<img src="./icons/${name}.png" alt="${name}" style="width:18px;height:18px;object-fit:contain;display:inline-block;vertical-align:middle;" />`;
-  // Gmail: compose to lead's email if present
-  if (lead.email) {
-    const subject = encodeURIComponent(lead.brand === 'bookings' ? `Quick mock for ${lead.name}` : `Built ${lead.name} a quick mockup + private proposal`);
-    buttons.push({ icon: brandIcon('gmail'), label: 'Gmail', color: 'rgba(234,67,53,0.15)', text: '#fca5a5', border: 'rgba(234,67,53,0.4)', onclick: `sendGmail('${esc(lead.email)}', ${JSON.stringify(subject).replace(/'/g, "&#39;")})` });
+  // ALWAYS-ON social buttons. Faded if data missing; click prompts for it then fires.
+  const fade = (has) => has ? 1 : 0.55;
+  const hasEmail = !!lead.email;
+  const hasPhone = !!lead.phone;
+  const hasIG = !!(lead.instagramUrl || (lead.facebook && lead.facebook.toLowerCase().includes('instagram.com')));
+  const hasFB = !!(lead.facebookUrl || (lead.facebook && lead.facebook.toLowerCase().includes('facebook.com')));
+  buttons.push({ icon: brandIcon('gmail'), label: 'Gmail', color: 'rgba(234,67,53,0.15)', text: '#fca5a5', border: 'rgba(234,67,53,0.4)', opacity: fade(hasEmail), onclick: 'gmailFlow()' });
+  buttons.push({ icon: brandIcon('whatsapp'), label: 'WhatsApp', color: 'rgba(34,197,94,0.18)', text: '#4ade80', border: 'rgba(34,197,94,0.4)', opacity: fade(hasPhone), onclick: 'whatsappFlow()' });
+  buttons.push({ icon: brandIcon('instagram'), label: 'IG DM', color: 'rgba(225,48,108,0.15)', text: '#f8a4c0', border: 'rgba(225,48,108,0.4)', opacity: fade(hasIG), onclick: 'igFlow()' });
+  buttons.push({ icon: brandIcon('facebook'), label: 'FB DM', color: 'rgba(59,130,246,0.15)', text: '#93c5fd', border: 'rgba(59,130,246,0.4)', opacity: fade(hasFB), onclick: 'fbFlow()' });
+  // View profile buttons (only when URL on file)
+  if (lead.instagramUrl || (lead.facebook && lead.facebook.toLowerCase().includes('instagram.com'))) {
+    const igUrl = lead.instagramUrl || lead.facebook;
+    buttons.push({ icon: '👁', label: 'View IG', color: 'rgba(225,48,108,0.06)', text: '#f8a4c0', border: 'rgba(225,48,108,0.2)', opacity: 1, onclick: `window.open('${esc(igUrl)}', '_blank')` });
   }
-  // WhatsApp: only if phone
-  if (lead.phone) {
-    buttons.push({ icon: brandIcon('whatsapp'), label: 'WhatsApp', color: 'rgba(34,197,94,0.18)', text: '#4ade80', border: 'rgba(34,197,94,0.4)', onclick: 'sendWhatsApp()' });
+  if (lead.facebookUrl || (lead.facebook && lead.facebook.toLowerCase().includes('facebook.com'))) {
+    const fbUrl = lead.facebookUrl || lead.facebook;
+    buttons.push({ icon: '👁', label: 'View FB', color: 'rgba(59,130,246,0.06)', text: '#93c5fd', border: 'rgba(59,130,246,0.2)', opacity: 1, onclick: `window.open('${esc(fbUrl)}', '_blank')` });
   }
   // Instagram + Facebook — open DIRECT MESSAGE not just profile, auto-copy message to clipboard
-  if (lead.facebook) {
-    if (lead.facebook.toLowerCase().includes('instagram.com')) {
-      buttons.push({ icon: brandIcon('instagram'), label: 'IG DM', color: 'rgba(225,48,108,0.15)', text: '#f8a4c0', border: 'rgba(225,48,108,0.4)', onclick: `openSocialChat('ig')` });
-      buttons.push({ icon: '👁', label: 'View IG', color: 'rgba(225,48,108,0.06)', text: '#f8a4c0', border: 'rgba(225,48,108,0.2)', onclick: `window.open('${esc(lead.facebook)}', '_blank')` });
-    } else if (lead.facebook.toLowerCase().includes('facebook.com')) {
-      buttons.push({ icon: brandIcon('facebook'), label: 'FB DM', color: 'rgba(59,130,246,0.15)', text: '#93c5fd', border: 'rgba(59,130,246,0.4)', onclick: `openSocialChat('fb')` });
-      buttons.push({ icon: '👁', label: 'View FB', color: 'rgba(59,130,246,0.06)', text: '#93c5fd', border: 'rgba(59,130,246,0.2)', onclick: `window.open('${esc(lead.facebook)}', '_blank')` });
-    } else {
-      buttons.push({ icon: '🔗', label: 'Social', color: 'rgba(168,85,247,0.15)', text: '#c4b5fd', border: 'rgba(168,85,247,0.4)', onclick: `window.open('${esc(lead.facebook)}', '_blank')` });
-    }
-  }
   // Maps if present
   if (lead.mapsUrl) {
-    buttons.push({ icon: '📍', label: 'Maps', color: 'rgba(234,67,53,0.15)', text: '#fca5a5', border: 'rgba(234,67,53,0.4)', onclick: `window.open('${esc(lead.mapsUrl)}', '_blank')` });
+    buttons.push({ icon: '📍', label: 'Maps', color: 'rgba(234,67,53,0.15)', text: '#fca5a5', border: 'rgba(234,67,53,0.4)', opacity: 1, onclick: `window.open('${esc(lead.mapsUrl)}', '_blank')` });
   }
   // Always available: Make Pitch, Enrich, Copy, Got reply
   buttons.push({ icon: '🚀', label: 'Make Pitch', color: 'rgba(168,85,247,0.18)', text: '#c4b5fd', border: 'rgba(168,85,247,0.4)', onclick: `makePitch(${lead.id})` });
