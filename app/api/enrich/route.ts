@@ -125,15 +125,14 @@ async function handleEnrich(req: NextRequest) {
     );
   }
 
+  // Bypass ALL scraping. Apify was also hanging on Vercel's Node runtime.
+  // Anthropic works from lead metadata + mentor framework alone.
+  // (Re-enable Apify later via a separate /api/enrich-maps endpoint with its
+  // own dedicated function.)
   const isMaps = url.includes("google.com/maps") || url.includes("maps.app.goo.gl");
   const t0 = Date.now();
-  // Maps URLs go through Apify (its own infra, reliable). Non-Maps URLs are
-  // not scraped server-side — Anthropic works from lead metadata + mentor
-  // framework. See site-fetch removal note above.
-  const scrapeOutput = isMaps
-    ? await withTimeout(scrapeMaps(url), 40000, `(Apify timeout for ${url})`)
-    : `(no scrape — non-Maps URL ${url}; Anthropic will work from lead metadata + mentor framework)`;
-  console.log("[/api/enrich] scrape phase done", { isMaps, ms: Date.now() - t0, len: scrapeOutput.length });
+  const scrapeOutput = `(scraping bypassed in this deploy; URL: ${url}, isMaps: ${isMaps})`;
+  console.log("[/api/enrich] scrape phase done (bypassed)", { isMaps, ms: Date.now() - t0, url });
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
