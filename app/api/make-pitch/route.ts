@@ -91,11 +91,13 @@ ${mentorMd}
   let resp;
   try {
     const anthropic = new Anthropic({ apiKey });
+    // Haiku 4.5 keeps the loop snappy on phone (≤30s tap-to-send target).
+    // Quality is more than sufficient for the 120-180 word email body.
     resp = await anthropic.messages.create({
-      model: "claude-sonnet-4-6",
-      max_tokens: 2000,
+      model: "claude-haiku-4-5-20251001",
+      max_tokens: 1500,
       messages: [{ role: "user", content: prompt }],
-    });
+    }, { timeout: 35000 });
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
     return NextResponse.json({ error: `Anthropic call failed: ${msg}` }, { status: 502 });
