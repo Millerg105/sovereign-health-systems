@@ -1015,16 +1015,29 @@ function renderLeadActionRow(lead) {
   buttons.push({ icon: '📋', label: 'Copy msg', color: 'rgba(96,165,250,0.18)', text: '#93c5fd', border: 'rgba(96,165,250,0.4)', onclick: 'copyLeadMsg()' });
   buttons.push({ icon: lead.replyReceived ? '✓' : '📬', label: lead.replyReceived ? 'Got reply ✓' : 'Got reply', color: lead.replyReceived ? 'rgba(34,197,94,0.25)' : 'rgba(255,255,255,0.05)', text: lead.replyReceived ? '#4ade80' : '#aaa', border: lead.replyReceived ? 'rgba(34,197,94,0.5)' : '#2a2a2e', opacity: 1, onclick: 'toggleReplied()' });
   row.innerHTML = buttons.map(b => `<button class="modal-action-btn m3" style="background:${b.color};color:${b.text};border:1px solid ${b.border};padding:10px 14px;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:6px;opacity:${b.opacity ?? 1};" onclick="${b.onclick}">${b.icon} ${b.label}</button>`).join('');
-  // Stage row: explicit stage transitions + delete
+  // Stage breadcrumb: shows the full funnel, current stage highlighted, click any to move.
   const stages = [
-    { s: 'mock', label: '→ Mock', color: 'rgba(168,85,247,0.15)', text: '#c4b5fd', border: 'rgba(168,85,247,0.3)' },
-    { s: 'pitching', label: '→ Pitching', color: 'rgba(245,158,11,0.15)', text: '#fbbf24', border: 'rgba(245,158,11,0.3)' },
-    { s: 'warm', label: '→ Warm', color: 'rgba(236,72,153,0.15)', text: '#f9a8d4', border: 'rgba(236,72,153,0.3)' },
-    { s: 'build', label: '→ Build', color: 'rgba(6,182,212,0.15)', text: '#67e8f9', border: 'rgba(6,182,212,0.3)' },
-    { s: 'won', label: '→ Won', color: 'rgba(34,197,94,0.18)', text: '#4ade80', border: 'rgba(34,197,94,0.4)' },
-    { s: 'parked', label: '→ Parked', color: 'rgba(107,114,128,0.15)', text: '#9ca3af', border: 'rgba(107,114,128,0.3)' },
+    { s: 'cold', label: 'Cold', color: '#6b7280' },
+    { s: 'mock', label: 'Mock', color: '#a855f7' },
+    { s: 'pitching', label: 'Pitching', color: '#f59e0b' },
+    { s: 'warm', label: 'Warm', color: '#ec4899' },
+    { s: 'build', label: 'Build', color: '#06b6d4' },
+    { s: 'won', label: 'Won', color: '#22c55e' },
+    { s: 'parked', label: 'Parked', color: '#525252' },
   ];
-  stageRow.innerHTML = stages.filter(x => x.s !== lead.stage).map(x => `<button class="modal-action-btn m3" style="background:${x.color};color:${x.text};border:1px solid ${x.border};padding:8px 12px;font-size:11.5px;" onclick="changeStage('${x.s}')">${x.label}</button>`).join('') + `<button class="modal-action-btn danger m3" style="margin-left:auto;padding:8px 12px;font-size:11.5px;" onclick="deleteCurrentLead()">🗑 Delete</button>`;
+  const currentIdx = stages.findIndex(x => x.s === lead.stage);
+  stageRow.innerHTML = `<div style="display:flex;align-items:center;gap:0;flex:1;flex-wrap:wrap;">` +
+    stages.map((x, i) => {
+      const isCurrent = x.s === lead.stage;
+      const isPast = currentIdx >= 0 && i < currentIdx && lead.stage !== 'parked';
+      const bg = isCurrent ? x.color : (isPast ? `${x.color}22` : '#1a1a1c');
+      const fg = isCurrent ? '#fff' : (isPast ? x.color : '#666');
+      const border = isCurrent ? x.color : (isPast ? `${x.color}55` : '#2a2a2e');
+      const fontWeight = isCurrent ? 700 : 500;
+      const sep = i < stages.length - 1 ? `<div style="width:8px;height:1px;background:${isPast ? x.color + '55' : '#2a2a2e'};flex-shrink:0;"></div>` : '';
+      return `<button class="m3" onclick="changeStage('${x.s}')" title="Move to ${x.label}" style="background:${bg};color:${fg};border:1px solid ${border};border-radius:100px;padding:6px 12px;font-size:11px;font-weight:${fontWeight};cursor:pointer;white-space:nowrap;transition:all 200ms var(--m3-ease);">${isCurrent ? '● ' : ''}${x.label}</button>${sep}`;
+    }).join('') +
+    `</div><button class="modal-action-btn danger m3" style="margin-left:12px;padding:8px 12px;font-size:11.5px;flex-shrink:0;" onclick="deleteCurrentLead()">🗑 Delete</button>`;
 }
 
 // ============================================================
