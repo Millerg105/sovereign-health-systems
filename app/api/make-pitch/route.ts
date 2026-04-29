@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import Anthropic from "@anthropic-ai/sdk";
 import {
   authenticateRequest,
   findLead,
@@ -13,6 +12,39 @@ import {
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
+
+// Direct fetch to Anthropic — SDK was hanging on Vercel runtime.
+async function callAnthropicDirect(prompt: string, apiKey: string): Promise<string> {
+  console.log("[/api/make-pitch] anthropic fetch start");
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), 35000);
+  try {
+    const r = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": apiKey,
+        "anthropic-version": "2023-06-01",
+      },
+      body: JSON.stringify({
+        model: "claude-haiku-4-5-20251001",
+        max_tokens: 1500,
+        messages: [{ role: "user", content: prompt }],
+      }),
+      signal: ctrl.signal,
+    });
+    clearTimeout(t);
+    console.log("[/api/make-pitch] anthropic status", r.status);
+    if (!r.ok) {
+      const errText = await r.text();
+      throw new Error(`Anthropic ${r.status}: ${errText.slice(0, 300)}`);
+    }
+    const j = (await r.json()) as { content?: Array<{ type: string; text?: string }> };
+    return (j.content || []).map((b) => (b.type === "text" ? b.text || "" : "")).join("").trim();
+  } finally {
+    clearTimeout(t);
+  }
+}
 
 type Pitch = {
   pitchSubject: string;
@@ -99,22 +131,15 @@ ${mentorMd}
   "ctaLine": "<one short line — a low-friction yes ask, not a calendar link spam>"
 }`;
 
-  let resp;
+  let text: string;
   try {
-    const anthropic = new Anthropic({ apiKey });
-    // Haiku 4.5 keeps the loop snappy on phone (≤30s tap-to-send target).
-    // Quality is more than sufficient for the 120-180 word email body.
-    resp = await anthropic.messages.create({
-      model: "claude-haiku-4-5-20251001",
-      max_tokens: 1500,
-      messages: [{ role: "user", content: prompt }],
-    }, { timeout: 35000 });
+    text = await callAnthropicDirect(prompt, apiKey);
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
+    console.error("[/api/make-pitch] anthropic failed", msg);
     return NextResponse.json({ error: `Anthropic call failed: ${msg}` }, { status: 502 });
   }
-
-  const text = resp.content.map((b) => (b.type === "text" ? b.text : "")).join("").trim();
+  console.log("[/api/make-pitch] anthropic returned", { len: text.length });
   const jsonMatch = text.match(/\{[\s\S]*\}/);
   if (!jsonMatch) {
     return NextResponse.json({ error: "Anthropic did not return JSON", raw: text }, { status: 502 });
