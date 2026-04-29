@@ -265,8 +265,16 @@
 
 
     <div id="intel" class="tab-content">
-      <div class="page-head"><div><h2>🔍 Intel</h2><div class="sub">Trending threads + best AI tips. Click "Run scan" → paste prompt into Code/Cowork → Claude pulls top sources. Phase 2: auto-fires nightly via Apify.</div></div></div>
-      <div class="banner">5 curated topics. Each card copies a paste-ready scan prompt. The "Make NotebookLM" button (Phase 3) will create a notebook with 50 deep-research sources.</div>
+      <div class="page-head"><div><h2>🔍 Intel</h2><div class="sub">Council Reading Queue (auto-scraped, Haiku-filtered) + curated scan prompts. Cron fires 06:00 UTC.</div></div></div>
+      <div style="margin-bottom:18px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+          <div style="font-size:13px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px;">📥 Council Reading Queue <span id="readingQueueCount" style="font-size:10px;color:#888;font-weight:500;"></span></div>
+          <button class="modal-action-btn m3" style="background:rgba(96,165,250,0.10);color:#93c5fd;border:1px solid rgba(96,165,250,0.25);padding:5px 10px;font-size:10.5px;font-weight:600;" onclick="renderReadingQueue()">↻ Refresh</button>
+        </div>
+        <div id="readingQueueList" style="display:flex;flex-direction:column;gap:8px;"></div>
+      </div>
+      <div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;margin:24px 0 10px;">Manual scan prompts</div>
+      <div class="banner">5 curated topics. Each card copies a paste-ready scan prompt.</div>
       <div class="card-grid m3-stagger" id="intelTopicsGrid"></div>
     </div>
 
@@ -918,6 +926,76 @@ function renderIntel() {
   const grid = document.getElementById('intelTopicsGrid');
   if (!grid) return;
   grid.innerHTML = INTEL_TOPICS.map(t => `<div class="card" style="background:${t.color};border-color:${t.border};padding:18px 20px;display:flex;flex-direction:column;gap:10px;"><div style="display:flex;align-items:flex-start;gap:10px;"><span style="font-size:28px;line-height:1;">${t.icon}</span><div style="flex:1;"><div style="font-size:14px;font-weight:700;color:#fff;">${t.title}</div><div style="font-size:11.5px;color:#aaa;margin-top:4px;line-height:1.5;">${t.sub}</div></div></div><div style="font-size:10px;color:#666;line-height:1.5;border-top:1px solid #1a1a1c;padding-top:8px;margin-top:4px;"><strong>Sources:</strong> ${t.sources}</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;"><button class="modal-action-btn m3" style="background:rgba(245,158,11,0.18);color:#fbbf24;border:1px solid rgba(245,158,11,0.4);padding:8px 12px;font-size:11.5px;font-weight:600;flex:1;" onclick="runIntelScan('${t.id}')">🔥 Run scan</button><button class="modal-action-btn m3" style="background:rgba(96,165,250,0.10);color:#93c5fd;border:1px solid rgba(96,165,250,0.3);padding:8px 12px;font-size:11px;font-weight:600;" onclick="makeIntelNotebook('${t.id}')" title="Phase 3: auto-generates a NotebookLM with 50 sources">📚 Notebook</button></div></div>`).join('');
+  renderReadingQueue();
+}
+
+const SOURCE_ICON = { x: '𝕏', reddit: '🤖', linkedin: '💼', substack: '📰' };
+const TAG_COLOR = { systems: ['rgba(96,165,250,0.18)', '#93c5fd'], bookings: ['rgba(34,197,94,0.18)', '#86efac'], both: ['rgba(168,85,247,0.18)', '#c4b5fd'], neither: ['rgba(107,114,128,0.18)', '#9ca3af'] };
+
+async function renderReadingQueue() {
+  const list = document.getElementById('readingQueueList');
+  const counter = document.getElementById('readingQueueCount');
+  if (!list) return;
+  if (!isCloudCapable()) {
+    list.innerHTML = '<div style="font-size:11px;color:#888;padding:14px 12px;background:#0a0a0c;border:1px solid #1f1f22;border-radius:10px;">Sign in via /dashboard/hq to load the reading queue.</div>';
+    return;
+  }
+  list.innerHTML = '<div style="font-size:11px;color:#888;padding:14px 12px;">Loading…</div>';
+  try {
+    const r = await fetch('/api/reading-queue?status=new&limit=20', { headers: { Authorization: 'Bearer ' + getCloudToken() } });
+    if (!r.ok) throw new Error('queue ' + r.status);
+    const json = await r.json();
+    const items = json.items || [];
+    if (counter) counter.textContent = items.length ? '· ' + items.length + ' new' : '· empty';
+    if (!items.length) {
+      list.innerHTML = '<div style="font-size:12px;color:#888;padding:18px 14px;background:#0a0a0c;border:1px solid #1f1f22;border-radius:12px;text-align:center;">No new posts. Cron fires daily at 06:00 UTC. Manual run via curl /api/scrape-feed (auth: Bearer SCRAPE_CRON_SECRET).</div>';
+      return;
+    }
+    list.innerHTML = items.map(it => {
+      const [bg, fg] = TAG_COLOR[it.tag] || TAG_COLOR.neither;
+      const seatBtn = it.council_member_slug ? `<button class="modal-action-btn m3" style="background:rgba(245,158,11,0.18);color:#fbbf24;border:1px solid rgba(245,158,11,0.4);padding:6px 10px;font-size:10.5px;font-weight:600;" onclick="queueAction('${it.id}','deepen-seat')" title="Append voice sample to ${esc(it.council_member_slug)}">🔬 Deepen ${esc(it.council_member_slug)}</button>` : '';
+      const excerpt = (it.post_text || '').slice(0, 240);
+      return `<div style="background:#0a0a0c;border:1px solid #1f1f22;border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:11px;">
+          <span style="font-size:13px;">${SOURCE_ICON[it.source] || '·'}</span>
+          <span style="color:#ccc;font-weight:600;">${esc(it.post_author || it.source)}</span>
+          <span style="background:${bg};color:${fg};border:1px solid ${bg.replace('0.18','0.4')};padding:2px 8px;border-radius:100px;font-size:10px;font-weight:600;">${esc(it.tag || 'neither')}</span>
+          <span style="color:#888;">${Number(it.relevance_score || 0).toFixed(2)}</span>
+          ${it.council_member_slug ? `<span style="color:#fbbf24;">· seat: ${esc(it.council_member_slug)}</span>` : ''}
+          <a href="${esc(it.source_url)}" target="_blank" style="margin-left:auto;color:#60a5fa;text-decoration:none;font-size:10.5px;">open ↗</a>
+        </div>
+        <div style="font-size:12.5px;color:#ddd;line-height:1.5;">${esc(excerpt)}${(it.post_text || '').length > 240 ? '…' : ''}</div>
+        ${it.haiku_reason ? `<div style="font-size:10.5px;color:#888;font-style:italic;">Haiku: ${esc(it.haiku_reason)}</div>` : ''}
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="modal-action-btn m3" style="background:rgba(96,165,250,0.18);color:#93c5fd;border:1px solid rgba(96,165,250,0.4);padding:6px 10px;font-size:10.5px;font-weight:600;" onclick="queueAction('${it.id}','save')">💾 Save</button>
+          ${seatBtn}
+          <button class="modal-action-btn m3" style="background:rgba(107,114,128,0.18);color:#9ca3af;border:1px solid rgba(107,114,128,0.3);padding:6px 10px;font-size:10.5px;font-weight:600;margin-left:auto;" onclick="queueAction('${it.id}','dismiss')">✕ Dismiss</button>
+        </div>
+      </div>`;
+    }).join('');
+  } catch (err) {
+    list.innerHTML = '<div style="font-size:11px;color:#fca5a5;padding:14px 12px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.3);border-radius:10px;">Queue load failed: ' + esc(err.message) + '</div>';
+  }
+}
+
+async function queueAction(id, action) {
+  if (!isCloudCapable()) { alert('Cloud auth required.'); return; }
+  try {
+    const r = await fetch('/api/reading-queue', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + getCloudToken() },
+      body: JSON.stringify({ id, action }),
+    });
+    if (!r.ok) { const t = await r.text(); throw new Error('queue ' + r.status + ': ' + t.slice(0, 200)); }
+    const json = await r.json();
+    if (action === 'deepen-seat' && json.markdown) {
+      try { await navigator.clipboard.writeText(json.markdown); } catch (_) { /* ignore */ }
+      alert('Marked appended. Voice sample row copied to clipboard:\n\n' + json.markdown + '\n\n(SessionStart hook will also auto-append on next Code open.)');
+    }
+    renderReadingQueue();
+  } catch (err) {
+    alert('Queue action failed: ' + err.message);
+  }
 }
 function runIntelScan(topicId) {
   const t = INTEL_TOPICS.find(x => x.id === topicId);
