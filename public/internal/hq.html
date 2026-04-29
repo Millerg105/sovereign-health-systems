@@ -265,8 +265,16 @@
 
 
     <div id="intel" class="tab-content">
-      <div class="page-head"><div><h2>🔍 Intel</h2><div class="sub">Trending threads + best AI tips. Click "Run scan" → paste prompt into Code/Cowork → Claude pulls top sources. Phase 2: auto-fires nightly via Apify.</div></div></div>
-      <div class="banner">5 curated topics. Each card copies a paste-ready scan prompt. The "Make NotebookLM" button (Phase 3) will create a notebook with 50 deep-research sources.</div>
+      <div class="page-head"><div><h2>🔍 Intel</h2><div class="sub">Council Reading Queue (auto-scraped, Haiku-filtered) + curated scan prompts. Cron fires 06:00 UTC.</div></div></div>
+      <div style="margin-bottom:18px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+          <div style="font-size:13px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px;">📥 Council Reading Queue <span id="readingQueueCount" style="font-size:10px;color:#888;font-weight:500;"></span></div>
+          <button class="modal-action-btn m3" style="background:rgba(96,165,250,0.10);color:#93c5fd;border:1px solid rgba(96,165,250,0.25);padding:5px 10px;font-size:10.5px;font-weight:600;" onclick="renderReadingQueue()">↻ Refresh</button>
+        </div>
+        <div id="readingQueueList" style="display:flex;flex-direction:column;gap:8px;"></div>
+      </div>
+      <div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;margin:24px 0 10px;">Manual scan prompts</div>
+      <div class="banner">5 curated topics. Each card copies a paste-ready scan prompt.</div>
       <div class="card-grid m3-stagger" id="intelTopicsGrid"></div>
     </div>
 
@@ -918,6 +926,76 @@ function renderIntel() {
   const grid = document.getElementById('intelTopicsGrid');
   if (!grid) return;
   grid.innerHTML = INTEL_TOPICS.map(t => `<div class="card" style="background:${t.color};border-color:${t.border};padding:18px 20px;display:flex;flex-direction:column;gap:10px;"><div style="display:flex;align-items:flex-start;gap:10px;"><span style="font-size:28px;line-height:1;">${t.icon}</span><div style="flex:1;"><div style="font-size:14px;font-weight:700;color:#fff;">${t.title}</div><div style="font-size:11.5px;color:#aaa;margin-top:4px;line-height:1.5;">${t.sub}</div></div></div><div style="font-size:10px;color:#666;line-height:1.5;border-top:1px solid #1a1a1c;padding-top:8px;margin-top:4px;"><strong>Sources:</strong> ${t.sources}</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;"><button class="modal-action-btn m3" style="background:rgba(245,158,11,0.18);color:#fbbf24;border:1px solid rgba(245,158,11,0.4);padding:8px 12px;font-size:11.5px;font-weight:600;flex:1;" onclick="runIntelScan('${t.id}')">🔥 Run scan</button><button class="modal-action-btn m3" style="background:rgba(96,165,250,0.10);color:#93c5fd;border:1px solid rgba(96,165,250,0.3);padding:8px 12px;font-size:11px;font-weight:600;" onclick="makeIntelNotebook('${t.id}')" title="Phase 3: auto-generates a NotebookLM with 50 sources">📚 Notebook</button></div></div>`).join('');
+  renderReadingQueue();
+}
+
+const SOURCE_ICON = { x: '𝕏', reddit: '🤖', linkedin: '💼', substack: '📰' };
+const TAG_COLOR = { systems: ['rgba(96,165,250,0.18)', '#93c5fd'], bookings: ['rgba(34,197,94,0.18)', '#86efac'], both: ['rgba(168,85,247,0.18)', '#c4b5fd'], neither: ['rgba(107,114,128,0.18)', '#9ca3af'] };
+
+async function renderReadingQueue() {
+  const list = document.getElementById('readingQueueList');
+  const counter = document.getElementById('readingQueueCount');
+  if (!list) return;
+  if (!isCloudCapable()) {
+    list.innerHTML = '<div style="font-size:11px;color:#888;padding:14px 12px;background:#0a0a0c;border:1px solid #1f1f22;border-radius:10px;">Sign in via /dashboard/hq to load the reading queue.</div>';
+    return;
+  }
+  list.innerHTML = '<div style="font-size:11px;color:#888;padding:14px 12px;">Loading…</div>';
+  try {
+    const r = await fetch('/api/reading-queue?status=new&limit=20', { headers: { Authorization: 'Bearer ' + getCloudToken() } });
+    if (!r.ok) throw new Error('queue ' + r.status);
+    const json = await r.json();
+    const items = json.items || [];
+    if (counter) counter.textContent = items.length ? '· ' + items.length + ' new' : '· empty';
+    if (!items.length) {
+      list.innerHTML = '<div style="font-size:12px;color:#888;padding:18px 14px;background:#0a0a0c;border:1px solid #1f1f22;border-radius:12px;text-align:center;">No new posts. Cron fires daily at 06:00 UTC. Manual run via curl /api/scrape-feed (auth: Bearer SCRAPE_CRON_SECRET).</div>';
+      return;
+    }
+    list.innerHTML = items.map(it => {
+      const [bg, fg] = TAG_COLOR[it.tag] || TAG_COLOR.neither;
+      const seatBtn = it.council_member_slug ? `<button class="modal-action-btn m3" style="background:rgba(245,158,11,0.18);color:#fbbf24;border:1px solid rgba(245,158,11,0.4);padding:6px 10px;font-size:10.5px;font-weight:600;" onclick="queueAction('${it.id}','deepen-seat')" title="Append voice sample to ${esc(it.council_member_slug)}">🔬 Deepen ${esc(it.council_member_slug)}</button>` : '';
+      const excerpt = (it.post_text || '').slice(0, 240);
+      return `<div style="background:#0a0a0c;border:1px solid #1f1f22;border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:11px;">
+          <span style="font-size:13px;">${SOURCE_ICON[it.source] || '·'}</span>
+          <span style="color:#ccc;font-weight:600;">${esc(it.post_author || it.source)}</span>
+          <span style="background:${bg};color:${fg};border:1px solid ${bg.replace('0.18','0.4')};padding:2px 8px;border-radius:100px;font-size:10px;font-weight:600;">${esc(it.tag || 'neither')}</span>
+          <span style="color:#888;">${Number(it.relevance_score || 0).toFixed(2)}</span>
+          ${it.council_member_slug ? `<span style="color:#fbbf24;">· seat: ${esc(it.council_member_slug)}</span>` : ''}
+          <a href="${esc(it.source_url)}" target="_blank" style="margin-left:auto;color:#60a5fa;text-decoration:none;font-size:10.5px;">open ↗</a>
+        </div>
+        <div style="font-size:12.5px;color:#ddd;line-height:1.5;">${esc(excerpt)}${(it.post_text || '').length > 240 ? '…' : ''}</div>
+        ${it.haiku_reason ? `<div style="font-size:10.5px;color:#888;font-style:italic;">Haiku: ${esc(it.haiku_reason)}</div>` : ''}
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="modal-action-btn m3" style="background:rgba(96,165,250,0.18);color:#93c5fd;border:1px solid rgba(96,165,250,0.4);padding:6px 10px;font-size:10.5px;font-weight:600;" onclick="queueAction('${it.id}','save')">💾 Save</button>
+          ${seatBtn}
+          <button class="modal-action-btn m3" style="background:rgba(107,114,128,0.18);color:#9ca3af;border:1px solid rgba(107,114,128,0.3);padding:6px 10px;font-size:10.5px;font-weight:600;margin-left:auto;" onclick="queueAction('${it.id}','dismiss')">✕ Dismiss</button>
+        </div>
+      </div>`;
+    }).join('');
+  } catch (err) {
+    list.innerHTML = '<div style="font-size:11px;color:#fca5a5;padding:14px 12px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.3);border-radius:10px;">Queue load failed: ' + esc(err.message) + '</div>';
+  }
+}
+
+async function queueAction(id, action) {
+  if (!isCloudCapable()) { alert('Cloud auth required.'); return; }
+  try {
+    const r = await fetch('/api/reading-queue', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + getCloudToken() },
+      body: JSON.stringify({ id, action }),
+    });
+    if (!r.ok) { const t = await r.text(); throw new Error('queue ' + r.status + ': ' + t.slice(0, 200)); }
+    const json = await r.json();
+    if (action === 'deepen-seat' && json.markdown) {
+      try { await navigator.clipboard.writeText(json.markdown); } catch (_) { /* ignore */ }
+      alert('Marked appended. Voice sample row copied to clipboard:\n\n' + json.markdown + '\n\n(SessionStart hook will also auto-append on next Code open.)');
+    }
+    renderReadingQueue();
+  } catch (err) {
+    alert('Queue action failed: ' + err.message);
+  }
 }
 function runIntelScan(topicId) {
   const t = INTEL_TOPICS.find(x => x.id === topicId);
@@ -1177,13 +1255,96 @@ function openSocialChat(platform) {
   persist(); renderLeads();
 }
 
-function makePitch(id) {
+async function makePitch(id) {
   const lead = leads.find(l => l.id === id) || currentDetailLead;
   if (!lead) return;
-  const slug = lead.slug || slugify(lead.name);
-  const notebooks = NICHE_TO_NOTEBOOKS[lead.niche] || NICHE_TO_NOTEBOOKS['Other'];
-  const prompt = `Build a personalised pitch for "${lead.name}". Pull intel from pre-built NotebookLM notebooks BEFORE writing copy — the notebooks have curated mentor wisdom for this niche, don't reinvent.\n\n**Lead:**\n- Brand: ${lead.brand}\n- Niche: ${lead.niche}\n- Area: ${lead.area}\n- Slug: ${slug}\n- Website: ${lead.website || '(none)'}\n- Lead score: ${lead.leadScore || 'TBC'}\n- Source: ${lead.source}\n- Phone: ${lead.phone || '(none)'}\n- Email: ${lead.email || '(none)'}\n- Owner: ${lead.ownerName || '(unknown)'}\n\n**Steps:**\n\n1. **Notebook intel (anthropic-skills:notebooklm):** look up UUIDs in memory/reference_council.md for: ${notebooks.join(', ')}. Query each with one question:\n${notebooks.map(n => `   - ${n}: "Best 2026 angle for a ${lead.niche} firm in ${lead.area} pitch. Give me the principle + one direct quote."`).join('\n')}\n\n2. **Run the pipeline:** use the bookings-pitch-pipeline skill (Bookings brand) or pitch-builder skill (Systems brand). Inject the notebook intel as the offer-framing source, not generic agency copy.\n\n3. **Mock site:** build/refresh at ${lead.brand === 'bookings' ? 'bookings-' + slug : 'systems-' + slug}-mock.vercel.app. Bookings uses Tranquil Garden Rooms template + green branding. Systems uses Premium template + blue.\n\n4. **Proposal page:** generate at https://www.sovereignsystem.co.uk/proposal-pitch/${slug}. Chris Kearns 12-slide standard. Hero headline pulled from the winning mentor's quote (named in the slide).\n\n5. **Update v9:** once both deployed, write back to the v9 dashboard via /api/pipeline-state PUT — set Mock URL + Pitch URL fields on this lead, move stage to Pitching, set lastContact to today, append notebook quotes used to a 'pitchNotes' field.\n\n6. **Return JSON:**\n{\n  "mockUrl": "...",\n  "pitchUrl": "...",\n  "mentorFrameworkUsed": "...",\n  "headlineQuoteAttribution": "...",\n  "deployedAt": "ISO date"\n}\n\nNo em dashes. Northern English casual where copy is conversational. Tonality > script per Kyran.`;
-  navigator.clipboard.writeText(prompt).then(() => alert(`🚀 Make-pitch prompt copied. Will pull from ${notebooks.length} notebooks (${notebooks.join(', ')}) before writing pitch copy. Paste into Code or Cowork.`));
+  if (!isCloudCapable()) { alert('Make Pitch needs cloud auth. Sign in via /dashboard/hq.'); return; }
+  setSyncPill('⚙ generating pitch...', '#fbbf24');
+  try {
+    const r = await fetch('/api/make-pitch', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + getCloudToken() },
+      body: JSON.stringify({ leadId: lead.id }),
+    });
+    if (!r.ok) { const t = await r.text(); throw new Error('make-pitch ' + r.status + ': ' + t.slice(0, 200)); }
+    const json = await r.json();
+    setSyncPill('☁ pitch ready', '#4ade80');
+    await cloudPull();
+    showSendChooser(lead.id, json.suggestedChannel || 'gmail-mailto');
+  } catch (err) {
+    setSyncPill('☁ error', '#fca5a5');
+    alert('Make pitch failed: ' + err.message);
+  }
+}
+
+function showSendChooser(leadId, defaultChannel) {
+  const lead = leads.find(l => l.id === leadId);
+  if (!lead) return;
+  closeSendChooser();
+  const wrap = document.createElement('div');
+  wrap.className = 'modal';
+  wrap.style.display = 'flex';
+  wrap.id = 'sendChooserModal';
+  const ring = c => defaultChannel === c ? 'box-shadow:inset 0 0 0 2px rgba(96,165,250,0.6);' : '';
+  wrap.innerHTML = `
+    <div class="modal-card" style="max-width:480px;">
+      <button class="modal-close m3" onclick="closeSendChooser()">×</button>
+      <h2 style="margin:0 0 6px;font-size:18px;">Send pitch · ${esc(lead.name)}</h2>
+      <div style="font-size:12px;color:#888;margin-bottom:18px;">Subject + body generated. Pick a channel.</div>
+      <div style="background:#0a0a0c;border:1px solid #1f1f22;border-radius:10px;padding:10px 12px;margin-bottom:14px;">
+        <div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;">Subject</div>
+        <div style="font-size:13px;color:#ddd;">${esc(lead.pitchSubject || '(none)')}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <button class="modal-action-btn m3" style="background:rgba(96,165,250,0.18);color:#93c5fd;border:1px solid rgba(96,165,250,0.4);padding:14px 16px;font-size:13px;font-weight:600;text-align:left;${ring('gmail-mailto')}" onclick="sendOutreach(${leadId},'gmail-mailto')">
+          📧 Send via my Gmail
+          <div style="font-size:11px;color:#888;font-weight:400;margin-top:2px;">Opens Gmail compose with prefilled body. One tap to send.</div>
+        </button>
+        <button class="modal-action-btn m3" style="background:rgba(34,197,94,0.18);color:#86efac;border:1px solid rgba(34,197,94,0.4);padding:14px 16px;font-size:13px;font-weight:600;text-align:left;${ring('resend')}" onclick="sendOutreach(${leadId},'resend')">
+          ✉ Send via Sovereign Bookings
+          <div style="font-size:11px;color:#888;font-weight:400;margin-top:2px;">Resend from bookings@sovereignsystem.co.uk. Cold-batch path. Will preview first.</div>
+        </button>
+        <button class="modal-action-btn m3" style="background:rgba(168,85,247,0.18);color:#c4b5fd;border:1px solid rgba(168,85,247,0.4);padding:14px 16px;font-size:13px;font-weight:600;text-align:left;${ring('whatsapp')}" onclick="sendOutreach(${leadId},'whatsapp')">
+          💬 Open in WhatsApp
+          <div style="font-size:11px;color:#888;font-weight:400;margin-top:2px;">wa.me link with prefilled message body.</div>
+        </button>
+      </div>
+    </div>`;
+  document.body.appendChild(wrap);
+}
+function closeSendChooser() {
+  const m = document.getElementById('sendChooserModal');
+  if (m) m.remove();
+}
+async function sendOutreach(leadId, channel, confirmSend) {
+  if (!isCloudCapable()) { alert('Send needs cloud auth. Sign in via /dashboard/hq.'); return; }
+  try {
+    const r = await fetch('/api/send', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + getCloudToken() },
+      body: JSON.stringify({ leadId, channelOverride: channel, confirmSend: !!confirmSend }),
+    });
+    if (!r.ok) { const t = await r.text(); throw new Error('send ' + r.status + ': ' + t.slice(0, 200)); }
+    const json = await r.json();
+    if (json.url) {
+      window.location.href = json.url;
+      closeSendChooser();
+      return;
+    }
+    if (json.requiresConfirm) {
+      const ok = confirm('Resend via ' + json.preview.from + ' (real send, irreversible).\n\nTo: ' + json.preview.to + '\nSubject: ' + json.preview.subject + '\n\nPreview:\n' + json.preview.bodyPreview + '\n\nProceed?');
+      if (ok) sendOutreach(leadId, 'resend', true);
+      return;
+    }
+    if (json.sent) {
+      alert('Sent ✓ ' + (json.messageId || ''));
+      closeSendChooser();
+      await cloudPull();
+      return;
+    }
+  } catch (err) {
+    alert('Send failed: ' + err.message);
+  }
 }
 
 // NICHE → which pre-built NotebookLM notebooks to consult during enrichment + pitch.
@@ -1200,18 +1361,34 @@ const NICHE_TO_NOTEBOOKS = {
   'Other': ['Kyran Rawson', 'Alex Hormozi'],
 };
 
-function enrichLead(id) {
+async function enrichLead(id) {
   const lead = leads.find(l => l.id === id) || currentDetailLead;
   if (!lead) return;
   const url = lead.website || lead.mapsUrl || lead.facebook || '';
   if (!url) { alert('No URL on this lead to enrich. Add a website, Maps URL, or social link first.'); return; }
-  const notebooks = NICHE_TO_NOTEBOOKS[lead.niche] || NICHE_TO_NOTEBOOKS['Other'];
-  const isMaps = url.includes('google.com/maps') || url.includes('maps.app.goo.gl');
-  const scrapeStep = isMaps
-    ? `1. **Maps scrape (Apify Google Maps):** lead-enrich-from-maps skill with URL ${url}. Pull firm, phone, address, rating, reviewCount, owner, categories.`
-    : `1. **Site scrape (Firecrawl):** mcp__firecrawl_scrape on ${url}. Pull hero headline, services list, contact info (phone/email), pricing hints, social links, photos count, "About" copy.`;
-  const prompt = `Enrich this lead with TWO sources combined: a fresh scrape AND the pre-built NotebookLM notebooks for the niche. The notebook intel is already curated and high-signal — don't ignore it.\n\n**Lead:** ${lead.name}\n**Niche:** ${lead.niche}\n**Area:** ${lead.area}\n**URL:** ${url}\n\n**Steps:**\n\n${scrapeStep}\n\n2. **NotebookLM cross-reference (anthropic-skills:notebooklm):** look up UUIDs in memory/reference_council.md for these notebooks, then query each with one targeted question for this lead:\n${notebooks.map((n, i) => `   ${String.fromCharCode(97 + i)}. ${n} — query: "What's the highest-converting outreach angle for a ${lead.niche} firm in ${lead.area} with [insert one specific signal from the scrape, e.g. 'a 0800 freephone' or 'no online booking system']? Give me one quote and the principle behind it."`).join('\n')}\n\n3. **Synthesise.** Combine scrape findings + notebook insights into ONE JSON object (no markdown, no commentary):\n\n{\n  "firm": "<best business name>",\n  "phone": "<+44... if found>",\n  "email": "<info@... or owner email if found>",\n  "ownerName": "<owner first name if found>",\n  "address": "<full address if found>",\n  "rating": 0,\n  "reviewCount": 0,\n  "categories": ["..."],\n  "leadScore": <0-100>,\n  "websiteIssue": "<one-line diagnosis from the scrape>",\n  "heroHeadline": "<their current hero copy>",\n  "pitchAngle": "<one-line angle pulled directly from the notebook quotes — name the mentor in parens, e.g. 'lead with PPA result not mechanism (Sabri Suby)'>",\n  "mentorPrincipleApplied": "<the canonical mentor principle this pitchAngle invokes, in 5-8 words>",\n  "notebooksConsulted": ["${notebooks.join('", "')}"]\n}\n\n**leadScore formula:** base 50, +10 if site loads <2s, +10 if has booking system, +5 per 100 reviews, +5 if portfolio of 5+ visible jobs, -10 if no mobile contact, -10 if no clear pricing. Cap 0-100.\n\n**Then,** in plain text after the JSON, tell me:\n- The 3 lead fields most worth updating in v9 with one-line reasons each\n- Which mentor's framework wins for this specific lead and why (one sentence)\n- A 4-line outreach opener I can paste into Gmail/WhatsApp tonight, written in the chosen mentor's voice\n\nNo em dashes anywhere. Northern English casual tone. The opener should sound like Miller would actually say it.`;
-  navigator.clipboard.writeText(prompt).then(() => alert(`🔥 Enrich prompt copied. Will scrape ${isMaps ? 'Maps' : 'site'} + cross-reference ${notebooks.length} pre-built notebooks (${notebooks.join(', ')}). Paste into Code or Cowork.`));
+  if (!isCloudCapable()) { alert('Enrich needs cloud auth. Sign in via /dashboard/hq.'); return; }
+  setSyncPill('⚙ enriching...', '#fbbf24');
+  try {
+    const r = await fetch('/api/enrich', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + getCloudToken() },
+      body: JSON.stringify({ leadId: lead.id }),
+    });
+    if (!r.ok) { const t = await r.text(); throw new Error('enrich ' + r.status + ': ' + t.slice(0, 200)); }
+    const json = await r.json();
+    setSyncPill('☁ enriched', '#4ade80');
+    await cloudPull();
+    if (currentDetailLead && currentDetailLead.id === lead.id) {
+      const refreshed = leads.find(l => l.id === lead.id);
+      if (refreshed) openLeadDetail(refreshed);
+    }
+    if (json.enriched && json.enriched.opener4Line) {
+      setTimeout(() => alert('🔥 Enriched. Opener (paste-ready):\n\n' + json.enriched.opener4Line), 200);
+    }
+  } catch (err) {
+    setSyncPill('☁ error', '#fca5a5');
+    alert('Enrich failed: ' + err.message);
+  }
 }
 
 function showFullCouncilIntel(e, id) {

@@ -1,0 +1,36 @@
+{
+  "_comment": "Daily scrape targets for /api/scrape-feed. Tweak handles/subs without re-deploying logic.",
+  "x": {
+    "actor": "scraper_one/x-profile-posts-scraper",
+    "handles": ["jackfromskool", "naval", "levelsio", "nathanbarry", "patio11"],
+    "postsPerHandle": 5
+  },
+  "reddit": {
+    "subreddits": [
+      "AIAgency",
+      "digital_marketing",
+      "Entrepreneur",
+      "startups",
+      "gardendesign",
+      "HomeImprovementUK",
+      "smallbusinessuk"
+    ],
+    "postsPerSubreddit": 5
+  },
+  "linkedin": {
+    "actor": "harvestapi/linkedin-profile-posts",
+    "council_seats": [
+      { "slug": "carlos-garrido", "url": "https://www.linkedin.com/in/carlosgarrido", "name": "Carlos Garrido" },
+      { "slug": "john-caesar", "url": "https://www.linkedin.com/in/john-caesar/", "name": "John Caesar" },
+      { "slug": "roy-vella", "url": "https://www.linkedin.com/in/royvella/", "name": "Roy Vella" },
+      { "slug": "jamie-miralles", "url": "https://www.linkedin.com/in/jamiemiralles/", "name": "Jamie Miralles" }
+    ],
+    "postsPerSeat": 3
+  },
+  "substack": {
+    "feeds": [
+      { "slug": "tony-teegarden", "url": "https://themeaningfulman.substack.com/feed", "name": "Tony Teegarden" }
+    ],
+    "postsPerFeed": 3
+  }
+}

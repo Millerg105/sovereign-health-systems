@@ -44,3 +44,5 @@ next-env.d.ts
 leads.log
 about me photo.png
 build_log.txt
+
+.claude/
