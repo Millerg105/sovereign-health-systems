@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta name="googlebot" content="noindex, nofollow">
+    <base href="/proposal-pitch/k2c-rail/">
+    <title>Sovereign Systems × K2C Rail | Private Proposal for Antony Kearns</title>
+    <link rel="icon" type="image/png" href="/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-deep: #030405;
+            --bg-card: rgba(8,12,18,0.72);
+            --border: rgba(168,178,192,0.14);
+            --border-accent: rgba(194,204,216,0.28);
+            --accent: #a8b2c0;
+            --accent-2: #c2ccd8;
+            --accent-glow: #dde4ee;
+            --accent-blue: #7a8a9e;
+            --accent-green: #10b981;
+            --accent-green-glow: #72f3bf;
+            --accent-amber: #f59e0b;
+            --accent-amber-glow: #fcd34d;
+            --accent-red: #ef4444;
+            --text-primary: rgba(255,255,255,0.94);
+            --text-secondary: rgba(255,255,255,0.62);
+            --text-muted: rgba(255,255,255,0.36);
+        }
+
+        html, body { height: 100%; overflow: hidden; font-family: 'Inter', -apple-system, sans-serif; background: var(--bg-deep); color: var(--text-primary); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+        ::selection { background: rgba(194,204,216,0.3); }
+
+        /* Canvas / BG */
+        #particles { position: fixed; inset: 0; z-index: 0; }
+        .bg-gradient { position: fixed; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse at 20% 0%, rgba(194,204,216,0.06) 0%, transparent 50%), radial-gradient(ellipse at 80% 100%, rgba(168,178,192,0.05) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0.4) 0%, transparent 100%); }
+        .bg-grid { position: fixed; inset: 0; z-index: 2; pointer-events: none; background-image: linear-gradient(rgba(168,178,192,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(168,178,192,0.04) 1px, transparent 1px); background-size: 48px 48px; mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.3) 0%, transparent 70%); }
+
+        /* Slideshow */
+        .slideshow { position: relative; z-index: 10; width: 100vw; height: 100vh; }
+        .slide { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: clamp(20px, 3vw, 56px); padding-top: clamp(60px, 8vh, 80px); padding-bottom: clamp(60px, 8vh, 80px); opacity: 0; transform: translateY(28px) scale(0.97); transition: opacity 0.55s cubic-bezier(.4,0,.2,1), transform 0.55s cubic-bezier(.4,0,.2,1); pointer-events: none; flex-direction: column; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+        .slide.active { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+        .slide.exit-up { opacity: 0; transform: translateY(-28px) scale(0.97); }
+        .slide-inner { width: min(92vw, 1100px); text-align: center; }
+
+        /* Typography */
+        .slide-label { display: inline-flex; align-items: center; gap: 8px; font: 600 11px/1 'JetBrains Mono', monospace; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent-2); margin-bottom: 18px; }
+        .slide-label::before { content: ''; width: 8px; height: 2px; background: var(--accent-2); border-radius: 1px; }
+        .slide-title { font-family: 'Playfair Display', serif; font-size: clamp(26px, 4.5vw, 60px); font-weight: 700; letter-spacing: -0.04em; line-height: 1.08; margin-bottom: 16px; }
+        .slide-title span, .gradient-text { background: linear-gradient(90deg, var(--accent-blue), var(--accent), var(--accent-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .slide-subtitle { font: 500 11px/1.6 'JetBrains Mono', monospace; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 28px; }
+        .slide-body { font-size: clamp(14px, 1.6vw, 18px); color: var(--text-secondary); line-height: 1.7; max-width: 820px; margin: 0 auto; }
+        .slide-body strong { color: var(--text-primary); font-weight: 600; }
+        .slide-body em { color: var(--accent-glow); font-style: normal; font-weight: 500; }
+
+        /* Cards */
+        .cards-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 24px; text-align: left; }
+        .card { background: linear-gradient(180deg, rgba(10,14,20,0.78), rgba(6,9,13,0.88)); border: 1px solid var(--border); border-radius: 18px; padding: clamp(16px, 2vw, 24px); backdrop-filter: blur(12px); transition: border-color 0.3s, box-shadow 0.3s; position: relative; overflow: hidden; }
+        .card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.02), transparent 30%, transparent 70%, rgba(194,204,216,0.03)); pointer-events: none; }
+        .card:hover { border-color: var(--border-accent); box-shadow: 0 0 30px rgba(194,204,216,0.06); }
+        .card-label { font: 600 10px/1 'JetBrains Mono', monospace; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-2); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .card-label::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-2); box-shadow: 0 0 10px rgba(194,204,216,0.6); }
+        .card-label.green { color: var(--accent-green-glow); }
+        .card-label.green::before { background: var(--accent-green); box-shadow: 0 0 10px rgba(16,185,129,0.6); }
+        .card-label.amber { color: var(--accent-amber-glow); }
+        .card-label.amber::before { background: var(--accent-amber); box-shadow: 0 0 10px rgba(245,158,11,0.6); }
+        .card-label.blue { color: #b8c4d2; }
+        .card-label.blue::before { background: var(--accent-blue); box-shadow: 0 0 10px rgba(122,138,158,0.6); }
+        .card h3 { font-family: 'Playfair Display', serif; font-size: clamp(15px, 1.6vw, 20px); font-weight: 700; letter-spacing: -0.03em; margin-bottom: 8px; }
+        .card p, .card li { font-size: clamp(12px, 1.1vw, 14px); color: var(--text-secondary); line-height: 1.6; }
+        .card ul { list-style: none; padding: 0; }
+        .card ul li { position: relative; padding-left: 16px; margin-bottom: 5px; }
+        .card ul li::before { content: ''; position: absolute; left: 0; top: 8px; width: 5px; height: 5px; border-radius: 50%; background: rgba(194,204,216,0.5); }
+        .card ul li strong { color: var(--text-primary); }
+        .card ul li em { color: var(--accent-glow); font-style: normal; }
+
+        /* Glass Box */
+        .glass-box { background: rgba(8,14,22,0.7); border: 1px solid var(--border); border-radius: 18px; padding: clamp(18px, 2.5vw, 28px); backdrop-filter: blur(16px); text-align: left; position: relative; overflow: hidden; }
+        .glass-box::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.03), transparent 40%); pointer-events: none; }
+
+        /* Stats Row */
+        .stats-row { display: flex; justify-content: center; gap: clamp(20px, 4vw, 56px); margin-top: 28px; flex-wrap: wrap; }
+        .stat { text-align: center; }
+        .stat-value { font-family: 'Playfair Display', serif; font-size: clamp(28px, 4.5vw, 52px); font-weight: 700; line-height: 1; background: linear-gradient(90deg, var(--accent-blue), var(--accent-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .stat-label { font: 500 10px/1 'JetBrains Mono', monospace; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-top: 8px; }
+
+        /* Pills */
+        .pill { display: inline-flex; align-items: center; gap: 7px; padding: 7px 16px; border-radius: 999px; font: 600 10px/1 'JetBrains Mono', monospace; letter-spacing: 0.12em; text-transform: uppercase; margin: 4px; }
+        .pill.silver { background: rgba(194,204,216,0.08); border: 1px solid rgba(194,204,216,0.22); color: var(--accent-glow); }
+        .pill.green { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.22); color: var(--accent-green-glow); }
+        .pill.amber { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.22); color: var(--accent-amber-glow); }
+        .pill.blue { background: rgba(122,138,158,0.10); border: 1px solid rgba(122,138,158,0.26); color: #b8c4d2; }
+
+        /* Stamp */
+        .stamp { display: inline-block; padding: 4px 12px; border-radius: 6px; font: 700 10px/1 'JetBrains Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 8px; }
+        .stamp.live { background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.4); color: var(--accent-green-glow); }
+        .stamp.demo { background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.35); color: var(--accent-amber-glow); }
+        .stamp.pursuing { background: rgba(245,158,11,0.10); border: 1px solid rgba(245,158,11,0.30); color: var(--accent-amber-glow); }
+
+        /* Two / Three Col */
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; text-align: left; margin-top: 24px; }
+        .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; text-align: left; margin-top: 24px; }
+
+        /* Timeline */
+        .timeline { margin-top: 24px; text-align: left; max-width: 800px; margin-left: auto; margin-right: auto; }
+        .timeline-item { display: flex; gap: 18px; margin-bottom: 16px; position: relative; }
+        .timeline-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--accent-2); flex-shrink: 0; margin-top: 5px; box-shadow: 0 0 12px rgba(194,204,216,0.4); position: relative; }
+        .timeline-dot.green { background: var(--accent-green); box-shadow: 0 0 12px rgba(16,185,129,0.4); }
+        .timeline-dot.blue { background: var(--accent-blue); box-shadow: 0 0 12px rgba(122,138,158,0.4); }
+        .timeline-item:not(:last-child) .timeline-dot::after { content: ''; position: absolute; left: 50%; top: 12px; width: 1px; height: calc(100% + 12px); background: linear-gradient(to bottom, rgba(194,204,216,0.3), transparent); transform: translateX(-50%); }
+        .timeline-content h4 { font: 600 11px/1 'JetBrains Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-glow); margin-bottom: 5px; }
+        .timeline-content p { font-size: clamp(13px, 1.2vw, 15px); color: var(--text-secondary); line-height: 1.6; }
+        .timeline-content p strong { color: var(--text-primary); }
+
+        /* Quote Block */
+        .quote-block { font-family: 'Playfair Display', serif; font-size: clamp(22px, 3.2vw, 44px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; color: var(--text-primary); }
+        .quote-block span { background: linear-gradient(90deg, var(--accent-blue), var(--accent), var(--accent-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* Pricing Tiers */
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; text-align: left; }
+        .pricing-tier { background: linear-gradient(180deg, rgba(10,14,20,0.78), rgba(6,9,13,0.88)); border: 1px solid var(--border); border-radius: 20px; padding: clamp(18px, 2vw, 28px); position: relative; overflow: hidden; transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s; }
+        .pricing-tier::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.02), transparent 30%, transparent 70%, rgba(194,204,216,0.03)); pointer-events: none; }
+        .pricing-tier:hover { border-color: var(--border-accent); box-shadow: 0 0 30px rgba(194,204,216,0.06); transform: translateY(-2px); }
+        .pricing-tier.featured { border-color: var(--border-accent); box-shadow: 0 0 40px rgba(194,204,216,0.12); }
+        .pricing-tier.featured::after { content: 'Recommended for K2C'; position: absolute; top: 14px; right: 14px; font: 600 8px/1 'JetBrains Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; background: rgba(194,204,216,0.14); border: 1px solid rgba(194,204,216,0.34); color: var(--accent-glow); }
+        .pricing-tier .tier-name { font: 600 10px/1 'JetBrains Mono', monospace; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-2); margin-bottom: 10px; }
+        .pricing-tier .tier-price { font-family: 'Playfair Display', serif; font-size: clamp(28px, 3vw, 40px); font-weight: 700; margin-bottom: 4px; }
+        .pricing-tier .tier-price span { background: linear-gradient(90deg, var(--accent-blue), var(--accent-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .pricing-tier .tier-period { font: 400 10px/1 'JetBrains Mono', monospace; letter-spacing: 0.12em; color: var(--text-muted); margin-bottom: 16px; }
+        .pricing-tier ul { list-style: none; padding: 0; }
+        .pricing-tier ul li { position: relative; padding-left: 18px; margin-bottom: 7px; font-size: clamp(11px, 1vw, 13px); color: var(--text-secondary); line-height: 1.5; }
+        .pricing-tier ul li::before { content: ''; position: absolute; left: 0; top: 7px; width: 5px; height: 5px; border-radius: 50%; background: rgba(194,204,216,0.5); }
+        .pricing-tier ul li strong { color: var(--text-primary); }
+
+        /* Enterprise Card */
+        .enterprise-card { background: linear-gradient(180deg, rgba(12,16,24,0.88), rgba(8,11,16,0.94)); border: 1px solid var(--border-accent); border-radius: 20px; padding: clamp(22px, 2.6vw, 36px); backdrop-filter: blur(14px); text-align: left; position: relative; overflow: hidden; margin-top: 18px; }
+        .enterprise-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-2), transparent); }
+        .enterprise-card .ent-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 18px; flex-wrap: wrap; margin-bottom: 18px; }
+        .enterprise-card h3 { font-family: 'Playfair Display', serif; font-size: clamp(20px, 2.4vw, 30px); font-weight: 700; letter-spacing: -0.03em; margin-bottom: 6px; }
+        .enterprise-card .ent-sub { font: 500 10px/1 'JetBrains Mono', monospace; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-2); }
+        .enterprise-card .ent-price { display: flex; gap: 22px; padding: 14px 18px; background: rgba(194,204,216,0.04); border: 1px solid rgba(194,204,216,0.15); border-radius: 12px; flex-wrap: wrap; }
+        .enterprise-card .ent-price .pb { text-align: center; }
+        .enterprise-card .ent-price .pb-label { font: 500 9px/1 'JetBrains Mono', monospace; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+        .enterprise-card .ent-price .pb-value { font-family: 'Playfair Display', serif; font-size: clamp(22px, 2.5vw, 32px); font-weight: 700; }
+        .enterprise-card .ent-price .pb-value.one-time { color: var(--text-primary); }
+        .enterprise-card .ent-price .pb-value.recurring { background: linear-gradient(90deg, var(--accent-blue), var(--accent-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .enterprise-card .ent-deliverables { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 22px; }
+        .enterprise-card .ent-deliverables li { position: relative; padding-left: 22px; font-size: clamp(12px, 1.1vw, 14px); color: var(--text-secondary); line-height: 1.55; }
+        .enterprise-card .ent-deliverables li::before { content: '\2713'; position: absolute; left: 0; top: 0; color: var(--accent-2); font-weight: 700; }
+        .enterprise-card .ent-deliverables li strong { color: var(--text-primary); }
+
+        /* Trust Badge Rack */
+        .badge-rack { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 22px; text-align: center; }
+        .badge-tile { padding: 14px 12px; background: rgba(8,14,22,0.6); border: 1px solid var(--border); border-radius: 12px; transition: border-color 0.3s; }
+        .badge-tile:hover { border-color: var(--border-accent); }
+        .badge-tile.featured { background: linear-gradient(180deg, rgba(194,204,216,0.08), rgba(122,138,158,0.04)); border-color: var(--border-accent); box-shadow: 0 0 24px rgba(194,204,216,0.08); }
+        .badge-tile h5 { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; letter-spacing: -0.02em; color: var(--text-primary); margin-bottom: 4px; }
+        .badge-tile p { font: 500 9px/1.3 'JetBrains Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+        .badge-tile.featured h5 { color: var(--accent-glow); }
+        .badge-tile.featured p { color: var(--accent-2); }
+
+        /* Comparison */
+        .vs-col h4 { font: 600 10px/1 'JetBrains Mono', monospace; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 14px; }
+        .vs-col ul { list-style: none; padding: 0; }
+        .vs-col ul li { position: relative; padding-left: 20px; margin-bottom: 8px; font-size: clamp(12px, 1.1vw, 14px); line-height: 1.6; }
+        .vs-col.bad h4 { color: #f87171; }
+        .vs-col.bad ul li { color: rgba(255,255,255,0.45); }
+        .vs-col.bad ul li::before { content: '\00d7'; position: absolute; left: 0; color: #f87171; font-weight: 700; }
+        .vs-col.good h4 { color: var(--accent-glow); }
+        .vs-col.good ul li { color: var(--text-secondary); }
+        .vs-col.good ul li::before { content: '\2713'; position: absolute; left: 0; color: var(--accent-2); font-weight: 700; }
+        .vs-col.good ul li strong { color: var(--text-primary); }
+
+        /* Contact */
+        .contact-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 24px; }
+        .contact-item { padding: 14px 20px; background: rgba(8,14,22,0.7); border: 1px solid var(--border); border-radius: 12px; backdrop-filter: blur(12px); text-align: left; }
+        .contact-item .c-name { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+        .contact-item .c-role { font: 500 9px/1 'JetBrains Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-2); margin-bottom: 8px; }
+        .contact-item .c-detail { font-size: 12px; color: var(--text-secondary); line-height: 1.7; }
+        .contact-item .c-detail strong { color: var(--text-primary); }
+        .contact-item a { color: var(--accent-glow); text-decoration: none; }
+        .contact-item a:hover { color: var(--accent-2); }
+
+        /* CTA buttons */
+        .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
+        .cta { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 999px; font: 600 12px/1 'Inter', sans-serif; letter-spacing: 0.06em; text-decoration: none; transition: transform 0.2s, box-shadow 0.3s; }
+        .cta.primary { background: linear-gradient(90deg, var(--accent-blue), var(--accent-2)); color: #06090d; box-shadow: 0 6px 24px rgba(194,204,216,0.18); }
+        .cta.primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(194,204,216,0.28); }
+        .cta.ghost { background: transparent; color: var(--accent-glow); border: 1px solid var(--border-accent); }
+        .cta.ghost:hover { background: rgba(194,204,216,0.06); }
+
+        /* ROI */
+        .roi-box { background: linear-gradient(135deg, rgba(194,204,216,0.06) 0%, rgba(122,138,158,0.04) 100%); border: 1px solid var(--border-accent); border-radius: 16px; padding: clamp(20px, 2.5vw, 32px); text-align: center; margin-top: 28px; position: relative; overflow: hidden; }
+        .roi-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-2), transparent); }
+        .roi-box .roi-multiplier { font-family: 'Playfair Display', serif; font-size: clamp(36px, 5vw, 64px); font-weight: 800; background: linear-gradient(90deg, var(--accent-blue), var(--accent), var(--accent-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
+        .roi-box .roi-desc { font-size: clamp(13px, 1.3vw, 16px); color: var(--text-secondary); margin-top: 8px; line-height: 1.6; }
+        .roi-box .roi-desc strong { color: var(--text-primary); }
+
+        /* Nav */
+        .brand-header { position: fixed; top: 18px; left: 24px; z-index: 100; display: flex; align-items: center; gap: 10px; }
+        .brand-logo { width: 34px; height: 34px; object-fit: contain; filter: drop-shadow(0 0 8px rgba(194,204,216,0.3)); }
+        .brand-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; letter-spacing: -0.02em; }
+        .confidential-pill { position: fixed; top: 20px; right: 24px; z-index: 100; display: inline-flex; align-items: center; gap: 7px; padding: 6px 14px; border-radius: 999px; background: rgba(194,204,216,0.06); border: 1px solid rgba(194,204,216,0.18); font: 500 10px/1 'JetBrains Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-glow); }
+        .confidential-pill::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-2); box-shadow: 0 0 10px rgba(194,204,216,0.6); animation: pulse 2s ease-in-out infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+        .progress-bar { position: fixed; top: 0; left: 0; height: 2px; z-index: 200; background: linear-gradient(90deg, var(--accent-blue), var(--accent-2)); transition: width 0.4s cubic-bezier(.4,0,.2,1); box-shadow: 0 0 10px rgba(194,204,216,0.4); }
+
+        .nav-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 100; display: flex; align-items: center; gap: 14px; padding: 10px 18px; border-radius: 999px; background: rgba(8,12,18,0.88); border: 1px solid var(--border); backdrop-filter: blur(16px); }
+        .nav-btn { width: 34px; height: 34px; border-radius: 50%; background: rgba(194,204,216,0.08); border: 1px solid rgba(194,204,216,0.22); color: var(--accent-2); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-size: 13px; }
+        .nav-btn:hover { background: rgba(194,204,216,0.16); border-color: var(--accent-2); }
+        .nav-counter { font: 500 11px/1 'JetBrains Mono', monospace; letter-spacing: 0.14em; color: var(--text-muted); min-width: 56px; text-align: center; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .two-col, .three-col, .cards-grid, .pricing-grid { grid-template-columns: 1fr; }
+            .stats-row { gap: 14px; }
+            .enterprise-card .ent-deliverables { grid-template-columns: 1fr; }
+            .enterprise-card .ent-price { flex-direction: column; gap: 12px; }
+            .contact-row { flex-direction: column; align-items: stretch; }
+            .brand-name { display: none; }
+            .confidential-pill { font-size: 9px; padding: 5px 10px; }
+        }
+
+        /* Print */
+        @media print {
+            html, body { height: auto; overflow: visible; background: #fff; color: #1a1a2e; }
+            #particles, .bg-gradient, .bg-grid, .nav-bar, .brand-header, .confidential-pill, .progress-bar { display: none !important; }
+            .slideshow { height: auto; }
+            .slide { position: relative; opacity: 1; transform: none; pointer-events: auto; padding: 28px 40px; page-break-after: always; min-height: 100vh; }
+            .slide-title, .slide-title span { -webkit-text-fill-color: #1a1a2e !important; background: none !important; color: #1a1a2e !important; }
+            .card, .glass-box, .enterprise-card, .pricing-tier { background: #f8f9fa !important; border-color: #d4d8df !important; backdrop-filter: none !important; }
+            .card::before, .glass-box::before, .enterprise-card::before, .pricing-tier::before { display: none; }
+            .stat-value, .tier-price span, .roi-multiplier { -webkit-text-fill-color: #1a5276 !important; background: none !important; }
+            * { text-shadow: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+<div class="bg-gradient"></div>
+<div class="bg-grid"></div>
+
+<div class="brand-header">
+    <img src="/logo.png" alt="Sovereign Systems" class="brand-logo">
+    <span class="brand-name">Sovereign Systems</span>
+</div>
+
+<div class="confidential-pill">Confidential &middot; For Antony Kearns</div>
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="slideshow" id="slideshow">
+
+<!-- ════════ SLIDE 1 :: TITLE ════════ -->
+<div class="slide active" data-slide="1"><div class="slide-inner">
+    <div style="margin-bottom:28px;">
+        <img src="/logo.png" alt="Sovereign Systems" style="width:56px;height:56px;object-fit:contain;filter:drop-shadow(0 0 16px rgba(194,204,216,0.4));">
+    </div>
+    <div class="slide-label">Sovereign Systems</div>
+    <h1 class="slide-title">K2C Rail &times; Sovereign<br><span>Your Digital Ops Layer</span></h1>
+    <p class="slide-subtitle" style="margin-top:12px;">Private Proposal &middot; For Antony Kearns, MD</p>
+    <p class="slide-subtitle" style="color:var(--text-muted);letter-spacing:0.2em;">May 2026</p>
+    <p class="slide-body" style="margin-top:24px;max-width:680px;">The local digital arm K2C Rail never had to hire. Wigan-registered. Civil engineering by day. Custom-coded, procurement-grade, sub-1s pages.</p>
+    <p style="margin-top:28px;font:500 11px/1 'JetBrains Mono',monospace;letter-spacing:0.14em;color:var(--text-muted);">Presented by Miller Glenholmes</p>
+</div></div>
+
+<!-- ════════ SLIDE 2 :: WHO + WIGAN HOOK ════════ -->
+<div class="slide" data-slide="2"><div class="slide-inner">
+    <div class="slide-label">01 :: Who You're Hiring</div>
+    <h1 class="slide-title">Same Patch. <span>Different Lane.</span></h1>
+    <p class="slide-body">Sovereign Systems is a custom-build agency run out of <strong>Wigan</strong>, five minutes from Douglas Bank House. By day I'm a <strong>Civil Engineering Technician at Curtins</strong> in Liverpool. Curtins runs civils, structural, transport planning, geotechnical. <em>Zero rail vertical. Clean conflict check.</em></p>
+    <p class="slide-body" style="margin-top:14px;">By night I run Sovereign. We build digital ops layers for firms that win their work on relationships and procurement, not paid ads.</p>
+
+    <div style="margin-top:28px;max-width:720px;margin-left:auto;margin-right:auto;">
+        <div class="card" style="border-color:var(--border-accent);">
+            <div class="card-label">Founder</div>
+            <h3>Miller Glenholmes</h3>
+            <p>Civil engineering background. Sovereign Digital Limited registered with Companies House April 2026. I approach a digital build the same way structural engineers approach a bridge: load-tested, structurally sound, zero bloat.</p>
+            <p style="margin-top:12px;">No WordPress. No Wix. No Squarespace. No outsourcing. Every platform is custom Next.js, performance-first, hosted on UK-region Vercel + UK-region Supabase.</p>
+            <p style="margin-top:12px;font-size:13px;color:var(--text-muted);"><em style="color:var(--accent-glow);font-style:normal;">Note on continuity:</em> Joe stepped back from the day-to-day in April 2026. Continuity on K2C is full. All the work I built for Chris is mine.</p>
+        </div>
+    </div>
+</div></div>
+
+<!-- ════════ SLIDE 3 :: DIAGNOSIS ════════ -->
+<div class="slide" data-slide="3"><div class="slide-inner">
+    <div class="slide-label">02 :: Honest Diagnosis</div>
+    <h1 class="slide-title">What's Missing From <span>Your Current Setup</span></h1>
+    <p class="slide-body">19-site competitor audit, plus a direct read of k2crail.com and k2crail.co.uk. Five things stand out.</p>
+
+    <div class="cards-grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:28px;">
+        <div class="card">
+            <div class="card-label amber">Domain Authority Split</div>
+            <h3>Two domains, one site, leaking SEO</h3>
+            <p>k2crail.com and k2crail.co.uk both resolve. The .co.uk had a <strong>TLS certificate mismatch</strong> at the time of audit. Splits domain authority, weakens search ranking, looks under-managed to procurement.</p>
+        </div>
+        <div class="card">
+            <div class="card-label amber">No Lead Capture</div>
+            <h3>Brochure site, mailto only</h3>
+            <p>Every dropped procurement enquiry is real money. <strong>17 of 19 peer sites we audited</strong> have the same gap. Closest peer with a real form is CPC Project Services (35 years old, &pound;30m firm). Ship a qualifying form and you beat your tier on day one.</p>
+        </div>
+        <div class="card">
+            <div class="card-label amber">Dual Inventive Hidden</div>
+            <h3>Your biggest differentiator, invisible</h3>
+            <p>The Dual Inventive partnership (April 2025) is the <strong>single biggest tech-trust signal nobody else in your tier has</strong>. Right now it sits in news copy. It should sit as a permanent above-the-fold trust badge.</p>
+        </div>
+        <div class="card">
+            <div class="card-label amber">No Client Portal</div>
+            <h3>TfL PMs expect dashboards in 2026</h3>
+            <p>Today, when a TfL project manager asks for an update, it's a Word doc, a PDF, or a phone call. Tier-1 contractors increasingly ship a <strong>self-serve project portal</strong>. Closes the gap between K2C and the &pound;40m firms.</p>
+        </div>
+        <div class="card">
+            <div class="card-label amber">Page Speed</div>
+            <h3>WordPress + RevSlider equivalents = 4-6s LCP</h3>
+            <p>InoRail (your closest NW peer, worked Wigan-Bolton electrification) runs WordPress + RevSlider. So does CPC. So does Story Contracting. <strong>Sovereign ships sub-1s.</strong> When TfL procurement opens your tender link, your page loads twice as fast as the firm they were on five minutes ago.</p>
+        </div>
+        <div class="card">
+            <div class="card-label amber">Live Date Stamps</div>
+            <h3>Site reads as static. Story Contracting wins by being current.</h3>
+            <p>Story Contracting puts <strong>April 2026, Feb 2026, Jan 2026</strong> on every project. K2C is 2 years old and mobilising on TfL right now. A live news/project feed signals momentum that procurement reads instantly.</p>
+        </div>
+    </div>
+</div></div>
+
+<!-- ════════ SLIDE 4 :: WHAT'S POSSIBLE ════════ -->
+<div class="slide" data-slide="4"><div class="slide-inner">
+    <div class="slide-label">03 :: What's Possible</div>
+    <h1 class="slide-title">The Numbers Behind <span>This Conversation</span></h1>
+    <p class="slide-body">UK rail engineering market context, mid-2026.</p>
+
+    <div class="stats-row" style="margin-top:36px;">
+        <div class="stat">
+            <div class="stat-value">&pound;44bn</div>
+            <div class="stat-label">Network Rail CP7 spend, 2024-2029</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value">&pound;500m+</div>
+            <div class="stat-label">TfL Infrastructure Improvement Framework, Oct 2025-Oct 2029</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value">75%</div>
+            <div class="stat-label">Network Rail suppliers are SMEs (yet SME share fell year 1)</div>
+        </div>
+    </div>
+
+    <div class="glass-box" style="margin-top:32px;text-align:left;border-color:var(--border-accent);">
+        <p style="font-size:clamp(14px,1.4vw,17px);color:var(--text-secondary);line-height:1.7;"><strong style="color:var(--text-primary);">Cost of friction.</strong> A single rail engineering tender response runs <strong>&pound;15,000-&pound;50,000</strong> of staff time to produce. A single missed framework opportunity is <em style="color:var(--accent-glow);font-style:normal;font-weight:600;">&pound;100k to &pound;10m+</em> in lost work.</p>
+        <p style="margin-top:14px;font-size:clamp(14px,1.4vw,17px);color:var(--text-secondary);line-height:1.7;">Sovereign's full enterprise scope (&pound;2,500 setup + &pound;500/mo) is a <strong>rounding error</strong> against either number.</p>
+    </div>
+
+    <p style="margin-top:18px;font:500 10px/1.4 'JetBrains Mono',monospace;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);">Sources: Network Rail CP7 Delivery Plan, TfL framework procurement notices, Construction Index, Tender Consultants UK.</p>
+</div></div>
+
+<!-- ════════ SLIDE 5 :: TRUST RACK ════════ -->
+<div class="slide" data-slide="5"><div class="slide-inner">
+    <div class="slide-label">04 :: Trust + Procurement Positioning</div>
+    <h1 class="slide-title">Built To <span>Procurement Standard</span></h1>
+    <p class="slide-body">Story Contracting (&pound;200m firm) wins on <strong>accreditation density</strong>. We'd build K2C the same rack on day one. Where you're already there, badge it. Where you're pursuing, mark it pursuing. Procurement reads honesty as competence.</p>
+
+    <div class="badge-rack">
+        <div class="badge-tile featured">
+            <h5>Dual Inventive</h5>
+            <p>Strategic Partner &middot; Apr 2025</p>
+        </div>
+        <div class="badge-tile">
+            <h5>Rail Forum</h5>
+            <p>Member</p>
+        </div>
+        <div class="badge-tile">
+            <h5>RISQS</h5>
+            <p><span class="stamp pursuing">Pursuing</span></p>
+        </div>
+        <div class="badge-tile">
+            <h5>Achilles UVDB</h5>
+            <p><span class="stamp pursuing">Pursuing</span></p>
+        </div>
+        <div class="badge-tile">
+            <h5>Link-up</h5>
+            <p><span class="stamp pursuing">Pursuing</span></p>
+        </div>
+        <div class="badge-tile">
+            <h5>ISO 9001</h5>
+            <p><span class="stamp pursuing">Pursuing</span></p>
+        </div>
+        <div class="badge-tile">
+            <h5>ISO 14001</h5>
+            <p><span class="stamp pursuing">Pursuing</span></p>
+        </div>
+        <div class="badge-tile">
+            <h5>ISO 45001</h5>
+            <p><span class="stamp pursuing">Pursuing</span></p>
+        </div>
+    </div>
+
+    <div class="glass-box" style="margin-top:28px;text-align:left;border-color:rgba(122,138,158,0.34);">
+        <p style="font-size:clamp(13px,1.3vw,15px);color:var(--text-secondary);line-height:1.7;"><strong style="color:var(--accent-glow);">Why the Dual Inventive badge is load-bearing.</strong> Across 19 peer sites we audited, <strong>nobody at your scale has a tech-partnership trust signal</strong>. It puts K2C alongside the &pound;40m firms before you've said a word. You and Chris joining their team in April 2025 is a proper move. The website should reflect that.</p>
+    </div>
+
+    <p style="margin-top:14px;font:500 9px/1.4 'JetBrains Mono',monospace;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);">Pursuing labels are honest defaults. Replace with live status during onboarding once we confirm what's already on the books.</p>
+</div></div>
+
+<!-- ════════ SLIDE 6 :: WHY US (vs. agency / vs. boutique peers) ════════ -->
+<div class="slide" data-slide="6"><div class="slide-inner">
+    <div class="slide-label">05 :: Why Us vs. The Field</div>
+    <h1 class="slide-title">Not a Generalist <span>Agency</span></h1>
+
+    <div class="two-col" style="margin-top:24px;">
+        <div class="glass-box vs-col bad">
+            <h4>Traditional London Agency</h4>
+            <ul>
+                <li>WordPress templates with your logo dropped on top</li>
+                <li>4-8 week delivery timelines</li>
+                <li>&pound;5,000-&pound;15,000 for a digital brochure</li>
+                <li>No lead capture, no automation, no portal</li>
+                <li>Monthly retainer for plugin updates only</li>
+                <li>Don't speak rail, don't speak procurement</li>
+                <li>3+ hour drive from Wigan</li>
+            </ul>
+        </div>
+        <div class="glass-box vs-col good" style="border-color:var(--border-accent);">
+            <h4>Sovereign Systems</h4>
+            <ul>
+                <li><strong>Custom-coded</strong> Next.js + React, UK hosting</li>
+                <li>Delivered in <strong>1-2 weeks</strong>, not months</li>
+                <li>Premium quality at startup pricing (K2C is the flagship rail case study)</li>
+                <li><strong>Lead capture, missed-call SMS, client portal</strong> built in</li>
+                <li>Civil engineering by day at Curtins, no rail conflict</li>
+                <li>Five minutes from your registered office</li>
+                <li>Direct line to the founder, not an account manager</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="glass-box" style="margin-top:24px;text-align:left;">
+        <p style="font-size:clamp(13px,1.3vw,15px);color:var(--text-secondary);line-height:1.7;"><strong style="color:var(--text-primary);">Closest direct peer (audited 3 May 2026):</strong> InoRail, North West England, programme management, worked Wigan-Bolton electrification. Runs WordPress + RevSlider. No lead capture form. No founder presence above the fold. <em style="color:var(--accent-glow);font-style:normal;">K2C beats them on day one with the build below.</em></p>
+    </div>
+</div></div>
+
+<!-- ════════ SLIDE 7 :: HOW WE WORK ════════ -->
+<div class="slide" data-slide="7"><div class="slide-inner">
+    <div class="slide-label">06 :: How We Work</div>
+    <h1 class="slide-title">From Kickoff to <span>Live in Two Weeks</span></h1>
+
+    <div class="timeline" style="margin-top:32px;">
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <h4>Discovery &middot; 30 minutes</h4>
+                <p>Tuesday 5 May. We're already in it. Goals, pain points, what mobilisation looks like for you right now. <strong>No obligation either side.</strong></p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-dot green"></div>
+            <div class="timeline-content">
+                <h4>Strategy + Wireframe</h4>
+                <p>I map the site structure. <strong>k2crail.com canonical.</strong> Domain consolidation strategy. Lead form spec. Trust badge audit. Sent across as a single PDF inside 72 hours of go-ahead.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-dot green"></div>
+            <div class="timeline-content">
+                <h4>Build + Review</h4>
+                <p>Staging URL inside 5 days. You and Chris review. <strong>We iterate until it's right.</strong> No agency back-and-forth nonsense.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-dot blue"></div>
+            <div class="timeline-content">
+                <h4>Launch + Handover</h4>
+                <p>DNS cutover. PDF brief, Loom walkthrough, written handover doc. <strong>Standard paper trail, non-negotiable.</strong> Hosting and basic monitoring included.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="glass-box" style="margin-top:24px;text-align:center;">
+        <p style="font-size:clamp(14px,1.4vw,17px);color:var(--text-secondary);line-height:1.7;"><strong style="color:var(--text-primary);">Timeline:</strong> <em style="color:var(--accent-glow);font-style:normal;font-weight:600;">2 weeks kickoff to live</em> on the &pound;800 Premium scope. <em style="color:var(--accent-glow);font-style:normal;font-weight:600;">3-4 weeks</em> for full enterprise.</p>
+    </div>
+</div></div>
+
+<!-- ════════ SLIDE 8 :: PRICING TIERS ════════ -->
+<div class="slide" data-slide="8"><div class="slide-inner">
+    <div class="slide-label">07 :: Investment</div>
+    <h1 class="slide-title">Simple, <span>Flat Pricing</span></h1>
+    <p class="slide-body">Three tiers. Same as the proposal Chris saw. No retainers built in. No monthly bloat unless you ask for it.</p>
+
+    <div class="pricing-grid" style="margin-top:28px;">
+        <div class="pricing-tier">
+            <div class="tier-name">Starter</div>
+            <div class="tier-price">from <span>&pound;300</span></div>
+            <div class="tier-period">One-page landing site</div>
+            <ul>
+                <li>Single page, conversion-focused</li>
+                <li>Lead capture form</li>
+                <li>Mobile-first, sub-1s LCP</li>
+                <li>Live in under 7 days</li>
+            </ul>
+        </div>
+        <div class="pricing-tier">
+            <div class="tier-name">Standard</div>
+            <div class="tier-price">from <span>&pound;500</span></div>
+            <div class="tier-period">Multi-page business site</div>
+            <ul>
+                <li>3 to 5 pages</li>
+                <li>Services, case studies, contact</li>
+                <li>Analytics + on-page SEO</li>
+                <li>Live in 7 to 10 days</li>
+            </ul>
+        </div>
+        <div class="pricing-tier featured">
+            <div class="tier-name">Premium</div>
+            <div class="tier-price">from <span>&pound;800</span></div>
+            <div class="tier-period">Full site + automation</div>
+            <ul>
+                <li><strong>Everything in Standard</strong></li>
+                <li>Qualifying lead capture form (TfL / NR / Tier-1 / scope value)</li>
+                <li>Twilio missed-call SMS</li>
+                <li>Domain consolidation (k2crail.com canonical, .co.uk redirect, TLS fix)</li>
+                <li>Trust badge rack incl. Dual Inventive</li>
+                <li>Live in under 2 weeks</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="glass-box" style="margin-top:24px;text-align:center;border-color:var(--border-accent);">
+        <p style="font-size:clamp(14px,1.4vw,17px);color:var(--text-secondary);line-height:1.7;">
+            <strong style="color:var(--text-primary);">Default scope:</strong> K2C Rail at <strong style="color:var(--accent-glow);">Premium. &pound;800 setup.</strong><br>
+            <span style="font-size:clamp(12px,1.2vw,15px);color:var(--text-muted);">50% deposit (&pound;400) to start, 50% on go-live (&pound;400). Optional &pound;39.99/mo maintenance after handover. No lock-in.</span>
+        </p>
+    </div>
+</div></div>
+
+<!-- ════════ SLIDE 9 :: ENTERPRISE SCOPE ════════ -->
+<div class="slide" data-slide="9"><div class="slide-inner">
+    <div class="slide-label">08 :: Enterprise Scope</div>
+    <h1 class="slide-title">Need Something Bigger? <span>Enterprise for K2C Rail.</span></h1>
+    <p class="slide-body">If the &pound;800 site solves the brochure problem but not the mobilisation problem, here's the bigger play. Same team, same UK stack, more leverage.</p>
+
+    <div class="enterprise-card">
+        <div class="ent-head">
+            <div>
+                <div class="ent-sub">Sovereign Operating System for K2C Rail</div>
+                <h3>The full digital ops layer</h3>
+            </div>
+            <div class="ent-price">
+                <div class="pb">
+                    <div class="pb-label">Setup</div>
+                    <div class="pb-value one-time">&pound;2,500</div>
+                </div>
+                <div class="pb">
+                    <div class="pb-label">Retainer</div>
+                    <div class="pb-value recurring">&pound;500 / mo</div>
+                </div>
+            </div>
+        </div>
+
+        <ul class="ent-deliverables">
+            <li><strong>Premium site as the floor.</strong> Everything in the &pound;800 scope plus the items below, integrated.</li>
+            <li><strong>Client portal for TfL PMs.</strong> Self-service status updates, document drop, project comms log. Stops the email-and-PDF grind.</li>
+            <li><strong>AI-assisted tender response.</strong> Knowledge base trained on K2C's bid history. Drafts the boilerplate, you review and ship.</li>
+            <li><strong>Lead-qualification form.</strong> TfL / Network Rail / Tier-1 contractor / approximate scope value. Auto-routes to the right inbox.</li>
+            <li><strong>Missed-call SMS.</strong> Every dropped procurement call gets a Twilio text within 60 seconds.</li>
+            <li><strong>Live pipeline dashboard.</strong> Visible to you and Chris. Pipeline value, retention, KPI tracking. Same pattern we run for Sovereign internally.</li>
+            <li><strong>Case-study capture system.</strong> Every won project becomes structured next-bid evidence (problem, scope, KPIs, named client).</li>
+            <li><strong>Hosting + monitoring + ongoing build.</strong> UK-region Vercel + Supabase. 30-day cancel on retainer, no 12-month lock-in.</li>
+        </ul>
+
+        <div class="glass-box" style="margin-top:18px;text-align:left;border-color:rgba(168,178,192,0.18);">
+            <p style="font-size:clamp(13px,1.3vw,15px);color:var(--text-secondary);line-height:1.7;"><strong style="color:var(--accent-glow);">Data + GDPR posture.</strong> Everything sits on UK-region Supabase, encrypted at rest. UK-region Vercel for hosting. No third-country data transfer. Happy to sign your standard NDA before any project data touches the system. Sovereign Digital Limited registered with Companies House (April 2026), Twilio A2P unlocked, ICO registration on file.</p>
+        </div>
+    </div>
+</div></div>
+
+<!-- ════════ SLIDE 10 :: CLOSING ════════ -->
+<div class="slide" data-slide="10"><div class="slide-inner">
+    <div style="margin-bottom:32px;">
+        <img src="/logo.png" alt="Sovereign Systems" style="width:64px;height:64px;object-fit:contain;filter:drop-shadow(0 0 20px rgba(194,204,216,0.5));">
+    </div>
+    <div class="quote-block" style="max-width:760px;margin:0 auto;">
+        Wigan registered. Procurement-grade. Live in two weeks.<br><span>Ready when you are, Antony.</span>
+    </div>
+
+    <div class="contact-row">
+        <div class="contact-item">
+            <div class="c-name">Miller Glenholmes</div>
+            <div class="c-role">Founder &middot; Sovereign Systems</div>
+            <div class="c-detail">
+                WhatsApp &middot; <strong><a href="https://wa.me/447508305137">07508 305137</a></strong><br>
+                Email &middot; <strong><a href="mailto:miller.glenholmes@outlook.com">miller.glenholmes@outlook.com</a></strong><br>
+                Web &middot; <a href="https://sovereignsystem.co.uk" target="_blank" rel="noopener">sovereignsystem.co.uk</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="cta-row">
+        <a class="cta primary" href="https://wa.me/447508305137?text=Hi%20Miller%2C%20K2C%20Rail%20here.">WhatsApp Miller</a>
+        <a class="cta ghost" href="mailto:miller.glenholmes@outlook.com?subject=K2C%20Rail%20%C3%97%20Sovereign">Reply by Email</a>
+    </div>
+
+    <div style="margin-top:36px;">
+        <div class="slide-label" style="margin-bottom:8px;">Sovereign Digital Limited</div>
+        <p style="font:500 11px/1.8 'JetBrains Mono',monospace;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-muted);">Built to Perform.</p>
+        <p style="margin-top:12px;font:400 10px/1 'JetBrains Mono',monospace;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);">May 2026 &middot; Confidential &middot; For Antony Kearns Only</p>
+    </div>
+</div></div>
+
+</div><!-- /slideshow -->
+
+<!-- Navigation -->
+<div class="nav-bar" id="navBar">
+    <button class="nav-btn" id="prevBtn" aria-label="Previous slide">&#8592;</button>
+    <span class="nav-counter" id="navCounter">1 / 10</span>
+    <button class="nav-btn" id="nextBtn" aria-label="Next slide">&#8594;</button>
+</div>
+
+<!-- Scripts -->
+<script>
+(function() {
+    // Particle system
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    const COLOR = '#c2ccd8';
+    let w, h, particles, mouse, dpr;
+
+    class Particle {
+        constructor() { this.reset(true); }
+        reset(initial) {
+            this.x = Math.random() * w;
+            this.y = Math.random() * h;
+            this.vx = 0; this.vy = 0;
+            this.age = initial ? Math.random() * 200 : 0;
+            this.life = Math.random() * 200 + 100;
+        }
+        update() {
+            const angle = (Math.cos(this.x * 0.005) + Math.sin(this.y * 0.005)) * Math.PI;
+            this.vx += Math.cos(angle) * 0.15;
+            this.vy += Math.sin(angle) * 0.15;
+            const dx = mouse.x - this.x, dy = mouse.y - this.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 140) {
+                const force = (140 - dist) / 140;
+                this.vx -= dx * force * 0.04;
+                this.vy -= dy * force * 0.04;
+            }
+            this.x += this.vx; this.y += this.vy;
+            this.vx *= 0.95; this.vy *= 0.95;
+            this.age++;
+            if (this.age > this.life) this.reset(false);
+            if (this.x < 0) this.x = w; if (this.x > w) this.x = 0;
+            if (this.y < 0) this.y = h; if (this.y > h) this.y = 0;
+        }
+        draw() {
+            const alpha = 1 - Math.abs((this.age / this.life) - 0.5) * 2;
+            ctx.globalAlpha = alpha * 0.7;
+            ctx.fillStyle = COLOR;
+            ctx.fillRect(this.x, this.y, 1.5, 1.5);
+        }
+    }
+
+    function initParticles() {
+        dpr = window.devicePixelRatio || 1;
+        w = window.innerWidth; h = window.innerHeight;
+        canvas.width = w * dpr; canvas.height = h * dpr;
+        canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+        ctx.scale(dpr, dpr);
+        const count = w < 480 ? 40 : w < 768 ? 60 : 300;
+        particles = [];
+        for (let i = 0; i < count; i++) particles.push(new Particle());
+        mouse = { x: -1000, y: -1000 };
+    }
+
+    function animate() {
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = 'rgba(3,4,5,0.1)';
+        ctx.fillRect(0, 0, w, h);
+        for (let p of particles) { p.update(); p.draw(); }
+        requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', function() { ctx.setTransform(1, 0, 0, 1, 0, 0); initParticles(); });
+    window.addEventListener('mousemove', function(e) { mouse.x = e.clientX; mouse.y = e.clientY; });
+    window.addEventListener('mouseleave', function() { mouse.x = -1000; mouse.y = -1000; });
+    initParticles();
+    animate();
+
+    // Slideshow navigation
+    const slides = document.querySelectorAll('.slide');
+    const total = slides.length;
+    let current = 0;
+    let isTransitioning = false;
+
+    const progressBar = document.getElementById('progressBar');
+    const navCounter = document.getElementById('navCounter');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    function updateProgress() {
+        progressBar.style.width = ((current + 1) / total * 100) + '%';
+        navCounter.textContent = (current + 1) + ' / ' + total;
+    }
+
+    function goTo(index) {
+        if (isTransitioning || index === current || index < 0 || index >= total) return;
+        isTransitioning = true;
+        const direction = index > current ? 'exit-up' : '';
+
+        slides[current].classList.remove('active');
+        if (direction) slides[current].classList.add(direction);
+
+        slides[index].classList.remove('exit-up');
+        slides[index].classList.add('active');
+        slides[index].scrollTop = 0;
+
+        current = index;
+        updateProgress();
+
+        setTimeout(function() {
+            slides.forEach(function(s) { if (!s.classList.contains('active')) s.classList.remove('exit-up'); });
+            isTransitioning = false;
+        }, 560);
+    }
+
+    function next() { goTo(current + 1); }
+    function prev() { goTo(current - 1); }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+    });
+
+    prevBtn.addEventListener('click', prev);
+    nextBtn.addEventListener('click', next);
+
+    let touchStartX = 0, touchStartY = 0, touchStartTime = 0;
+    document.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].clientX;
+        touchStartY = e.changedTouches[0].clientY;
+        touchStartTime = Date.now();
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+        const dt = Date.now() - touchStartTime;
+        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5 && dt < 500) {
+            dx < 0 ? next() : prev();
+        }
+    }, { passive: true });
+
+    let wheelTimeout;
+    document.addEventListener('wheel', function(e) {
+        const activeSlide = slides[current];
+        const isScrollable = activeSlide.scrollHeight > activeSlide.clientHeight;
+        const atTop = activeSlide.scrollTop <= 0;
+        const atBottom = activeSlide.scrollTop + activeSlide.clientHeight >= activeSlide.scrollHeight - 2;
+
+        if (isScrollable && !atTop && !atBottom) return;
+        if (isScrollable && e.deltaY < 0 && !atTop) return;
+        if (isScrollable && e.deltaY > 0 && !atBottom) return;
+
+        clearTimeout(wheelTimeout);
+        wheelTimeout = setTimeout(function() {
+            if (e.deltaY > 0) next();
+            else if (e.deltaY < 0) prev();
+        }, 80);
+    }, { passive: true });
+
+    updateProgress();
+})();
+</script>
+
+</body>
+</html>
