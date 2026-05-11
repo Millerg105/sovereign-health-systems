@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <base href="/proposal-pitch/k2c-rail-site/">
+    <title>Partnership Enquiry | K2C Rail</title>
+    <meta name="description" content="K2C Rail partnership enquiry. Direct to the founders. One working day response.">
+    <link rel="icon" type="image/png" href="/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+<div class="bg-gradient"></div>
+<div class="bg-grid"></div>
+
+<header class="site-nav">
+    <div class="nav-inner">
+        <a href="index.html" class="brand">
+            <div class="brand-mark">K</div>
+            <div>
+                <div class="brand-name">K2C Rail</div>
+                <div class="brand-sub">UK &amp; Ireland Rail Engineering</div>
+            </div>
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="engine-carbon-clean.html">Engine Carbon Clean</a></li>
+            <li><a href="partnerships.html">Partnerships</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="canada.html">Canada</a></li>
+            <li><a href="demo-bid-engine.html">AI Operations</a></li>
+        </ul>
+        <a href="contact.html" class="nav-cta">Partnership Enquiry</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+    </div>
+</header>
+
+<main>
+
+<section class="page-hero">
+    <div class="container">
+        <div class="eyebrow">Partnership enquiry</div>
+        <h1>Tell us what you&rsquo;re building. <span class="accent">We&rsquo;ll come back inside one working day.</span></h1>
+        <p class="lede">All enquiries go straight to the founders. Antony for commercial and governance, Chris for delivery and operations, Niall for engineering scope. No account-manager filter. If we&rsquo;re the wrong team for the work, we&rsquo;ll tell you which partner in our stack is the better fit.</p>
+    </div>
+</section>
+
+<!-- FORM + INFO GRID -->
+<section style="padding-top: 0;">
+    <div class="container">
+        <div class="grid grid-2" style="gap: 32px; align-items: start;">
+
+            <!-- FORM -->
+            <div class="glass-box" style="padding: clamp(24px, 3vw, 36px);">
+                <div class="eyebrow">Open an enquiry</div>
+                <h2 style="margin-bottom: 22px;">Partnership form.</h2>
+
+                <form id="partnershipForm" class="form-grid" autocomplete="off">
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="name">Name</label>
+                            <input id="name" name="name" type="text" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="company">Company</label>
+                            <input id="company" name="company" type="text" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="role">Role</label>
+                            <input id="role" name="role" type="text" placeholder="e.g. Procurement Director">
+                        </div>
+                        <div class="form-field">
+                            <label for="email">Email</label>
+                            <input id="email" name="email" type="email" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="phone">Phone</label>
+                            <input id="phone" name="phone" type="tel">
+                        </div>
+                        <div class="form-field">
+                            <label for="region">Region</label>
+                            <select id="region" name="region">
+                                <option>UK &amp; Ireland</option>
+                                <option>Canada</option>
+                                <option>Europe</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="enquiryType">Enquiry type</label>
+                            <select id="enquiryType" name="enquiryType">
+                                <option>Tier-1 framework partnership</option>
+                                <option>Programme management package</option>
+                                <option>Design management package</option>
+                                <option>Permanent way scope</option>
+                                <option>Engine Carbon Clean (fleet)</option>
+                                <option>Bid consortium / JV</option>
+                                <option>Canada / Metrolinx</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="scopeValue">Approx scope value</label>
+                            <select id="scopeValue" name="scopeValue">
+                                <option>Under &pound;50k</option>
+                                <option>&pound;50k - &pound;250k</option>
+                                <option>&pound;250k - &pound;1m</option>
+                                <option>&pound;1m - &pound;5m</option>
+                                <option>&pound;5m+</option>
+                                <option>Not sure yet</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="message">Project brief</label>
+                        <textarea id="message" name="message" placeholder="Tell us about the programme, framework, or fleet engagement. The more detail the better."></textarea>
+                        <div class="form-help">Treated as commercially sensitive. We sign client NDAs before any project-data exchange.</div>
+                    </div>
+
+                    <div class="cta-row" style="margin-top: 6px;">
+                        <button type="submit" class="cta primary">Send enquiry</button>
+                        <a href="mailto:hello@k2crail.com" class="cta ghost">Or email direct</a>
+                    </div>
+
+                    <div id="formStatus" style="margin-top: 14px; font-size: 13px; color: var(--accent-green-glow); display: none;"></div>
+                </form>
+            </div>
+
+            <!-- INFO -->
+            <div>
+                <div class="card mb-0" style="margin-bottom: 18px;">
+                    <div class="card-label">Direct contacts</div>
+                    <h3>Founders &amp; Engineering Director</h3>
+                    <p><strong>Antony Kearns CDir FIoD FPWI</strong><br>Commercial &amp; governance &middot; Board-level interface</p>
+                    <p><strong>Chris Kearns MCIOB MPWI NECReg</strong><br>Delivery &amp; operations &middot; NEC4 contract administration</p>
+                    <p><strong>Niall Fagan CEng FICE FPWI</strong><br>Engineering scope &middot; Technical authority</p>
+                </div>
+
+                <div class="card mb-0" style="margin-bottom: 18px;">
+                    <div class="card-label green">Response time</div>
+                    <h3>One working day, founder-replied.</h3>
+                    <p>All partnership enquiries are read and replied to by a named founder within one UK working day. If the brief requires technical scoping, the technical response follows within three working days.</p>
+                </div>
+
+                <div class="card mb-0" style="margin-bottom: 18px;">
+                    <div class="card-label">Office</div>
+                    <h3>London &middot; UK &amp; Ireland</h3>
+                    <p>Registered London office. Site presence across UK Tier-1 framework geographies. Canadian operations through partnership channel from June 2026.</p>
+                </div>
+
+                <div class="card mb-0">
+                    <div class="card-label blue">Data &amp; governance</div>
+                    <h3>Commercially sensitive by default.</h3>
+                    <p>All enquiry data held on UK-region infrastructure under UK GDPR. ICO registration in place. Standard NDA signature before any project-data exchange. Procurement-grade governance posture.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ATTENDING -->
+<section>
+    <div class="container">
+        <div class="section-head">
+            <div class="eyebrow">Where you&rsquo;ll find us in person</div>
+            <h2>Upcoming industry presence.</h2>
+        </div>
+        <div class="grid grid-3">
+            <div class="card">
+                <div class="card-label amber">Upcoming</div>
+                <h3>RIN London 2026</h3>
+                <p>Rail Industry Networking event, London, March 2026. Antony and Chris attending. Schedule a meeting at the stand via the form above.</p>
+            </div>
+            <div class="card">
+                <div class="card-label amber">Upcoming</div>
+                <h3>TRACCS Rail Day Toronto 2026</h3>
+                <p>17-18 June 2026. K2C&rsquo;s flagship Canadian market engagement event. Available for partnership conversations across the two days.</p>
+            </div>
+            <div class="card">
+                <div class="card-label silver">Quarterly</div>
+                <h3>PWI Technical Sessions</h3>
+                <p>Permanent Way Institution technical sessions. K2C Fellows participate quarterly. The next session features the slab track / trackbed paper authored with Sol Solution.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+                    <div class="brand-mark">K</div>
+                    <div>
+                        <div class="brand-name">K2C Rail</div>
+                        <div class="brand-sub">UK &amp; Ireland</div>
+                    </div>
+                </div>
+                <p style="font-size: 13px; line-height: 1.7; max-width: 320px;">Rail engineering consultancy. Programme, design, permanent way, systems integration. Hydrogen-based engine cleaning. Founded 2024.</p>
+            </div>
+            <div class="footer-col">
+                <h5>Services</h5>
+                <a href="services.html">All services</a>
+                <a href="engine-carbon-clean.html">Engine Carbon Clean</a>
+                <a href="research.html">Research &amp; insights</a>
+                <a href="partnerships.html">Partnerships</a>
+            </div>
+            <div class="footer-col">
+                <h5>Operations</h5>
+                <a href="demo-bid-engine.html">Bid-Writing Engine</a>
+                <a href="demo-pwi-drafter.html">PWI Journal Drafter</a>
+                <a href="demo-gbr-monitor.html">GBR Pipeline Monitor</a>
+                <a href="demo-standards.html">Standards Monitor</a>
+            </div>
+            <div class="footer-col">
+                <h5>Company</h5>
+                <a href="about.html">About</a>
+                <a href="canada.html">Canada expansion</a>
+                <a href="contact.html">Partnership enquiry</a>
+            </div>
+        </div>
+        <div class="footer-bar">
+            <div>&copy; K2C Rail UK &amp; Ireland Ltd &middot; Founded 2024</div>
+            <div>Engineered for the network.</div>
+        </div>
+    </div>
+</footer>
+
+<script src="assets/particles.js"></script>
+<script>
+(function() {
+    const form = document.getElementById('partnershipForm');
+    const status = document.getElementById('formStatus');
+    if (!form) return;
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        status.style.display = 'block';
+        status.textContent = 'Enquiry received. A founder will reply within one working day.';
+        form.querySelector('button[type="submit"]').setAttribute('disabled', 'disabled');
+    });
+})();
+</script>
+</body>
+</html>

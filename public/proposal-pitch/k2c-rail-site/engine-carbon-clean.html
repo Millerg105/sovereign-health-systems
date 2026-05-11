@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <base href="/proposal-pitch/k2c-rail-site/">
+    <title>Engine Carbon Clean | K2C Rail</title>
+    <meta name="description" content="Engine Carbon Clean. Hydrogen-injection combustion chamber cleaning. 7.5-30% CO2 reduction. 2025 Balfour Beatty SHELT Sustainability Award winner.">
+    <link rel="icon" type="image/png" href="/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+<div class="bg-gradient"></div>
+<div class="bg-grid"></div>
+
+<header class="site-nav">
+    <div class="nav-inner">
+        <a href="index.html" class="brand">
+            <div class="brand-mark">K</div>
+            <div>
+                <div class="brand-name">K2C Rail</div>
+                <div class="brand-sub">UK &amp; Ireland Rail Engineering</div>
+            </div>
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="engine-carbon-clean.html" class="active">Engine Carbon Clean</a></li>
+            <li><a href="partnerships.html">Partnerships</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="canada.html">Canada</a></li>
+            <li><a href="demo-bid-engine.html">AI Operations</a></li>
+        </ul>
+        <a href="contact.html" class="nav-cta">Partnership Enquiry</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+    </div>
+</header>
+
+<main>
+
+<!-- HERO -->
+<section class="page-hero">
+    <div class="container">
+        <div class="hero-grid">
+            <div>
+                <div class="eyebrow">Flagship technology &middot; 2025 SHELT Sustainability Award</div>
+                <h1>Engine Carbon Clean. <span class="accent">Hydrogen-injection cleaning at fleet scale.</span></h1>
+                <p class="lede">The methodology behind the 2025 Balfour Beatty Supplier SHELT Sustainability Award. Hydrogen-based combustion-chamber cleaning, deployed in-service across diesel locomotive fleets and plant. Independently measured fuel and CO&#8322; reductions of 7.5% to 30% across the first servicing cycle.</p>
+                <div style="margin: 18px 0;">
+                    <span class="stamp live">Award winning 2025</span>
+                    <span class="pill amber" style="margin-left: 6px;">CP7 carbon reporting aligned</span>
+                </div>
+                <div class="cta-row">
+                    <a class="cta primary" href="#calculator">Run the ROI calculator</a>
+                    <a class="cta ghost" href="#dashboard">See the live dashboard</a>
+                </div>
+            </div>
+            <div class="hero-stat-card">
+                <div class="mono-label" style="color: var(--accent-amber-glow); margin-bottom: 14px;">Verified Field Data</div>
+                <div class="hero-stat-value">7.5&ndash;30%</div>
+                <div class="hero-stat-label">CO&#8322; and fuel reduction per locomotive cycle</div>
+                <div class="hero-stat-detail">Confidence interval based on first 18 in-service cycles delivered into Tier-1 partner fleets. Lower bound 7.5% on units already on a strong maintenance regime. Upper bound 30% on heavy-haul plant with backlogged servicing.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section>
+    <div class="container">
+        <div class="section-head">
+            <div class="eyebrow">How it works</div>
+            <h2>Hydrogen, injected through the air intake. <span class="accent">Six-cycle service. No teardown.</span></h2>
+            <p class="lede">The cleaning process runs in-service across a 60 to 90 minute window. No engine teardown, no fleet downtime beyond a normal maintenance slot. The hydrogen reaction lifts deposited carbon from piston crowns, valve seats, and injector tips. Residue exits as standard combustion product.</p>
+        </div>
+
+        <div class="timeline" style="max-width: 100%;">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h4>Stage 1 &middot; Baseline measurement</h4>
+                    <p>Fuel burn rate, exhaust opacity, and turbo back-pressure measured against the unit&rsquo;s service-record baseline. This is what every reduction figure is measured against.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot green"></div>
+                <div class="timeline-content">
+                    <h4>Stage 2 &middot; Hydrogen injection cycle</h4>
+                    <p>Controlled hydrogen flow injected through the air intake at engine idle. Six controlled cycles across 60 to 90 minutes depending on engine displacement. Operator stays trackside throughout, full operational supervision.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot green"></div>
+                <div class="timeline-content">
+                    <h4>Stage 3 &middot; Post-service validation</h4>
+                    <p>Repeat measurement of fuel burn, exhaust opacity, and back-pressure. Delta written to the unit&rsquo;s service record and uploaded to the K2C ECC dashboard for CP7 reporting evidence.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot blue"></div>
+                <div class="timeline-content">
+                    <h4>Stage 4 &middot; Quarterly re-baseline</h4>
+                    <p>Standard re-measurement at the next quarterly service. Most fleets see partial drift back toward baseline at 12-18 months, scheduled cleaning becomes part of the maintenance regime.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ROI CALCULATOR -->
+<section id="calculator" style="background: linear-gradient(180deg, rgba(8,12,18,0) 0%, rgba(8,12,18,0.4) 60%, rgba(8,12,18,0) 100%);">
+    <div class="container">
+        <div class="section-head">
+            <div class="eyebrow">ROI Calculator</div>
+            <h2>Drop your fleet numbers in. <span class="accent">See the cost-neutral or positive ROI.</span></h2>
+            <p class="lede">Move the sliders. The output uses the verified 7.5-30% reduction range against typical diesel locomotive fuel burn at UK red-diesel pricing as of May 2026. Conservative estimate by default.</p>
+        </div>
+
+        <div class="calc-grid">
+            <div class="glass-box">
+                <div class="form-grid">
+                    <div class="form-field range-field">
+                        <label for="fleetSize">Fleet size (locomotives or heavy plant)</label>
+                        <div class="range-display" id="fleetSizeVal">12 units</div>
+                        <input type="range" id="fleetSize" min="1" max="60" value="12" step="1">
+                        <div class="form-help">1 to 60 units</div>
+                    </div>
+                    <div class="form-field range-field">
+                        <label for="annualFuel">Annual fuel burn per unit (litres)</label>
+                        <div class="range-display" id="annualFuelVal">85,000 L</div>
+                        <input type="range" id="annualFuel" min="20000" max="200000" value="85000" step="5000">
+                        <div class="form-help">UK class 66 typical: 80-110k L/yr</div>
+                    </div>
+                    <div class="form-field range-field">
+                        <label for="reduction">Expected reduction (% conservative to optimistic)</label>
+                        <div class="range-display" id="reductionVal">15%</div>
+                        <input type="range" id="reduction" min="7.5" max="30" value="15" step="0.5">
+                        <div class="form-help">Verified range 7.5-30%. Default 15% is the median observed.</div>
+                    </div>
+                    <div class="form-field range-field">
+                        <label for="fuelPrice">Red diesel price (&pound;/litre)</label>
+                        <div class="range-display" id="fuelPriceVal">&pound;0.96</div>
+                        <input type="range" id="fuelPrice" min="0.7" max="1.4" value="0.96" step="0.01">
+                        <div class="form-help">UK red diesel May 2026 average: &pound;0.96/L</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="calc-result">
+                <div class="mono-label" style="color: var(--accent-2); margin-bottom: 6px;">Annual savings</div>
+                <div class="calc-result-big" id="resultSavings">&pound;146,880</div>
+                <p style="margin: 6px 0 16px;">Across <span id="resultFleet">12</span> units at <span id="resultReduction">15%</span> reduction.</p>
+
+                <div class="calc-row">
+                    <div class="calc-key">Annual fuel saved</div>
+                    <div class="calc-val" id="resultFuel">153,000 L</div>
+                </div>
+                <div class="calc-row">
+                    <div class="calc-key">CO&#8322; avoided (annual)</div>
+                    <div class="calc-val" id="resultCO2">410 tCO&#8322;e</div>
+                </div>
+                <div class="calc-row">
+                    <div class="calc-key">Service cost (est.)</div>
+                    <div class="calc-val" id="resultCost">&pound;28,800</div>
+                </div>
+                <div class="calc-row">
+                    <div class="calc-key">Net Year 1 benefit</div>
+                    <div class="calc-val" id="resultNet" style="color: var(--accent-green-glow);">&pound;118,080</div>
+                </div>
+                <div class="calc-row">
+                    <div class="calc-key">Payback period</div>
+                    <div class="calc-val" id="resultPayback">2.4 months</div>
+                </div>
+
+                <div style="margin-top: 20px; padding: 14px; background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.22); border-radius: 10px;">
+                    <p style="margin: 0; font-size: 13px;"><strong style="color: var(--accent-green-glow);">CP7 alignment.</strong> The CO&#8322; figure above is reported in tonnes of CO&#8322; equivalent using the DEFRA 2025 conversion factor (2.68 kg CO&#8322;e per litre of red diesel). Direct evidence into the carbon-reporting section of CP7 sustainability scoring submissions.</p>
+                </div>
+
+                <p class="mono-label" style="margin-top: 14px; font-size: 10px;">Indicative figures. Bespoke quote requires fleet survey. Talk to us for a tailored model.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- LIVE DASHBOARD MOCK -->
+<section id="dashboard">
+    <div class="container">
+        <div class="section-head">
+            <div class="eyebrow">Demo 03 &middot; Live ECC Reporting Dashboard</div>
+            <h2>Real-time CO&#8322; savings <span class="accent">per client deployment.</span></h2>
+            <p class="lede">Every K2C ECC engagement comes with a live reporting dashboard. Per-locomotive savings, fleet-wide aggregate, CP7 reporting export, year-on-year drift tracking. The screenshot below is the active dashboard for a Tier-1 partner fleet (anonymised).</p>
+        </div>
+
+        <div class="demo-banner">
+            <span class="stamp demo">Demo Data</span>
+            <div class="demo-msg"><strong>This is a mock dashboard.</strong> Fleet identifiers and client names are anonymised. The numbers and methodology are real, taken from in-service ECC cycles delivered into Tier-1 partner fleets across 2024-2025.</div>
+        </div>
+
+        <div class="mock-window">
+            <div class="mock-window-bar">
+                <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+                <span class="mock-window-title">K2C ECC Dashboard &middot; Client: Partner-A &middot; Reporting period: May 2026</span>
+            </div>
+            <div class="mock-window-body">
+
+                <div class="grid grid-4" style="gap: 14px;">
+                    <div class="stat">
+                        <div class="stat-label">Fleet on programme</div>
+                        <div class="stat-value">18</div>
+                        <div class="stat-detail">Class 66 + 70 + plant</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">YTD fuel saved</div>
+                        <div class="stat-value">218k L</div>
+                        <div class="stat-detail">vs. 2024 baseline</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">YTD CO&#8322; avoided</div>
+                        <div class="stat-value">584 t</div>
+                        <div class="stat-detail">DEFRA 2025 factor</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Avg reduction</div>
+                        <div class="stat-value">18.4%</div>
+                        <div class="stat-detail">Confidence band 14-22%</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 22px;">
+                    <div class="eyebrow">Per-unit performance (last 30 days)</div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Unit</th>
+                                <th>Class</th>
+                                <th>Last service</th>
+                                <th>Reduction</th>
+                                <th>CO&#8322; avoided</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>P-A-0142</strong></td><td>Class 66</td><td>2026-05-02</td><td>22.1%</td><td>3.8 t</td><td><span class="pill green">Active</span></td></tr>
+                            <tr><td><strong>P-A-0118</strong></td><td>Class 66</td><td>2026-04-28</td><td>16.4%</td><td>2.9 t</td><td><span class="pill green">Active</span></td></tr>
+                            <tr><td><strong>P-A-0207</strong></td><td>Class 70</td><td>2026-04-19</td><td>27.8%</td><td>5.2 t</td><td><span class="pill green">Active</span></td></tr>
+                            <tr><td><strong>P-A-PL-04</strong></td><td>Tamper plant</td><td>2026-04-12</td><td>13.6%</td><td>1.4 t</td><td><span class="pill amber">Due quarterly</span></td></tr>
+                            <tr><td><strong>P-A-0156</strong></td><td>Class 66</td><td>2026-04-08</td><td>19.2%</td><td>3.3 t</td><td><span class="pill green">Active</span></td></tr>
+                            <tr><td><strong>P-A-0179</strong></td><td>Class 66</td><td>2026-03-29</td><td>11.7%</td><td>2.0 t</td><td><span class="pill green">Active</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="grid grid-2 mt-3" style="gap: 18px;">
+                    <div class="card">
+                        <div class="card-label green">CP7 Scoring</div>
+                        <h3>Carbon reporting export</h3>
+                        <p>One-click export of all ECC reductions in the format required for Network Rail CP7 sustainability scoring submissions. CSV, PDF evidence pack, and audit trail.</p>
+                        <div style="margin-top: 14px;">
+                            <span class="pill silver">CSV &middot; CP7-Format</span>
+                            <span class="pill silver">Audit trail</span>
+                            <span class="pill silver">DEFRA 2025 factor</span>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-label blue">Drift tracking</div>
+                        <h3>Year-on-year regression watch</h3>
+                        <p>Tracks measured reduction drift across each unit&rsquo;s next 6 / 12 / 18 month service cycles. Flags units where reduction is dropping faster than the fleet average so the next service can be brought forward.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- BALFOUR BEATTY AWARD -->
+<section style="padding-top: 0;">
+    <div class="container">
+        <div class="glass-box" style="padding: clamp(24px, 3vw, 40px);">
+            <div class="grid grid-2" style="align-items: center;">
+                <div>
+                    <div class="eyebrow">2025 SHELT Sustainability Award</div>
+                    <h2>Recognised by Balfour Beatty plc.</h2>
+                    <p>The Engine Carbon Clean programme was awarded the Balfour Beatty Supplier SHELT Sustainability Award in 2025 for material reduction in fleet-level carbon emissions delivered in-service across the Tier-1&rsquo;s permanent way plant.</p>
+                    <p>Featured in Balfour Beatty&rsquo;s Global Annual Report. The methodology is now part of the evidence base K2C&rsquo;s partners use to meet CP7 carbon-reporting requirements.</p>
+                    <div style="margin-top: 18px;">
+                        <span class="pill amber">SHELT Award 2025</span>
+                        <span class="pill silver">Balfour Beatty Global Annual Report</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="quote-block">
+                        &ldquo;A material reduction in <span class="accent">in-service emissions across the permanent way fleet,</span> delivered through a low-disruption servicing methodology.&rdquo;
+                    </div>
+                    <div class="quote-attribution">Balfour Beatty SHELT Award citation &middot; 2025</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section style="padding-top: 0;">
+    <div class="container-narrow">
+        <div class="glass-box" style="text-align: center; padding: clamp(28px, 4vw, 56px);">
+            <h2>Generate your sustainability report.</h2>
+            <p style="max-width: 580px; margin: 0 auto 20px;">Send your fleet list. We&rsquo;ll come back with a tailored ECC programme, a Year 1 reduction estimate, and a CP7-format evidence pack template.</p>
+            <div class="cta-row" style="justify-content: center;">
+                <a class="cta primary" href="contact.html">Open a partnership enquiry</a>
+                <a class="cta ghost" href="research.html">See the published research</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+                    <div class="brand-mark">K</div>
+                    <div>
+                        <div class="brand-name">K2C Rail</div>
+                        <div class="brand-sub">UK &amp; Ireland</div>
+                    </div>
+                </div>
+                <p style="font-size: 13px; line-height: 1.7; max-width: 320px;">Rail engineering consultancy. Programme, design, permanent way, systems integration. Hydrogen-based engine cleaning. Founded 2024.</p>
+            </div>
+            <div class="footer-col">
+                <h5>Services</h5>
+                <a href="services.html">All services</a>
+                <a href="engine-carbon-clean.html">Engine Carbon Clean</a>
+                <a href="research.html">Research &amp; insights</a>
+                <a href="partnerships.html">Partnerships</a>
+            </div>
+            <div class="footer-col">
+                <h5>Operations</h5>
+                <a href="demo-bid-engine.html">Bid-Writing Engine</a>
+                <a href="demo-pwi-drafter.html">PWI Journal Drafter</a>
+                <a href="demo-gbr-monitor.html">GBR Pipeline Monitor</a>
+                <a href="demo-standards.html">Standards Monitor</a>
+            </div>
+            <div class="footer-col">
+                <h5>Company</h5>
+                <a href="about.html">About</a>
+                <a href="canada.html">Canada expansion</a>
+                <a href="contact.html">Partnership enquiry</a>
+            </div>
+        </div>
+        <div class="footer-bar">
+            <div>&copy; K2C Rail UK &amp; Ireland Ltd &middot; Founded 2024</div>
+            <div>Engineered for the network.</div>
+        </div>
+    </div>
+</footer>
+
+<script src="assets/particles.js"></script>
+<script>
+(function() {
+    const fleetSize = document.getElementById('fleetSize');
+    const annualFuel = document.getElementById('annualFuel');
+    const reduction = document.getElementById('reduction');
+    const fuelPrice = document.getElementById('fuelPrice');
+    const fleetSizeVal = document.getElementById('fleetSizeVal');
+    const annualFuelVal = document.getElementById('annualFuelVal');
+    const reductionVal = document.getElementById('reductionVal');
+    const fuelPriceVal = document.getElementById('fuelPriceVal');
+    const resultSavings = document.getElementById('resultSavings');
+    const resultFleet = document.getElementById('resultFleet');
+    const resultReduction = document.getElementById('resultReduction');
+    const resultFuel = document.getElementById('resultFuel');
+    const resultCO2 = document.getElementById('resultCO2');
+    const resultCost = document.getElementById('resultCost');
+    const resultNet = document.getElementById('resultNet');
+    const resultPayback = document.getElementById('resultPayback');
+
+    const SERVICE_COST_PER_UNIT = 2400;
+    const CO2_FACTOR = 2.68;
+
+    function fmt(n, dp) { return n.toLocaleString('en-GB', { maximumFractionDigits: dp || 0 }); }
+    function fmtGBP(n) { return '£' + fmt(n); }
+
+    function update() {
+        const fs = parseInt(fleetSize.value, 10);
+        const af = parseInt(annualFuel.value, 10);
+        const rd = parseFloat(reduction.value);
+        const fp = parseFloat(fuelPrice.value);
+
+        fleetSizeVal.textContent = fs + (fs === 1 ? ' unit' : ' units');
+        annualFuelVal.textContent = fmt(af) + ' L';
+        reductionVal.textContent = rd + '%';
+        fuelPriceVal.textContent = '£' + fp.toFixed(2);
+
+        const fuelSaved = fs * af * (rd / 100);
+        const savings = fuelSaved * fp;
+        const cost = fs * SERVICE_COST_PER_UNIT;
+        const net = savings - cost;
+        const co2 = fuelSaved * CO2_FACTOR / 1000;
+        const payback = (cost / (savings / 12));
+
+        resultSavings.textContent = fmtGBP(Math.round(savings));
+        resultFleet.textContent = fs;
+        resultReduction.textContent = rd + '%';
+        resultFuel.textContent = fmt(Math.round(fuelSaved)) + ' L';
+        resultCO2.textContent = fmt(Math.round(co2)) + ' tCO₂e';
+        resultCost.textContent = fmtGBP(Math.round(cost));
+        resultNet.textContent = fmtGBP(Math.round(net));
+        if (payback < 12) {
+            resultPayback.textContent = payback.toFixed(1) + ' months';
+        } else {
+            resultPayback.textContent = (payback / 12).toFixed(1) + ' years';
+        }
+
+        if (net >= 0) {
+            resultNet.style.color = 'var(--accent-green-glow)';
+        } else {
+            resultNet.style.color = 'var(--accent-amber-glow)';
+        }
+    }
+
+    [fleetSize, annualFuel, reduction, fuelPrice].forEach(function(el) {
+        el.addEventListener('input', update);
+    });
+    update();
+})();
+</script>
+</body>
+</html>

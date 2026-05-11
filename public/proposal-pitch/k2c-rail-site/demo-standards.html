@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <base href="/proposal-pitch/k2c-rail-site/">
+    <title>Demo 05 &middot; Standards &amp; Regulatory Alignment | K2C Rail</title>
+    <meta name="description" content="K2C AI Operations Demo 05. Standards Monitor. Live alignment against Network Rail, Metrolinx, EU TSI updates. ISO 27001 compliance.">
+    <link rel="icon" type="image/png" href="/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles.css">
+    <style>
+        .compliance-meter { display: flex; flex-direction: column; gap: 14px; }
+        .meter-row { display: grid; grid-template-columns: 200px 1fr 64px; align-items: center; gap: 16px; }
+        @media (max-width: 700px) { .meter-row { grid-template-columns: 1fr; gap: 6px; } }
+        .meter-label { font: 500 11px/1.4 'JetBrains Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-2); }
+        .meter-bar { height: 8px; background: rgba(168,178,192,0.14); border-radius: 999px; overflow: hidden; position: relative; }
+        .meter-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--accent-blue), var(--accent), var(--accent-glow)); transition: width 0.8s cubic-bezier(.4,0,.2,1); }
+        .meter-fill.warn { background: linear-gradient(90deg, var(--accent-amber), var(--accent-amber-glow)); }
+        .meter-val { font: 600 14px/1 'Playfair Display', serif; color: var(--accent-glow); text-align: right; }
+        .alert-card { padding: 14px 16px; border-radius: 12px; border: 1px solid var(--border); background: rgba(8,12,18,0.5); display: grid; grid-template-columns: 70px 1fr auto; gap: 14px; align-items: center; margin-bottom: 10px; }
+        @media (max-width: 600px) { .alert-card { grid-template-columns: 1fr; } }
+        .alert-card.severity-high { border-color: rgba(245,158,11,0.35); background: rgba(245,158,11,0.04); }
+        .alert-card.severity-info { border-color: rgba(122,138,158,0.3); }
+        .alert-date { font: 600 10px/1.4 'JetBrains Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+    </style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+<div class="bg-gradient"></div>
+<div class="bg-grid"></div>
+
+<header class="site-nav">
+    <div class="nav-inner">
+        <a href="index.html" class="brand">
+            <div class="brand-mark">K</div>
+            <div>
+                <div class="brand-name">K2C Rail</div>
+                <div class="brand-sub">UK &amp; Ireland Rail Engineering</div>
+            </div>
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="engine-carbon-clean.html">Engine Carbon Clean</a></li>
+            <li><a href="partnerships.html">Partnerships</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="canada.html">Canada</a></li>
+            <li><a href="demo-standards.html" class="active">AI Operations</a></li>
+        </ul>
+        <a href="contact.html" class="nav-cta">Partnership Enquiry</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+    </div>
+</header>
+
+<main>
+
+<section class="page-hero">
+    <div class="container">
+        <div class="eyebrow">Demo 05 &middot; AI Operations Layer</div>
+        <h1>Automated Regulatory <span class="accent">Alignment.</span></h1>
+        <p class="lede">Live monitoring across Network Rail, Metrolinx, EU TSI, and other standards bodies. Cross-references K2C&rsquo;s service offerings against the latest standards and flags where service descriptions or methodology need updating. ISO 27001 compliance status. Audit-ready evidence trail.</p>
+        <div style="margin-top: 18px;">
+            <span class="stamp demo">Interactive Demo</span>
+            <span class="pill silver" style="margin-left: 6px;">12 standards bodies tracked</span>
+        </div>
+    </div>
+</section>
+
+<section style="padding-top: 0;">
+    <div class="container">
+        <div class="demo-banner">
+            <span class="stamp demo">Demo Data</span>
+            <div class="demo-msg"><strong>This is a working demo dashboard.</strong> The compliance scoring, alignment percentages, and alerts are based on K2C&rsquo;s real internal standards-tracking process. The real product runs against a live standards-body API ingestion layer with daily refresh.</div>
+        </div>
+    </div>
+</section>
+
+<!-- COMPLIANCE DASHBOARD -->
+<section style="padding-top: 0;">
+    <div class="container">
+        <div class="mock-window">
+            <div class="mock-window-bar">
+                <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+                <span class="mock-window-title">K2C Standards Monitor v0.8 &middot; Last refresh 11 May 2026 06:00 &middot; 12 standards bodies tracked</span>
+            </div>
+            <div class="mock-window-body">
+
+                <!-- HEADLINE METRICS -->
+                <div class="grid grid-4" style="gap: 14px;">
+                    <div class="stat">
+                        <div class="stat-label">Standards tracked</div>
+                        <div class="stat-value">312</div>
+                        <div class="stat-detail">Across 12 bodies</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Overall alignment</div>
+                        <div class="stat-value">94%</div>
+                        <div class="stat-detail">K2C deliverables vs current standards</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Drift alerts (open)</div>
+                        <div class="stat-value">3</div>
+                        <div class="stat-detail">Action required this month</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Audit-ready</div>
+                        <div class="stat-value">Yes</div>
+                        <div class="stat-detail">Evidence trail current</div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- ALIGNMENT METER -->
+                <div class="eyebrow">Alignment by body</div>
+                <h3>K2C deliverables against current standards.</h3>
+                <div class="compliance-meter mt-2">
+                    <div class="meter-row">
+                        <div class="meter-label">Network Rail Group Standards</div>
+                        <div class="meter-bar"><div class="meter-fill" style="width: 96%;"></div></div>
+                        <div class="meter-val">96%</div>
+                    </div>
+                    <div class="meter-row">
+                        <div class="meter-label">Network Rail GRIP / PACE</div>
+                        <div class="meter-bar"><div class="meter-fill" style="width: 98%;"></div></div>
+                        <div class="meter-val">98%</div>
+                    </div>
+                    <div class="meter-row">
+                        <div class="meter-label">TfL Project Development Manual</div>
+                        <div class="meter-bar"><div class="meter-fill" style="width: 94%;"></div></div>
+                        <div class="meter-val">94%</div>
+                    </div>
+                    <div class="meter-row">
+                        <div class="meter-label">RISQS audit scopes</div>
+                        <div class="meter-bar"><div class="meter-fill" style="width: 100%;"></div></div>
+                        <div class="meter-val">100%</div>
+                    </div>
+                    <div class="meter-row">
+                        <div class="meter-label">PWI Code of Practice</div>
+                        <div class="meter-bar"><div class="meter-fill" style="width: 100%;"></div></div>
+                        <div class="meter-val">100%</div>
+                    </div>
+                    <div class="meter-row">
+                        <div class="meter-label">Metrolinx M1-04</div>
+                        <div class="meter-bar"><div class="meter-fill" style="width: 88%;"></div></div>
+                        <div class="meter-val">88%</div>
+                    </div>
+                    <div class="meter-row">
+                        <div class="meter-label">AREMA Chapter 5 (PWay)</div>
+                        <div class="meter-bar"><div class="meter-fill warn" style="width: 84%;"></div></div>
+                        <div class="meter-val">84%</div>
+                    </div>
+                    <div class="meter-row">
+                        <div class="meter-label">EU TSI compliance</div>
+                        <div class="meter-bar"><div class="meter-fill" style="width: 92%;"></div></div>
+                        <div class="meter-val">92%</div>
+                    </div>
+                    <div class="meter-row">
+                        <div class="meter-label">Iarnr&oacute;d &Eacute;ireann standards</div>
+                        <div class="meter-bar"><div class="meter-fill warn" style="width: 76%;"></div></div>
+                        <div class="meter-val">76%</div>
+                    </div>
+                    <div class="meter-row">
+                        <div class="meter-label">CDM 2015 (UK design risk)</div>
+                        <div class="meter-bar"><div class="meter-fill" style="width: 100%;"></div></div>
+                        <div class="meter-val">100%</div>
+                    </div>
+                    <div class="meter-row">
+                        <div class="meter-label">ISO 9001 (quality)</div>
+                        <div class="meter-bar"><div class="meter-fill" style="width: 100%;"></div></div>
+                        <div class="meter-val">100%</div>
+                    </div>
+                    <div class="meter-row">
+                        <div class="meter-label">ISO 27001 (info security)</div>
+                        <div class="meter-bar"><div class="meter-fill warn" style="width: 72%;"></div></div>
+                        <div class="meter-val">72%</div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- ACTIVE ALERTS -->
+                <div class="eyebrow">Active alerts &middot; standards drift</div>
+                <h3>What needs attention this month.</h3>
+
+                <div class="alert-card severity-high mt-2">
+                    <span class="pill amber">High</span>
+                    <div>
+                        <h4 style="margin-bottom: 4px;">ISO 27001 alignment programme</h4>
+                        <p style="font-size: 13px; margin: 0;">K2C is at 72% against the ISO 27001 control set. Certification path is on track for Q3 2026 but procurement on Tier-1 frameworks requiring evidence-now is currently flagged.</p>
+                    </div>
+                    <span class="alert-date">Q3 2026</span>
+                </div>
+
+                <div class="alert-card severity-high">
+                    <span class="pill amber">High</span>
+                    <div>
+                        <h4 style="margin-bottom: 4px;">AREMA Chapter 5 mapping gap</h4>
+                        <p style="font-size: 13px; margin: 0;">Recent AREMA update (Apr 2026) introduced new clause on slab track transition design. K2C methodology needs an addendum drafted before Canadian bids reference Chapter 5.</p>
+                    </div>
+                    <span class="alert-date">28 May 2026</span>
+                </div>
+
+                <div class="alert-card severity-high">
+                    <span class="pill amber">High</span>
+                    <div>
+                        <h4 style="margin-bottom: 4px;">Iarnr&oacute;d &Eacute;ireann standards mapping</h4>
+                        <p style="font-size: 13px; margin: 0;">Irish electrification standards updated 30 April 2026. K2C standards mapping is in progress. Cannot bid Irish renewals framework until mapping is at 90%.</p>
+                    </div>
+                    <span class="alert-date">Q1 2027</span>
+                </div>
+
+                <div class="alert-card severity-info">
+                    <span class="pill silver">Info</span>
+                    <div>
+                        <h4 style="margin-bottom: 4px;">CP7 sustainability scoring weighting change</h4>
+                        <p style="font-size: 13px; margin: 0;">Network Rail revised CP7 sustainability weighting to 18% (up from 14%) on PWay frameworks. K2C ECC programme already aligned. No action required.</p>
+                    </div>
+                    <span class="alert-date">06 May 2026</span>
+                </div>
+
+                <div class="alert-card severity-info">
+                    <span class="pill silver">Info</span>
+                    <div>
+                        <h4 style="margin-bottom: 4px;">EU TSI 2026 revision</h4>
+                        <p style="font-size: 13px; margin: 0;">EU Technical Specifications for Interoperability 2026 published 03 May. K2C SNCF-interface deliverables mapped, no service description changes needed.</p>
+                    </div>
+                    <span class="alert-date">03 May 2026</span>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- ISO 27001 STATUS -->
+                <div>
+                    <div class="eyebrow">ISO 27001 status &middot; expanded</div>
+                    <h3>Information security programme.</h3>
+                    <table class="data-table mt-2">
+                        <thead>
+                            <tr>
+                                <th>Control area</th>
+                                <th>Status</th>
+                                <th>Evidence stage</th>
+                                <th>Target close</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Access management</strong></td><td><span class="pill green">Complete</span></td><td>Audit-ready</td><td>Closed 2026-04</td></tr>
+                            <tr><td><strong>Asset register</strong></td><td><span class="pill green">Complete</span></td><td>Audit-ready</td><td>Closed 2026-03</td></tr>
+                            <tr><td><strong>Incident response</strong></td><td><span class="pill amber">In delivery</span></td><td>Procedure drafted, tabletop pending</td><td>2026-06</td></tr>
+                            <tr><td><strong>Supplier governance</strong></td><td><span class="pill amber">In delivery</span></td><td>Register live, contracts in review</td><td>2026-07</td></tr>
+                            <tr><td><strong>Penetration testing</strong></td><td><span class="pill silver">Scheduled</span></td><td>External provider engaged</td><td>2026-08</td></tr>
+                            <tr><td><strong>External audit</strong></td><td><span class="pill silver">Scheduled</span></td><td>UKAS-accredited auditor confirmed</td><td>2026-09</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section>
+    <div class="container">
+        <div class="section-head">
+            <div class="eyebrow">How the monitor works</div>
+            <h2>Three signals, one alignment dashboard.</h2>
+        </div>
+        <div class="grid grid-3">
+            <div class="card">
+                <div class="card-label">Signal 01</div>
+                <h3>Standards-body change feed</h3>
+                <p>Daily ingest from Network Rail, TfL, RSSB, PWI, RISQS, Metrolinx, AREMA, Transport Canada, EU TSI, Iarnr&oacute;d &Eacute;ireann, SNCF technical regulations, ISO. Every clause change tagged and stored.</p>
+            </div>
+            <div class="card">
+                <div class="card-label">Signal 02</div>
+                <h3>K2C deliverable corpus</h3>
+                <p>Every K2C service description, methodology document, and project deliverable indexed against the standards corpus. Drift detected when a standard moves and the deliverable doesn&rsquo;t.</p>
+            </div>
+            <div class="card">
+                <div class="card-label">Signal 03</div>
+                <h3>Bid-stage alignment check</h3>
+                <p>Every new PQQ goes through the monitor before submission. Any unaligned clause is flagged and the bid team is shown the gap before it lands on a scoring sheet.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section style="padding-top: 0;">
+    <div class="container-narrow">
+        <div class="glass-box" style="text-align: center; padding: clamp(28px, 4vw, 56px);">
+            <h2>Audit your compliance now.</h2>
+            <p style="max-width: 580px; margin: 0 auto 20px;">Run your service descriptions and methodology library through the K2C Standards Monitor. We&rsquo;ll come back with an alignment score per body and the prioritised drift list.</p>
+            <div class="cta-row" style="justify-content: center;">
+                <a class="cta primary" href="contact.html">Open a partnership enquiry</a>
+                <a class="cta ghost" href="demo-bid-engine.html">Back to Bid Engine</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+                    <div class="brand-mark">K</div>
+                    <div>
+                        <div class="brand-name">K2C Rail</div>
+                        <div class="brand-sub">UK &amp; Ireland</div>
+                    </div>
+                </div>
+                <p style="font-size: 13px; line-height: 1.7; max-width: 320px;">Rail engineering consultancy. Programme, design, permanent way, systems integration. Hydrogen-based engine cleaning. Founded 2024.</p>
+            </div>
+            <div class="footer-col">
+                <h5>Services</h5>
+                <a href="services.html">All services</a>
+                <a href="engine-carbon-clean.html">Engine Carbon Clean</a>
+                <a href="research.html">Research &amp; insights</a>
+                <a href="partnerships.html">Partnerships</a>
+            </div>
+            <div class="footer-col">
+                <h5>Operations</h5>
+                <a href="demo-bid-engine.html">Bid-Writing Engine</a>
+                <a href="demo-pwi-drafter.html">PWI Journal Drafter</a>
+                <a href="demo-gbr-monitor.html">GBR Pipeline Monitor</a>
+                <a href="demo-standards.html">Standards Monitor</a>
+            </div>
+            <div class="footer-col">
+                <h5>Company</h5>
+                <a href="about.html">About</a>
+                <a href="canada.html">Canada expansion</a>
+                <a href="contact.html">Partnership enquiry</a>
+            </div>
+        </div>
+        <div class="footer-bar">
+            <div>&copy; K2C Rail UK &amp; Ireland Ltd &middot; Founded 2024</div>
+            <div>Engineered for the network.</div>
+        </div>
+    </div>
+</footer>
+
+<script src="assets/particles.js"></script>
+</body>
+</html>

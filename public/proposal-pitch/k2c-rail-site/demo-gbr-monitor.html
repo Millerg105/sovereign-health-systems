@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <base href="/proposal-pitch/k2c-rail-site/">
+    <title>Demo 04 &middot; GBR &amp; Network Rail Pipeline Monitor | K2C Rail</title>
+    <meta name="description" content="K2C AI Operations Demo 04. GBR Pipeline Monitor. UK rail supply chain heat-map, TfL framework tracker, Canada and Ireland expansion intelligence.">
+    <link rel="icon" type="image/png" href="/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles.css">
+    <style>
+        .heatmap { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; margin-top: 16px; }
+        .heat-cell { aspect-ratio: 1; border-radius: 6px; display: grid; place-items: center; font: 600 9px/1 'JetBrains Mono', monospace; letter-spacing: 0.06em; color: var(--text-primary); transition: transform 0.2s; cursor: default; }
+        .heat-cell:hover { transform: scale(1.06); }
+        .heat-cell.h-low { background: rgba(122,138,158,0.18); }
+        .heat-cell.h-mid { background: rgba(168,178,192,0.32); color: #06090d; }
+        .heat-cell.h-high { background: linear-gradient(135deg, rgba(194,204,216,0.72), rgba(221,228,238,0.85)); color: #06090d; }
+        .heat-cell.h-peak { background: linear-gradient(135deg, var(--accent-glow), #fff); color: #06090d; box-shadow: 0 0 18px rgba(221,228,238,0.6); }
+        .heat-legend { display: flex; gap: 14px; align-items: center; margin-top: 14px; font: 500 10px/1 'JetBrains Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); flex-wrap: wrap; }
+        .heat-legend .swatch { display: inline-block; width: 14px; height: 14px; border-radius: 4px; margin-right: 6px; vertical-align: middle; }
+    </style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+<div class="bg-gradient"></div>
+<div class="bg-grid"></div>
+
+<header class="site-nav">
+    <div class="nav-inner">
+        <a href="index.html" class="brand">
+            <div class="brand-mark">K</div>
+            <div>
+                <div class="brand-name">K2C Rail</div>
+                <div class="brand-sub">UK &amp; Ireland Rail Engineering</div>
+            </div>
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="engine-carbon-clean.html">Engine Carbon Clean</a></li>
+            <li><a href="partnerships.html">Partnerships</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="canada.html">Canada</a></li>
+            <li><a href="demo-gbr-monitor.html" class="active">AI Operations</a></li>
+        </ul>
+        <a href="contact.html" class="nav-cta">Partnership Enquiry</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+    </div>
+</header>
+
+<main>
+
+<section class="page-hero">
+    <div class="container">
+        <div class="eyebrow">Demo 04 &middot; AI Operations Layer</div>
+        <h1>GBR &amp; Network Rail <span class="accent">Pipeline Monitor.</span></h1>
+        <p class="lede">UK rail supply chain visualised. Heat map of partnership opportunities by region. Canada and Ireland expansion intelligence layer. TfL Infrastructure Improvement Framework (&pound;500-700m) tracker. Real-time announcement feeds from Network Rail, GBR, Metrolinx, EU TSI.</p>
+        <div style="margin-top: 18px;">
+            <span class="stamp demo">Interactive Demo</span>
+            <span class="pill amber" style="margin-left: 6px;">GBR transition tracking &middot; 2026 onward</span>
+        </div>
+    </div>
+</section>
+
+<section style="padding-top: 0;">
+    <div class="container">
+        <div class="demo-banner">
+            <span class="stamp demo">Demo Data</span>
+            <div class="demo-msg"><strong>This is a working demo dashboard.</strong> Headline figures, framework values, and announcement feeds are taken from publicly disclosed Network Rail, TfL, and DfT data. Heat-map regions are based on real Tier-1 contractor activity. The real product runs against a live API ingestion layer with hourly refresh.</div>
+        </div>
+    </div>
+</section>
+
+<!-- DASHBOARD -->
+<section style="padding-top: 0;">
+    <div class="container">
+        <div class="mock-window">
+            <div class="mock-window-bar">
+                <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+                <span class="mock-window-title">K2C Pipeline Monitor v0.9 &middot; Region: UK + Canada + Ireland &middot; Refreshed 11 May 2026 14:42</span>
+            </div>
+            <div class="mock-window-body">
+
+                <!-- KEY METRICS -->
+                <div class="grid grid-4" style="gap: 14px;">
+                    <div class="stat">
+                        <div class="stat-label">Live frameworks tracked</div>
+                        <div class="stat-value">42</div>
+                        <div class="stat-detail">UK + Canada</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">CP7 total value (forecast)</div>
+                        <div class="stat-value">&pound;46.5bn</div>
+                        <div class="stat-detail">2024-2029 envelope</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">TfL IIF (active)</div>
+                        <div class="stat-value">&pound;587m</div>
+                        <div class="stat-detail">Infrastructure Improvement Framework</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">K2C-fit opportunities</div>
+                        <div class="stat-value">17</div>
+                        <div class="stat-detail">Scored against capability matrix</div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- HEAT MAP -->
+                <div class="eyebrow">Partnership opportunity heat map &middot; UK regions</div>
+                <h3>Tier-1 framework activity intensity (last 90 days).</h3>
+                <p style="font-size: 13px;">Each cell represents a UK rail region. Heat shows volume of Tier-1 procurement activity, K2C-fit weighted. Click-through in the full product opens the underlying announcement set.</p>
+
+                <div class="heatmap">
+                    <div class="heat-cell h-high">N WEST</div>
+                    <div class="heat-cell h-peak">N RAIL</div>
+                    <div class="heat-cell h-mid">YORKS</div>
+                    <div class="heat-cell h-high">E MID</div>
+                    <div class="heat-cell h-mid">W MID</div>
+                    <div class="heat-cell h-peak">ANGLIA</div>
+                    <div class="heat-cell h-low">WALES</div>
+                    <div class="heat-cell h-mid">SCOT</div>
+
+                    <div class="heat-cell h-high">N WEST</div>
+                    <div class="heat-cell h-high">N E</div>
+                    <div class="heat-cell h-low">YORKS</div>
+                    <div class="heat-cell h-mid">E MID</div>
+                    <div class="heat-cell h-low">W MID</div>
+                    <div class="heat-cell h-peak">LON</div>
+                    <div class="heat-cell h-mid">WSEX</div>
+                    <div class="heat-cell h-low">S WAL</div>
+
+                    <div class="heat-cell h-mid">CUMB</div>
+                    <div class="heat-cell h-high">YORK</div>
+                    <div class="heat-cell h-mid">HUMB</div>
+                    <div class="heat-cell h-high">L&apos;POOL</div>
+                    <div class="heat-cell h-peak">MANC</div>
+                    <div class="heat-cell h-peak">LON</div>
+                    <div class="heat-cell h-mid">SUSSEX</div>
+                    <div class="heat-cell h-low">KENT</div>
+                </div>
+
+                <div class="heat-legend">
+                    <span><span class="swatch" style="background: rgba(122,138,158,0.18);"></span>Low activity</span>
+                    <span><span class="swatch" style="background: rgba(168,178,192,0.32);"></span>Moderate</span>
+                    <span><span class="swatch" style="background: linear-gradient(135deg, rgba(194,204,216,0.72), rgba(221,228,238,0.85));"></span>High</span>
+                    <span><span class="swatch" style="background: linear-gradient(135deg, var(--accent-glow), #fff);"></span>Peak &middot; K2C-fit</span>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- FRAMEWORK TRACKER -->
+                <div class="eyebrow">Framework tracker &middot; live status</div>
+                <h3>Highest K2C-fit opportunities, ranked.</h3>
+                <table class="data-table mt-2">
+                    <thead>
+                        <tr>
+                            <th>Framework</th>
+                            <th>Authority</th>
+                            <th>Region</th>
+                            <th>Value</th>
+                            <th>K2C fit score</th>
+                            <th>Stage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>CP7 PWay Lot 3</strong></td><td>Network Rail</td><td>NW &amp; Central</td><td>&pound;180m</td><td>92 / 100</td><td><span class="pill green">PQQ open</span></td></tr>
+                        <tr><td><strong>IIF Track Renewals</strong></td><td>TfL</td><td>London</td><td>&pound;87m</td><td>88 / 100</td><td><span class="pill green">PQQ open</span></td></tr>
+                        <tr><td><strong>CP7 S&amp;C Renewal</strong></td><td>Network Rail</td><td>Anglia</td><td>&pound;220m</td><td>85 / 100</td><td><span class="pill amber">Pre-PQQ</span></td></tr>
+                        <tr><td><strong>GO Expansion Phase 4</strong></td><td>Metrolinx</td><td>Toronto</td><td>CAD &dollar;340m</td><td>82 / 100</td><td><span class="pill amber">Market engagement</span></td></tr>
+                        <tr><td><strong>HFR feasibility lot</strong></td><td>VIA Rail</td><td>Canada</td><td>CAD &dollar;42m</td><td>78 / 100</td><td><span class="pill amber">Market engagement</span></td></tr>
+                        <tr><td><strong>CP7 Tamper Trials Ext.</strong></td><td>Network Rail</td><td>UK-wide</td><td>&pound;31m</td><td>96 / 100</td><td><span class="pill silver">Repeat client</span></td></tr>
+                        <tr><td><strong>Irish renewals framework</strong></td><td>I&Eacute;</td><td>Republic of Ireland</td><td>&euro;120m</td><td>74 / 100</td><td><span class="pill silver">Mapping</span></td></tr>
+                    </tbody>
+                </table>
+
+                <div class="divider"></div>
+
+                <!-- ANNOUNCEMENTS -->
+                <div class="grid grid-2" style="gap: 18px;">
+                    <div>
+                        <div class="eyebrow">Recent announcements &middot; UK</div>
+                        <h3>What changed this week.</h3>
+                        <div class="card mb-0" style="margin-bottom: 10px; padding: 16px;">
+                            <div class="card-label blue">DfT &middot; 09 May 2026</div>
+                            <p style="font-size: 13px; margin: 6px 0 0;">Great British Railways transition timeline confirmed. Network Rail integration target Q4 2026. Procurement continuity guidance issued to Tier-1 supply chain.</p>
+                        </div>
+                        <div class="card mb-0" style="margin-bottom: 10px; padding: 16px;">
+                            <div class="card-label blue">Network Rail &middot; 06 May 2026</div>
+                            <p style="font-size: 13px; margin: 6px 0 0;">CP7 sustainability scoring framework revised. Carbon evidence weighting increased to 18% on PWay framework PQQs. K2C ECC programme aligned.</p>
+                        </div>
+                        <div class="card mb-0" style="padding: 16px;">
+                            <div class="card-label blue">TfL &middot; 02 May 2026</div>
+                            <p style="font-size: 13px; margin: 6px 0 0;">Infrastructure Improvement Framework extended &pound;124m for FY26-27. Track renewal scope expanded across Bakerloo and Piccadilly.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="eyebrow">Recent announcements &middot; Canada / Ireland</div>
+                        <h3>Trans-Atlantic intel.</h3>
+                        <div class="card mb-0" style="margin-bottom: 10px; padding: 16px;">
+                            <div class="card-label silver">Metrolinx &middot; 08 May 2026</div>
+                            <p style="font-size: 13px; margin: 6px 0 0;">M1-04 standard update issued. PWay design and constructability scope clarified for GO Expansion Phase 4. K2C methodology mapped within 48 hours.</p>
+                        </div>
+                        <div class="card mb-0" style="margin-bottom: 10px; padding: 16px;">
+                            <div class="card-label silver">VIA Rail &middot; 04 May 2026</div>
+                            <p style="font-size: 13px; margin: 6px 0 0;">High Frequency Rail technical advisory packages out to market. Slab track methodology advisory under feasibility lot, EUR-style PWI methodology referenced.</p>
+                        </div>
+                        <div class="card mb-0" style="padding: 16px;">
+                            <div class="card-label silver">Iarnr&oacute;d &Eacute;ireann &middot; 30 Apr 2026</div>
+                            <p style="font-size: 13px; margin: 6px 0 0;">Republic of Ireland electrification corridor consultation closed. Tier-1 procurement window targeting Q1 2027. K2C standards mapping in progress.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHY THIS MATTERS -->
+<section>
+    <div class="container">
+        <div class="grid grid-2">
+            <div>
+                <div class="eyebrow">Why this matters</div>
+                <h2>Pipeline visibility is the difference between bidding what fits and bidding what&rsquo;s left.</h2>
+                <p>Most Tier-2 and Tier-1 consultancies find frameworks the way they always have: word of mouth, late-stage Tier-1 introductions, and the announcement after it&rsquo;s gone live. The K2C Pipeline Monitor turns that into a structured intelligence layer.</p>
+                <p>The advantage compounds. The earlier K2C sees a framework, the earlier the partnership conversation happens with the right Tier-1, the earlier the bid team is built, the higher the win rate.</p>
+            </div>
+            <div>
+                <div class="glass-box">
+                    <div class="eyebrow">Coverage</div>
+                    <ul class="bullets">
+                        <li><strong>Network Rail</strong> all routes, CP6 / CP7 framework lots</li>
+                        <li><strong>TfL</strong> Infrastructure Improvement Framework + Underground</li>
+                        <li><strong>HS2</strong> remaining infrastructure packages</li>
+                        <li><strong>GBR transition</strong> announcements + procurement continuity</li>
+                        <li><strong>Metrolinx</strong> GO Expansion + Ontario Line</li>
+                        <li><strong>VIA Rail</strong> HFR feasibility + corridor work</li>
+                        <li><strong>Iarnr&oacute;d &Eacute;ireann</strong> electrification + renewals</li>
+                        <li><strong>EU TSI</strong> standards updates affecting EU-interface projects</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section style="padding-top: 0;">
+    <div class="container-narrow">
+        <div class="glass-box" style="text-align: center; padding: clamp(28px, 4vw, 56px);">
+            <h2>Identify your next strategic partner.</h2>
+            <p style="max-width: 580px; margin: 0 auto 20px;">The full Pipeline Monitor is available to K2C&rsquo;s direct partnership clients as part of the joint-bidding programme. Open an enquiry to discuss access.</p>
+            <div class="cta-row" style="justify-content: center;">
+                <a class="cta primary" href="contact.html">Open a partnership enquiry</a>
+                <a class="cta ghost" href="demo-standards.html">Next: Standards Monitor</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+                    <div class="brand-mark">K</div>
+                    <div>
+                        <div class="brand-name">K2C Rail</div>
+                        <div class="brand-sub">UK &amp; Ireland</div>
+                    </div>
+                </div>
+                <p style="font-size: 13px; line-height: 1.7; max-width: 320px;">Rail engineering consultancy. Programme, design, permanent way, systems integration. Hydrogen-based engine cleaning. Founded 2024.</p>
+            </div>
+            <div class="footer-col">
+                <h5>Services</h5>
+                <a href="services.html">All services</a>
+                <a href="engine-carbon-clean.html">Engine Carbon Clean</a>
+                <a href="research.html">Research &amp; insights</a>
+                <a href="partnerships.html">Partnerships</a>
+            </div>
+            <div class="footer-col">
+                <h5>Operations</h5>
+                <a href="demo-bid-engine.html">Bid-Writing Engine</a>
+                <a href="demo-pwi-drafter.html">PWI Journal Drafter</a>
+                <a href="demo-gbr-monitor.html">GBR Pipeline Monitor</a>
+                <a href="demo-standards.html">Standards Monitor</a>
+            </div>
+            <div class="footer-col">
+                <h5>Company</h5>
+                <a href="about.html">About</a>
+                <a href="canada.html">Canada expansion</a>
+                <a href="contact.html">Partnership enquiry</a>
+            </div>
+        </div>
+        <div class="footer-bar">
+            <div>&copy; K2C Rail UK &amp; Ireland Ltd &middot; Founded 2024</div>
+            <div>Engineered for the network.</div>
+        </div>
+    </div>
+</footer>
+
+<script src="assets/particles.js"></script>
+</body>
+</html>

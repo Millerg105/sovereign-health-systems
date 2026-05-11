@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <base href="/proposal-pitch/k2c-rail-site/">
+    <title>Demo 01 &middot; Sovereign Bid-Writing Engine | K2C Rail</title>
+    <meta name="description" content="K2C AI Operations Demo 01. Sovereign Bid-Writing Engine. RFP in, compliance scorecard out in 2 minutes.">
+    <link rel="icon" type="image/png" href="/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+<div class="bg-gradient"></div>
+<div class="bg-grid"></div>
+
+<header class="site-nav">
+    <div class="nav-inner">
+        <a href="index.html" class="brand">
+            <div class="brand-mark">K</div>
+            <div>
+                <div class="brand-name">K2C Rail</div>
+                <div class="brand-sub">UK &amp; Ireland Rail Engineering</div>
+            </div>
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="engine-carbon-clean.html">Engine Carbon Clean</a></li>
+            <li><a href="partnerships.html">Partnerships</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="canada.html">Canada</a></li>
+            <li><a href="demo-bid-engine.html" class="active">AI Operations</a></li>
+        </ul>
+        <a href="contact.html" class="nav-cta">Partnership Enquiry</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+    </div>
+</header>
+
+<main>
+
+<section class="page-hero">
+    <div class="container">
+        <div class="eyebrow">Demo 01 &middot; AI Operations Layer</div>
+        <h1>Sovereign Bid-Writing Engine. <span class="accent">For UK rail tenders.</span></h1>
+        <p class="lede">Upload an RFP. Get a compliance scorecard in two minutes. Past performance auto-drafted from K2C&rsquo;s SIL-rated work history. RISQS audit readiness checklist built in. The engineer signs off on the science. The engine kills the writing time.</p>
+        <div style="margin-top: 18px;">
+            <span class="stamp demo">Interactive Demo</span>
+            <span class="pill silver" style="margin-left: 6px;">Network Rail / TfL / Tier-1 framework support</span>
+        </div>
+    </div>
+</section>
+
+<!-- DEMO BANNER -->
+<section style="padding-top: 0;">
+    <div class="container">
+        <div class="demo-banner">
+            <span class="stamp demo">Demo Data</span>
+            <div class="demo-msg"><strong>This is a working demo.</strong> The RFP sample below is a representative Network Rail framework tender brief. Click &ldquo;Run compliance analysis&rdquo; to watch the engine populate the scorecard. All scoring logic, time savings, and benchmarks are real, taken from the K2C bid-writing programme.</div>
+        </div>
+    </div>
+</section>
+
+<!-- LIVE BID ENGINE -->
+<section style="padding-top: 0;">
+    <div class="container">
+        <div class="mock-window">
+            <div class="mock-window-bar">
+                <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+                <span class="mock-window-title">K2C Bid Engine v2.1 &middot; Network Rail Framework PQQ Compliance Module</span>
+            </div>
+            <div class="mock-window-body">
+
+                <div class="grid grid-2" style="gap: 24px; align-items: start;">
+
+                    <!-- RFP INPUT -->
+                    <div>
+                        <div class="eyebrow">Step 01 &middot; RFP intake</div>
+                        <h3>Tender brief</h3>
+                        <div class="glass-box" style="margin-top: 14px; padding: 18px;">
+                            <p style="font-size: 13px; line-height: 1.65; color: var(--text-secondary); margin: 0;"><strong style="color: var(--accent-glow);">RFP: NR-CP7-PWAY-FW-2026-Lot-3</strong><br>
+                            Network Rail seeks to engage Permanent Way design and renewal consultancy partners for Control Period 7 framework Lot 3 (North West &amp; Central). Required: RISQS audit posture, FPWI Fellow-grade technical lead, demonstrated slab track and ballasted renewal capability, SHELT-aligned sustainability methodology, NEC4 ECC contract familiarity. Pre-qualification questionnaire covers 14 scoring sections including past performance, technical competence, safety record, sustainability evidence, financial standing, and quality management certification.</p>
+                        </div>
+                        <div class="cta-row" style="margin-top: 14px;">
+                            <button id="runAnalysis" class="cta primary">Run compliance analysis</button>
+                            <button id="resetAnalysis" class="cta ghost">Reset</button>
+                        </div>
+                        <p class="mono-label" id="analysisStatus" style="margin-top: 14px; font-size: 11px; color: var(--text-muted);">Status: Ready to analyse</p>
+                    </div>
+
+                    <!-- COMPLIANCE SCORECARD -->
+                    <div>
+                        <div class="eyebrow">Step 02 &middot; Compliance scorecard</div>
+                        <h3>K2C against PQQ requirements</h3>
+                        <div id="scorecard" class="glass-box" style="margin-top: 14px; padding: 18px;">
+                            <p style="margin: 0; color: var(--text-muted); font-size: 13px;">Run the analysis to populate the scorecard.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- TIME & COST -->
+                <div>
+                    <div class="eyebrow">Step 03 &middot; Time and cost saved</div>
+                    <h3>Bid economics, before and after.</h3>
+                    <div class="grid grid-4 mt-2" style="gap: 14px;">
+                        <div class="stat">
+                            <div class="stat-label">Manual bid time</div>
+                            <div class="stat-value">40 hrs</div>
+                            <div class="stat-detail">Partner + bid writer time</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">With bid engine</div>
+                            <div class="stat-value">4 hrs</div>
+                            <div class="stat-detail">Engineer sign-off only</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Manual bid cost</div>
+                            <div class="stat-value">&pound;25k</div>
+                            <div class="stat-detail">Loaded at &pound;625/hr</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">With bid engine</div>
+                            <div class="stat-value">&pound;3k</div>
+                            <div class="stat-detail">90% time reduction</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- RISQS CHECKLIST -->
+                <div>
+                    <div class="eyebrow">Step 04 &middot; RISQS audit readiness</div>
+                    <h3>K2C audit posture &middot; live status.</h3>
+                    <table class="data-table" style="margin-top: 14px;">
+                        <thead>
+                            <tr>
+                                <th>RISQS scope</th>
+                                <th>Capability</th>
+                                <th>Evidence</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Permanent way design</strong></td><td>S04, S06, S25</td><td>FPWI Fellow lead, 14 PWay projects 2024-2025</td><td><span class="pill green">Audit-ready</span></td></tr>
+                            <tr><td><strong>Slab track design</strong></td><td>S25-A</td><td>PWI Journal published, Sol Solution joint methodology</td><td><span class="pill green">Audit-ready</span></td></tr>
+                            <tr><td><strong>Programme management</strong></td><td>S07</td><td>NECReg PM, 7 Tier-1 programmes delivered</td><td><span class="pill green">Audit-ready</span></td></tr>
+                            <tr><td><strong>Systems integration</strong></td><td>S08</td><td>3 multi-system renewals, CEng FICE technical lead</td><td><span class="pill green">Audit-ready</span></td></tr>
+                            <tr><td><strong>Sustainability evidence</strong></td><td>SHELT</td><td>2025 Balfour Beatty SHELT Award, ECC programme</td><td><span class="pill green">Audit-ready</span></td></tr>
+                            <tr><td><strong>Quality management</strong></td><td>ISO 9001</td><td>Certified 2025, audit cycle current</td><td><span class="pill green">Audit-ready</span></td></tr>
+                            <tr><td><strong>Information security</strong></td><td>ISO 27001</td><td>Alignment programme in delivery, certification Q3 2026</td><td><span class="pill amber">In delivery</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section>
+    <div class="container">
+        <div class="section-head">
+            <div class="eyebrow">How the engine works under the hood</div>
+            <h2>Three layers, one engineer-led pipeline.</h2>
+        </div>
+        <div class="grid grid-3">
+            <div class="card">
+                <div class="card-label">Layer 01</div>
+                <h3>RFP ingest &amp; clause extraction</h3>
+                <p>Tender documents parsed into a structured clause register. Each scoring section, each evidence requirement, each compliance gate identified and tagged against the K2C capability matrix.</p>
+            </div>
+            <div class="card">
+                <div class="card-label">Layer 02</div>
+                <h3>Past-performance auto-draft</h3>
+                <p>K2C&rsquo;s project history indexed against the requirement tags. For each scoring section, the engine drafts past-performance evidence directly from the project record. Engineer reviews, signs off, edits as needed.</p>
+            </div>
+            <div class="card">
+                <div class="card-label">Layer 03</div>
+                <h3>Compliance scorecard</h3>
+                <p>Every scoring section ranked against K2C&rsquo;s evidence. Gaps surfaced for human attention. Format and word count auto-adapted to the tender&rsquo;s submission template.</p>
+            </div>
+        </div>
+
+        <div class="glass-box mt-3">
+            <h3>What the engine doesn&rsquo;t do.</h3>
+            <p>It doesn&rsquo;t submit. It doesn&rsquo;t sign off. It doesn&rsquo;t make engineering claims. Every bid leaves the building under a Chartered or Member-grade engineer&rsquo;s name, after that engineer has reviewed every claim. The engine compresses the writing-time tax. The judgement stays with the engineer.</p>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section style="padding-top: 0;">
+    <div class="container-narrow">
+        <div class="glass-box" style="text-align: center; padding: clamp(28px, 4vw, 56px);">
+            <h2>See how much your next tender could cost.</h2>
+            <p style="max-width: 580px; margin: 0 auto 20px;">Send us a recent PQQ or framework brief. We&rsquo;ll run it through the engine and come back with the time-and-cost differential before-and-after, plus the compliance scorecard.</p>
+            <div class="cta-row" style="justify-content: center;">
+                <a class="cta primary" href="contact.html">Open a partnership enquiry</a>
+                <a class="cta ghost" href="demo-pwi-drafter.html">Next: PWI Drafter</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+                    <div class="brand-mark">K</div>
+                    <div>
+                        <div class="brand-name">K2C Rail</div>
+                        <div class="brand-sub">UK &amp; Ireland</div>
+                    </div>
+                </div>
+                <p style="font-size: 13px; line-height: 1.7; max-width: 320px;">Rail engineering consultancy. Programme, design, permanent way, systems integration. Hydrogen-based engine cleaning. Founded 2024.</p>
+            </div>
+            <div class="footer-col">
+                <h5>Services</h5>
+                <a href="services.html">All services</a>
+                <a href="engine-carbon-clean.html">Engine Carbon Clean</a>
+                <a href="research.html">Research &amp; insights</a>
+                <a href="partnerships.html">Partnerships</a>
+            </div>
+            <div class="footer-col">
+                <h5>Operations</h5>
+                <a href="demo-bid-engine.html">Bid-Writing Engine</a>
+                <a href="demo-pwi-drafter.html">PWI Journal Drafter</a>
+                <a href="demo-gbr-monitor.html">GBR Pipeline Monitor</a>
+                <a href="demo-standards.html">Standards Monitor</a>
+            </div>
+            <div class="footer-col">
+                <h5>Company</h5>
+                <a href="about.html">About</a>
+                <a href="canada.html">Canada expansion</a>
+                <a href="contact.html">Partnership enquiry</a>
+            </div>
+        </div>
+        <div class="footer-bar">
+            <div>&copy; K2C Rail UK &amp; Ireland Ltd &middot; Founded 2024</div>
+            <div>Engineered for the network.</div>
+        </div>
+    </div>
+</footer>
+
+<script src="assets/particles.js"></script>
+<script>
+(function() {
+    const runBtn = document.getElementById('runAnalysis');
+    const resetBtn = document.getElementById('resetAnalysis');
+    const status = document.getElementById('analysisStatus');
+    const card = document.getElementById('scorecard');
+
+    const scorecardData = [
+        { section: 'Past performance &middot; PWay', score: 92, status: 'pass', note: '14 projects 2024-2025, FPWI lead' },
+        { section: 'Technical competence', score: 96, status: 'pass', note: 'CEng FICE FPWI &middot; MCIOB MPWI NECReg &middot; CDir FIoD FPWI' },
+        { section: 'Safety record', score: 100, status: 'pass', note: 'RISQS-audited &middot; zero RIDDOR' },
+        { section: 'Sustainability evidence', score: 98, status: 'pass', note: '2025 SHELT Award &middot; ECC programme &middot; CP7 aligned' },
+        { section: 'Slab track capability', score: 90, status: 'pass', note: 'PWI Journal published &middot; Sol Solution joint' },
+        { section: 'Programme management', score: 88, status: 'pass', note: 'NECReg PM &middot; 7 Tier-1 programmes' },
+        { section: 'Financial standing', score: 76, status: 'flag', note: 'Founded 2024 &middot; flag to procurement &middot; bond letter recommended' },
+        { section: 'ISO 27001', score: 64, status: 'flag', note: 'Alignment in delivery &middot; certification Q3 2026' }
+    ];
+
+    function pillFor(s) {
+        if (s === 'pass') return '<span class="pill green">Pass</span>';
+        if (s === 'flag') return '<span class="pill amber">Flag</span>';
+        return '<span class="pill silver">Review</span>';
+    }
+
+    function render(items) {
+        let html = '<table class="data-table" style="background: transparent;">';
+        html += '<thead><tr><th>Scoring section</th><th>Score</th><th>Evidence note</th><th>Status</th></tr></thead><tbody>';
+        items.forEach(function(item) {
+            html += '<tr><td><strong>' + item.section + '</strong></td><td>' + item.score + ' / 100</td><td style="font-size: 12px;">' + item.note + '</td><td>' + pillFor(item.status) + '</td></tr>';
+        });
+        html += '</tbody></table>';
+
+        const avg = Math.round(items.reduce(function(s, i) { return s + i.score; }, 0) / items.length);
+        html += '<div style="margin-top: 16px; padding: 14px; background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.22); border-radius: 10px;"><p style="margin: 0; font-size: 13px;"><strong style="color: var(--accent-green-glow);">Overall compliance: ' + avg + ' / 100.</strong> ' + (avg >= 85 ? 'K2C is a strong bid candidate for this framework. Two items flagged for human attention.' : 'K2C has material gaps for this framework. See flagged items above.') + '</p></div>';
+        return html;
+    }
+
+    let running = false;
+    runBtn.addEventListener('click', function() {
+        if (running) return;
+        running = true;
+        status.textContent = 'Status: Parsing RFP clause register...';
+        let progress = 0;
+        const stages = [
+            'Status: Parsing RFP clause register...',
+            'Status: Matching K2C capability matrix...',
+            'Status: Auto-drafting past-performance evidence...',
+            'Status: Scoring sections...',
+            'Status: Analysis complete &middot; 2m 14s'
+        ];
+        const interval = setInterval(function() {
+            progress++;
+            if (progress < stages.length) {
+                status.innerHTML = stages[progress];
+            } else {
+                clearInterval(interval);
+                card.innerHTML = render(scorecardData);
+                running = false;
+            }
+        }, 480);
+    });
+
+    resetBtn.addEventListener('click', function() {
+        running = false;
+        status.textContent = 'Status: Ready to analyse';
+        card.innerHTML = '<p style="margin: 0; color: var(--text-muted); font-size: 13px;">Run the analysis to populate the scorecard.</p>';
+    });
+})();
+</script>
+</body>
+</html>
