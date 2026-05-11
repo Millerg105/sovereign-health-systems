@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <base href="/proposal-pitch/k2c-rail-procurement/">
+    <title>Canada Expansion | K2C Rail</title>
+    <meta name="description" content="K2C Rail Canada operations. Toronto presence, TRACCS Rail Day 17-18 June 2026, Metrolinx M1-04 capability, AREMA Chapter 5 mapped.">
+    <link rel="icon" type="image/png" href="/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles.css">
+    <style>
+        .map-block {
+            position: relative;
+            aspect-ratio: 16/10;
+            background: linear-gradient(135deg, #E8E1D2 0%, #DCD3BF 100%);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            display: grid; place-items: center;
+        }
+        .map-block svg { width: 100%; height: 100%; }
+        .map-tag {
+            position: absolute;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            font: 600 10px/1 'JetBrains Mono', monospace;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--rail-blue-2);
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(15,23,42,0.06);
+        }
+        .map-dot {
+            position: absolute;
+            width: 14px; height: 14px;
+            border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 0 4px rgba(182,139,60,0.24), 0 4px 10px rgba(182,139,60,0.4);
+        }
+        .map-dot.blue { background: var(--rail-blue); box-shadow: 0 0 0 4px rgba(14,59,110,0.24), 0 4px 10px rgba(14,59,110,0.4); }
+    </style>
+</head>
+<body>
+
+<header class="site-nav">
+    <div class="nav-inner">
+        <a href="index.html" class="brand">
+            <div class="brand-mark">K</div>
+            <div class="brand-name">K2C Rail</div>
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Capabilities</a></li>
+            <li><a href="engine-carbon-clean.html">Engine Carbon Clean</a></li>
+            <li><a href="partnerships.html">Partnerships</a></li>
+            <li><a href="demo-bid-engine.html">Bid Engine</a></li>
+            <li><a href="canada.html" class="active">Canada</a></li>
+        </ul>
+        <a href="partnerships.html#enquiry" class="nav-cta">Partnership Enquiry</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+    </div>
+</header>
+
+<main>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+    <div class="page-hero-inner">
+        <div class="page-eyebrow">Strategic Expansion &middot; UK &middot; Ireland &middot; Canada</div>
+        <h1>Engineering authority,<br>expanding horizons.</h1>
+        <p class="lede">K2C is executing a deliberate expansion from our UK &amp; Ireland stronghold into the North American rail sector, anchoring in Canada. Methodology stays intact. Regulatory interface gets rebuilt for Metrolinx M1-04, AREMA Chapter 5 and Transport Canada.</p>
+        <div class="hero-cta-row mt-3">
+            <a class="cta primary" href="#traccs">TRACCS Rail Day 2026</a>
+            <a class="cta outline" href="partnerships.html#enquiry">Canadian partnership enquiry</a>
+        </div>
+    </div>
+</section>
+
+<!-- MAP + INTRO -->
+<section>
+    <div class="container">
+        <div class="grid grid-2" style="gap: clamp(28px, 4vw, 56px); align-items: center;">
+            <div>
+                <div class="section-eyebrow">Strategic Logic</div>
+                <h2>UK methodology, deployed under Canadian engineering regimes.</h2>
+                <p>Canadian rail infrastructure is in a renewal cycle that mirrors UK CP7 by approximately three years. Toronto&rsquo;s Metrolinx GO Expansion programme, VIA Rail&rsquo;s High Frequency Rail proposal, the Ontario Line, REM in Montreal. The capability needs being procured now are the capability needs K2C has been delivering in the UK since 2024.</p>
+                <p>Most UK rail consultancies that move to Canada arrive with the UK approach and try to retrofit Canadian regimes onto it. K2C is doing the opposite. The methodology stays intact, the regulatory and engineering-acceptance interface gets rebuilt for Metrolinx M1-04, AREMA, and Transport Canada.</p>
+            </div>
+            <div class="map-block">
+                <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" aria-label="Map showing K2C operating regions across UK, Ireland and Canada">
+                    <defs>
+                        <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(14,59,110,0.06)" stroke-width="1"/>
+                        </pattern>
+                        <linearGradient id="route" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#0E3B6E"/>
+                            <stop offset="50%" stop-color="#B68B3C"/>
+                            <stop offset="100%" stop-color="#0E3B6E"/>
+                        </linearGradient>
+                    </defs>
+                    <rect width="600" height="400" fill="url(#grid)"/>
+                    <!-- Atlantic curve -->
+                    <path d="M 175 175 Q 300 80 425 175" fill="none" stroke="url(#route)" stroke-width="2" stroke-dasharray="6 6" opacity="0.7"/>
+                    <text x="300" y="115" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#5A7494" letter-spacing="0.16em">UK &middot; CA CORRIDOR</text>
+                    <!-- Land masses (stylised) -->
+                    <path d="M 60 130 Q 130 90 230 130 Q 280 200 230 260 Q 130 290 60 240 Z" fill="rgba(14,59,110,0.10)" stroke="rgba(14,59,110,0.30)" stroke-width="1.5"/>
+                    <text x="145" y="200" text-anchor="middle" font-family="Playfair Display, serif" font-size="14" font-weight="700" fill="#0A2D54">CANADA</text>
+                    <path d="M 410 160 Q 440 140 470 155 Q 490 175 480 200 Q 460 220 430 215 Q 415 195 410 175 Z" fill="rgba(14,59,110,0.10)" stroke="rgba(14,59,110,0.30)" stroke-width="1.5"/>
+                    <text x="445" y="190" text-anchor="middle" font-family="Playfair Display, serif" font-size="12" font-weight="700" fill="#0A2D54">UK &amp; IE</text>
+                </svg>
+                <div class="map-dot" style="top: 47%; left: 26%;" title="Toronto"></div>
+                <div class="map-dot" style="top: 39%; left: 19%;" title="Montreal"></div>
+                <div class="map-dot blue" style="top: 47%; left: 76%;" title="London"></div>
+                <div class="map-dot blue" style="top: 43%; left: 71%;" title="Dublin"></div>
+                <div class="map-tag" style="bottom: 14px; left: 14px;">Fig 1 &middot; Active geographies 2026</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TRACCS ANNOUNCEMENT BANNER (dark, full-width, gold accents) -->
+<section id="traccs" class="dark" style="padding-top: 56px; padding-bottom: 56px;">
+    <div class="container">
+        <div class="grid" style="grid-template-columns: 1fr auto; gap: 24px; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
+                <div style="width: 4px; height: 56px; background: var(--gold); border-radius: 2px;"></div>
+                <div>
+                    <div class="section-eyebrow" style="color: var(--gold-soft); margin-bottom: 6px;">Official Announcement</div>
+                    <div style="font-family: 'Playfair Display', serif; font-size: clamp(22px, 2.4vw, 30px); font-weight: 700; color: #FAF8F4; letter-spacing: -0.01em; line-height: 1.2;">TRACCS Rail Day 2026 &middot; Toronto</div>
+                    <p class="mono" style="color: rgba(255,255,255,0.62); margin-top: 8px; margin-bottom: 0;">17 &ndash; 18 June 2026 &middot; Antony Kearns + Chris Kearns attending</p>
+                </div>
+            </div>
+            <a class="cta" style="background: var(--gold); color: var(--rail-blue-2); border-color: var(--gold);" href="partnerships.html#enquiry">Book a meeting</a>
+        </div>
+    </div>
+</section>
+
+<!-- STRATEGIC GROWTH PILLARS -->
+<section class="cream-2">
+    <div class="container">
+        <div class="section-head">
+            <div class="section-eyebrow">Strategic Growth Pillars</div>
+            <h2>Three capability tracks across three geographies.</h2>
+        </div>
+
+        <div class="grid" style="grid-template-columns: 2fr 1fr 1fr; gap: 20px;">
+            <!-- Wide card -->
+            <div class="card" style="grid-row: span 2;">
+                <div class="num">01 &middot; Pillar</div>
+                <h3>Transatlantic engineering authority</h3>
+                <p>Bridging the heritage and rigorous standards of UK rail with the expanding demands of Canadian transit. We provide localised expertise backed by transatlantic precedent and Chartered-grade engineering accountability.</p>
+                <hr class="divider" style="margin: 24px 0;">
+                <div class="grid grid-2" style="gap: 14px;">
+                    <div class="stat-block muted" style="background: var(--bg-cream-soft);">
+                        <div class="stat-eyebrow">UK presence</div>
+                        <div class="stat-value">1,458+</div>
+                        <div class="stat-detail">LinkedIn followers UK &amp; Ireland</div>
+                    </div>
+                    <div class="stat-block muted" style="background: var(--bg-cream-soft);">
+                        <div class="stat-eyebrow">Canada presence</div>
+                        <div class="stat-value">1,029+</div>
+                        <div class="stat-detail">LinkedIn followers Canada</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Decarbonisation pillar -->
+            <div class="card">
+                <div class="num">02 &middot; Pillar</div>
+                <h3>Decarbonisation</h3>
+                <ul class="bullets" style="margin: 12px 0 0;">
+                    <li>Electrification strategy</li>
+                    <li>Engine Carbon Clean fleet deployment</li>
+                    <li>CP7 / CETC scoring evidence</li>
+                </ul>
+            </div>
+            <!-- Digital signalling pillar -->
+            <div class="card">
+                <div class="num">03 &middot; Pillar</div>
+                <h3>Digital signalling</h3>
+                <ul class="bullets" style="margin: 12px 0 0;">
+                    <li>ERTMS / ETCS implementation</li>
+                    <li>CBTC interface management</li>
+                    <li>Heritage-to-modern transition</li>
+                </ul>
+            </div>
+            <!-- 5th card spans 2 -->
+            <div class="card dark" style="grid-column: span 2;">
+                <div class="num" style="color: var(--gold-soft);">04 &middot; Pillar</div>
+                <h3>Global presence: UK, Ireland &amp; Canada.</h3>
+                <p>The three geographies form a closed loop: UK Tier-1 frameworks, Canadian growth corridor work, Irish renewals. Methodology portable across all three regulatory regimes.</p>
+                <div class="hero-cta-row mt-3">
+                    <a class="cta" style="background: var(--gold); color: var(--rail-blue-2);" href="#standards">View standards mapping</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CANADIAN MARKET CONTEXT -->
+<section>
+    <div class="container">
+        <div class="section-head">
+            <div class="section-eyebrow">Canadian Market Context</div>
+            <h2>Where the demand is concentrated.</h2>
+        </div>
+        <div class="grid grid-3">
+            <div class="card">
+                <div class="card-tag">Metrolinx</div>
+                <h3>GO Expansion programme</h3>
+                <p>Ontario&rsquo;s commuter rail electrification and capacity expansion. Multi-billion dollar capital programme. Permanent way renewal and electrification interface is the K2C-fit capability.</p>
+            </div>
+            <div class="card">
+                <div class="card-tag">VIA Rail</div>
+                <h3>High Frequency Rail</h3>
+                <p>The Quebec-Toronto corridor proposal. Slab track and novel track form design directly maps to K2C&rsquo;s published PWI Journal work with Sol Solution / SNCF.</p>
+            </div>
+            <div class="card">
+                <div class="card-tag">Ontario Line</div>
+                <h3>Toronto rapid transit</h3>
+                <p>New automated metro line, multi-year construction programme. Systems integration and possession-heavy renewals capability transferable from UK Crossrail / Elizabeth Line experience base.</p>
+            </div>
+            <div class="card">
+                <div class="card-tag">REM Montreal</div>
+                <h3>R&eacute;seau express m&eacute;tropolitain</h3>
+                <p>Montreal&rsquo;s automated light metro. Phase 2 and operational ramp-up. Light rail systems integration and PWay maintenance regime aligned with K2C&rsquo;s European light rail experience.</p>
+            </div>
+            <div class="card">
+                <div class="card-tag">CN &amp; CPKC</div>
+                <h3>Class 1 freight renewals</h3>
+                <p>Canadian National and Canadian Pacific Kansas City. Heavy-haul renewals programmes. Engine Carbon Clean methodology has direct application to Class 1 locomotive fleets.</p>
+            </div>
+            <div class="card">
+                <div class="card-tag">Transport Canada</div>
+                <h3>Regulatory interface</h3>
+                <p>Federal regulator on Class 1 and intercity rail. AREMA / TC interface is the integration layer between K2C&rsquo;s UK PWI methodology and Canadian engineering acceptance.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="cream-2">
+    <div class="container">
+        <div class="section-head">
+            <div class="section-eyebrow">Expansion Timeline</div>
+            <h2>UK to Canada to Ireland. One closed loop.</h2>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h4>2024</h4>
+                    <h3>Founded UK &amp; Ireland</h3>
+                    <p>K2C Rail UK &amp; Ireland incorporated. London-based. First Tier-1 partnership delivery within six months. Engine Carbon Clean programme launched into Balfour Beatty fleet.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot gold"></div>
+                <div class="timeline-content">
+                    <h4>2025</h4>
+                    <h3>Canada market entry</h3>
+                    <p>K2C Canada LinkedIn presence launched. 1,029+ followers built. Market engagement with Metrolinx, VIA Rail and Tier-1 Canadian contractors. Methodology mapped to Metrolinx M1-04 and AREMA standards.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot gold"></div>
+                <div class="timeline-content">
+                    <h4>2026</h4>
+                    <h3>Canada operational launch</h3>
+                    <p>TRACCS Rail Day 2026 attending Toronto 17-18 June. First Canadian partnership engagement targeted Q3 2026. ECC programme adaptation to Canadian diesel fleet standards underway.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h4>2027</h4>
+                    <h3>Ireland corridor activation</h3>
+                    <p>Iarnr&oacute;d &Eacute;ireann standards mapping completed. Cross-border partnership programme with UK and Irish Tier-1s targeting major Irish electrification and renewals corridor projects.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h4>2028</h4>
+                    <h3>Three-geography steady state</h3>
+                    <p>UK / Canada / Ireland operational triangle. Methodology portability across all three regulatory regimes. ECC programme deployed across UK and Canadian fleets. Joint research programmes with PWI, AREMA and CIArb-rail published.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- STANDARDS MAPPING -->
+<section id="standards">
+    <div class="container">
+        <div class="section-head">
+            <div class="section-eyebrow">Standards Mapping</div>
+            <h2>Three regimes, one capability stack.</h2>
+            <p class="lede">The reason most UK rail firms struggle with Canada is the regulatory delta. AREMA, Transport Canada and Metrolinx M1-04 aren&rsquo;t Network Rail-equivalents. K2C invests in the standards mapping up front, before bidding.</p>
+        </div>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Geography</th>
+                    <th>Standards regime</th>
+                    <th>K2C capability</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>UK</strong></td><td>Network Rail Group Standards, GRIP / PACE, RISQS audit posture, TfL PDM</td><td><span class="card-tag" style="margin: 0;">Fully active</span></td></tr>
+                <tr><td><strong>Canada</strong></td><td>Metrolinx M1-04, AREMA Chapter 5 (PWay), Transport Canada rail safety regs</td><td><span class="card-tag" style="margin: 0;">Mapping complete</span></td></tr>
+                <tr><td><strong>Ireland</strong></td><td>Iarnr&oacute;d &Eacute;ireann standards, EU TSI compliance, hybrid UK-EU interface</td><td><span class="card-tag" style="margin: 0; background: rgba(182,139,60,0.10); border-color: rgba(182,139,60,0.30); color: var(--gold);">In progress</span></td></tr>
+                <tr><td><strong>European</strong></td><td>EU TSI, SNCF technical regulations, Austrian PWay (HNRC interface)</td><td><span class="card-tag" style="margin: 0;">Joint methodology</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- CLOSING CTA -->
+<section class="cream-2">
+    <div class="container-narrow text-center">
+        <div class="section-eyebrow" style="justify-content: center; display: inline-flex;">Canadian partnership</div>
+        <h2>Tier-1 or specialist contractor in Toronto?</h2>
+        <p class="lede" style="margin: 0 auto 32px;">K2C&rsquo;s Toronto presence is built through partnership, not solo bidding. If you&rsquo;re working into Metrolinx, VIA Rail or Class 1 freight, the integration conversation starts here.</p>
+        <div class="hero-cta-row" style="justify-content: center;">
+            <a class="cta primary" href="partnerships.html#enquiry">Open a partnership enquiry</a>
+            <a class="cta outline" href="engine-carbon-clean.html">View Engine Carbon Clean</a>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-grid">
+            <div class="footer-col footer-brand-block">
+                <div class="brand-name">K2C Rail</div>
+                <p>UK &amp; Ireland rail engineering consultancy. Programme, design, permanent way, systems integration. Hydrogen-based engine cleaning. Founded 2024.</p>
+            </div>
+            <div class="footer-col">
+                <h5>Capabilities</h5>
+                <a href="index.html#capabilities">Six core disciplines</a>
+                <a href="engine-carbon-clean.html">Engine Carbon Clean</a>
+                <a href="partnerships.html">Partnerships</a>
+                <a href="canada.html">Canada</a>
+            </div>
+            <div class="footer-col">
+                <h5>Operations</h5>
+                <a href="demo-bid-engine.html">Bid-writing engine</a>
+                <a href="engine-carbon-clean.html#calculator">ROI calculator</a>
+                <a href="partnerships.html#enquiry">Partnership enquiry</a>
+            </div>
+            <div class="footer-col">
+                <h5>Credentials</h5>
+                <a href="#">RISQS Audited</a>
+                <a href="#">ISO 27001 (Q3 2026)</a>
+                <a href="#">PWI &middot; ICE &middot; CIOB &middot; IoD</a>
+                <a href="#">NEC Accredited</a>
+            </div>
+        </div>
+        <div class="footer-bar">
+            <div>&copy; K2C Rail UK &amp; Ireland Ltd &middot; Founded 2024 &middot; London</div>
+            <div>Engineered for the network.</div>
+        </div>
+    </div>
+</footer>
+
+<script src="assets/nav.js"></script>
+</body>
+</html>
