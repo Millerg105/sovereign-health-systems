@@ -3,26 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow, noarchive">
-    <base href="/proposal-pitch/k2c-rail-site/">
+    <base href="/engagement-pitch/k2c-rail-site/">
     <title>Canada Expansion | K2C Rail</title>
     <meta name="description" content="K2C Rail Canada. Toronto operations. Metrolinx and Canadian Tier-1 partnerships. TRACCS Rail Day 2026 Toronto.">
-    <link rel="icon" type="image/png" href="/logo.png">
+    <meta property="og:title" content="Canada Expansion | K2C Rail">
+    <meta property="og:description" content="K2C Rail Canada. Toronto operations. Metrolinx and Canadian Tier-1 partnerships. TRACCS Rail Day 2026 Toronto.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="K2C Rail">
+    <meta property="og:image" content="https://k2crail.com/og-card.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Canada Expansion | K2C Rail">
+    <meta name="twitter:description" content="K2C Rail Canada. Toronto operations. Metrolinx and Canadian Tier-1 partnerships. TRACCS Rail Day 2026 Toronto.">
+    <link rel="icon" type="image/webp" href="assets/k2c-logo.webp">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles.v5.css">
 </head>
 <body>
-
-<canvas id="particles"></canvas>
-<div class="bg-gradient"></div>
-<div class="bg-grid"></div>
-
 <header class="site-nav">
     <div class="nav-inner">
-        <a href="index.html" class="brand">
-            <div class="brand-mark">K</div>
+        <a href="./" class="brand">
+            <img class="brand-mark-logo" src="assets/k2c-logo.webp" alt="K2C Rail" style="height: 36px; width: auto;">
             <div>
                 <div class="brand-name">K2C Rail</div>
                 <div class="brand-sub">UK &amp; Ireland Rail Engineering</div>
@@ -35,16 +37,24 @@
             <li><a href="partnerships.html">Partnerships</a></li>
             <li><a href="research.html">Research</a></li>
             <li><a href="canada.html" class="active">Canada</a></li>
-            <li><a href="demo-bid-engine.html">AI Operations</a></li>
+            <li><a href="ai-operations#bid">AI Operations</a></li>
+            <li><a href="contact.html">Contact</a></li>
         </ul>
-        <a href="contact.html" class="nav-cta">Partnership Enquiry</a>
-        <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+        <a href="client-inquiry.html" class="nav-cta">Start a Project</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                <line x1="3" y1="6" x2="21" y2="6" stroke="#1C3660"/>
+                <line x1="3" y1="12" x2="21" y2="12" stroke="#1C3660"/>
+                <line x1="3" y1="18" x2="21" y2="18" stroke="#1C3660"/>
+            </svg>
+        </button>
     </div>
 </header>
 
 <main>
 
-<section class="page-hero">
+
+<section class="page-hero page-hero--bg" style="background-image: url('assets/heroes/canada-hero.jpg');">
     <div class="container">
         <div class="eyebrow">UK &amp; Ireland &middot; Canada &middot; Ireland</div>
         <h1>The trans-Atlantic expansion is <span class="accent">strategic, not accidental.</span></h1>
@@ -64,7 +74,7 @@
             <div>
                 <div class="eyebrow">The strategic logic</div>
                 <h2>UK methodology, deployed under <span class="accent">Canadian engineering regimes.</span></h2>
-                <p>Canadian rail infrastructure is in a renewal cycle that mirrors UK CP7 by approximately three years. Toronto&rsquo;s Metrolinx GO Expansion programme, VIA Rail&rsquo;s High Frequency Rail proposal, the Ontario Line, REM in Montreal. The capability needs being procured now are the capability needs K2C has been delivering in the UK since 2024.</p>
+                <p>Canadian rail infrastructure is in a renewal cycle that mirrors UK CP7 by approximately three years. Toronto&rsquo;s Metrolinx GO Expansion programme, VIA Rail&rsquo;s High Frequency Rail engagement, the Ontario Line, REM in Montreal. The capability needs being procured now are the capability needs K2C has been delivering in the UK since 2024.</p>
                 <p>Most UK rail consultancies that move to Canada arrive with the UK approach and try to retrofit Canadian regimes onto it. K2C is doing the opposite: the methodology stays intact, the regulatory and engineering-acceptance interface gets rebuilt for Metrolinx M1-04, AREMA, and Transport Canada.</p>
                 <p>The Ireland leg is the natural complement. Iarnr&oacute;d &Eacute;ireann uses a hybrid of UK and EU TSI standards that maps cleanly onto K2C&rsquo;s existing UK / SNCF methodology. The three geographies form a closed loop: UK Tier-1 frameworks, Canadian growth corridor work, Irish renewals.</p>
             </div>
@@ -97,7 +107,8 @@
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
                     <h4>2024 &middot; Founded UK &amp; Ireland</h4>
-                    <p>K2C Rail UK &amp; Ireland incorporated. London-based. First Tier-1 partnership delivery within six months. Engine Carbon Clean programme launched into Balfour Beatty fleet.</p>
+                    
+                    <p>K2C Rail UK &amp; Ireland incorporated. Wigan-registered, Manchester operational. First Tier-1 partnership delivery within six months.</p>
                 </div>
             </div>
             <div class="timeline-item">
@@ -111,7 +122,8 @@
                 <div class="timeline-dot green"></div>
                 <div class="timeline-content">
                     <h4>2026 &middot; Canada operational launch</h4>
-                    <p>TRACCS Rail Day 2026 attending Toronto 17-18 June. First Canadian partnership engagement targeted Q3 2026. ECC programme adaptation to Canadian diesel fleet standards underway.</p>
+                    
+                    <p>TRACCS Rail Day 2026 attending Toronto 17-18 June. First Canadian partnership engagement targeted Q3 2026.</p>
                 </div>
             </div>
             <div class="timeline-item">
@@ -125,7 +137,8 @@
                 <div class="timeline-dot blue"></div>
                 <div class="timeline-content">
                     <h4>2028 &middot; Three-geography steady state</h4>
-                    <p>UK / Canada / Ireland operational triangle. Methodology portability across all three regulatory regimes. ECC programme deployed across UK and Canadian fleets. Joint research programmes with PWI, AREMA, and CIArb-rail published.</p>
+                    
+                    <p>UK / Canada / Ireland operational triangle. Methodology portability across all three regulatory regimes. Joint research programmes with PWI, AREMA, and CIArb-rail targeted.</p>
                 </div>
             </div>
         </div>
@@ -148,7 +161,7 @@
             <div class="card">
                 <div class="card-label">VIA Rail</div>
                 <h3>High Frequency Rail</h3>
-                <p>The Quebec-Toronto corridor proposal. Slab track and novel track form design directly maps to K2C&rsquo;s published PWI Journal work with Sol Solution / SNCF.</p>
+                <p>The Quebec-Toronto corridor engagement. Slab track and novel track form design directly maps to K2C&rsquo;s published PWI Journal work with Sol Solution / SNCF.</p>
             </div>
             <div class="card">
                 <div class="card-label">Ontario Line</div>
@@ -163,7 +176,8 @@
             <div class="card">
                 <div class="card-label">CN &amp; CPKC</div>
                 <h3>Class 1 freight renewals</h3>
-                <p>Canadian National and Canadian Pacific Kansas City. Heavy-haul renewals programmes. Engine Carbon Clean methodology has direct application to Class 1 locomotive fleets.</p>
+                
+                <p>Canadian National and Canadian Pacific Kansas City. Heavy-haul renewals programmes. K2C&rsquo;s permanent way and programme management capability maps directly onto Class 1 freight maintenance regimes.</p>
             </div>
             <div class="card">
                 <div class="card-label">Transport Canada</div>
@@ -197,6 +211,400 @@
     </div>
 </section>
 
+<!-- WHY NOW · the funding stack -->
+<section>
+    <div class="container">
+        <div class="section-head">
+            <div class="eyebrow">Why now</div>
+            <h2>Federal floor, provincial megaprojects, <span class="accent">municipal backlog.</span></h2>
+            <p>Three structural shifts opened the entry window. Permanent federal funding from April 2026, the largest provincial transit plan in North American history, and a fifty-billion dollar municipal backlog the Big Three transit authorities cannot fund alone.</p>
+        </div>
+        <div class="grid grid-3">
+            <div class="card">
+                <div class="card-label">Federal &middot; 1 April 2026</div>
+                <h3>Canada Public Transit Fund</h3>
+                <p>$3 billion CAD per year. $30 billion over a decade. Ring-fenced for rolling stock, system expansion, and state-of-good-repair depot modernisation via Metro Area Agreements. Permanent, legally binding floor. Replaces ad hoc federal grants.</p>
+            </div>
+            <div class="card">
+                <div class="card-label">Ontario &middot; in flight</div>
+                <h3>$70 billion capital plan</h3>
+                <p>The largest single transit expansion in North American history. <a href="https://www.metrolinx.com/" target="_blank" rel="noopener">Metrolinx</a> and <a href="https://www.infrastructureontario.ca/" target="_blank" rel="noopener">Infrastructure Ontario</a> hold the active pipelines, including the $5.6B Yonge North Subway Extension and the $3.4B Hamilton LRT.</p>
+            </div>
+            <div class="card">
+                <div class="card-label">National &middot; $20B+</div>
+                <h3>Alto &middot; High Frequency Rail</h3>
+                <p>1,000km dedicated, electrified passenger rail corridor from Toronto to Quebec City. <a href="https://www.viarail.ca/" target="_blank" rel="noopener">VIA Rail</a> via Alto. Co-development phase live with the Cadence consortium. CEO Martin Imbleau on record calling for international expertise.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MUNICIPAL BACKLOG · the Big Three -->
+<section>
+    <div class="container">
+        <div class="section-head">
+            <div class="eyebrow">Municipal backlog</div>
+            <h2>The Big Three carry <span class="accent">$50B+ unfunded over ten years.</span></h2>
+        </div>
+        <div class="grid grid-3">
+            <div class="card">
+                <div class="card-label">Toronto</div>
+                <h3><a href="https://www.ttc.ca/" target="_blank" rel="noopener">TTC</a> &middot; $53.99B 15-year</h3>
+                <p>$21.31B of the next ten years unfunded. 2026 operating + capital budget alone sits at $4.6B. State-of-good-repair plus Line 1 capacity upgrades flagged by Tharshini Markandaier, Head of Procurement, during the January UK trade mission.</p>
+            </div>
+            <div class="card">
+                <div class="card-label">Montreal</div>
+                <h3><a href="https://www.stm.info/en" target="_blank" rel="noopener">STM</a> &middot; $35.3B 10-year plan</h3>
+                <p>$7B deferred asset maintenance deficit. 46% of current infrastructure rated poor condition. $22.6B currently unfunded in the 2026 to 2035 capital plan. <a href="https://www.oqlf.gouv.qc.ca/" target="_blank" rel="noopener">Bill 96</a> French-language compliance required for any bid.</p>
+            </div>
+            <div class="card">
+                <div class="card-label">Vancouver</div>
+                <h3><a href="https://www.translink.ca/" target="_blank" rel="noopener">TransLink</a> &middot; $13.3B Phase One</h3>
+                <p>Phase One of the Access for Everyone plan. 110 new SkyTrain cars + new operations centre. Sany Zein, President and GM of BCRTC, mandate covers modernisation, supply-chain constraints, complex asset management.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TOP 10 RANKED OPPORTUNITIES -->
+<section>
+    <div class="container">
+        <div class="section-head">
+            <div class="eyebrow">Top 10 ranked opportunities</div>
+            <h2>Where the active spend sits, <span class="accent">ranked by K2C fit.</span></h2>
+            <p>Synthesised from current Canadian transit procurement pipelines. Ranked one through ten by combined market value, K2C capability fit, and entry risk. Subcontractor-route bids carry zero balance-sheet exposure.</p>
+        </div>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Opportunity</th>
+                    <th>Awarding authority</th>
+                    <th>Value (CAD)</th>
+                    <th>Bid window</th>
+                    <th>K2C posture</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>1</strong></td>
+                    <td>Calgary Airport Transit Connection (East Leg) &middot; Blue Line LRT</td>
+                    <td><a href="https://www.calgary.ca/" target="_blank" rel="noopener">City of Calgary</a></td>
+                    <td>$120M</td>
+                    <td>Feb to Late 2026</td>
+                    <td><strong>High fit.</strong> Functional planning + design, zero heavy civil risk. Winnable foothold to build local credibility.</td>
+                </tr>
+                <tr>
+                    <td><strong>2</strong></td>
+                    <td>Exo Commuter Rail &middot; specialist ops support + audit subcontracts</td>
+                    <td><a href="https://exo.quebec/en" target="_blank" rel="noopener">Exo (RTM)</a></td>
+                    <td>$50M est sub-allocations</td>
+                    <td>Jul 2026 to Early 2027</td>
+                    <td><strong>High fit.</strong> RISQS-audited UK passenger ops as peer advisor during mobilisation. Bypasses primary balance-sheet risk.</td>
+                </tr>
+                <tr>
+                    <td><strong>3</strong></td>
+                    <td>Metrolinx TPI On-Demand Transit Software + Services</td>
+                    <td><a href="https://www.metrolinx.com/" target="_blank" rel="noopener">Metrolinx (TPI)</a></td>
+                    <td>$1M to $4.9M</td>
+                    <td>Jul to Sep 2026</td>
+                    <td><strong>High fit.</strong> Low-capital direct entry into multiple Ontario transit agencies. Stiff SaaS competition.</td>
+                </tr>
+                <tr>
+                    <td><strong>4</strong></td>
+                    <td>High Frequency Rail (HFR) &middot; segment + ops support agreements</td>
+                    <td><a href="https://www.viarail.ca/" target="_blank" rel="noopener">VIA HFR / Transport Canada</a></td>
+                    <td>$20B+ total</td>
+                    <td>Ongoing &middot; Mid-2027</td>
+                    <td><strong>High fit, indirect.</strong> Shadow operations + freight-rail interface subcontracts via the Private Developer Partner consortium.</td>
+                </tr>
+                <tr>
+                    <td><strong>5</strong></td>
+                    <td>Quebec City Tramway (TramCité) &middot; shadow operator + ops readiness</td>
+                    <td><a href="https://www.cdpqinfra.com/en" target="_blank" rel="noopener">CDPQ Infra</a> / Ville de Québec</td>
+                    <td>$7.6B total</td>
+                    <td>Late 2026 to Late 2027</td>
+                    <td><strong>Medium fit.</strong> Attractive role. Requires immediate local JV to clear <a href="https://www.oqlf.gouv.qc.ca/" target="_blank" rel="noopener">Bill 96</a> + permanent establishment.</td>
+                </tr>
+                <tr>
+                    <td><strong>6</strong></td>
+                    <td>Metrolinx TPI &middot; turnkey BEB charging infrastructure</td>
+                    <td><a href="https://www.metrolinx.com/" target="_blank" rel="noopener">Metrolinx (TPI)</a></td>
+                    <td>$50M to $199M</td>
+                    <td>Jan to Mar 2026</td>
+                    <td><strong>Low fit.</strong> Suits established Canadian electrical + civil incumbents. Complex municipal utility hookups.</td>
+                </tr>
+                <tr>
+                    <td><strong>7</strong></td>
+                    <td>Yonge North Subway Extension (YNSE) &middot; early works + systems integration</td>
+                    <td><a href="https://www.metrolinx.com/" target="_blank" rel="noopener">Metrolinx</a> / York Region</td>
+                    <td>$5.6B total</td>
+                    <td>Late 2026 to Mid-2027</td>
+                    <td><strong>Low fit.</strong> Extreme bonding + complex active-infrastructure integration. Incumbent or multinational JV only.</td>
+                </tr>
+                <tr>
+                    <td><strong>8</strong></td>
+                    <td>Montreal Metro Blue Line Extension &middot; CBTC signalling system</td>
+                    <td><a href="https://www.stm.info/en" target="_blank" rel="noopener">STM</a></td>
+                    <td>$202.8M dedicated CBTC</td>
+                    <td>Late 2026 to Mid-2027</td>
+                    <td><strong>Low fit.</strong> Entrenched global signalling giants + French-only technical submission mandate.</td>
+                </tr>
+                <tr>
+                    <td><strong>9</strong></td>
+                    <td>Hamilton LRT &middot; Construction, Operations + Maintenance</td>
+                    <td><a href="https://www.metrolinx.com/" target="_blank" rel="noopener">Metrolinx</a> / Infrastructure Ontario</td>
+                    <td>$3.4B</td>
+                    <td>Late 2026 to Mid-2027</td>
+                    <td><strong>Low fit.</strong> Massive design-build-operate-maintain concession with astronomical bonds. Exceeds mid-cap capacity.</td>
+                </tr>
+                <tr>
+                    <td><strong>10</strong></td>
+                    <td>Calgary Green Line LRT &middot; Shepard to Bow River construction</td>
+                    <td><a href="https://www.calgary.ca/" target="_blank" rel="noopener">City of Calgary</a> / Calgary Transit</td>
+                    <td>$300M to $500M</td>
+                    <td>Spring to Late 2026</td>
+                    <td><strong>Low fit.</strong> Heavy civil engineering + bridge contract. K2C specialises in rail operations, not civil construction.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- THE SINGLE RECOMMENDATION -->
+<section>
+    <div class="container">
+        <div class="grid grid-2" style="align-items: start;">
+            <div>
+                <div class="eyebrow">The single recommendation</div>
+                <h2>Partner with ONxpress on Metrolinx <span class="accent">GO Expansion.</span></h2>
+                <p>Highest-value active pipeline in Ontario. The ONxpress venture (<a href="https://www.aecon.com/" target="_blank" rel="noopener">Aecon</a> + FCC Canada) runs an alliance-contracting model, bypassing adversarial public procurement in favour of collaborative risk-sharing.</p>
+                <p>For K2C as a first-time UK entrant, this is the perfect commercial vehicle. Specialist subcontractor lets K2C supply core competencies (high-frequency operations, track engineering, systems integration) directly into a massive framework. Critically, it sidesteps the brutal Canadian surety requirements where direct prime contracts over $500,000 CAD legally demand 50% Performance Bonds plus 50% Labour and Material Payment Bonds.</p>
+                <p>Antony exhibits at the Aviva Centre 17 to 18 June. The <a href="https://www.tradecommissioner.gc.ca/" target="_blank" rel="noopener">Trade Commissioner Service</a> B2B matchmaking puts him face-to-face with Metrolinx commercial management and the ONxpress primes during the show.</p>
+            </div>
+            <div>
+                <div class="glass-box">
+                    <div class="eyebrow">Why this over the others</div>
+                    <ul class="bullets">
+                        <li><strong>Megaproject primes (Hamilton LRT $3.4B, Surrey Langley SkyTrain $4.0B):</strong> direct bidding exposes a mid-cap firm to catastrophic financial risk only global giants can carry.</li>
+                        <li><strong>Quebec markets (TramCité, Montreal Blue Line):</strong> Bill 96 enforces French-only technical submissions, ops, permanent establishment. Absolute barrier without a local JV.</li>
+                        <li><strong>Federal megaprojects (VIA Rail $3.0B fleet):</strong> K2C is an operator, not a manufacturer. Buy-Canadian mandates + union lobbying make these impenetrable solo.</li>
+                        <li><strong>Regional footholds (Calgary Airport $120M):</strong> viable, but lacks scale + geographic proximity. Toronto subcontracts convert faster from stand-floor handshake to signed NDA.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- NAMED CONTACTS · top 5 -->
+<section>
+    <div class="container">
+        <div class="section-head">
+            <div class="eyebrow">Named contacts &middot; TRACCS Rail Day Toronto</div>
+            <h2>Top five targets, <span class="accent">ranked by strategic value.</span></h2>
+            <p>Each carries a peer-to-peer intro line drafted for Antony to drop in cold at the stand.</p>
+        </div>
+        <div class="grid grid-2">
+            <div class="card">
+                <div class="card-label">1 &middot; Top priority</div>
+                <h3>Paul Davidson</h3>
+                <p style="color: var(--k2c-muted); font-weight: 600;">Senior Manager, Client and Vendor Relations, Procurement Services &middot; <a href="https://www.metrolinx.com/" target="_blank" rel="noopener">Metrolinx</a></p>
+                <p>Controls vendor relations for the GO Expansion alliance-contracting model. Direct gatekeeper for UK firms looking to supply subcontracts to the ONxpress civil joint venture.</p>
+                <p style="font-style: italic; color: var(--k2c-text); border-left: 3px solid var(--k2c-accent); padding-left: 12px; margin-top: 14px;">"Paul, I want to discuss how K2C brings UK high-frequency operational experience to support the ONxpress civil joint venture on the GO Expansion."</p>
+            </div>
+            <div class="card">
+                <div class="card-label">2 &middot; TTC procurement</div>
+                <h3>Tharshini Markandaier</h3>
+                <p style="color: var(--k2c-muted); font-weight: 600;">Head of Procurement and Category Management &middot; <a href="https://www.ttc.ca/" target="_blank" rel="noopener">Toronto Transit Commission</a></p>
+                <p>$12B procurement portfolio. $4.6B 2026 budget for state-of-good-repair and capacity enhancements. Publicly told UK suppliers during the January Canadian Transit Mission to engage early and help shape specifications.</p>
+                <p style="font-style: italic; color: var(--k2c-text); border-left: 3px solid var(--k2c-accent); padding-left: 12px; margin-top: 14px;">"Tharshini, taking your advice from the recent Canadian Transit Mission to the UK, I am here to show you exactly how our track integration background fits the Line 1 capacity upgrades."</p>
+            </div>
+            <div class="card">
+                <div class="card-label">3 &middot; GO Transit capital</div>
+                <h3>Charl van Niekerk</h3>
+                <p style="color: var(--k2c-muted); font-weight: 600;">Chief Capital Officer (GO &amp; UP) &middot; <a href="https://www.metrolinx.com/" target="_blank" rel="noopener">Metrolinx</a> / GO Transit</p>
+                <p>Executive responsible for capital delivery of GO Transit + UP Express. Portfolio covers quad-tracking, track electrification, signal system modernisation. Direct K2C fit.</p>
+                <p style="font-style: italic; color: var(--k2c-text); border-left: 3px solid var(--k2c-accent); padding-left: 12px; margin-top: 14px;">"Charl, given your mandate to electrify and modernise the GO network, I want to share the hard lessons K2C learned delivering similar high-frequency transition projects in the UK."</p>
+            </div>
+            <div class="card">
+                <div class="card-label">4 &middot; Alto / HFR</div>
+                <h3>Martin Imbleau</h3>
+                <p style="color: var(--k2c-muted); font-weight: 600;">Chief Executive Officer &middot; <a href="https://www.viarail.ca/" target="_blank" rel="noopener">Alto (VIA HFR / VIA TGF Inc.)</a></p>
+                <p>Leads the $20B+ Toronto to Quebec City high-frequency passenger rail project. Corporate plan explicitly states international expertise required to deliver. Co-development phase with the Cadence consortium currently live.</p>
+                <p style="font-style: italic; color: var(--k2c-text); border-left: 3px solid var(--k2c-accent); padding-left: 12px; margin-top: 14px;">"Martin, your corporate plan calls for international expertise, and K2C holds the exact shadow operator background the Cadence consortium needs to get the high-frequency corridor right."</p>
+            </div>
+            <div class="card">
+                <div class="card-label">5 &middot; BC rapid transit</div>
+                <h3>Sany Zein</h3>
+                <p style="color: var(--k2c-muted); font-weight: 600;">President and General Manager &middot; <a href="https://www.translink.ca/" target="_blank" rel="noopener">BCRTC / TransLink</a></p>
+                <p>Runs all rail operations for Metro Vancouver, including SkyTrain and West Coast Express. Specific mandate to tackle modernisation, supply-chain constraints, complex asset management.</p>
+                <p style="font-style: italic; color: var(--k2c-text); border-left: 3px solid var(--k2c-accent); padding-left: 12px; margin-top: 14px;">"Sany, as you push forward with SkyTrain modernisation and the Surrey Langley extension, K2C brings proven UK operational support to de-risk your upcoming systems integration phases."</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ACHILLES vs RISQS GAP -->
+<section>
+    <div class="container">
+        <div class="section-head">
+            <div class="eyebrow">Compliance bridge</div>
+            <h2>RISQS UK to Achilles Canada &middot; <span class="accent">what K2C must commission new.</span></h2>
+            <p>K2C's UK <a href="https://www.risqs.org/" target="_blank" rel="noopener">RISQS</a> posture covers most of the Canadian <a href="https://www.achilles.com/" target="_blank" rel="noopener">Achilles</a> verification bar. Three areas need fresh work before the Achilles Silver+ or Verify Audit clears for trackside operations.</p>
+        </div>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>What RISQS UK covers</th>
+                    <th>What Achilles Canada requires</th>
+                    <th>What K2C must commission new</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Certifications</strong><br>ISO 45001 (H&amp;S), ISO 9001 (Quality), ISO 14001 (Environmental).</td>
+                    <td><strong>Carbon reporting standards</strong><br>Compliance with SBTi and IFRS S2 international carbon reporting.</td>
+                    <td><strong>Carbon accounting platform</strong><br>Third-party verified, e.g. Toitū Carbon Reduce or Green Project Technologies.</td>
+                </tr>
+                <tr>
+                    <td><strong>Audit posture</strong><br>Financial solvency + adherence to railway-specific technical and safety codes.</td>
+                    <td><strong>ESG metrics + supply chain</strong><br>Audited ESG metrics, supply chain traceability via Achilles SupplyChain360, face-to-face Achilles Verify Audit for trackside operations.</td>
+                    <td><strong>New audits</strong><br>Commission Achilles Silver+ or Verify Audit plus specialised, independent cyber security validation audits.</td>
+                </tr>
+                <tr>
+                    <td><strong>Documentation</strong><br>Documented safe systems of work, standard safety policies, baseline insurance certificates.</td>
+                    <td><strong>CSR + Scope 3 carbon</strong><br>Independent CSR verification, modern slavery statements, supply chain human rights policies, diversity statistics, detailed information security policies.</td>
+                    <td><strong>Documentation gaps</strong><br>Detailed Scope 3 carbon accounting data, upgraded supply chain traceability mapping, advanced data protection + business continuity frameworks.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- FIRST 30 DAYS POST-SHOW -->
+<section>
+    <div class="container">
+        <div class="section-head">
+            <div class="eyebrow">First 30 days post-show</div>
+            <h2>Portal registration to first bid. <span class="accent">Week by week.</span></h2>
+        </div>
+        <div class="grid grid-2">
+            <div class="card">
+                <div class="card-label">Week 1 &middot; 19 to 25 June 2026</div>
+                <h3>Portal registration + post-show follow-up</h3>
+                <ul class="bullets">
+                    <li><strong>Action.</strong> Register on <a href="https://www.merx.com/" target="_blank" rel="noopener">MERX</a> (Metrolinx, VIA Rail), <a href="https://seao.gouv.qc.ca/" target="_blank" rel="noopener">SEAO</a> (Exo, STM), <a href="https://bcbid.gov.bc.ca/" target="_blank" rel="noopener">BC Bid</a> (TransLink).</li>
+                    <li><strong>Meeting.</strong> Follow up Nadine Storey or Jason Kee at the <a href="https://www.tradecommissioner.gc.ca/" target="_blank" rel="noopener">Trade Commissioner Service</a>. Lock the 60-90 day B2B matchmaking slot.</li>
+                    <li><strong>Meeting.</strong> Email Paul Davidson at Metrolinx. Reference TRACCS. Pitch ONxpress subcontract.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="card-label">Week 2 &middot; 26 Jun to 2 Jul 2026</div>
+                <h3>Legal setup + first bid window</h3>
+                <ul class="bullets">
+                    <li><strong>Action.</strong> Retain Canadian legal counsel. Align with provincial prompt payment laws + structure contracts to bypass 50% Performance Bonds via the subcontractor route.</li>
+                    <li><strong>Bid.</strong> Begin functional planning prep for Calgary Airport Transit Connection ($120M CAD). Open tender closes Late 2026. Zero heavy civil risk.</li>
+                    <li><strong>Meeting.</strong> Contact Marc Rousseau (CEO, <a href="https://exo.quebec/en" target="_blank" rel="noopener">Exo</a>). Pitch RISQS-audited audit + rule-book alignment around Transdev's Montreal mobilisation.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="card-label">Week 3 &middot; 3 to 9 Jul 2026</div>
+                <h3>Certifications to bridge the audit gap</h3>
+                <ul class="bullets">
+                    <li><strong>Cert.</strong> Commission a carbon platform (e.g. Toitū Carbon Reduce) for detailed Scope 3 accounting. Single biggest gap blocking the Achilles Silver+ or Verify Audit.</li>
+                    <li><strong>Meeting.</strong> Contact Tharshini Markandaier (<a href="https://www.ttc.ca/" target="_blank" rel="noopener">TTC</a>). Reference January UK trade mission. Pitch Line 1 CBTC systems integration.</li>
+                    <li><strong>Meeting.</strong> Contact Martin Imbleau (<a href="https://www.viarail.ca/" target="_blank" rel="noopener">Alto / VIA HFR</a>). Pitch shadow operator role to support the Cadence consortium.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="card-label">Week 4 &middot; 10 to 16 Jul 2026</div>
+                <h3>Partnerships + fast-track tenders</h3>
+                <ul class="bullets">
+                    <li><strong>NDAs.</strong> Reciprocal NDAs to <a href="https://www.aecon.com/" target="_blank" rel="noopener">Aecon</a> and <a href="https://www.atkinsrealis.com/en" target="_blank" rel="noopener">AtkinsRéalis</a>. Open supply chain entry for megaprojects.</li>
+                    <li><strong>Bid.</strong> Submit direct bid for Metrolinx TPI On-Demand Transit Software ($1M to $4.9M CAD). Pre-tender window opens July to September 2026.</li>
+                    <li><strong>Frame.</strong> Position primes (Aecon, ONxpress) to hold the primary balance-sheet liability while K2C provides integration expertise.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- THREE BIGGEST RISKS -->
+<section>
+    <div class="container">
+        <div class="section-head">
+            <div class="eyebrow">Three biggest risks</div>
+            <h2>Regulatory, political, operational. <span class="accent">All carry mitigation paths.</span></h2>
+        </div>
+        <div class="grid grid-3">
+            <div class="card">
+                <div class="card-label">Regulatory &middot; Probability HIGH</div>
+                <h3>Bill 96 + the Charter of the French Language</h3>
+                <p>In Quebec, all technical tender submissions, daily operational communications, and permanent corporate establishment must run in French. Aggressively enforced by the <a href="https://www.oqlf.gouv.qc.ca/" target="_blank" rel="noopener">Office québécois de la langue française</a>.</p>
+                <p><strong>Impact.</strong> Absolute legal barrier to entering Quebec markets ($7.6B Quebec Tramway, STM contracts) without compliant local footprint.</p>
+                <p><strong>Mitigation.</strong> JV with a local Francophone engineering prime (<a href="https://www.wsp.com/en-ca" target="_blank" rel="noopener">WSP</a> or <a href="https://www.cima.ca/en/" target="_blank" rel="noopener">CIMA+</a>) before targeting Quebec pipelines.</p>
+            </div>
+            <div class="card">
+                <div class="card-label">Political &middot; Probability HIGH</div>
+                <h3>Buy Canadian + funding shifts</h3>
+                <p>Mandatory Canadian Content (Cancon) minimums fluctuate to protect local manufacturing. Ontario mandated 55% Cancon for Line 2 subway trains but quietly lowered to 10% for the Ontario Line to attract foreign bidders. CPTF funding vulnerable to inflation + political budget cuts.</p>
+                <p><strong>Impact.</strong> Can lock foreign operators out of prime contracts. Massive sunk bid costs if projects cancelled.</p>
+                <p><strong>Mitigation.</strong> Enter strictly as specialist subcontractor to established Canadian civil consortia (Aecon, ONxpress). Prime absorbs political + local-content risk.</p>
+            </div>
+            <div class="card">
+                <div class="card-label">Operational &middot; Probability HIGH</div>
+                <h3>Extreme thermal cycling + track degradation</h3>
+                <p>Canadian operations face thermal shock from -40°C to +40°C. Causes "sun kinks" (track buckling from Rail Neutral Temperature failures). Recently crippled the Ottawa Confederation Line, triggering formal Notices of Default.</p>
+                <p><strong>Impact.</strong> Immediate contractual failure points, financial penalties, default events under Canadian performance agreements.</p>
+                <p><strong>Mitigation.</strong> Centre Antony's June Aviva Centre pitch on K2C's UK track record in extreme-weather predictive maintenance, drainage remediation, and thermal-shock recovery.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MASONRY GALLERY · varying-height image grid (Wave 2 Pattern 3) -->
+<section class="k2c-pattern-scope k2c-masonry-section" aria-labelledby="k2c-masonry-h">
+    <div class="container">
+        <div class="k2c-section-head">
+            <div class="k2c-eyebrow">Working library</div>
+            <h2 id="k2c-masonry-h">UK methodology, Canadian context.</h2>
+            <p>A working set of the standards, sites and supply-chain interfaces K2C is mapping across the Canadian programme.</p>
+        </div>
+        
+        <div class="k2c-masonry">
+            <figure class="k2c-masonry__tile k2c-masonry__tile--wide">
+                <img src="assets/canada/canada--toronto.jpg" alt="Toronto Union Station rail bridge approach at dawn" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;">
+                <figcaption class="k2c-masonry__tile-caption"><strong>Toronto corridor</strong>Metrolinx M1-04 standards interface walk-through.</figcaption>
+            </figure>
+            <figure class="k2c-masonry__tile k2c-masonry__tile--tall">
+                <img src="assets/canada/canada--corridor.jpg" alt="Canadian rail mainline through boreal forest" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;">
+                <figcaption class="k2c-masonry__tile-caption"><strong>AREMA Chapter 5</strong>Permanent way evidence pack, regulator-ready.</figcaption>
+            </figure>
+            <figure class="k2c-masonry__tile k2c-masonry__tile--small">
+                <img src="assets/canada/canada--traccs.jpg" alt="Toronto rail industry event venue at dusk" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;">
+                <figcaption class="k2c-masonry__tile-caption"><strong>TRACCS Rail Day</strong>Toronto, attending 2026.</figcaption>
+            </figure>
+            <figure class="k2c-masonry__tile k2c-masonry__tile--mid">
+                <img src="assets/canada/canada--bridge.jpg" alt="Steel truss rail bridge over frozen river" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;">
+                <figcaption class="k2c-masonry__tile-caption"><strong>Vancouver yard</strong>Class 1 freight interface, anonymised.</figcaption>
+            </figure>
+            <figure class="k2c-masonry__tile k2c-masonry__tile--small">
+                <img src="assets/canada/canada--switch-macro.jpg" alt="Canadian rail switch macro detail" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;">
+                <figcaption class="k2c-masonry__tile-caption"><strong>Ballastless trial</strong>Training facility cross-walk with AHT.</figcaption>
+            </figure>
+            <figure class="k2c-masonry__tile k2c-masonry__tile--wide">
+                <img src="assets/canada/canada--platform.jpg" alt="Engineer on Canadian commuter rail platform reviewing tablet" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;">
+                <figcaption class="k2c-masonry__tile-caption"><strong>Standards map</strong>UK to Canada to Ireland mapping, working draft.</figcaption>
+            </figure>
+            <figure class="k2c-masonry__tile k2c-masonry__tile--mid">
+                <img src="assets/canada/canada--crew-snow.jpg" alt="Three engineers in Canadian winter PPE inspecting rail crossing" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;">
+                <figcaption class="k2c-masonry__tile-caption"><strong>Canadian audience</strong>1,029+ K2C LinkedIn followers, network warm.</figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+
 <!-- CTA -->
 <section style="padding-top: 0;">
     <div class="container-narrow">
@@ -217,14 +625,12 @@
     <div class="footer-inner">
         <div class="footer-grid">
             <div class="footer-col">
-                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
-                    <div class="brand-mark">K</div>
-                    <div>
-                        <div class="brand-name">K2C Rail</div>
-                        <div class="brand-sub">UK &amp; Ireland</div>
-                    </div>
+                <div class="k2c-footer-badge">
+                    <img class="k2c-footer-badge__mark" src="assets/chat/k2c-ai-avatar.jpg" alt="K2C Rail" width="48" height="48" loading="lazy">
+                    <div class="k2c-footer-badge__name">K2C RAIL</div>
+                    <div class="k2c-footer-badge__region">UK &amp; Ireland</div>
+                    <p class="k2c-footer-badge__copy">Rail engineering consultancy. Programme, design, permanent way, systems integration. Founded 2024.</p>
                 </div>
-                <p style="font-size: 13px; line-height: 1.7; max-width: 320px;">Rail engineering consultancy. Programme, design, permanent way, systems integration. Hydrogen-based engine cleaning. Founded 2024.</p>
             </div>
             <div class="footer-col">
                 <h5>Services</h5>
@@ -235,10 +641,10 @@
             </div>
             <div class="footer-col">
                 <h5>Operations</h5>
-                <a href="demo-bid-engine.html">Bid-Writing Engine</a>
-                <a href="demo-pwi-drafter.html">PWI Journal Drafter</a>
-                <a href="demo-gbr-monitor.html">GBR Pipeline Monitor</a>
-                <a href="demo-standards.html">Standards Monitor</a>
+                <a href="ai-operations#bid">Bid-Writing Engine</a>
+                <a href="ai-operations#drafter">PWI Journal Drafter</a>
+                <a href="ai-operations#monitor">GBR Pipeline Monitor</a>
+                <a href="ai-operations#standards">Standards Monitor</a>
             </div>
             <div class="footer-col">
                 <h5>Company</h5>
@@ -253,7 +659,7 @@
         </div>
     </div>
 </footer>
-
-<script src="assets/particles.js"></script>
+<script defer src="assets/k2c-interactions.v5.js"></script>
+<script defer src="assets/k2c-ai-chat.v5.js"></script>
 </body>
 </html>
