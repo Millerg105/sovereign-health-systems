@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="googlebot" content="noindex, nofollow">
 <base href="/proposal-pitch/slingshot-offer/">
-<title>Slingshot Systems | The Recurring Offer and Commercial Model</title>
+<title>Slingshot Systems | The Operating System for Growth and Commercial Model</title>
 <link rel="icon" type="image/png" href="/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -364,6 +364,34 @@ strong.hi { color: var(--text-primary); font-weight: 600; }
 .expand-note p { margin-top: 12px; font-size: 15.5px; color: var(--text-primary); line-height: 1.6; }
 .expand-note p b { color: var(--signal); font-weight: 600; }
 
+/* ===== CONSIDERATIONS (partner decisions) ===== */
+.consider-list { margin-top: 48px; display: flex; flex-direction: column; gap: 20px; }
+.consider {
+  background: var(--bg-surface); border: 1px solid var(--line); border-radius: 18px;
+  padding: 34px 36px; position: relative; overflow: hidden;
+  transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.consider:hover { border-color: var(--line-strong); box-shadow: 0 0 40px rgba(239,68,68,0.05); }
+.consider-head { display: flex; align-items: baseline; gap: 16px; }
+.consider .cn {
+  flex-shrink: 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600;
+  letter-spacing: 0.1em; color: var(--signal);
+}
+.consider h3 { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+.consider .think { margin-top: 16px; font-size: 15px; color: var(--text-secondary); line-height: 1.65; max-width: 80ch; }
+.consider .think b { color: var(--text-primary); font-weight: 600; }
+.consider .ask {
+  margin-top: 22px; padding: 16px 20px; border-radius: 12px;
+  background: var(--signal-soft); border: 1px solid rgba(239,68,68,0.22);
+  display: flex; align-items: baseline; gap: 12px;
+}
+.consider .ask .ak {
+  flex-shrink: 0; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--signal);
+}
+.consider .ask p { font-size: 14.5px; color: var(--text-primary); line-height: 1.55; }
+.consider .ask p b { color: var(--signal); font-weight: 600; }
+
 /* ===== CLOSE ===== */
 .close { text-align: left; padding: clamp(90px, 12vh, 130px) 0; }
 .close h2 { font-size: clamp(32px, 5vw, 56px); font-weight: 800; letter-spacing: -0.04em; line-height: 1.05; max-width: 20ch; }
@@ -404,6 +432,8 @@ strong.hi { color: var(--text-primary); font-weight: 600; }
   .bookends { grid-template-columns: 1fr; }
   .blend-head, .blend-row, .blend-total { grid-template-columns: 1.4fr 0.7fr 1fr; }
   .blend-head span:nth-child(3), .blend-row span:nth-child(3) { display: none; }
+  .consider { padding: 28px 24px; }
+  .consider-head { flex-direction: column; gap: 6px; }
 }
 @media (max-width: 560px) {
   .topbar { padding: 14px 22px; }
@@ -432,13 +462,13 @@ strong.hi { color: var(--text-primary); font-weight: 600; }
   <div class="wrap">
     <div class="hero-inner">
       <span class="kicker">The Offer / 2026</span>
-      <h1>One monthly plan. Free website included.<br><span class="sig">We run the growth, you run the business.</span></h1>
-      <p class="hero-sub">Your website, your content, and your AI back office on one monthly plan. We build the site for <b>free</b>, you keep paying us to grow it. Start small, climb as you grow, and a real security and governance pass comes built in.</p>
+      <h1>The operating system for growth.<br><span class="sig">We run the growth, you run the business.</span></h1>
+      <p class="hero-sub">One monthly plan that carries your website, your content, your search, and your AI back office. We build the site for <b>free</b>, you keep paying us to grow it. One proprietary system runs underneath: <b>Diagnose, Install, Operate, Scale</b>. Start small, climb as you grow, with a real security and governance pass built in.</p>
       <div class="hero-meta">
         <span class="chip"><span class="pip"></span>Recurring only</span>
         <span class="chip"><span class="pip"></span>Free website on every tier</span>
         <span class="chip"><span class="pip"></span>Land small, climb as you grow</span>
-        <span class="chip"><span class="pip"></span>Governance built in</span>
+        <span class="chip"><span class="pip"></span>Authority Engine built in</span>
       </div>
     </div>
   </div>
@@ -447,30 +477,64 @@ strong.hi { color: var(--text-primary); font-weight: 600; }
 <!-- 2. THE MODEL IN ONE LINE -->
 <section class="section-line">
   <div class="wrap">
-    <div class="eyebrow-row"><span class="kicker">The Model</span></div>
-    <h2 class="section-title">Land with a build. Keep them on a plan. Stack from there.</h2>
-    <p class="section-lede">No "buy a website" door. One door only: a monthly plan that happens to include a site. Every pound is recurring.</p>
+    <div class="eyebrow-row"><span class="kicker">The Spine</span></div>
+    <h2 class="section-title">One system runs every account: Diagnose, Install, Operate, Scale.</h2>
+    <p class="section-lede">No "buy a website" door. One door only: a monthly plan that happens to include a site. Every pound is recurring, and every account runs on the same four-step system underneath.</p>
     <div class="model-band" style="margin-top:48px;">
       <div class="model-step">
         <span class="n">01</span>
-        <h3>Land with a build</h3>
-        <p>A free website is the way in. No upfront capital, no one-off invoice to haggle over.</p>
+        <h3>Diagnose</h3>
+        <p>A Growth Gap Analysis puts a number on every gap: missed search, missing from AI answers, admin eating hours. The way in, with no upfront capital.</p>
       </div>
       <div class="model-step">
         <span class="n">02</span>
-        <h3>Keep on a retainer</h3>
-        <p>The site lives on our CMS. They stay on a monthly plan to run and grow it.</p>
+        <h3>Install</h3>
+        <p>The free website goes live on our CMS, with the Authority Engine and the back office wired in. They move onto a monthly plan to run it.</p>
       </div>
       <div class="model-step">
         <span class="n">03</span>
-        <h3>Stack services</h3>
-        <p>Content, search, ads, dashboards, automation. Add what the business needs as it grows.</p>
+        <h3>Operate</h3>
+        <p>Content, search, ads, dashboards, automation. We run the growth month to month and show the work in the control centre.</p>
       </div>
       <div class="model-step">
         <span class="n">04</span>
-        <h3>Recurring only</h3>
-        <p>Nothing is sold as a one-off. Predictable revenue, account by account.</p>
+        <h3>Scale</h3>
+        <p>Climb the tiers as the business grows. More seats, more modules, more departments. Nothing is sold as a one-off.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2b. THE THREE PILLARS -->
+<section class="section-line">
+  <div class="wrap">
+    <div class="eyebrow-row"><span class="kicker">The Three Pillars</span></div>
+    <h2 class="section-title">Every service rolls up to one of three outcomes.</h2>
+    <p class="section-lede">A long service menu confuses the buyer. The work groups into three pillars, and a client buys an outcome, not a feature list.</p>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/></svg></div>
+        <h3>Visibility</h3>
+        <p>Get found, everywhere a buyer looks. <b>SEO, PPC, social, and the Authority Engine</b> so the business shows up in Google, in paid, in feeds, and in AI answers.</p>
+        <div class="proof"><span class="pip"></span>Found on Google and in AI answers</div>
+      </div>
+      <div class="why-card">
+        <div class="why-ico"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 13l3 3 7-8"/></svg></div>
+        <h3>Conversion</h3>
+        <p>Turn attention into work won. <b>Websites, landing pages, and branding</b> built to convert the traffic the Visibility pillar brings in, not just to look the part.</p>
+        <div class="proof"><span class="pip"></span>Traffic turned into enquiries</div>
+      </div>
+      <div class="why-card">
+        <div class="why-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+        <h3>Operations</h3>
+        <p>Take the manual work off the team. <b>Automations, dashboards, and AI</b> wired into how the firm actually runs, with the Executive Control Centre as the surface they open weekly.</p>
+        <div class="proof"><span class="pip"></span>Real hours removed every month</div>
+      </div>
+    </div>
+
+    <div class="ladder-foot">
+      <b>Why lead with the pillars.</b> The detail still ships, every line item is in the tiers below. But the buyer hears three outcomes first, Visibility, Conversion, Operations, then sees how the tiers deliver them. Outcome before feature, every time.
     </div>
   </div>
 </section>
@@ -479,16 +543,16 @@ strong.hi { color: var(--text-primary); font-weight: 600; }
 <section class="section-line">
   <div class="wrap">
     <div class="eyebrow-row"><span class="kicker">The Way In</span></div>
-    <h2 class="section-title">A paid audit that pays for itself, then a free site with a plan.</h2>
+    <h2 class="section-title">A Growth Gap Analysis that puts a number on every gap, then a free site with a plan.</h2>
     <p class="section-lede">Two entry points, both built to convert into the retainer rather than end at a single invoice.</p>
     <div class="duo">
       <div class="panel">
         <span class="panel-k">Entry point one</span>
-        <h3>The paid gap-analysis audit</h3>
-        <p>A diagnostic that maps where they lose work today: where they do not show up in search, where they are missing from AI answers, where admin eats hours. Framed on <b>the cost of doing nothing</b>, not on features. Always carrying a monthly number for the problem they are living with.</p>
-        <p>The audit is the wedge. It surfaces the gap, puts a number on it, and converts straight into the retainer that closes it.</p>
-        <p><b>Priced by who is buying.</b> At the small end (Foundation and Growth) it is free or a light fee: a live mockup of their refreshed site plus an AEO snapshot showing where they do and do not appear in AI answers. Results in advance, given before any money changes hands. At the regulated end (Operator and Authority) it is a paid diagnostic at <b>£3,000 to £5,000</b>, where the depth and the compliance mapping carry the cost, set against what the gap is costing them every month.</p>
-        <div class="note"><b>Why it works:</b> a buyer who has paid for the diagnosis has already said yes once. The retainer is the obvious next step, not a cold pitch. The free mockup at the small end does the same job for a fast yes.</div>
+        <h3>The Growth Gap Analysis</h3>
+        <p>A diagnostic that maps where they lose work today and prices each gap: where they do not show up in search, where they are missing from AI answers, where admin eats hours. Framed on <b>the cost of doing nothing</b>, not on features. Every gap carries a number.</p>
+        <p>Concrete, not vague. "This search gap costs about <b>£14,700 a month</b> in work you never see." "This automation saves about <b>47 hours a month</b> off your team." The prospect should leave certain that not fixing it costs more than hiring us.</p>
+        <p><b>Priced by who is buying.</b> At the small end (Foundation and Growth) it is free or a light fee: a live mockup of their refreshed site plus an Authority Engine snapshot showing where they do and do not appear in AI answers. Results in advance, given before any money changes hands. At the regulated end (Operator and Authority) it is a paid diagnostic at <b>£3,000 to £5,000</b>, where the depth and the compliance mapping carry the cost, set against what the gap is costing them every month.</p>
+        <div class="note"><b>Why it works:</b> a quantified business case, not a sales pitch. The prospect sees the monthly cost of the gap next to the monthly fee that closes it, so the retainer is the obvious next step. A buyer who has paid for the diagnosis has already said yes once.</div>
       </div>
       <div class="panel">
         <span class="panel-k">Entry point two</span>
@@ -506,7 +570,7 @@ strong.hi { color: var(--text-primary); font-weight: 600; }
   <div class="wrap">
     <div class="eyebrow-row"><span class="kicker">The Ladder</span></div>
     <h2 class="section-title">Four tiers. Land small, climb as you grow.</h2>
-    <p class="section-lede">Each tier is named for what the client gets, not for size. The website is free on every one. The price is the monthly, ex-VAT.</p>
+    <p class="section-lede">Each tier is named for what the client gets, not for size. The website is free on every one. The price is the monthly, ex-VAT. The Authority Engine starts as basic AI schema low down and opens up to full LLM seeding and GEO at the top, which is a big part of what drives the climb.</p>
 
     <div class="ladder">
 
@@ -523,7 +587,7 @@ strong.hi { color: var(--text-primary); font-weight: 600; }
             <li>Free website on our managed CMS</li>
             <li>Light content, a few posts a month</li>
             <li>Local SEO basics</li>
-            <li>AEO starter, show up in AI answers</li>
+            <li>Authority Engine basics, AI schema and structure</li>
             <li>Monthly one-page report</li>
             <li>Email support</li>
           </ul>
@@ -547,7 +611,7 @@ strong.hi { color: var(--text-primary); font-weight: 600; }
             <li>Everything in Foundation</li>
             <li>Content engine, 8 to 12 posts a month</li>
             <li>Across 2 channels with generated visuals</li>
-            <li>Active SEO and full AEO</li>
+            <li>Active SEO, Authority Engine schema and structure</li>
             <li>One paid channel managed (PPC)</li>
             <li>Client dashboard, named contact, strategy call</li>
           </ul>
@@ -569,9 +633,11 @@ strong.hi { color: var(--text-primary); font-weight: 600; }
         <div class="tier-body">
           <ul>
             <li>Everything in Growth</li>
-            <li>Custom operator dashboard, wired to how they work</li>
+            <li>Executive Control Centre, wired to how they work</li>
             <li>Lead routing, intel feed, inbox triage in their voice</li>
             <li>One or two AI automations that remove real hours</li>
+            <li>Authority Engine premium, prompt auditing and LLM seeding</li>
+            <li>AI maintenance and model retraining, ongoing</li>
             <li>Branding and marketing consultancy</li>
             <li>Governance and security pass, documented</li>
           </ul>
@@ -596,7 +662,8 @@ strong.hi { color: var(--text-primary); font-weight: 600; }
             <li>Multiple dashboards and automations</li>
             <li>Audit-protocol mapper across jurisdictions</li>
             <li>Per-seat licensing for their teams</li>
-            <li>Advanced AEO and digital PR</li>
+            <li>Authority Engine full, GEO seeding into Reddit, Quora, directories, Wikipedia</li>
+            <li>Prompt auditing across ChatGPT, Perplexity, Google AI Overviews</li>
             <li>Priority SLA, credit-backed, quarterly board review</li>
           </ul>
         </div>
@@ -620,20 +687,20 @@ strong.hi { color: var(--text-primary); font-weight: 600; }
 <section class="section-line">
   <div class="wrap">
     <div class="eyebrow-row"><span class="kicker">Why It Wins</span></div>
-    <h2 class="section-title">Three levers make the plan hard to leave and easy to defend.</h2>
-    <p class="section-lede">Stickiness, a differentiator nobody local sells yet, and a security pass a regulated buyer can actually point to.</p>
+    <h2 class="section-title">Three levers make the plan the rational choice to keep.</h2>
+    <p class="section-lede">A system the client stays on because replacing it makes no sense, a differentiator nobody local sells yet, and a security pass a regulated buyer can actually point to.</p>
 
     <div class="why-grid">
       <div class="why-card">
         <div class="why-ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 18v2M16 18v2M6 21h12"/></svg></div>
-        <h3>The CMS moat</h3>
-        <p>Every client site sits under one governed dashboard. Clients edit their own copy, images and SEO safely, with no raw backend access while on the plan. Convenience for them, <b>high switching cost for us</b>. Leaving means a rebuild, not a copy-paste.</p>
-        <div class="proof"><span class="pip"></span>Proprietary CMS, one managed estate</div>
+        <h3>The system moat</h3>
+        <p>The site, the dashboards, the automations, the reporting and the AI visibility all run as one system. Clients edit their own copy, images and SEO safely under it. They stay because <b>replacing the whole system is irrational</b>, not because anything is held hostage. The moat is the value, not a contract.</p>
+        <div class="proof"><span class="pip"></span>One managed system, not lock-in</div>
       </div>
       <div class="why-card">
         <div class="why-ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></div>
-        <h3>AEO, the differentiator</h3>
-        <p>As search moves to ChatGPT, Perplexity, Gemini and Google AI answers, being cited there is a new budget <b>nobody local is selling yet</b>. We track it with real data, the date, query, platform, mentioned or not, sources cited. On every tier from Foundation up.</p>
+        <h3>The Authority Engine</h3>
+        <p><b>Google ranks pages. AI ranks sources. We make your company one of the sources AI pulls from.</b> Basic AI schema starts at Foundation. The premium layer seeds the brand into Reddit, Quora, directories and Wikipedia, and audits how ChatGPT, Perplexity and Google AI Overviews answer about it. A budget <b>nobody local is selling yet</b>.</p>
         <div class="proof"><span class="pip"></span>Raw data table, not a vague score</div>
       </div>
       <div class="why-card">
@@ -641,6 +708,15 @@ strong.hi { color: var(--text-primary); font-weight: 600; }
         <h3>Governance and security pass</h3>
         <p>A priced, documented deliverable on every build: secrets handling, per-client data isolation, dependency scan, key rotation. The red-team report dated <b>6 June</b> passed both Slingshot codebases as safe to hand to a regulated client.</p>
         <div class="proof"><span class="pip"></span>Passed: both codebases, BAE-grade buyer</div>
+      </div>
+    </div>
+
+    <div class="qbr">
+      <div class="qbr-ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8M12 17v4M7 13l2-2 2 2 3-4"/></svg></div>
+      <div>
+        <div class="qk">The surface they open weekly</div>
+        <h3>The Executive Control Centre.</h3>
+        <p>One dashboard the executive opens every week: leads, pipeline, quote conversion, AI visibility score, PPC ROI, response times, hours saved. It doubles as an <b>AI Citation and Governance Monitor</b>, with live prompt tests showing how ChatGPT and Perplexity answer about their brand, sat next to the governance and compliance status. This is the real retention engine. Once a firm runs its week off this screen, the system is the obvious thing to keep.</p>
       </div>
     </div>
 
@@ -659,8 +735,8 @@ strong.hi { color: var(--text-primary); font-weight: 600; }
 <section class="section-line">
   <div class="wrap">
     <div class="eyebrow-row"><span class="kicker">The Guarantee</span></div>
-    <h2 class="section-title">Results in advance, plus an SLA credit. Not a gamble on the market.</h2>
-    <p class="section-lede">A structured, conditional guarantee a regulated buyer respects. Confidence shown without exposure to outcomes nobody controls.</p>
+    <h2 class="section-title">A stack of guarantees a regulated buyer respects. Not a gamble on the market.</h2>
+    <p class="section-lede">Structured and conditional, every one. Confidence shown without exposure to outcomes nobody controls, and not one of them tied to a percentage of revenue.</p>
 
     <div class="guard">
       <div class="guard-list">
@@ -668,18 +744,39 @@ strong.hi { color: var(--text-primary); font-weight: 600; }
           <span class="gn num">1</span>
           <div>
             <h4>Results in advance</h4>
-            <p>Before any money changes hands, a real artifact: a live mockup of their refreshed site, or an AEO audit showing where they do and do not appear in AI answers today. The move that made three live sites land as "gold."</p>
+            <p>Before any money changes hands, a real artifact: a live mockup of their refreshed site, or an Authority Engine audit showing where they do and do not appear in AI answers today. The move that made three live sites land as "gold."</p>
           </div>
         </div>
         <div class="guard-item">
           <span class="gn num">2</span>
+          <div>
+            <h4>The Executive Value Guarantee</h4>
+            <p>Within the first 45 days we identify and present at least <b>10x our monthly fee</b> in documented revenue opportunities, efficiency gains, marketing waste cut, or automation savings. If we do not, we keep working at no charge until we do.</p>
+          </div>
+        </div>
+        <div class="guard-item">
+          <span class="gn num">3</span>
           <div>
             <h4>An SLA credit, billable-backed</h4>
             <p>A number on responsiveness and delivery. Miss an agreed response window or a deliverable date and you get a credit against next month. An SLA, not a promise about the market.</p>
           </div>
         </div>
         <div class="guard-item">
-          <span class="gn num">3</span>
+          <span class="gn num">4</span>
+          <div>
+            <h4>A Compliance and Governance SLA</h4>
+            <p>Every piece of AI content and every automation holds to regulatory compliance, non-hallucinated citations checked against source, and secure data routing per client. Written into the agreement, not assumed.</p>
+          </div>
+        </div>
+        <div class="guard-item">
+          <span class="gn num">5</span>
+          <div>
+            <h4>An hours-saved guarantee, optional</h4>
+            <p>On an automation build, we can put a number on the hours it removes each month and stand behind it. If it does not hit the figure, we keep tuning it at no charge until it does.</p>
+          </div>
+        </div>
+        <div class="guard-item">
+          <span class="gn num">6</span>
           <div>
             <h4>A 30-day get-out</h4>
             <p>No long handcuff on the service, build cost aside. The moat does the retention, not the contract.</p>
@@ -785,13 +882,58 @@ strong.hi { color: var(--text-primary); font-weight: 600; }
   </div>
 </section>
 
+<!-- 7b. CONSIDERATIONS (PARTNER DECISIONS) -->
+<section class="partner">
+  <div class="wrap">
+    <div class="partner-flag"><svg viewBox="0 0 24 24"><path d="M12 1l3 6 6 .9-4.5 4.3 1 6.1L12 21.5 6.5 18.3l1-6.1L3 7.9 9 7z"/></svg>Decisions for James and Antony</div>
+    <h2 class="section-title">Considerations: open commercial questions.</h2>
+    <p class="section-lede">Three calls left open on purpose. We have pressure-tested each against 2026 market data, here is the thinking, and these are the ones for us to land together.</p>
+
+    <div class="consider-list">
+
+      <!-- (a) Foundation at £499 -->
+      <div class="consider">
+        <div class="consider-head">
+          <span class="cn">A</span>
+          <h3>Foundation at £499, keep it or guard it harder.</h3>
+        </div>
+        <p class="think">The case for keeping it: <b>£499 is the low-barrier door</b> that gets a fast yes at low risk, then the ladder does the rest. It is fully productised already, no bespoke work and no calls beyond onboarding, so it costs almost nothing to deliver. The known risk, and the market is clear on this, is that the lowest tier draws the <b>churn-prone, support-heavy buyer</b>, the one who pays £499 and emails every week. The productised guardrails are how that gets contained: a fixed scope, email-only support, self-serve editing under the CMS, no custom work at this tier. So the cheap entry stays cheap to run.</p>
+        <div class="ask"><span class="ak">Open question</span><p>Keep Foundation at £499 as is, or <b>tighten the guardrails further</b> before we open it to volume.</p></div>
+      </div>
+
+      <!-- (b) Contract term -->
+      <div class="consider">
+        <div class="consider-head">
+          <span class="cn">B</span>
+          <h3>Contract term, 12 months or 90-day rolling.</h3>
+        </div>
+        <p class="think">The 2026 market is moving off the 12-month lock-in toward <b>90-day rolling terms</b>. The logic holds for us: the CMS and the control centre are the real lock-in, not the paper, so a shorter term cuts the friction at signing without losing the client. That matters most for the <b>regulated buyer</b>, who is slower to commit to a long tie and who is exactly Antony's lane. The counterweight is the free build, which a 12-month term recovers cleanly. A 90-day term needs the early-exit buyout doing more of that work.</p>
+        <div class="ask"><span class="ak">Open question</span><p><b>12-month term</b> to recover the build the simple way, or <b>90-day rolling</b> with the buyout carrying the build cost.</p></div>
+      </div>
+
+      <!-- (c) Pricing at the top -->
+      <div class="consider">
+        <div class="consider-head">
+          <span class="cn">C</span>
+          <h3>Pricing at the top, are Operator and Authority underpriced for regulated work.</h3>
+        </div>
+        <p class="think">2026 benchmarks put regulated and enterprise AI work at <b>£5,000 to £10,000+ a month</b>. Against that, Operator at £2,500 and Authority from £3,999 may be light for a regulated client, where the compliance mapping, the governance SLA and the premium Authority Engine layers carry real cost and real value. The case for a higher band: a rail or BAE-grade buyer reads £2,500 as a small-vendor price, and the premium layers (LLM seeding, GEO, cross-jurisdiction audit mapping) are what justify a step up. The case for holding: the current ladder lands accounts, and per-seat expansion already lifts the top tiers well past the flat number.</p>
+        <div class="ask"><span class="ak">Open question</span><p>Add a <b>regulated / enterprise band from £5k</b> a month, captured via the premium Authority Engine layers, or hold the current ladder and let per-seat do the lifting.</p></div>
+      </div>
+
+    </div>
+
+    <p class="seat-note" style="margin-top:24px;"><b>Why these are open and the rest is not.</b> Every figure elsewhere in this brief is anchored and ready to run. These three are the genuine forks where the data points more than one way, so they are calls for the two of us, made on the evidence above.</p>
+  </div>
+</section>
+
 <!-- 8. CLOSE -->
 <section class="close section-line">
   <div class="wrap">
     <span class="kicker">The Close</span>
-    <h2 style="margin-top:24px;">A predictable base, built on a free door and a <span class="sig">moat they can't copy out of.</span></h2>
-    <p>The offer is ready to shape into the commercial model. Pick the entry tiers and the SLA numbers, and the first wave of the client book can run on it.</p>
-    <a class="next" href="#top">Shape the model<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <h2 style="margin-top:24px;">A predictable base, built on a free door and a <span class="sig">system they have no reason to replace.</span></h2>
+    <p>The operating system is built and the maths holds. Land the three open calls above, the Foundation guardrails, the contract term, and the top-end pricing band, and the first wave of the client book can run on it.</p>
+    <a class="next" href="#top">Land the three calls<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
   </div>
 </section>
 
