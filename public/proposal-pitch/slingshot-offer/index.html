@@ -237,6 +237,20 @@ strong.hi { color: var(--text-primary); font-weight: 600; }
 }
 .why-card .proof .pip { width: 6px; height: 6px; border-radius: 50%; background: var(--success); box-shadow: 0 0 8px rgba(34,197,94,0.6); flex-shrink: 0; }
 
+/* QBR retention strip */
+.qbr {
+  margin-top: 24px; background: var(--bg-surface); border: 1px solid var(--line); border-radius: 18px;
+  padding: 34px 36px; display: grid; grid-template-columns: 48px 1fr; gap: 24px; align-items: start;
+  position: relative; overflow: hidden;
+}
+.qbr::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 3px; background: var(--signal); box-shadow: 0 0 16px var(--signal-glow); }
+.qbr-ico { width: 48px; height: 48px; border-radius: 12px; display: grid; place-items: center; background: var(--signal-soft); border: 1px solid rgba(239,68,68,0.25); }
+.qbr-ico svg { width: 24px; height: 24px; stroke: var(--signal); fill: none; stroke-width: 1.8; }
+.qbr .qk { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--signal); }
+.qbr h3 { margin-top: 12px; font-size: 21px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+.qbr p { margin-top: 14px; font-size: 15px; color: var(--text-secondary); line-height: 1.6; max-width: 74ch; }
+.qbr p b { color: var(--text-primary); font-weight: 600; }
+
 /* ===== GUARANTEE ===== */
 .guard { display: grid; grid-template-columns: 1.1fr 1fr; gap: 24px; margin-top: 48px; align-items: start; }
 .guard-list { display: flex; flex-direction: column; gap: 16px; }
@@ -471,9 +485,10 @@ strong.hi { color: var(--text-primary); font-weight: 600; }
       <div class="panel">
         <span class="panel-k">Entry point one</span>
         <h3>The paid gap-analysis audit</h3>
-        <p>A diagnostic the prospect pays for. It maps where they lose work today: where they do not show up in search, where they are missing from AI answers, where admin eats hours. Framed on <b>the cost of doing nothing</b>, not on features.</p>
+        <p>A diagnostic that maps where they lose work today: where they do not show up in search, where they are missing from AI answers, where admin eats hours. Framed on <b>the cost of doing nothing</b>, not on features. Always carrying a monthly number for the problem they are living with.</p>
         <p>The audit is the wedge. It surfaces the gap, puts a number on it, and converts straight into the retainer that closes it.</p>
-        <div class="note"><b>Why it works:</b> a buyer who has paid for the diagnosis has already said yes once. The retainer is the obvious next step, not a cold pitch.</div>
+        <p><b>Priced by who is buying.</b> At the small end (Foundation and Growth) it is free or a light fee: a live mockup of their refreshed site plus an AEO snapshot showing where they do and do not appear in AI answers. Results in advance, given before any money changes hands. At the regulated end (Operator and Authority) it is a paid diagnostic at <b>£3,000 to £5,000</b>, where the depth and the compliance mapping carry the cost, set against what the gap is costing them every month.</p>
+        <div class="note"><b>Why it works:</b> a buyer who has paid for the diagnosis has already said yes once. The retainer is the obvious next step, not a cold pitch. The free mockup at the small end does the same job for a fast yes.</div>
       </div>
       <div class="panel">
         <span class="panel-k">Entry point two</span>
@@ -601,7 +616,7 @@ strong.hi { color: var(--text-primary); font-weight: 600; }
   </div>
 </section>
 
-<!-- 5. LEVERAGE / WHY IT WINS -->
+<!-- 5. WHY IT WINS -->
 <section class="section-line">
   <div class="wrap">
     <div class="eyebrow-row"><span class="kicker">Why It Wins</span></div>
@@ -626,6 +641,15 @@ strong.hi { color: var(--text-primary); font-weight: 600; }
         <h3>Governance and security pass</h3>
         <p>A priced, documented deliverable on every build: secrets handling, per-client data isolation, dependency scan, key rotation. The red-team report dated <b>6 June</b> passed both Slingshot codebases as safe to hand to a regulated client.</p>
         <div class="proof"><span class="pip"></span>Passed: both codebases, BAE-grade buyer</div>
+      </div>
+    </div>
+
+    <div class="qbr">
+      <div class="qbr-ico"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l3-4 3 3 4-6"/></svg></div>
+      <div>
+        <div class="qk">The retention engine</div>
+        <h3>A Quarterly Business Review on every account.</h3>
+        <p>Four times a year we sit down with the client and show the work in numbers: the ROI, the hours saved, where they now show up that they did not before. It does two jobs. It <b>renews the commitment</b>, because they see what they are paying for, so churn stays low. And it surfaces the next upgrade in their own words, which is what drives a Foundation account up to Growth, Growth up to Operator. This is the engine under the land-and-expand ladder. Not a sales call, a review of results that makes the next tier the client's idea.</p>
       </div>
     </div>
   </div>
@@ -754,8 +778,10 @@ strong.hi { color: var(--text-primary); font-weight: 600; }
     <!-- land and expand -->
     <div class="expand-note">
       <div class="en-k">Land and expand</div>
-      <p>Net revenue grows without new sales. Existing clients <b>grow their own bill</b>, more seats, more modules, climbing tiers, so the base compounds on top of itself. One kernel, many contexts, is what holds the margin as the count rises.</p>
+      <p>Net revenue grows without new sales. Existing clients <b>grow their own bill</b>, more seats, more modules, climbing tiers, so the base compounds on top of itself. The quarterly business review is the engine: every review shows the ROI, holds the renewal, and surfaces the next upgrade. One kernel, many contexts, is what holds the margin as the count rises.</p>
     </div>
+
+    <p class="seat-note" style="margin-top:24px;"><b>Acquisition lever.</b> A referral and partner channel feeds new clients into the base at low cost. Happy accounts and referral partners send work in, so a share of growth arrives without paid acquisition.</p>
   </div>
 </section>
 
