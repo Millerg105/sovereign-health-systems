@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="googlebot" content="noindex, nofollow">
+<base href="/proposal-pitch/slingshot-offer/">
+<title>Slingshot Systems | The Recurring Offer and Commercial Model</title>
+<link rel="icon" type="image/png" href="/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg-base: #08090A;
+  --bg-surface: #0E0F11;
+  --bg-elevated: #131416;
+  --bg-overlay: #1B1D20;
+  --text-primary: #F7F8F8;
+  --text-secondary: #A1A1A6;
+  --text-tertiary: #6B6B70;
+  --signal: #EF4444;
+  --signal-deep: #DC2626;
+  --signal-soft: rgba(239, 68, 68, 0.14);
+  --signal-glow: rgba(239, 68, 68, 0.28);
+  --success: #22C55E;
+  --hair: rgba(255, 255, 255, 0.06);
+  --line: rgba(255, 255, 255, 0.10);
+  --line-strong: rgba(255, 255, 255, 0.16);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --maxw: 1080px;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+::selection { background: var(--signal-glow); color: #fff; }
+
+/* Ambient red wash + grain */
+.ambient {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% -5%, rgba(239,68,68,0.10), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 0% 100%, rgba(239,68,68,0.05), transparent 60%);
+}
+.grain {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.wrap { position: relative; z-index: 2; max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
+
+/* Mono kicker */
+.kicker {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--signal);
+}
+.kicker::before { content: ''; width: 18px; height: 2px; background: var(--signal); border-radius: 1px; }
+.kicker.muted { color: var(--text-tertiary); }
+.kicker.muted::before { background: var(--text-tertiary); }
+
+.num { font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
+
+/* Section rhythm */
+section { padding: 96px 0; position: relative; }
+.section-line { border-top: 1px solid var(--hair); }
+.eyebrow-row { margin-bottom: 24px; }
+h2.section-title {
+  font-size: clamp(30px, 4.2vw, 48px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.08;
+  max-width: 18ch;
+}
+.section-lede {
+  margin-top: 24px; font-size: clamp(17px, 1.5vw, 19px); color: var(--text-secondary);
+  max-width: 58ch; line-height: 1.65;
+}
+strong.hi { color: var(--text-primary); font-weight: 600; }
+.sig { color: var(--signal); font-weight: 600; }
+
+/* ===== TOP BAR ===== */
+.topbar {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 32px; max-width: var(--maxw); margin: 0 auto;
+  backdrop-filter: blur(14px);
+}
+.topbar::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--hair); }
+.brandmark { display: flex; align-items: center; gap: 11px; }
+.brandmark .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--signal); box-shadow: 0 0 14px var(--signal-glow); }
+.brandmark .name { font-weight: 700; font-size: 15px; letter-spacing: -0.01em; }
+.brandmark .name span { color: var(--text-tertiary); font-weight: 500; }
+.topbar .tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-tertiary);
+}
+
+/* ===== HERO ===== */
+.hero { padding: clamp(80px, 12vh, 140px) 0 clamp(72px, 10vh, 120px); }
+.hero-inner { max-width: 920px; }
+.hero h1 {
+  font-size: clamp(38px, 6.4vw, 76px); font-weight: 800; letter-spacing: -0.045em; line-height: 1.02;
+  margin-top: 28px;
+}
+.hero h1 .sig { color: var(--signal); }
+.hero-sub {
+  margin-top: 32px; font-size: clamp(18px, 1.9vw, 23px); color: var(--text-secondary);
+  max-width: 62ch; line-height: 1.55;
+}
+.hero-sub b { color: var(--text-primary); font-weight: 600; }
+.hero-meta { margin-top: 48px; display: flex; flex-wrap: wrap; gap: 14px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 9px 16px; border-radius: 999px;
+  background: var(--bg-elevated); border: 1px solid var(--line);
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500;
+  letter-spacing: 0.06em; color: var(--text-secondary);
+}
+.chip .pip { width: 6px; height: 6px; border-radius: 50%; background: var(--signal); }
+
+/* ===== ONE-LINE MODEL ===== */
+.model-band {
+  margin-top: 0;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+  background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+}
+.model-step { background: var(--bg-surface); padding: 28px 24px; position: relative; }
+.model-step .n {
+  font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;
+  color: var(--signal); letter-spacing: 0.1em;
+}
+.model-step h3 { margin-top: 14px; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+.model-step p { margin-top: 8px; font-size: 14px; color: var(--text-secondary); line-height: 1.55; }
+
+/* ===== WAY IN (two cards) ===== */
+.duo { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px; }
+.panel {
+  background: var(--bg-surface); border: 1px solid var(--line); border-radius: 18px;
+  padding: 36px; position: relative; overflow: hidden; transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.panel:hover { border-color: var(--line-strong); box-shadow: 0 0 40px rgba(239,68,68,0.05); }
+.panel .panel-k {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--signal);
+}
+.panel h3 { margin-top: 16px; font-size: 23px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; }
+.panel p { margin-top: 14px; font-size: 15.5px; color: var(--text-secondary); line-height: 1.6; }
+.panel p b { color: var(--text-primary); font-weight: 600; }
+.panel .note {
+  margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--hair);
+  font-size: 14px; color: var(--text-tertiary);
+}
+.panel .note b { color: var(--text-secondary); }
+
+/* ===== TIER LADDER ===== */
+.ladder { margin-top: 56px; display: flex; flex-direction: column; gap: 16px; }
+.tier {
+  display: grid; grid-template-columns: 220px 1fr 200px; gap: 0;
+  background: var(--bg-surface); border: 1px solid var(--line); border-radius: 18px;
+  overflow: hidden; position: relative; transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.tier:hover { border-color: var(--line-strong); }
+.tier.featured { border-color: rgba(239,68,68,0.45); box-shadow: 0 0 50px rgba(239,68,68,0.07); }
+.tier-rail { width: 3px; position: absolute; left: 0; top: 0; bottom: 0; background: var(--line); }
+.tier.t1 .tier-rail { background: rgba(239,68,68,0.30); }
+.tier.t2 .tier-rail { background: rgba(239,68,68,0.55); }
+.tier.t3 .tier-rail { background: rgba(239,68,68,0.78); }
+.tier.t4 .tier-rail { background: var(--signal); box-shadow: 0 0 16px var(--signal-glow); }
+
+.tier-head { padding: 28px 28px 28px 32px; border-right: 1px solid var(--hair); }
+.tier-name { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; }
+.tier-price { margin-top: 12px; display: flex; align-items: baseline; gap: 6px; }
+.tier-price .amt { font-size: 30px; font-weight: 800; letter-spacing: -0.03em; color: var(--signal); }
+.tier-price .per { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-tertiary); letter-spacing: 0.04em; }
+.tier-who { margin-top: 16px; font-size: 13.5px; color: var(--text-secondary); line-height: 1.55; }
+.tier-who .stage {
+  display: block; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 6px;
+}
+
+.tier-body { padding: 28px; }
+.tier-body ul { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; }
+.tier-body li { position: relative; padding-left: 18px; font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+.tier-body li::before { content: ''; position: absolute; left: 0; top: 9px; width: 5px; height: 5px; border-radius: 50%; background: var(--signal); opacity: 0.7; }
+
+.tier-trigger { padding: 28px; border-left: 1px solid var(--hair); background: rgba(255,255,255,0.012); }
+.tier-trigger .tk {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
+}
+.tier-trigger .tk svg { width: 12px; height: 12px; stroke: var(--signal); }
+.tier-trigger p { font-size: 13.5px; color: var(--text-secondary); line-height: 1.55; }
+.tier-trigger.open p { color: var(--text-tertiary); font-style: italic; }
+
+.ladder-foot {
+  margin-top: 28px; padding: 22px 28px; border-radius: 14px;
+  background: var(--signal-soft); border: 1px solid rgba(239,68,68,0.22);
+  font-size: 15.5px; color: var(--text-primary); line-height: 1.55;
+}
+.ladder-foot b { color: var(--signal); font-weight: 600; }
+
+.seat-note {
+  margin-top: 18px; font-size: 13.5px; color: var(--text-tertiary); line-height: 1.55; max-width: 70ch;
+}
+.seat-note b { color: var(--text-secondary); }
+.seat-note .num { color: var(--signal); }
+
+/* ===== WHY IT WINS ===== */
+.why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+.why-card {
+  background: var(--bg-surface); border: 1px solid var(--line); border-radius: 18px; padding: 32px;
+  transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.why-card:hover { border-color: var(--line-strong); box-shadow: 0 0 40px rgba(239,68,68,0.05); }
+.why-ico {
+  width: 44px; height: 44px; border-radius: 11px; display: grid; place-items: center;
+  background: var(--signal-soft); border: 1px solid rgba(239,68,68,0.25); margin-bottom: 22px;
+}
+.why-ico svg { width: 22px; height: 22px; stroke: var(--signal); fill: none; stroke-width: 1.8; }
+.why-card h3 { font-size: 19px; font-weight: 700; letter-spacing: -0.02em; }
+.why-card p { margin-top: 12px; font-size: 14.5px; color: var(--text-secondary); line-height: 1.6; }
+.why-card p b { color: var(--text-primary); font-weight: 600; }
+.why-card .proof {
+  margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--hair);
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.04em;
+  color: var(--text-tertiary); display: flex; align-items: center; gap: 8px;
+}
+.why-card .proof .pip { width: 6px; height: 6px; border-radius: 50%; background: var(--success); box-shadow: 0 0 8px rgba(34,197,94,0.6); flex-shrink: 0; }
+
+/* ===== GUARANTEE ===== */
+.guard { display: grid; grid-template-columns: 1.1fr 1fr; gap: 24px; margin-top: 48px; align-items: start; }
+.guard-list { display: flex; flex-direction: column; gap: 16px; }
+.guard-item {
+  background: var(--bg-surface); border: 1px solid var(--line); border-radius: 16px; padding: 26px 28px;
+  display: flex; gap: 20px; align-items: flex-start;
+}
+.guard-item .gn {
+  flex-shrink: 0; width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center;
+  background: var(--signal-soft); border: 1px solid rgba(239,68,68,0.3);
+  font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 600; color: var(--signal);
+}
+.guard-item h4 { font-size: 16.5px; font-weight: 600; letter-spacing: -0.01em; }
+.guard-item p { margin-top: 7px; font-size: 14px; color: var(--text-secondary); line-height: 1.55; }
+.guard-warn {
+  background: var(--bg-surface); border: 1px solid rgba(239,68,68,0.3); border-radius: 16px;
+  padding: 30px; position: relative; overflow: hidden;
+}
+.guard-warn::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--signal); }
+.guard-warn .wk {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--signal); display: flex; align-items: center; gap: 9px;
+}
+.guard-warn .wk svg { width: 15px; height: 15px; stroke: var(--signal); fill: none; stroke-width: 2; }
+.guard-warn h3 { margin-top: 16px; font-size: 21px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+.guard-warn p { margin-top: 14px; font-size: 14.5px; color: var(--text-secondary); line-height: 1.6; }
+.guard-warn p b { color: var(--text-primary); font-weight: 600; }
+
+/* ===== COMMERCIAL MODEL (partner) ===== */
+.partner { border-top: 1px solid var(--line); position: relative; }
+.partner::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 240px;
+  background: linear-gradient(180deg, rgba(239,68,68,0.05), transparent);
+  pointer-events: none;
+}
+.partner-flag {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 8px 16px; border-radius: 8px; margin-bottom: 24px;
+  background: var(--signal-soft); border: 1px solid rgba(239,68,68,0.3);
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--signal);
+}
+.partner-flag svg { width: 14px; height: 14px; stroke: var(--signal); fill: none; stroke-width: 2; }
+
+/* blend table */
+.blend {
+  margin-top: 48px; background: var(--bg-surface); border: 1px solid var(--line);
+  border-radius: 18px; overflow: hidden;
+}
+.blend-head {
+  display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.2fr; gap: 0;
+  padding: 18px 28px; border-bottom: 1px solid var(--line); background: var(--bg-elevated);
+}
+.blend-head span {
+  font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-tertiary);
+}
+.blend-head span:not(:first-child), .blend-row span:not(:first-child) { text-align: right; }
+.blend-row {
+  display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.2fr; gap: 0;
+  padding: 18px 28px; border-bottom: 1px solid var(--hair); align-items: center;
+}
+.blend-row:last-of-type { border-bottom: none; }
+.blend-row .t { font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 11px; }
+.blend-row .t .sw { width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
+.blend-row span { font-size: 15px; color: var(--text-secondary); }
+.blend-row .mrr { color: var(--text-primary); font-weight: 600; }
+.blend-total {
+  display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.2fr; gap: 0;
+  padding: 22px 28px; background: var(--signal-soft); border-top: 1px solid rgba(239,68,68,0.25);
+}
+.blend-total span { font-size: 16px; }
+.blend-total .lbl { font-weight: 700; color: var(--text-primary); }
+.blend-total .clients { text-align: right; font-weight: 700; color: var(--text-primary); }
+.blend-total .mrr { text-align: right; font-weight: 800; color: var(--signal); font-size: 19px; }
+.blend-total .blank { }
+
+.kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 28px; }
+.kpi {
+  background: var(--bg-surface); border: 1px solid var(--line); border-radius: 16px; padding: 28px 26px;
+}
+.kpi .v { font-size: clamp(28px, 3.4vw, 38px); font-weight: 800; letter-spacing: -0.03em; color: var(--signal); line-height: 1; }
+.kpi .l { margin-top: 12px; font-size: 13px; color: var(--text-secondary); line-height: 1.45; }
+.kpi .l b { color: var(--text-primary); font-weight: 600; }
+
+.bookends {
+  margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+}
+.bookend { background: var(--bg-surface); border: 1px solid var(--line); border-radius: 16px; padding: 26px 28px; }
+.bookend .be-k { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-tertiary); }
+.bookend .be-v { margin-top: 12px; font-size: 22px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.02em; }
+.bookend .be-v span { color: var(--signal); }
+.bookend .be-d { margin-top: 8px; font-size: 13.5px; color: var(--text-secondary); line-height: 1.5; }
+
+.breakeven {
+  margin-top: 24px; padding: 30px 32px; border-radius: 16px;
+  background: var(--bg-surface); border: 1px solid var(--line);
+  display: flex; gap: 28px; align-items: center; flex-wrap: wrap;
+}
+.breakeven .big { font-size: clamp(40px, 5vw, 60px); font-weight: 800; color: var(--signal); letter-spacing: -0.03em; line-height: 1; }
+.breakeven .copy { flex: 1; min-width: 260px; }
+.breakeven .copy h4 { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+.breakeven .copy p { margin-top: 8px; font-size: 14.5px; color: var(--text-secondary); line-height: 1.6; }
+.breakeven .copy p b { color: var(--text-primary); font-weight: 600; }
+
+.expand-note {
+  margin-top: 24px; padding: 26px 30px; border-radius: 16px;
+  background: var(--signal-soft); border: 1px solid rgba(239,68,68,0.22);
+}
+.expand-note .en-k { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--signal); }
+.expand-note p { margin-top: 12px; font-size: 15.5px; color: var(--text-primary); line-height: 1.6; }
+.expand-note p b { color: var(--signal); font-weight: 600; }
+
+/* ===== CLOSE ===== */
+.close { text-align: left; padding: clamp(90px, 12vh, 130px) 0; }
+.close h2 { font-size: clamp(32px, 5vw, 56px); font-weight: 800; letter-spacing: -0.04em; line-height: 1.05; max-width: 20ch; }
+.close h2 .sig { color: var(--signal); }
+.close p { margin-top: 26px; font-size: clamp(17px, 1.7vw, 20px); color: var(--text-secondary); max-width: 56ch; line-height: 1.6; }
+.close .next {
+  margin-top: 40px; display: inline-flex; align-items: center; gap: 14px;
+  padding: 18px 28px; border-radius: 12px;
+  background: var(--signal); color: #fff; font-weight: 600; font-size: 16px;
+  border: 1px solid var(--signal); transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+.close .next:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(239,68,68,0.3); }
+.close .next svg { width: 18px; height: 18px; stroke: #fff; fill: none; stroke-width: 2.2; }
+
+/* ===== FOOTER ===== */
+.foot { border-top: 1px solid var(--hair); padding: 32px 0 56px; }
+.foot-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+.foot .brandmark .name { font-size: 14px; }
+.foot .meta { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); }
+
+/* ===== REVEAL ===== */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+.reveal.in { opacity: 1; transform: none; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .wrap { padding: 0 22px; }
+  section { padding: 72px 0; }
+  .model-band { grid-template-columns: 1fr 1fr; }
+  .duo { grid-template-columns: 1fr; }
+  .tier { grid-template-columns: 1fr; }
+  .tier-head { border-right: none; border-bottom: 1px solid var(--hair); }
+  .tier-trigger { border-left: none; border-top: 1px solid var(--hair); }
+  .tier-body ul { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: 1fr; }
+  .guard { grid-template-columns: 1fr; }
+  .kpi-row { grid-template-columns: 1fr 1fr; }
+  .bookends { grid-template-columns: 1fr; }
+  .blend-head, .blend-row, .blend-total { grid-template-columns: 1.4fr 0.7fr 1fr; }
+  .blend-head span:nth-child(3), .blend-row span:nth-child(3) { display: none; }
+}
+@media (max-width: 560px) {
+  .topbar { padding: 14px 22px; }
+  .topbar .tag { display: none; }
+  .model-band { grid-template-columns: 1fr; }
+  .kpi-row { grid-template-columns: 1fr; }
+  .hero-meta { gap: 10px; }
+}
+</style>
+</head>
+<body>
+<div class="ambient"></div>
+<div class="grain"></div>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="brandmark">
+    <span class="dot"></span>
+    <span class="name">Slingshot <span>Systems</span></span>
+  </div>
+  <span class="tag">The Recurring Offer / Commercial Model</span>
+</header>
+
+<!-- 1. HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <span class="kicker">The Offer / 2026</span>
+      <h1>One monthly plan. Free website included.<br><span class="sig">We run the growth, you run the business.</span></h1>
+      <p class="hero-sub">Your website, your content, and your AI back office on one monthly plan. We build the site for <b>free</b>, you keep paying us to grow it. Start small, climb as you grow, and a real security and governance pass comes built in.</p>
+      <div class="hero-meta">
+        <span class="chip"><span class="pip"></span>Recurring only</span>
+        <span class="chip"><span class="pip"></span>Free website on every tier</span>
+        <span class="chip"><span class="pip"></span>Land small, climb as you grow</span>
+        <span class="chip"><span class="pip"></span>Governance built in</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. THE MODEL IN ONE LINE -->
+<section class="section-line">
+  <div class="wrap">
+    <div class="eyebrow-row"><span class="kicker">The Model</span></div>
+    <h2 class="section-title">Land with a build. Keep them on a plan. Stack from there.</h2>
+    <p class="section-lede">No "buy a website" door. One door only: a monthly plan that happens to include a site. Every pound is recurring.</p>
+    <div class="model-band" style="margin-top:48px;">
+      <div class="model-step">
+        <span class="n">01</span>
+        <h3>Land with a build</h3>
+        <p>A free website is the way in. No upfront capital, no one-off invoice to haggle over.</p>
+      </div>
+      <div class="model-step">
+        <span class="n">02</span>
+        <h3>Keep on a retainer</h3>
+        <p>The site lives on our CMS. They stay on a monthly plan to run and grow it.</p>
+      </div>
+      <div class="model-step">
+        <span class="n">03</span>
+        <h3>Stack services</h3>
+        <p>Content, search, ads, dashboards, automation. Add what the business needs as it grows.</p>
+      </div>
+      <div class="model-step">
+        <span class="n">04</span>
+        <h3>Recurring only</h3>
+        <p>Nothing is sold as a one-off. Predictable revenue, account by account.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. THE WAY IN -->
+<section class="section-line">
+  <div class="wrap">
+    <div class="eyebrow-row"><span class="kicker">The Way In</span></div>
+    <h2 class="section-title">A paid audit that pays for itself, then a free site with a plan.</h2>
+    <p class="section-lede">Two entry points, both built to convert into the retainer rather than end at a single invoice.</p>
+    <div class="duo">
+      <div class="panel">
+        <span class="panel-k">Entry point one</span>
+        <h3>The paid gap-analysis audit</h3>
+        <p>A diagnostic the prospect pays for. It maps where they lose work today: where they do not show up in search, where they are missing from AI answers, where admin eats hours. Framed on <b>the cost of doing nothing</b>, not on features.</p>
+        <p>The audit is the wedge. It surfaces the gap, puts a number on it, and converts straight into the retainer that closes it.</p>
+        <div class="note"><b>Why it works:</b> a buyer who has paid for the diagnosis has already said yes once. The retainer is the obvious next step, not a cold pitch.</div>
+      </div>
+      <div class="panel">
+        <span class="panel-k">Entry point two</span>
+        <h3>A free website with a retained plan</h3>
+        <p>The site is free on every tier, built on our managed CMS so nothing is one-off. A <b>minimum 12-month term</b> recovers the build cost. An early-exit buyout covers it if they leave sooner. Fair both ways.</p>
+        <p>This is the website-as-a-service model: no capital outlay for them, predictable monthly revenue for us, and the site never leaves the CMS.</p>
+        <div class="note"><b>The line for the page:</b> the website is on us, you stay because it works, the only catch is a minimum 12 months so we recover the build.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. THE TIER LADDER -->
+<section class="section-line">
+  <div class="wrap">
+    <div class="eyebrow-row"><span class="kicker">The Ladder</span></div>
+    <h2 class="section-title">Four tiers. Land small, climb as you grow.</h2>
+    <p class="section-lede">Each tier is named for what the client gets, not for size. The website is free on every one. The price is the monthly, ex-VAT.</p>
+
+    <div class="ladder">
+
+      <!-- Foundation -->
+      <div class="tier t1">
+        <span class="tier-rail"></span>
+        <div class="tier-head">
+          <div class="tier-name">Foundation</div>
+          <div class="tier-price"><span class="amt num">£499</span><span class="per">/ month</span></div>
+          <div class="tier-who"><span class="stage">Sole trader to ~5 staff / sub-£250k</span>Early-stage or small local business. First proper web presence, or a tired site that needs replacing.</div>
+        </div>
+        <div class="tier-body">
+          <ul>
+            <li>Free website on our managed CMS</li>
+            <li>Light content, a few posts a month</li>
+            <li>Local SEO basics</li>
+            <li>AEO starter, show up in AI answers</li>
+            <li>Monthly one-page report</li>
+            <li>Email support</li>
+          </ul>
+        </div>
+        <div class="tier-trigger">
+          <div class="tk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>Climb when</div>
+          <p>They ask for more content, more pages, or a second channel. Or they hire their 4th or 5th person. Move to Growth.</p>
+        </div>
+      </div>
+
+      <!-- Growth -->
+      <div class="tier t2">
+        <span class="tier-rail"></span>
+        <div class="tier-head">
+          <div class="tier-name">Growth</div>
+          <div class="tier-price"><span class="amt num">£1,499</span><span class="per">/ month</span></div>
+          <div class="tier-who"><span class="stage">~5 to 25 staff / £250k to £1m</span>Established small business actively trying to win more work. Has a site, wants the phone to ring.</div>
+        </div>
+        <div class="tier-body">
+          <ul>
+            <li>Everything in Foundation</li>
+            <li>Content engine, 8 to 12 posts a month</li>
+            <li>Across 2 channels with generated visuals</li>
+            <li>Active SEO and full AEO</li>
+            <li>One paid channel managed (PPC)</li>
+            <li>Client dashboard, named contact, strategy call</li>
+          </ul>
+        </div>
+        <div class="tier-trigger">
+          <div class="tk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>Climb when</div>
+          <p>Lead volume is steady and they want it handled end to end, or they want a custom dashboard or automation that removes a manual job. Move to Operator.</p>
+        </div>
+      </div>
+
+      <!-- Operator (featured) -->
+      <div class="tier t3 featured">
+        <span class="tier-rail"></span>
+        <div class="tier-head">
+          <div class="tier-name">Operator</div>
+          <div class="tier-price"><span class="amt num">£2,500</span><span class="per">/ month</span></div>
+          <div class="tier-who"><span class="stage">~25 to 100 staff / £1m to £10m</span>Mid-sized firm, often regulated or B2B with a real sales process. Where K2C Rail sits today.</div>
+        </div>
+        <div class="tier-body">
+          <ul>
+            <li>Everything in Growth</li>
+            <li>Custom operator dashboard, wired to how they work</li>
+            <li>Lead routing, intel feed, inbox triage in their voice</li>
+            <li>One or two AI automations that remove real hours</li>
+            <li>Branding and marketing consultancy</li>
+            <li>Governance and security pass, documented</li>
+          </ul>
+        </div>
+        <div class="tier-trigger">
+          <div class="tk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>Climb when</div>
+          <p>They go active in more than one department, want the rollout to another team, site, or jurisdiction, or hit the seat cap. Move to Authority.</p>
+        </div>
+      </div>
+
+      <!-- Authority -->
+      <div class="tier t4">
+        <span class="tier-rail"></span>
+        <div class="tier-head">
+          <div class="tier-name">Authority</div>
+          <div class="tier-price"><span class="amt num">£3,999+</span><span class="per">/ seat / mo</span></div>
+          <div class="tier-who"><span class="stage">100+ staff / £10m+ / multi-site</span>Large or multi-site enterprise, or the regulated buyer who needs the whole estate run to a standard.</div>
+        </div>
+        <div class="tier-body">
+          <ul>
+            <li>Everything in Operator, scaled across the estate</li>
+            <li>Multiple dashboards and automations</li>
+            <li>Audit-protocol mapper across jurisdictions</li>
+            <li>Per-seat licensing for their teams</li>
+            <li>Advanced AEO and digital PR</li>
+            <li>Priority SLA, credit-backed, quarterly board review</li>
+          </ul>
+        </div>
+        <div class="tier-trigger open">
+          <div class="tk"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5v14"/></svg>Open-ended</div>
+          <p>Every new department, seat block, or jurisdiction is an expansion, not a new sale.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="ladder-foot">
+      <b>The ladder in one line.</b> Land them on Foundation, a free site and a fast yes at low risk. Prove the value. Then climb Foundation to Growth to Operator to Authority as the business grows. Land small, expand the account.
+    </div>
+
+    <p class="seat-note"><b>The per-seat lever.</b> For software-style or larger clients, Operator and Authority price per seat instead of flat. The Platform OMS opportunity scoped at <span class="num sig">£400</span>/mo per seat across <span class="num sig">45</span> seats, which is <span class="num sig">£18k</span> MRR from one account. Use flat pricing to land, switch to per-seat to expand, because the client grows the bill themselves as they hire.</p>
+  </div>
+</section>
+
+<!-- 5. LEVERAGE / WHY IT WINS -->
+<section class="section-line">
+  <div class="wrap">
+    <div class="eyebrow-row"><span class="kicker">Why It Wins</span></div>
+    <h2 class="section-title">Three levers make the plan hard to leave and easy to defend.</h2>
+    <p class="section-lede">Stickiness, a differentiator nobody local sells yet, and a security pass a regulated buyer can actually point to.</p>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 18v2M16 18v2M6 21h12"/></svg></div>
+        <h3>The CMS moat</h3>
+        <p>Every client site sits under one governed dashboard. Clients edit their own copy, images and SEO safely, with no raw backend access while on the plan. Convenience for them, <b>high switching cost for us</b>. Leaving means a rebuild, not a copy-paste.</p>
+        <div class="proof"><span class="pip"></span>Proprietary CMS, one managed estate</div>
+      </div>
+      <div class="why-card">
+        <div class="why-ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></div>
+        <h3>AEO, the differentiator</h3>
+        <p>As search moves to ChatGPT, Perplexity, Gemini and Google AI answers, being cited there is a new budget <b>nobody local is selling yet</b>. We track it with real data, the date, query, platform, mentioned or not, sources cited. On every tier from Foundation up.</p>
+        <div class="proof"><span class="pip"></span>Raw data table, not a vague score</div>
+      </div>
+      <div class="why-card">
+        <div class="why-ico"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3 7.5-8 9-5-1.5-8-4.5-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Governance and security pass</h3>
+        <p>A priced, documented deliverable on every build: secrets handling, per-client data isolation, dependency scan, key rotation. The red-team report dated <b>6 June</b> passed both Slingshot codebases as safe to hand to a regulated client.</p>
+        <div class="proof"><span class="pip"></span>Passed: both codebases, BAE-grade buyer</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. THE GUARANTEE -->
+<section class="section-line">
+  <div class="wrap">
+    <div class="eyebrow-row"><span class="kicker">The Guarantee</span></div>
+    <h2 class="section-title">Results in advance, plus an SLA credit. Not a gamble on the market.</h2>
+    <p class="section-lede">A structured, conditional guarantee a regulated buyer respects. Confidence shown without exposure to outcomes nobody controls.</p>
+
+    <div class="guard">
+      <div class="guard-list">
+        <div class="guard-item">
+          <span class="gn num">1</span>
+          <div>
+            <h4>Results in advance</h4>
+            <p>Before any money changes hands, a real artifact: a live mockup of their refreshed site, or an AEO audit showing where they do and do not appear in AI answers today. The move that made three live sites land as "gold."</p>
+          </div>
+        </div>
+        <div class="guard-item">
+          <span class="gn num">2</span>
+          <div>
+            <h4>An SLA credit, billable-backed</h4>
+            <p>A number on responsiveness and delivery. Miss an agreed response window or a deliverable date and you get a credit against next month. An SLA, not a promise about the market.</p>
+          </div>
+        </div>
+        <div class="guard-item">
+          <span class="gn num">3</span>
+          <div>
+            <h4>A 30-day get-out</h4>
+            <p>No long handcuff on the service, build cost aside. The moat does the retention, not the contract.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="guard-warn">
+        <div class="wk"><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.3 3.9L2 18a2 2 0 0 0 1.7 3h16.6a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>Stated plainly</div>
+        <h3>Never a percentage of revenue.</h3>
+        <p>The fee is not tied to the client's revenue or to lead volume. In regulated sectors that structure is a <b>legal trap</b>, the kind that triggers anti-kickback and marketing-rule exposure. Flat, fair-value, labour-based pricing only. This is the part James will be looking for.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. COMMERCIAL MODEL (PARTNER) -->
+<section class="partner">
+  <div class="wrap">
+    <div class="partner-flag"><svg viewBox="0 0 24 24"><path d="M12 1l3 6 6 .9-4.5 4.3 1 6.1L12 21.5 6.5 18.3l1-6.1L3 7.9 9 7z"/></svg>Internal view, James and Antony</div>
+    <h2 class="section-title">The commercial model: 20 to 30 clients.</h2>
+    <p class="section-lede">A base that is profitable, predictable, covers Slingshot's own monthly commitments, and funds scale. Here is the maths, anchored on a realistic blend.</p>
+
+    <!-- 25-client blend -->
+    <div class="blend">
+      <div class="blend-head">
+        <span>Tier</span><span>Clients</span><span>Monthly each</span><span>MRR</span>
+      </div>
+      <div class="blend-row">
+        <span class="t"><span class="sw" style="background:rgba(239,68,68,0.30)"></span>Foundation £499</span>
+        <span class="num">8</span><span class="num">£499</span><span class="mrr num">£3,992</span>
+      </div>
+      <div class="blend-row">
+        <span class="t"><span class="sw" style="background:rgba(239,68,68,0.55)"></span>Growth £1,499</span>
+        <span class="num">10</span><span class="num">£1,499</span><span class="mrr num">£14,990</span>
+      </div>
+      <div class="blend-row">
+        <span class="t"><span class="sw" style="background:rgba(239,68,68,0.78)"></span>Operator £2,500</span>
+        <span class="num">5</span><span class="num">£2,500</span><span class="mrr num">£12,500</span>
+      </div>
+      <div class="blend-row">
+        <span class="t"><span class="sw" style="background:#EF4444"></span>Authority £3,999+</span>
+        <span class="num">2</span><span class="num">£3,999</span><span class="mrr num">£7,998</span>
+      </div>
+      <div class="blend-total">
+        <span class="lbl">25-client blend</span>
+        <span class="clients num">25</span>
+        <span class="blank"></span>
+        <span class="mrr num">£39,480 MRR</span>
+      </div>
+    </div>
+
+    <!-- headline KPIs -->
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="v num">£474k</div>
+        <div class="l">a year in recurring revenue from <b>25 clients</b>, before any per-seat expansion on the top two tiers</div>
+      </div>
+      <div class="kpi">
+        <div class="v num">60-70%</div>
+        <div class="l">blended gross margin, ahead of the <b>55-60%</b> industry standard, because one kernel serves many client contexts</div>
+      </div>
+      <div class="kpi">
+        <div class="v num">~£25k</div>
+        <div class="l">gross profit a month at 25 clients, to cover fixed costs and still leave a <b>net surplus</b></div>
+      </div>
+      <div class="kpi">
+        <div class="v num">118%+</div>
+        <div class="l">net revenue retention target, the elite band, as Foundation clients <b>climb the ladder</b></div>
+      </div>
+    </div>
+
+    <!-- bookends -->
+    <div class="bookends">
+      <div class="bookend">
+        <div class="be-k">The 20-client floor</div>
+        <div class="be-v"><span class="num">£28k to £32k</span> MRR</div>
+        <div class="be-d">Weighted to the lower tiers, a young base. Roughly £340k to £385k a year. Covers the overhead.</div>
+      </div>
+      <div class="bookend">
+        <div class="be-k">The 30-client ceiling</div>
+        <div class="be-v"><span class="num">£48k to £55k</span> MRR</div>
+        <div class="be-d">More Operators and Authorities as accounts climb. Roughly £575k to £660k a year. A genuinely profitable firm.</div>
+      </div>
+    </div>
+
+    <!-- breakeven -->
+    <div class="breakeven">
+      <div class="big num">18-19</div>
+      <div class="copy">
+        <h4>Breakeven sits near 18 to 19 clients.</h4>
+        <p>So the 20 to 30 band is the right place to aim. <b>Twenty covers the overhead. Every client past nineteen is close to pure profit.</b> Thirty nets meaningfully more than twenty, because adding a client loads a new context into the same system rather than standing up a new team.</p>
+      </div>
+    </div>
+
+    <!-- land and expand -->
+    <div class="expand-note">
+      <div class="en-k">Land and expand</div>
+      <p>Net revenue grows without new sales. Existing clients <b>grow their own bill</b>, more seats, more modules, climbing tiers, so the base compounds on top of itself. One kernel, many contexts, is what holds the margin as the count rises.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. CLOSE -->
+<section class="close section-line">
+  <div class="wrap">
+    <span class="kicker">The Close</span>
+    <h2 style="margin-top:24px;">A predictable base, built on a free door and a <span class="sig">moat they can't copy out of.</span></h2>
+    <p>The offer is ready to shape into the commercial model. Pick the entry tiers and the SLA numbers, and the first wave of the client book can run on it.</p>
+    <a class="next" href="#top">Shape the model<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="wrap foot-inner">
+    <div class="brandmark">
+      <span class="dot"></span>
+      <span class="name">Slingshot <span>Systems</span></span>
+    </div>
+    <span class="meta">Private / Partner Brief / 2026</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // reveal-on-scroll
+  var els = document.querySelectorAll('section .wrap > *');
+  els.forEach(function(el){ el.classList.add('reveal'); });
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(function(el){ io.observe(el); });
+  } else {
+    els.forEach(function(el){ el.classList.add('in'); });
+  }
+})();
+</script>
+</body>
+</html>
